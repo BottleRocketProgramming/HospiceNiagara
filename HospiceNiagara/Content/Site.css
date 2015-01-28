@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar-default {
+  background-image: -moz-linear-gradient(top, #c4f8b7, #95f17e);
+}
