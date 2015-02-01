@@ -167,10 +167,15 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Announcement.cs" />
+    <Compile Include="Models\BoardContact.cs" />
+    <Compile Include="Models\DeathNotice.cs" />
     <Compile Include="Models\FileSortType.cs" />
     <Compile Include="Models\FileStorage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MeetingOrEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
