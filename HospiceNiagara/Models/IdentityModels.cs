@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 
 namespace HospiceNiagara.Models
 {
@@ -16,6 +17,12 @@ namespace HospiceNiagara.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string UserFName { get; set; }
+        public string UserMName { get; set; }
+        public string UserLName { get; set; }
+        public DateTime? UserDOB { get; set; }
+        public string UserAddress { get; set; }
+        
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
