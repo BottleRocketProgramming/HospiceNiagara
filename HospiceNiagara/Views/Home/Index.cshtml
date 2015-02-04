@@ -46,7 +46,7 @@
         <div id="editWelcomeText" class="panel-body" hidden>
             <div>
                 <textarea id="editWelcomeText" class="form-control" rows="4"></textarea>
-                <button class="btn btn-default">Update</button>
+                <button id="btnUpdateWelcomeText" class="btn btn-default">Update</button>
             </div>
             
         </div>
@@ -86,10 +86,13 @@
         //Editing the Welcome Widget
         $('#glyphWelcomeEdit').on('click', function () {
             $('#welcomeText').toggle();
-
-            $('#editWelcomeText').text = $('#welcomeText').text;
             $('#editWelcomeText').toggle();
         });
 
+        $('#btnUpdateWelcomeText').on('click', function () {
+            $('#editWelcomeText').toggle();
+
+            $('#welcomeText').toggle();
+        });
     });
 </script>
