@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace HospiceNiagara.Models
 {
@@ -28,13 +29,29 @@ namespace HospiceNiagara.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("HospiceCFEntities", throwIfV1Schema: false)
         {
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        public DbSet<FileSortType> FileSortTypes { get; set; }
+        public DbSet<FileStorage> FileStorages { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<BoardContact> BoardContacts { get; set; }
+        public DbSet<DeathNotice> DeathNotices { get; set; }
+        public DbSet<JobDescription> JobDescriptions { get; set; }
+        public DbSet<MeetingOrEvent> MeetingOrEvents { get; set; }
+       
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
