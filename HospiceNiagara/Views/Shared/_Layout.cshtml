@@ -23,7 +23,7 @@
                     @Html.ActionLink("Hospice Niagara", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                     <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav navbar-right">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Announcements", "Index", "Announcement")</li>
                             <li>@Html.ActionLink("Resources", "Index", "Resource")</li>
@@ -33,7 +33,7 @@
                             <li>@Html.ActionLink("Admin ", "Index", "Admin")</li>
 
                         </ul>
-                        @Html.Partial("_LoginPartial")
+                        @*@Html.Partial("_LoginPartial")*@
                     </div>
                 </div>
             </div>
