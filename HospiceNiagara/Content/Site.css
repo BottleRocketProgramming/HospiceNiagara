@@ -55,7 +55,7 @@ textarea {
 
 /*Pushes body content out from under navbar*/
 .body-content {
-    padding-top: 60px;
+    padding-top: 85px;
 }
 
 /*Extends the footer across the whole width*/
@@ -82,3 +82,5 @@ textarea {
  .copyright {
      padding-top: 140px;
  }
+
+

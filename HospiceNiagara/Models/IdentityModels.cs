@@ -26,8 +26,8 @@ namespace HospiceNiagara.Models
         public string UserAddress { get; set; }
         public virtual ICollection<UserEventRSVP> UserEventRSVPs { get; set; }
         public virtual ICollection<UserJobDesc> UserJobDescs { get; set; }
-        
-        
+
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -42,14 +42,18 @@ namespace HospiceNiagara.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<FileSortType> FileSortTypes { get; set; }
-        public DbSet<FileStorage> FileStorages { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<AnnouncementUserRole> AnnouncementUserRoles { get; set; }
         public DbSet<BoardContact> BoardContacts { get; set; }
         public DbSet<DeathNotice> DeathNotices { get; set; }
+        public DbSet<FileStorage> FileStorages { get; set; }
+        public DbSet<FileStoreUserRole> FileStoreUserRoles { get; set; }
+        public DbSet<FileSortType> FileSortTypes { get; set; }
         public DbSet<JobDescription> JobDescriptions { get; set; }
         public DbSet<MeetingOrEvent> MeetingOrEvents { get; set; }
-       
+        public DbSet<MeetingOrEventUserRole> MeetingOrEventUserRoles { get; set; }
+        public DbSet<UserEventRSVP> UserEventRSVPs { get; set; }
+        public DbSet<UserJobDesc> UserJobDesc { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
