@@ -51,7 +51,6 @@ textarea {
 
 .navbar-nav {
     font-size: 20px;
-    
 }
 
 /*Pushes body content out from under navbar*/
@@ -61,7 +60,7 @@ textarea {
 
 /*Extends the footer across the whole width*/
 .footer {
-    border-top: 3px solid #464646;
+    border-top: 1px solid #000000;
     position: absolute;
     left: 0;
     right: 0;
@@ -69,7 +68,7 @@ textarea {
 }
 
 .footer {
-    background-color: #d7d7d7;
+    background-color: #e6e6e6;
 }
 
  ul {
@@ -78,4 +77,10 @@ textarea {
 
  .copyright {
      padding-top: 140px;
+ }
+
+ .navbar-brand {
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:-4px
  }
