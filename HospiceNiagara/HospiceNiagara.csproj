@@ -171,22 +171,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502020328011_first.cs" />
-    <Compile Include="Migrations\201502020328011_first.Designer.cs">
-      <DependentUpon>201502020328011_first.cs</DependentUpon>
+    <Compile Include="Migrations\201502050412556_1st.cs" />
+    <Compile Include="Migrations\201502050412556_1st.Designer.cs">
+      <DependentUpon>201502050412556_1st.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
+    <Compile Include="Models\AnnouncementUserRole.cs" />
     <Compile Include="Models\BoardContact.cs" />
-    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\DeathNotice.cs" />
     <Compile Include="Models\FileSortType.cs" />
     <Compile Include="Models\FileStorage.cs" />
+    <Compile Include="Models\FileStoreUserRole.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MeetingOrEvent.cs" />
+    <Compile Include="Models\MeetingOrEventUserRole.cs" />
+    <Compile Include="Models\UserEventRSVP.cs" />
+    <Compile Include="Models\UserJobDesc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -268,12 +272,12 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502020328011_first.resx">
-      <DependentUpon>201502020328011_first.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <EmbeddedResource Include="Migrations\201502050412556_1st.resx">
+      <DependentUpon>201502050412556_1st.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

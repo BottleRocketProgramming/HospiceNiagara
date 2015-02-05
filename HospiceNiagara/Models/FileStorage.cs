@@ -25,5 +25,7 @@ namespace HospiceNiagara.Models
 
         public virtual FileSortType FileSortType { get; set; }
 
+        public virtual ICollection<FileStoreUserRole> FileStoreUserRoles { get; set; }
+
     }
 }

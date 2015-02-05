@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Collections.Generic;
 
 namespace HospiceNiagara.Models
 {
@@ -23,6 +24,9 @@ namespace HospiceNiagara.Models
         public string UserLName { get; set; }
         public DateTime? UserDOB { get; set; }
         public string UserAddress { get; set; }
+        public virtual ICollection<UserEventRSVP> UserEventRSVPs { get; set; }
+        public virtual ICollection<UserJobDesc> UserJobDescs { get; set; }
+        
         
     }
 

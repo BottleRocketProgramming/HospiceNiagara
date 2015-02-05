@@ -18,5 +18,7 @@ namespace HospiceNiagara.Models
         [Required(ErrorMessage = "Announcement end date is required")]
         [DataType(DataType.DateTime)]
         public DateTime AnnounceEndDate { get; set; }
+
+        public virtual ICollection<AnnouncementUserRole> AnnouncementUserRoles { get; set; }
     }
 }

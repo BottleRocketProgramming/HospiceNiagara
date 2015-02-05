@@ -37,7 +37,7 @@ namespace HospiceNiagara.Models
         [StringLength(510, ErrorMessage = "Event links can not exceed 510 characters")]
         public string EventLinks { get; set; }
 
-
+        public virtual ICollection<MeetingOrEventUserRole> MeetingOrEventUserRoles { get; set; }
 
 
 
