@@ -40,15 +40,15 @@
             Welcome
             <div id="glyphWelcomeEdit" class="glyphicon glyphicon-edit pull-right"></div>
         </div>
-        <div id="welcomeText" class="panel-body">
+        <div id="welcomeContent" class="panel-body">
             Welcome to the Hospice Niagara Portal
         </div>
-        <div id="editWelcomeText" class="panel-body" hidden>
+        <div id="editWelcomeContent" class="panel-body" hidden>
             <div>
-                <textarea id="editWelcomeText" class="form-control" rows="4"></textarea>
-                <button id="btnUpdateWelcomeText" class="btn btn-default">Update</button>
+                <textarea id="editWelcomeContent" class="form-control" rows="4"></textarea>
+                <button id="btnUpdateWelcomeContent" class="btn btn-default">Update</button>
             </div>
-            
+
         </div>
         
         
@@ -84,14 +84,14 @@
 
         //Editing the Welcome Widget
         $('#glyphWelcomeEdit').on('click', function () {
-            $('#welcomeText').toggle();
-            $('#editWelcomeText').toggle();
+            $('#welcomeContent').toggle();
+            $('#editWelcomeContent').toggle();
         });
 
-        $('#btnUpdateWelcomeText').on('click', function () {
-            $('#editWelcomeText').toggle();
+        $('#btnUpdateWelcomeContent').on('click', function () {
+            $('#editWelcomeContent').toggle();
 
-            $('#welcomeText').toggle();
+            $('#welcomeContent').toggle();
         });
     });
 </script>
