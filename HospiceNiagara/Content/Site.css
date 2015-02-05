@@ -50,7 +50,7 @@ textarea {
 }
 
 .navbar-nav {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 /*Pushes body content out from under navbar*/
@@ -67,20 +67,18 @@ textarea {
     width: 100%;
 }
 
+/*background image*/
 .footer {
-    background-color: #e6e6e6;
+    background-color: #ebebeb;
+    background-image: url(../Resources/Stabler-Centre---White.png);
 }
 
+/*Gets rid of bullet points on contact information*/
  ul {
  list-style-type: none;
  }
 
+ /*pushes copy right down*/
  .copyright {
      padding-top: 140px;
- }
-
- .navbar-brand {
-    display:inline-block;
-    vertical-align:middle;
-    margin-right:-4px
  }
