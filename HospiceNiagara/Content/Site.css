@@ -55,7 +55,7 @@ textarea {
 
 /*Pushes body content out from under navbar*/
 .body-content {
-    padding-top: 60px;
+    padding-top: 85px;
 }
 
 /*Extends the footer across the whole width*/
@@ -79,8 +79,8 @@ textarea {
      padding-top: 140px;
  }
 
- .navbar-brand {
-    display:inline-block;
-    vertical-align:middle;
-    margin-right:-4px
+
+ /*Centers Hospice Brand Name*/
+ .brandName{
+     padding-top:40px;
  }
