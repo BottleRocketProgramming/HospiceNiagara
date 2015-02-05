@@ -4,16 +4,51 @@
 }
 
 <div class="container">
+
     <div class="col-sm-6">
         <div class="panel panel-success ">
             <div class="panel-heading">
                 Announcements
             </div>
             <div class="panel-body">
-
+                
             </div>
         </div>
     </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-primary ">
+            <div class="panel-heading">
+                Events
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered" style="width:100%;">
+                    <tr>
+                        <td>Event</td>
+                        <td>Description</td>
+                        <td>Date</td>
+                        <td>Location</td>
+                        <td>RSVP</td>
+                    </tr>
+                    <tr>
+                        <td>Annual Volunteer Retreat</td>
+                        <td>As part of our celebration of National Volunteer Week, Hospice Niagara is once again treating...</td>
+                        <td>Saturday, April 20th</td>
+                        <td>The Stabler Centre</td>
+                        <td>
+                            <button id="RSVP" class="btn btn-primary">RSVP</button>
+                            <button id="RSVPno" class="btn btn-default">Not Attending</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+
+    </div>
+
     <div class="col-sm-6">
         <div class="panel panel-default ">
             <div class="panel-heading">
@@ -32,6 +67,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 @Scripts.Render("~/bundles/jquery")
