@@ -3,5 +3,78 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container">
 
+    <div class="col-sm-4">
+        <div class="panel panel-success ">
+            <div class="panel-heading">
+                Organization
+            </div>
+            <div id="organizationContent" class="panel-body">
+                <ul class="Organization-Index">
+                    <li>@Html.ActionLink("Forms", "Forms", "Resource")</li>
+                    <li>@Html.ActionLink("Strategic Plan", "StrategicPlan", "Resource")</li>
+                    <li>@Html.ActionLink("Quality Improvement Plan", "QualityImprovementPlan", "Resource")</li>
+                    <li>@Html.ActionLink("Memos", "Memos", "Resource")</li>
+                    <li>@Html.ActionLink("Events", "Events", "Resource")</li>
+                    <li>@Html.ActionLink("Hospice Niagara Related Links", "RelatedLinks", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Staff                
+            </div>
+            <div id="staffContent" class="panel-body">
+                <ul class="Staff-Index">
+                    <li>@Html.ActionLink("Operational Policies", "Staff_OperationalPolicies", "Resource")</li>
+                    <li>@Html.ActionLink("Orientation Documents", "Staff_OrientationDocuments", "Resource")</li>
+                    <li>@Html.ActionLink("Memos", "Memos", "Resource")</li>
+                    <li>@Html.ActionLink("Staff Meeting Minutes", "Staff_StaffMeetingMinutes", "Resource")</li>
+                    <li>@Html.ActionLink("Emergency Call Chart", "Staff_EmergencyCallChart", "Resource")</li>
+                    <li>@Html.ActionLink("Staff Related Links", "Staff_RelatedLinks", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Board
+            </div>
+            <div id="boardContent" class="panel-body">
+                <ul class="Board-Index">
+                    <li>@Html.ActionLink("Board Minutes", "Board_BoardMinutes", "Resource")</li>
+                    <li>@Html.ActionLink("Board Packages", "Board_BoardPackages", "Resource")</li>
+                    <li>@Html.ActionLink("Board Orientation Documents", "Board_BoardOrientationDocuments", "Resource")</li>
+                    <li>@Html.ActionLink("Board Contacts List", "Board_BoardContactsList", "Resource")</li>
+                    <li>@Html.ActionLink("Governance Policies", "Board_GovernancePolicies", "Resource")</li>
+                    <li>@Html.ActionLink("Audited Financials", "Board_AuditedFinancials", "Resource")</li>
+                    <li>@Html.ActionLink("Audit and Finance Committee", "Board_AuditandFinanceCommittee", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Vollunteer
+            </div>
+            <div id="volunteerContent" class="panel-body">
+                <ul class="Volunteer-Index">
+                    <li>@Html.ActionLink("Town Hall Meeting Minutes", "Volunteer_TownHallMeetingMinutes", "Resource")</li>
+                    <li>@Html.ActionLink("Memos", "Memos", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Updates", "Volunteer_VolunteerUpdates", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Application", "Volunteer_VolunteerApplication", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Presentation", "Volunteer_VolunteerPresentation", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Related Policies", "Volunteer_VolunteerRelatedPolicies", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Roles Chart", "Volunteer_VolunteerRolesChart", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

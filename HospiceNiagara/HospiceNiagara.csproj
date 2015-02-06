@@ -263,6 +263,30 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Resource\Forms.cshtml" />
+    <Content Include="Views\Resource\StrategicPlan.cshtml" />
+    <Content Include="Views\Resource\QualityImprovementPlan.cshtml" />
+    <Content Include="Views\Resource\Memos.cshtml" />
+    <Content Include="Views\Resource\Staff_OperationalPolicies.cshtml" />
+    <Content Include="Views\Resource\Staff_OrientationDocuments.cshtml" />
+    <Content Include="Views\Resource\Staff_StaffMeetingMinutes.cshtml" />
+    <Content Include="Views\Resource\Staff_EmergencyCallChart.cshtml" />
+    <Content Include="Views\Resource\RelatedLinks.cshtml" />
+    <Content Include="Views\Resource\Staff_RelatedLinks.cshtml" />
+    <Content Include="Views\Resource\Board_BoardMinutes.cshtml" />
+    <Content Include="Views\Resource\Board_BoardPackages.cshtml" />
+    <Content Include="Views\Resource\Board_BoardOrientationDocuments.cshtml" />
+    <Content Include="Views\Resource\Board_BoardContactsList.cshtml" />
+    <Content Include="Views\Resource\Board_GovernancePolicies.cshtml" />
+    <Content Include="Views\Resource\Board_AuditedFinancials.cshtml" />
+    <Content Include="Views\Resource\Board_AuditandFinanceCommittee.cshtml" />
+    <Content Include="Views\Resource\Volunteer_TownHallMeetingMinutes.cshtml" />
+    <Content Include="Views\Resource\Volunteer_VolunteerOrientationDocuments.cshtml" />
+    <Content Include="Views\Resource\Volunteer_VolunteerApplication.cshtml" />
+    <Content Include="Views\Resource\Volunteer_VolunteerPresentation.cshtml" />
+    <Content Include="Views\Resource\Volunteer_VolunteerRelatedPolicies.cshtml" />
+    <Content Include="Views\Resource\Volunteer_VolunteerRolesChart.cshtml" />
+    <Content Include="Views\Resource\Volunteer_VolunteerUpdates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
