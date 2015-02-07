@@ -3,5 +3,63 @@
     ViewBag.Title = "Forms";
 }
 
-<h2>Forms</h2>
+<h2 class="page-header">Organizational Resources</h2>
+<div class="col-sm-8">
+    <div class="panel panel-success ">
+        <div class="panel-heading">
+            Forms
+        </div>
+        <div class="panel-body">
+            <div class="panel-body-toolbar form-inline">
+                <input class="form-control" id="txtSearch" type="text" placeholder="Search by Filename" />
+            </div>
+            <table class="table table-striped table-bordered" style="width:100%;">
+                <tr>
+                    <td>Name</td>
+                    <td>Description</td>
+                    <td>Download/Edit</td>
+                </tr>
+                <tr>
+                    <td>Health&Safety.doc</td>
+                    <td>Health and Safety Form</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button id="Download" class="btn btn-primary">Download</button>
+                            <button id="Edit" class="btn btn-default">Edit</button>
+                            <button id="Delete" class="btn btn-danger">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>IncidentReport.doc</td>
+                    <td>Incident Reporting Form</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button id="Download" class="btn btn-primary">Download</button>
+                            <button id="Edit" class="btn btn-default">Edit</button>
+                            <button id="Delete" class="btn btn-danger">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mileage&Expense.doc</td>
+                    <td>Mileage and Expenses Form</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button id="Download" class="btn btn-primary">Download</button>
+                            <button id="Edit" class="btn btn-default">Edit</button>
+                            <button id="Delete" class="btn btn-danger">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <nav>
+                <ul class="pager">
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">Next"</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
 
