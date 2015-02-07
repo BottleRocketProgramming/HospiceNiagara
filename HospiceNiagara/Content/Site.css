@@ -83,6 +83,10 @@ textarea {
      padding-top: 140px;
  }
 
- .panel-body-toolbar{
+ #EventPanel {
+     min-height: 600px;
+ }
+
+  .panel-body-toolbar{
      padding-bottom:5px;
  }
