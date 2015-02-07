@@ -82,3 +82,7 @@ textarea {
  .copyright {
      padding-top: 140px;
  }
+
+ #EventPanel {
+     min-height: 600px;
+ }
