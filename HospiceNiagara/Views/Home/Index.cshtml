@@ -3,68 +3,131 @@
 }
 
 <div class="container">
-
-<div class="col-sm-4">
-    <div class="panel panel-success ">
-        <div class="panel-heading">
-            Announcements
-        </div>
-        <div class="panel-body">
-
-        </div>
-    </div>
-</div>
-
-<div class="col-sm-4">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            Welcome
-            <div id="glyphWelcomeEdit" class="glyphicon glyphicon-edit pull-right"></div>
-        </div>
-        <div id="welcomeContent" class="panel-body">
-            Welcome to the Hospice Niagara Portal
-        </div>
-        <div id="editWelcomeContent" class="panel-body" hidden>
-            <div>
-                <textarea id="editWelcomeContent" class="form-control" rows="4"></textarea>
-                <button id="btnUpdateWelcomeContent" class="btn btn-default">Update</button>
+    <div class="col-sm-6">
+        <div class="panel panel-success ">
+            <div class="panel-heading">
+                Announcements
             </div>
-
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <td>Title</td>
+                        <td>Description</td>
+                        <td>Date Posted</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ActionLink("New Health and Safety Policy", "Announcement", "Announcement")</td>
+                        <td>We now have a new health and safety policy! Please review the attached document</td>
+                        <td>Saturday, Febuary 7th</td>
+                    </tr>
+                </table>
+            </div>
         </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Upcoming
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <td>Name</td>
+                        <td>Description</td>
+                        <td>Date</td>
+                        <td>Location</td>
+                        <td>RSVP</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ActionLink("Annual Volunteer Retreat", "VolunteerEvent", "Announcement")</td>
+                        <td>As part of our celebration of National Volunteer Week, Hospice Niagara is once again treating...</td>
+                        <td>Saturday, April 20th</td>
+                        <td>The Stabler Centre</td>
+                        <td>
+                            <div class="btn-group-vertical">
+                                <button id="RSVP" class="btn btn-primary">Attending</button>
+                                <button id="RSVPno" class="btn btn-default">Not Attending</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Welcome
+                <div id="glyphWelcomeEdit" class="glyphicon glyphicon-edit pull-right"></div>
+            </div>
+            <div id="welcomeContent" class="panel-body text-center">
+                Welcome to the Hospice Niagara Portal!
+            </div>
+            <div id="editWelcomeContent" class="panel-body" hidden>
+                <div>
+                    <textarea id="editWelcomeContent" class="form-control" rows="4"></textarea>
+                    <button id="btnUpdateWelcomeContent" class="btn btn-default">Update</button>
+                </div>
+
+            </div>
         
         
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Links
+            </div>
+            <div class="panel-body">
+                <ul class="list media-list">
+                    <li><a href="http://www.hospiceniagara.ca">Hospice Niagara Website</a></li>
+                    <li><a href="http://www.hospiceniagara.ca/resources/default/index/">Hospice Niagara Newsletter</a></li>
+                    <li><a href="http://www.hpceducation.ca">HPC Education Website</a></li>
+                    <li><a href="https://www.hospiceniagara.ca/donations/donate.php">Hospice Niagara Online Donation Website</a></li>
+                    <li><a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts">Facebook</a></li>
+                    <li><a href="https://twitter.com/HospiceNiagara">Twitter</a></li>
+                    <li><a href="http://www.hikeforhospiceniagara.ca">Hike for Hospice Niagara Website</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <div class="panel panel-success">
-        <div id="linkContent" class="panel-heading">
-            Links
+    <div class="col-sm-3">
+        <div class="panel panel-success ">
+            <div class="panel-heading">
+                My Schedules
+            </div>
+            <div class="panel-body">
+                <table class="table" style="width:100%;">
+                    <tr>
+                        <td>Name</td>
+                    </tr>
+                    <tr>
+                        <td>Volunteer_Febuary2014.doc</td>
+                    </tr>
+                    <tr>
+                        <td>Volunteer_March2014.doc</td>
+                    </tr>
+                    <tr>
+                        <td>Volunteer_April2014.doc</td>
+                    </tr>
+                    <tr>
+                        <td>Staff_Febuary2014.doc</td>
+                    </tr>
+                    <tr>
+                        <td>Staff_March2014.doc</td>
+                    </tr>
+                    <tr>
+                        <td>Staff_April2014.doc</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="panel-body">
-            <ul class="list media-list">
-                <li><a href="http://www.hospiceniagara.ca">Hospice Niagara Website</a></li>
-                <li><a href="http://www.hospiceniagara.ca/resources/default/index/">Hospice Niagara Newsletter</a></li>
-                <li><a href="http://www.hpceducation.ca">HPC Education Website</a></li>
-                <li><a href="https://www.hospiceniagara.ca/donations/donate.php">Hospice Niagara Online Donation Website</a></li>
-                <li><a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts">Facebook</a></li>
-                <li><a href="https://twitter.com/HospiceNiagara">Twitter</a></li>
-                <li><a href="http://www.hikeforhospiceniagara.ca">Hike for Hospice Niagara Website</a></li>
-            </ul>
-        </div>
+        
     </div>
 </div>
 
-<div class="col-sm-4">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-        Upcoming
-        </div>
-        <div class="panel-body">
 
-        </div>
-    </div>
-</div>
-
-</div>
 <footer class="footer navbar-fixed-bottom">
     <div class="container">
         @*<div class="col-sm-3">
