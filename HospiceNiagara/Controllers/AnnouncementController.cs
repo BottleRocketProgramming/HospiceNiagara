@@ -13,5 +13,10 @@ namespace HospiceNiagara.Controllers
         {
             return View();
         }
+
+        public ActionResult VolunteerEvent()
+        {
+            return View();
+        }
     }
 }
