@@ -10,48 +10,36 @@
         </div>
         <div class="panel-body">
             <div class="panel-body-toolbar form-inline">
-                <input class="btn btn-default" type="button" value="Upload" id="btnUpload" />
                 <input class="form-control" id="txtSearchByName" type="text" placeholder="Search" />
             </div>
             <table class="table table-striped table-bordered" style="width:100%;">
                 <tr>
-                    <td>Name</td>
-                    <td>Date Uploaded</td>
-                    <td>Description</td>
+                    <td>Staff Member</td>
+                    <td>Position</td>
+                    <td>Email</td>
+                    <td>Phone</td>
+                    <td>Office Cell</td>
+                </tr>
+                <tr>
+                    <td>Jessica Estabrooks</td>
+                    <td>Finance and Operations Manager<span id="glyphJobInfo" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="" data-original-title=""></span></td>
+                    <td>jestabrooks@hospiceniagara.ca</td>
+                    <td>x 238</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>TicketSellerInfo.doc</td>
-                    <td>2/7/2015</td>
-                    <td>Information Sheet for Ticket Sellers</td>
-                    <td>
-                        <div class="btn-group btn-group-sm">
-                            <button id="Download" class="btn btn-primary">Download</button>
-                            <button id="Delete" class="btn btn-danger">Delete</button>
-                        </div>
-                    </td>
+                    <td>Kate Murrell</td>
+                    <td>Administrative Assistant<span id="glyphJobInfo" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="" data-original-title=""></span></td>
+                    <td>kmurrell@hospiceniagara.ca</td>
+                    <td>x 222</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td>IncidentReport.doc</td>
-                    <td>2/5/2015</td>
-                    <td>Incident Reporting Form</td>
-                    <td>
-                        <div class="btn-group btn-group-sm">
-                            <button id="Download" class="btn btn-primary">Download</button>
-                            <button id="Delete" class="btn btn-danger">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mileage&Expense.doc</td>
-                    <td>2/2/2015</td>
-                    <td>Mileage and Expenses Form</td>
-                    <td>
-                        <div class="btn-group btn-group-sm">
-                            <button id="Download" class="btn btn-primary">Download</button>
-                            <button id="Delete" class="btn btn-danger">Delete</button>
-                        </div>
-                    </td>
+                    <td>Carol Nagy</td>
+                    <td>Executive Director<span id="glyphJobInfo" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="" data-original-title=""></span></td>
+                    <td>cnagy@hospiceniagara.ca</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
             <nav>
@@ -64,3 +52,34 @@
     </div>
 </div>
 
+<div class="col-sm-4" id="panelPositionDesc" hidden>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            About this position
+        </div>
+        <div class="panel-body">
+            <h4>Areas of Responisibility</h4>
+            <p>
+                -Leadership Team Member<br />
+                -Finance Lead<br />
+                -IT Lead<br />
+                -Facilities Lead<br />
+                -Administration Lead<br />
+                -Coordinator of Volunteers:<br />
+                -Scheduling of Welcome Desk, Residential and Kitchen Helper volunteer roles<br />
+                -Communication, recognition and ongoing support of all Volunteers<br />
+                -Supervises Administrative Assistant, Financial Associate, Chef and Maintenance contract
+            </p>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+    $(document).ready(function () {
+        $('#glyphJobInfo').on('click', function () {
+            $('#panelPositionDesc').slideToggle();
+        });
+    });
+</script>
