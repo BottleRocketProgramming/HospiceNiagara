@@ -285,6 +285,7 @@
     <Content Include="Views\Resource\Volunteer_VolunteerUpdates.cshtml" />
     <Content Include="Views\Resource\Events.cshtml" />
     <Content Include="Views\Announcement\VolunteerEvent.cshtml" />
+    <Content Include="Views\Announcement\Announcement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
