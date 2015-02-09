@@ -83,8 +83,10 @@ textarea {
      padding-top: 140px;
  }
 
+
  #EventPanel {
      min-height: 600px;
+     max-height: 600px;
  }
 
   .panel-body-toolbar{
@@ -95,15 +97,27 @@ textarea {
       padding-bottom:10px;
   }
 
-  /*.LogInPage {
+/*Aligning the background image*/
+  .LogInPage {
     border-top: 1px solid #000000;
     border-bottom: 2px solid #000000;
-    position: absolute;
-    left: 0;
+    /*position: absolute;
+    left: 20px;
     right: 0;
     width: 100%;
+    height: 100%*/
+
   }
 
+/*Log In background image*/
   .LogInPage {
-     background-image: url(../Resources/Exterior-frontdoor.png);
-  }*/
+     background-image: url(../Resources/Exterior-frontdoor.jpg);
+     /*background: no-repeat;*/
+     /*align-content: center;*/
+  }
+
+  .center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
