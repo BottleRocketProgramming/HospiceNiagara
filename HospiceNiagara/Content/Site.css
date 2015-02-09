@@ -94,3 +94,16 @@ textarea {
   .input-group{
       padding-bottom:10px;
   }
+
+  /*.LogInPage {
+    border-top: 1px solid #000000;
+    border-bottom: 2px solid #000000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .LogInPage {
+     background-image: url(../Resources/Exterior-frontdoor.png);
+  }*/
