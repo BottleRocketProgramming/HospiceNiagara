@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
@@ -286,6 +287,8 @@
     <Content Include="Views\Resource\Events.cshtml" />
     <Content Include="Views\Announcement\VolunteerEvent.cshtml" />
     <Content Include="Views\Announcement\Announcement.cshtml" />
+    <Content Include="Views\LogIn\Index.cshtml" />
+    <Content Include="Views\Schedule\January2015.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

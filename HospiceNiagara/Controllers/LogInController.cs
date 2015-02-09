@@ -6,15 +6,10 @@ using System.Web.Mvc;
 
 namespace HospiceNiagara.Controllers
 {
-    public class ScheduleController : Controller
+    public class LogInController : Controller
     {
-        // GET: Schedule
+        // GET: LogIn
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult January2015()
         {
             return View();
         }
