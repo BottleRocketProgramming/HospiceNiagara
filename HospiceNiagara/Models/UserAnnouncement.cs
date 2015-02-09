@@ -7,14 +7,15 @@ using System.Web;
 
 namespace HospiceNiagara.Models
 {
-    public class UserJobDesc
+    public class UserAnnouncement
     {
         [Required]
         public int ID { get; set; }
-        
-        public virtual IdentityUser IdentityUsers { get; set; }
-       
-        public virtual JobDescription JobDescriptions { get; set; }
 
+        public bool WasViewed { get; set; }
+
+        public virtual IdentityUser IdentityUsers { get; set; }
+
+        public virtual Announcement Announcements { get; set; }
     }
 }

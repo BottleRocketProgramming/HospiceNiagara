@@ -20,5 +20,7 @@ namespace HospiceNiagara.Models
         public DateTime AnnounceEndDate { get; set; }
 
         public virtual ICollection<AnnouncementUserRole> AnnouncementUserRoles { get; set; }
+
+        public virtual ICollection<UserAnnouncement> UserAnnouncements { get; set; }
     }
 }

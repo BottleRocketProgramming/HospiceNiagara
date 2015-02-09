@@ -9,7 +9,9 @@ namespace HospiceNiagara.Models
     public class FileStoreUserRole
     {
         public int ID { get; set; }
+       
         public virtual IdentityUser IdentityUsers { get; set; }
+       
         public virtual FileStorage FielStorages { get; set; }
     }
 }
