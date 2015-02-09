@@ -21,23 +21,23 @@
                         <span class="icon-bar"></span>
                     </button>
                     
-                        @Html.ActionLink("Hospice Niagara", "Index", "Home", new { area = "" }, new { @class = "navbar-brand brandName" })
+                        @Html.ActionLink("Hospice Niagara Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand brandName", @style = "color:white;" })
                     
                     
                 </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Announcements", "Index", "Announcement")</li>
-                            <li>@Html.ActionLink("Resources", "Index", "Resource")</li>
-                            <li>@Html.ActionLink("Meetings", "Index", "Meeting")</li>
-                            <li>@Html.ActionLink("Schedules", "Index", "Schedule")</li>
-                            <li>@Html.ActionLink("Contacts", "Index", "Contact")</li>
-                            <li>@Html.ActionLink("Admin ", "Index", "Admin")</li>
+                <div class="navbar-collapse collapse nav-text">
+                    <ul class="nav navbar-nav navbar-right nav-text">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Announcements", "Index", "Announcement", new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Resources", "Index", "Resource", new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Meetings", "Index", "Meeting", new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Schedules", "Index", "Schedule", new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Contacts", "Index", "Contact", new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Admin ", "Index", "Admin", new { @style = "color:white;" })</li>
 
-                        </ul>
-                        @*@Html.Partial("_LoginPartial")*@
-                    </div>
+                    </ul>
+                    @*@Html.Partial("_LoginPartial")*@
+                </div>
                 </div>
             </div>
     <div class="container body-content">
