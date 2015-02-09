@@ -57,7 +57,8 @@
     <div class="col-sm-3">
         <div class="panel panel-info">
             <div class="panel-heading">
-                Welcome
+                <span id="welcomeTitle">Welcome</span>
+                <span id="editWelcomeTitle" hidden>Edit Welcome</span>
                 <div id="glyphWelcomeEdit" class="glyphicon glyphicon-edit pull-right"></div>
             </div>
             <div id="welcomeContent" class="panel-body text-center">
@@ -157,14 +158,19 @@
 
         //Editing the Welcome Widget
         $('#glyphWelcomeEdit').on('click', function () {
-            $('#welcomeContent').toggle();
-            $('#editWelcomeContent').toggle();
+            $('#welcomeContent').slideToggle();
+            $('#editWelcomeContent').slideToggle();
+            $('#editWelcomeTitle').slideToggle();
+            $('#welcomeTitle').slideToggle();
+            $('#glyphWelcomeEdit').fadeToggle();
         });
 
         $('#btnUpdateWelcomeContent').on('click', function () {
-            $('#editWelcomeContent').toggle();
-
-            $('#welcomeContent').toggle();
+            $('#welcomeContent').slideToggle();
+            $('#editWelcomeContent').slideToggle();
+            $('#editWelcomeTitle').slideToggle();
+            $('#welcomeTitle').slideToggle();
+            $('#glyphWelcomeEdit').fadeToggle();
         });
     });
 </script>
