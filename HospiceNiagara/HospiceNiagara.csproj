@@ -190,6 +190,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MeetingOrEvent.cs" />
     <Compile Include="Models\MeetingOrEventUserRole.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\ScheduleRole.cs" />
+    <Compile Include="Models\UserAnnouncement.cs" />
     <Compile Include="Models\UserEventRSVP.cs" />
     <Compile Include="Models\UserJobDesc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
