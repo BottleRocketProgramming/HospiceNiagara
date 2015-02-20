@@ -172,9 +172,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502090638358_1st.cs" />
-    <Compile Include="Migrations\201502090638358_1st.Designer.cs">
-      <DependentUpon>201502090638358_1st.cs</DependentUpon>
+    <Compile Include="Migrations\201502091801168_first.cs" />
+    <Compile Include="Migrations\201502091801168_first.Designer.cs">
+      <DependentUpon>201502091801168_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -190,6 +190,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MeetingOrEvent.cs" />
     <Compile Include="Models\MeetingOrEventUserRole.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\ScheduleRole.cs" />
+    <Compile Include="Models\UserAnnouncement.cs" />
     <Compile Include="Models\UserEventRSVP.cs" />
     <Compile Include="Models\UserJobDesc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -289,6 +292,10 @@
     <Content Include="Views\Announcement\Announcement.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
     <Content Include="Views\Schedule\January2015.cshtml" />
+    <Content Include="Views\Announcement\Create.cshtml" />
+    <Content Include="Views\Announcement\Delete.cshtml" />
+    <Content Include="Views\Announcement\Details.cshtml" />
+    <Content Include="Views\Announcement\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -302,8 +309,8 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502090638358_1st.resx">
-      <DependentUpon>201502090638358_1st.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201502091801168_first.resx">
+      <DependentUpon>201502091801168_first.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

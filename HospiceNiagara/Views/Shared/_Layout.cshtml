@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div id="navbar" class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">
@@ -27,20 +27,20 @@
                 </div>
                 <div class="navbar-collapse collapse nav-text">
                     <ul class="nav navbar-nav navbar-right nav-text">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { @style = "color:white;" })</li>
-                        <li>@Html.ActionLink("Announcements", "Index", "Announcement", new { @style = "color:white;" })</li>
-                        <li>@Html.ActionLink("Resources", "Index", "Resource", new { @style = "color:white;" })</li>
-                        <li>@Html.ActionLink("Meetings", "Index", "Meeting", new { @style = "color:white;" })</li>
-                        <li>@Html.ActionLink("Schedules", "Index", "Schedule", new { @style = "color:white;" })</li>
-                        <li>@Html.ActionLink("Contacts", "Index", "Contact", new { @style = "color:white;" })</li>
-                        <li>@Html.ActionLink("Admin ", "Index", "Admin", new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
+                        <li>@Html.ActionLink("Announcements", "Index", "Announcement", null, new { style = "color:white" })</li>
+                        <li>@Html.ActionLink("Resources", "Index", "Resource", null, new { style = "color:white" })</li>
+                        <li>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
+                        <li>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
+                        <li>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
+                        <li>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
 
                     </ul>
                     @*@Html.Partial("_LoginPartial")*@
                 </div>
                 </div>
             </div>
-    <div class="container body-content">
+    <div id="bodyContent" class="container body-content">
         @RenderBody()
         <footer class="footer navbar-fixed-bottom" hidden>
             <div class="container">

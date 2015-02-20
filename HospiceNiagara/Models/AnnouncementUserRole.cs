@@ -10,8 +10,11 @@ namespace HospiceNiagara.Models
     public class AnnouncementUserRole
     {
         public int ID { get; set; }
+       
         public virtual IdentityRole IdentityRoles { get; set; }
+       
         public virtual Announcement Announcements { get; set; }
+        
         public bool WasViewed { get; set; }
     }
 }

@@ -2,18 +2,12 @@
     ViewBag.Title = "Index";
 }
 <div class="body-content LogInPage">
-    @*<div class="front-bg">
-        <img class="front-image" src="~/Resources/Exterior-frontdoor.jpg">
-    </div>*@
-
-    <div class="center-block" id="LogInContent">
-        <input type="text" placeholder="UserName">
+    <div class="center-block LogInContent" id="LogInContent">
+        <input class="form-control" type="text" placeholder="UserName">
         <br />
+        <input class="form-control" type="text" placeholder="Password">
         <br />
-        <input type="text" placeholder="Password">
-        <br />
-        <br />
-        <button class="btn-info">Log In</button>
-        <button class="btn-info">Forgot Password</button>
+        <button id="logInButton" class="btn-info btn-sm">Log-In</button>
+        <button id="forgotPasswordButton" class="btn-danger btn-sm">Forgot Password</button>
      </div>
 </div>

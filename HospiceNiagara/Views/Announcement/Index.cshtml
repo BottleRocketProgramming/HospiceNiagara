@@ -1,38 +1,81 @@
-﻿
-@{
+﻿@model IEnumerable<HospiceNiagara.Models.Announcement>
+
+@*@{
     ViewBag.Title = "Index";
-}
+}*@
+
 
 <div class="container">
     <div class="col-sm-6">
         <div class="panel panel-success ">
             <div class="panel-heading">
-                Announcements
+                <span id="announcmentsTitle">Announcments</span>
+                <span id="newAnnouncmentTitle" hidden>New Announcment</span>
+                <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
             </div>
-            <div class="panel-body">
+
+            <div id="announcmentContent" class="panel-body">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
                 <table class="table table-striped table-bordered">
                     <tr>
-                        <td>Title</td>
-                        <td>Description</td>
-                        <td>Date Posted</td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AnnounceText)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AnnounceEndDate)
+                        </th>
+                        <th></th>
                     </tr>
-                    <tr>
-                        <td>@Html.ActionLink("New Health and Safety Policy", "Announcement", "Announcement")</td>
-                        <td>We now have a new health and safety policy! Please review the attached document</td>
-                        <td>Saturday, Febuary 7th</td>
-                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnnounceText)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnnounceEndDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+
                 </table>
             </div>
+
+            <div id="newAnnouncmentContent" class="panel-body" hidden>
+                <div class="form-inline">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Announcment</span>
+                        <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Description</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Related Files</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        <button id="btnUploadEventFiles" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
+
+                    </div>
+                    <div class="btn-group">
+                        <button id="btnAddAnnouncment" class="btn btn-primary">Add</button>
+                        <button id="btnCancelAnnouncment" class="btn btn-default">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                Appointments
-            </div>
-            <div class="panel-body">
-
-            </div>
-        </div>
+        
     </div>
 
     <div class="col-sm-6">
@@ -102,15 +145,9 @@
                         <button id="btnCancelEvent" class="btn btn-default">Cancel</button>
                     </div>
                 </div>
-
             </div>
-
-
-
         </div>
-    </div>
 
-    <div class="col-sm-6">
         <div class="panel panel-default ">
             <div class="panel-heading">
                 <span id="deathNoticeTitle">Notices of Death</span>
@@ -157,12 +194,11 @@
                             <button id="btnCancelDeathNotice" class="btn btn-default">Cancel</button>
                         </div>
                     </div>
-
                 </div>
             </div>
-            
         </div>
     </div>
+
 
 </div>
 
@@ -236,6 +272,30 @@
             $('#newEvent').slideToggle();
             $('#newEventTitle').slideToggle();
             $('#glyphNewEvent').fadeToggle();
+        });
+
+        $('#glyphNewAnnouncment').on('click', function () {
+            $('#announcmentsTitle').slideToggle();
+            $('#announcmentContent').slideToggle();
+            $('#newAnnouncmentContent').slideToggle();
+            $('#newAnnouncmentTitle').slideToggle();
+            $('#glyphNewAnnouncment').fadeToggle();
+        });
+
+        $('#btnAddAnnouncment').on('click', function () {
+            $('#announcmentsTitle').slideToggle();
+            $('#announcmentContent').slideToggle();
+            $('#newAnnouncmentContent').slideToggle();
+            $('#newAnnouncmentTitle').slideToggle();
+            $('#glyphNewAnnouncment').fadeToggle();
+        });
+
+        $('#btnCancelAnnouncment').on('click', function () {
+            $('#announcmentsTitle').slideToggle();
+            $('#announcmentContent').slideToggle();
+            $('#newAnnouncmentContent').slideToggle();
+            $('#newAnnouncmentTitle').slideToggle();
+            $('#glyphNewAnnouncment').fadeToggle();
         });
     });
 </script>
