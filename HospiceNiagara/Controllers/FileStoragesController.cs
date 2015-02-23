@@ -10,109 +10,112 @@ using HospiceNiagara.Models;
 
 namespace HospiceNiagara.Controllers
 {
-    public class AnnouncementController : Controller
+    public class FileStoragesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Announcement
+        // GET: FileStorages
         public ActionResult Index()
         {
-            return View(db.Announcements.ToList());
+            var fileStorages = db.FileStorages.Include(f => f.FileSortType);
+            return View(fileStorages.ToList());
         }
 
-        // GET: Announcement/Details/5
+        // GET: FileStorages/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Announcement announcement = db.Announcements.Find(id);
-            if (announcement == null)
+            FileStorage fileStorage = db.FileStorages.Find(id);
+            if (fileStorage == null)
             {
                 return HttpNotFound();
             }
-            return View(announcement);
+            return View(fileStorage);
         }
 
-        // GET: Announcement/Create
+        // GET: FileStorages/Create
         public ActionResult Create()
         {
-           
+            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion");
             return View();
         }
 
-        // POST: Announcement/Create
+        // POST: FileStorages/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate")] Announcement announcement)
+        public ActionResult Create([Bind(Include = "ID,FileContent,MimeType,FileName,FileSortTypeID")] FileStorage fileStorage)
         {
             if (ModelState.IsValid)
             {
-                db.Announcements.Add(announcement);
+                db.FileStorages.Add(fileStorage);
                 db.SaveChanges();
-                
+                return RedirectToAction("Index");
             }
-            
-            return View(announcement);
-            
+
+            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion", fileStorage.FileSortTypeID);
+            return View(fileStorage);
         }
 
-        // GET: Announcement/Edit/5
+        // GET: FileStorages/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Announcement announcement = db.Announcements.Find(id);
-            if (announcement == null)
+            FileStorage fileStorage = db.FileStorages.Find(id);
+            if (fileStorage == null)
             {
                 return HttpNotFound();
             }
-            return View(announcement);
+            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion", fileStorage.FileSortTypeID);
+            return View(fileStorage);
         }
 
-        // POST: Announcement/Edit/5
+        // POST: FileStorages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AnnounceText,AnnounceEndDate")] Announcement announcement)
+        public ActionResult Edit([Bind(Include = "ID,FileContent,MimeType,FileName,FileSortTypeID")] FileStorage fileStorage)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(announcement).State = EntityState.Modified;
+                db.Entry(fileStorage).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(announcement);
+            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion", fileStorage.FileSortTypeID);
+            return View(fileStorage);
         }
 
-        // GET: Announcement/Delete/5
+        // GET: FileStorages/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Announcement announcement = db.Announcements.Find(id);
-            if (announcement == null)
+            FileStorage fileStorage = db.FileStorages.Find(id);
+            if (fileStorage == null)
             {
                 return HttpNotFound();
             }
-            return View(announcement);
+            return View(fileStorage);
         }
 
-        // POST: Announcement/Delete/5
+        // POST: FileStorages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Announcement announcement = db.Announcements.Find(id);
-            db.Announcements.Remove(announcement);
+            FileStorage fileStorage = db.FileStorages.Find(id);
+            db.FileStorages.Remove(fileStorage);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

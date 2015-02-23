@@ -55,6 +55,7 @@ namespace HospiceNiagara.Models
         public DbSet<MeetingOrEventUserRole> MeetingOrEventUserRoles { get; set; }
         public DbSet<UserEventRSVP> UserEventRSVPs { get; set; }
         public DbSet<UserJobDesc> UserJobDesc { get; set; }
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

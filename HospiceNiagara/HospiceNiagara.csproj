@@ -162,6 +162,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\FileStoragesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -296,6 +297,7 @@
     <Content Include="Views\Announcement\Delete.cshtml" />
     <Content Include="Views\Announcement\Details.cshtml" />
     <Content Include="Views\Announcement\Edit.cshtml" />
+    <Content Include="Views\Resource\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -307,6 +309,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Resources\" />
+    <Folder Include="Views\FileStorages\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201502091801168_first.resx">
