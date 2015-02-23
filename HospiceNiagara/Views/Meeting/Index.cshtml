@@ -3,35 +3,131 @@
     ViewBag.Title = "Index";
 }
 
-<div class="col-sm-12">
+<div class="col-sm-8">
     <div class="panel panel-success">
         <div class="panel-heading">
-            Events
-            <div id="glyphAddEvent" class="glyphicon glyphicon-edit pull-right"></div>
+            <span id="EventsTitle">Events</span>
+            <span id="newMeetingEventTitle" hidden>New Event</span>
+            <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
         </div>
-        <div class="panel-body" id="EventPanel">
-            <table class="table table-striped table-bordered" style="width:100%;">
-                <tr>
-                    <td>Type</td>
-                    <td>Description</td>
-                    <td>Date</td>
-                    <td>Location</td>
-                    <td>Requirements</td>
-                    <td>Presentations</td>
-                    <td>Staff Lead and Contact Information</td>
-                    <td>Volunteer Roles</td>
-                </tr>
-                <tr><td>@Html.ActionLink("Annual Volunteer Retreat", "VolunteerEvent", "Announcement")</td><td>As part of our celebration of National Volunteer Week, Hospice Niagara is once again treating its volunteers to a day-long retreat to show our appreciation for all that you do. This is a day of self-care for</td><td>Saturday, April 20th</td><td>The Stabler Centre</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>Staff Holiday Party</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>Holiday Open House</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>Board Meeting</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-            </table>
-            <nav>
-                <ul class="pager">
-                    <li><a href="#">Previous</a></li>
-                    <li><a href="#">Next"</a></li>
-                </ul>
-            </nav>
+        <div id="Event">
+            <div class="panel-body" id="EventPanel">
+                <table class="table table-striped table-bordered" style="width:100%;">
+                    <tr>
+                        <td>Title</td>
+                        <td>Description</td>
+                        <td>Date</td>
+                        <td>Location</td>
+                        <td>Requirements</td>
+                        <td>Presentations</td>
+                        <td>Contact Information</td>
+                        <td>Volunteer Roles</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ActionLink("Annual Volunteer Retreat", "VolunteerEvent", "Announcement")</td>
+                        <td>As part of our celebration of National Volunteer Week, Hospice Niagara is...<span id="glyphEventDesc" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="" data-original-title=""></span></td>
+                        <td>Saturday, April 20th</td>
+                        <td>The Stabler Centre</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+                <nav>
+                    <ul id="pager" class="pager">
+                        <li><a href="#">Previous</a></li>
+                        <li><a href="#">Next"</a></li>
+                    </ul>
+                </nav>
+            </div>
+                <div class="panel-body" id="NewEvent" hidden>
+                    <div class="form-inline">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Title</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Description</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Date</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Location</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Requirements</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Presentations</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Contact Information</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Volunteer Roles</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1">
+                        </div>
+                            <div class="btn-group">
+                                <button id="btnAddNewEvent" class="btn btn-primary">Add</button>
+                                <button id="btnCancelNewEvent" class="btn btn-default">Cancel</button>
+                            </div>
+                        </div>
+                </div>            
         </div>
     </div>
 </div>
+
+<div class="col-sm-4" id="panelEventDesc" hidden>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Description
+        </div>
+        <div class="panel-body">
+            <p>
+
+            </p>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+    $(document).ready(function () {
+        $('#glyphAddEvent').on('click', function () {
+            $('#EventsTitle').slideToggle();
+            $('#EventPanel').slideToggle();
+            $('#NewEvent').slideToggle();
+            $('#newMeetingEventTitle').slideToggle();
+            $('#glyphAddEvent').fadeToggle();
+        });
+
+        $('#btnAddNewEvent').on('click', function () {
+            $('#EventsTitle').slideToggle();
+            $('#EventPanel').slideToggle();
+            $('#NewEvent').slideToggle();
+            $('#newMeetingEventTitle').slideToggle();
+            $('#glyphAddEvent').fadeToggle();
+        });
+
+        $('#btnCancelNewEvent').on('click', function () {
+            $('#EventsTitle').slideToggle();
+            $('#EventPanel').slideToggle();
+            $('#NewEvent').slideToggle();
+            $('#newMeetingEventTitle').slideToggle();
+            $('#glyphAddEvent').fadeToggle();
+        });
+        $(document).ready(function () {
+            $('#glyphEventDesc').on('click', function () {
+            $('#panelEventDesc').slideToggle();
+        });
+    });
+</script>
