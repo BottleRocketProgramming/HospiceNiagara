@@ -4,31 +4,37 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="page-header">Details</h2>
 
-<div>
-    <h4>Announcement</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AnnounceText)
-        </dt>
+<div class="col-sm-8">
+    <div class="panel panel-success ">
+        <div class="panel-heading">
+            Information
+        </div>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.AnnounceText)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AnnounceText)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.AnnounceText)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AnnounceEndDate)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AnnounceEndDate)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AnnounceEndDate)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.AnnounceEndDate)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+        <p class="text-center">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
