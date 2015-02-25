@@ -15,9 +15,15 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Announcement
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Announcements.ToList());
+            ViewData["AnnouncementOrEvent"] = db.Announcements.ToList();
+            ViewData["AnnOrEvntId"] = id;
+            Announcement announcement = db.Announcements.Find(id);
+            return View(announcement);
+            
+
+            //return View(db.Announcements.ToList());
         }
 
         // GET: Announcement/Details/5
@@ -46,17 +52,21 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate")] Announcement announcement)
+        [ValidateAntiForgeryToken]    
+        [ActionName("Index")]
+        [OnAction(ButtonName= "Create")]
+        public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement)
         {
             if (ModelState.IsValid)
             {
+                announcement.IsEvent = false;
                 db.Announcements.Add(announcement);
                 db.SaveChanges();
+               
                 
             }
             
-            return View(announcement);
+            return RedirectToAction("Index");
             
         }
 

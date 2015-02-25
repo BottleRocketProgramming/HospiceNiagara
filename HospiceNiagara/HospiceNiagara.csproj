@@ -167,6 +167,7 @@
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Controllers\OnAction.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
@@ -176,6 +177,10 @@
     <Compile Include="Migrations\201502091801168_first.cs" />
     <Compile Include="Migrations\201502091801168_first.Designer.cs">
       <DependentUpon>201502091801168_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502251448033_IsEvent.cs" />
+    <Compile Include="Migrations\201502251448033_IsEvent.Designer.cs">
+      <DependentUpon>201502251448033_IsEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,7 +298,6 @@
     <Content Include="Views\Announcement\Announcement.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
     <Content Include="Views\Schedule\January2015.cshtml" />
-    <Content Include="Views\Announcement\Create.cshtml" />
     <Content Include="Views\Announcement\Delete.cshtml" />
     <Content Include="Views\Announcement\Details.cshtml" />
     <Content Include="Views\Announcement\Edit.cshtml" />
@@ -314,6 +318,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201502091801168_first.resx">
       <DependentUpon>201502091801168_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251448033_IsEvent.resx">
+      <DependentUpon>201502251448033_IsEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
