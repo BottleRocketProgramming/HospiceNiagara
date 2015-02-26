@@ -4,8 +4,9 @@
     ViewBag.Title = "Index";
 }*@
 
-
+@* Div for entire page *@
 <div class="container">
+@*Div holding Announment List view and CRUD *@
     <div class="col-sm-6">
         <div class="panel panel-success ">
             <div class="panel-heading">
@@ -13,7 +14,7 @@
                 <span id="newAnnouncmentTitle" hidden>New Announcment</span>
                 <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
             </div>
-
+@* Announcement list view panel *@
             <div id="announcmentContent" class="panel-body" >
            
                 <table class="table table-striped table-bordered">
@@ -51,7 +52,7 @@
 
                 </table>
             </div>
-
+@* Create announcement panel *@
             <div id="newAnnouncmentContent" class="panel-body" hidden>
                
                   @using (Html.BeginForm())
@@ -81,23 +82,17 @@
 
 
                     <div class="btn-group">
-                        <input type="submit" value="Create" name="Create" class="btn btn-primary">
+                        <input type="submit" value="Create" name="CreateAnnouncement" class="btn btn-primary">
                     </div>
                     @Html.ActionLink("Cancel", "Index")
 
 
                   }       
-                    
-                    
-            
-
             </div>
-
-        </div>
-
-        
+        </div>        
     </div>
 
+@* Div for Events list view and CRUD *@
     <div class="col-sm-6">
         <div class="panel panel-success ">
             <div class="panel-heading">
@@ -106,6 +101,7 @@
                 <div id="glyphNewEvent" class="glyphicon glyphicon-plus pull-right"></div>
             </div>
 
+@* Div for Event list view *@
             <div id="eventContent" class="panel-body">
                 <table class="table table-striped table-bordered">
 
@@ -140,43 +136,48 @@
                         }
 
                     }
-                   
-
-            </table>
+                </table>
             </div>
 
+@* Div for Event Create *@
             <div id="newEvent" class="panel-body" hidden>
-                <div class="form-inline">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                     <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">Event</span>
-                        <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">Date</span>
-                        <input type="text" class="form-control" placeholder="MM" aria-describedby="basic-addon1">
-                        <span class="input-group-addon" id="basic-addon1">/</span>
-                        <input type="text" class="form-control" placeholder="DD" aria-describedby="basic-addon1">
-                        <span class="input-group-addon" id="basic-addon1">/</span>
-                        <input type="text" class="form-control" placeholder="YYYY" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">Location</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">Related Files</span>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        <button id="btnUploadEventFiles" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
+                        <span class="input-group-addon" id="basic-addon1">@Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "" })</span>
+                        @Html.EditorFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control" } })
 
                     </div>
-                    <div class="btn-group">
-                        <button id="btnAddEvent" class="btn btn-primary">Add</button>
-                        <button id="btnCancelEvent" class="btn btn-default">Cancel</button>
+                    @Html.ValidationMessageFor(model => model.AnnounceText, "", new { @class = "text-danger" })
+
+
+
+
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">
+                            @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "" })
+                        </span>
+                        @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                </div>
-            </div>
+                    @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
+
+
+
+
+                    <div class="btn-group">
+                        <input type="submit" value="Create2" name="CreateEvent" class="btn btn-primary">
+                    </div>
+                    @Html.ActionLink("Cancel", "Index")
+
+
+                }
+            </div>           
         </div>
 
+@* Div for Deathnotice List and CRUD *@
         <div class="panel panel-default ">
             <div class="panel-heading">
                 <span id="deathNoticeTitle">Notices of Death</span>
@@ -186,43 +187,138 @@
                 <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
             </div>
             <div id="panelDeathNoticeContent">
+@* Div for death notice List view *@
                 <div id="deathNoticeContent" class="panel-body">
-                    <table class="table table-striped table-bordered" style="width:100%;">
-                        <tr><td>Name</td><td>Date</td><td>Location</td><td>Notes</td></tr>
-                        <tr><td>Joe Smith</td><td>December 16, 2014</td><td>Community Client</td><td>Volunteer: Ted Tennant</td></tr>
-                        <tr><td>Rachel Jones</td><td>December 14, 2014 </td><td>The Stabler Centre</td><td>Room 4</td></tr>
-                        <tr><td>Mary Brown</td><td>December 8, 2014</td><td>NN Outreach Team</td><td>&nbsp;</td></tr>
-                        <tr><td>Sally Williams</td><td>November 30, 2014</td><td>NS Outreach Team</td><td>&nbsp;</td></tr>
+                    <table class="table table-striped table-bordered">
+                       
+                       
+                       @foreach(var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
+                       { 
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => item.DnFirstName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.DnMiddleName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.DnLastName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.DnDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.DnLocation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.DnNotes)
+                            </th>
+                            <th></th>
+                        </tr>
+                           break;
+                       }                       
+
+                        @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
+                        {
+                           
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DnFirstName)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DnMiddleName)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DnLastName)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DnDate)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DnLocation)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DnNotes)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+                                    </td>
+                                </tr>
+                            }
+                        
+
+
                     </table>
                 </div>
-                <div id="newDeathNotice" class="panel-body" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Name</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Date</span>
-                            <input type="text" class="form-control" placeholder="MM" aria-describedby="basic-addon1">
-                            <span class="input-group-addon" id="basic-addon1">/</span>
-                            <input type="text" class="form-control" placeholder="DD" aria-describedby="basic-addon1">
-                            <span class="input-group-addon" id="basic-addon1">/</span>
-                            <input type="text" class="form-control" placeholder="YYYY" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Location</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Notes</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
 
-                        <div class="btn-group">
-                            <button id="btnAddDeathNotice" class="btn btn-primary">Add</button>
-                            <button id="btnCancelDeathNotice" class="btn btn-default">Cancel</button>
+@* Panel for Create Death Notice *@
+                <div id="newDeathNotice" class="panel-body" hidden>
+            
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4>DeathNotice</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                       @foreach(var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
+                       {
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => item.DnFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => item.DnFirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => item.DnFirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => item.DnMiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => item.DnMiddleName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => item.DnMiddleName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => item.DnLastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => item.DnLastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => item.DnLastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => item.DnLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => item.DnLocation, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => item.DnLocation, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => item.DnNotes, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => item.DnNotes, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => item.DnNotes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                           break;
+                       }
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create3" name="CreateDeathNotice" class="btn btn-primary">
+                                </div>
+                            </div>
                         </div>
+                    }
+
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
                     </div>
+
+
+
                 </div>
             </div>
         </div>

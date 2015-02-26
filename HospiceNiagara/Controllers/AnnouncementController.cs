@@ -13,18 +13,28 @@ namespace HospiceNiagara.Controllers
     public class AnnouncementController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext dbb = new ApplicationDbContext();
 
         // GET: Announcement
         public ActionResult Index(int? id)
-        {
+        {            
             ViewData["AnnouncementOrEvent"] = db.Announcements.ToList();
             ViewData["AnnOrEvntId"] = id;
             Announcement announcement = db.Announcements.Find(id);
-            return View(announcement);
+            ViewData["DeathNoticeList"] = dbb.DeathNotices.ToList();
             
+            return View(announcement);           
 
             //return View(db.Announcements.ToList());
         }
+        
+        //public ActionResult DeathNotices(int? id)
+        //{
+        //    ViewData["DeathNoticeList"] = dbb.DeathNotices.ToList();
+        //    ViewData["DeathNoticeId"] = id;
+        //    DeathNotice deathNotice = dbb.DeathNotices.Find(id);
+        //    return View(deathNotice);
+        //}
 
         // GET: Announcement/Details/5
         public ActionResult Details(int? id)
@@ -54,7 +64,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]    
         [ActionName("Index")]
-        [OnAction(ButtonName= "Create")]
+        [OnAction(ButtonName= "CreateAnnouncement")]
         public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement)
         {
             if (ModelState.IsValid)
@@ -68,6 +78,43 @@ namespace HospiceNiagara.Controllers
             
             return RedirectToAction("Index");
             
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Index")]
+        [OnAction(ButtonName = "CreateEvent")]
+        public ActionResult Create2([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement)
+        {
+            if (ModelState.IsValid)
+            {
+                announcement.IsEvent = true;
+                db.Announcements.Add(announcement);
+                db.SaveChanges();
+
+
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Index")]
+        [OnAction(ButtonName = "CreateDeathNotice")]
+        public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] DeathNotice deathNotice)
+        {
+            if (ModelState.IsValid)
+            {
+
+                dbb.DeathNotices.Add(deathNotice);
+                dbb.SaveChanges();
+
+
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Announcement/Edit/5
