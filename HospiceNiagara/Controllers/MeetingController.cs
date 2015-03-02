@@ -15,9 +15,13 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Meeting
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.MeetingOrEvents.ToList());
+            ViewData["Meeting"] = db.MeetingOrEvents.ToList();
+            ViewData["MeetingID"] = id;
+            MeetingOrEvent meetingOrEvent = db.MeetingOrEvents.Find(id);
+
+            return View(meetingOrEvent);
         }
 
         // GET: Meeting/Details/5
@@ -46,16 +50,18 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ActionName("Index")]
+        [OnAction(ButtonName = "CreateMeeting")]
         public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] MeetingOrEvent meetingOrEvent)
         {
             if (ModelState.IsValid)
             {
                 db.MeetingOrEvents.Add(meetingOrEvent);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
             }
 
-            return View(meetingOrEvent);
+            return RedirectToAction("Index");
         }
 
         // GET: Meeting/Edit/5
