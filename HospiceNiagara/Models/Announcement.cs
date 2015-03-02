@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace HospiceNiagara.Models
 {
@@ -27,5 +28,7 @@ namespace HospiceNiagara.Models
         public virtual ICollection<AnnouncementUserRole> AnnouncementUserRoles { get; set; }
 
         public virtual ICollection<UserAnnouncement> UserAnnouncements { get; set; }
+
+       
     }
 }

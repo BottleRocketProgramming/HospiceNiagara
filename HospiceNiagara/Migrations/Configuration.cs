@@ -79,9 +79,9 @@ using System.Text;
                 var roleresult = roleManager.Create(new IdentityRole("Community Relations Committee"));
             }
 
-            if (!context.Roles.Any(r => r.Name == "Operations and Quality Improvement Committee"))
+            if (!context.Roles.Any(r => r.Name == "Operations & Quality Improvement Committee"))
             {
-                var roleresult = roleManager.Create(new IdentityRole("Operations and Quality Improvement Committe"));
+                var roleresult = roleManager.Create(new IdentityRole("Operations & Quality Improvement Committee"));
             }
 
             if (!context.Roles.Any(r => r.Name == "New Board Members"))
@@ -137,16 +137,16 @@ using System.Text;
             var manager = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
 
-            for (int i = 1; i <= 4; i++)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = string.Format("user{0}@outlook.com", i.ToString()),
-                    Email = string.Format("user{0}@outlook.com", i.ToString())
-                };
-                if (!context.Users.Any(u => u.UserName == user.UserName))
-                    manager.Create(user, "password");
-            }
+            //for (int i = 1; i <= 4; i++)
+            //{
+            //    var user = new ApplicationUser
+            //    {
+            //        UserName = string.Format("user{0}@outlook.com", i.ToString()),
+            //        Email = string.Format("user{0}@outlook.com", i.ToString())
+            //    };
+            //    if (!context.Users.Any(u => u.UserName == user.UserName))
+            //        manager.Create(user, "password");
+            //}
 
            
             //Now the Admin user named admin1 with password Password1
@@ -345,7 +345,7 @@ using System.Text;
             if (!context.Users.Any(u => u.UserName == "nonclient1@outlook.com"))
             {
                 manager.Create(nonclientuser, "password");
-                manager.AddToRole(nonclientuser.Id, "Non-Event Client");
+                manager.AddToRole(nonclientuser.Id, "Non-Client Event");
             }
 
             var nonadminuser = new ApplicationUser
@@ -356,7 +356,7 @@ using System.Text;
             if (!context.Users.Any(u => u.UserName == "nonadmin1@outlook.com"))
             {
                 manager.Create(nonadminuser, "password");
-                manager.AddToRole(nonadminuser.Id, "Non-Event Admin");
+                manager.AddToRole(nonadminuser.Id, "Non-Client Admin");
             }
 
             var newvolunteeruser = new ApplicationUser
@@ -367,7 +367,7 @@ using System.Text;
             if (!context.Users.Any(u => u.UserName == "newvolunteer1@outlook.com"))
             {
                 manager.Create(newvolunteeruser, "password");
-                manager.AddToRole(newvolunteeruser.Id, "New Volunteer");
+                manager.AddToRole(newvolunteeruser.Id, "New Volunteers");
             }
             
 
