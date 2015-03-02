@@ -1,86 +1,28 @@
 ﻿
+
 @{
     ViewBag.Title = "Index";
 }
-
+@* Limits panel to 8 *@
 <div class="col-sm-8">
+    @* Meeting Panel *@
     <div class="panel panel-success">
+        @* Panel Heading *@
         <div class="panel-heading">
             <span id="EventsTitle">Events</span>
             <span id="newMeetingEventTitle" hidden>New Event</span>
             <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
         </div>
+        @* Ask Chantal *@
         <div id="Event">
+            @* Main Body *@
             <div class="panel-body" id="EventPanel">
-                <table class="table table-striped table-bordered" style="width:100%;">
-                    <tr>
-                        <td>Title</td>
-                        <td>Description</td>
-                        <td>Date</td>
-                        <td>Location</td>
-                        <td>Requirements</td>
-                        <td>Presentations</td>
-                        <td>Contact Information</td>
-                        <td>Volunteer Roles</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.ActionLink("Annual Volunteer Retreat", "VolunteerEvent", "Announcement")</td>
-                        <td>As part of our celebration of National Volunteer Week, Hospice Niagara is...<span id="glyphEventDesc" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="" data-original-title=""></span></td>
-                        <td>Saturday, April 20th</td>
-                        <td>The Stabler Centre</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </table>
-                <nav>
-                    <ul id="pager" class="pager">
-                        <li><a href="#">Previous</a></li>
-                        <li><a href="#">Next"</a></li>
-                    </ul>
-                </nav>
+                
             </div>
-                <div class="panel-body" id="NewEvent" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Title</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Description</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Date</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Location</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Requirements</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Presentations</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Contact Information</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">Volunteer Roles</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                        </div>
-                            <div class="btn-group">
-                                <button id="btnAddNewEvent" class="btn btn-primary">Add</button>
-                                <button id="btnCancelNewEvent" class="btn btn-default">Cancel</button>
-                            </div>
-                        </div>
-                </div>            
+            @* New Meeting Body *@
+            <div class="panel-body" id="NewEvent" hidden>
+                
+            </div>            
         </div>
     </div>
 </div>
