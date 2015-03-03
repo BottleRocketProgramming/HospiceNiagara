@@ -303,6 +303,7 @@
     <Content Include="Views\Announcement\Edit.cshtml" />
     <Content Include="Views\Resource\View.cshtml" />
     <Content Include="Views\Meeting\View.cshtml" />
+    <Content Include="Views\Meeting\View1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

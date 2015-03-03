@@ -1,10 +1,10 @@
-﻿
+﻿@model HospiceNiagara.Models.MeetingOrEvent
 
 @{
     ViewBag.Title = "Index";
 }
-@* Limits panel to 8 *@
-<div class="col-sm-8">
+@* Limits content to 10/12 units *@
+<div class="col-sm-10">
     @* Meeting Panel *@
     <div class="panel panel-success">
         @* Panel Heading *@
@@ -17,7 +17,65 @@
         <div id="Event">
             @* Main Body *@
             <div class="panel-body" id="EventPanel">
-                
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventTitle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventDiscription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventLocation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventStart)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventEnd)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventRequirments)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventLinks)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.MeetingOrEvent>)ViewData["Meeting"])
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventDiscription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventLocation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventStart)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventEnd)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventRequirments)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventLinks)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
             </div>
             @* New Meeting Body *@
             <div class="panel-body" id="NewEvent" hidden>
@@ -69,7 +127,8 @@
         });
         $(document).ready(function () {
             $('#glyphEventDesc').on('click', function () {
-            $('#panelEventDesc').slideToggle();
+                $('#panelEventDesc').slideToggle();
+            });
         });
     });
 </script>
