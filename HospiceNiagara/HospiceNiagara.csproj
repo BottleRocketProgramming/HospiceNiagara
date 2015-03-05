@@ -294,8 +294,6 @@
     <Content Include="Views\Resource\Volunteer_VolunteerRolesChart.cshtml" />
     <Content Include="Views\Resource\Volunteer_VolunteerUpdates.cshtml" />
     <Content Include="Views\Resource\Events.cshtml" />
-    <Content Include="Views\Announcement\VolunteerEvent.cshtml" />
-    <Content Include="Views\Announcement\Announcement.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
     <Content Include="Views\Schedule\January2015.cshtml" />
     <Content Include="Views\Announcement\Delete.cshtml" />
