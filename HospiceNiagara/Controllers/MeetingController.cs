@@ -17,9 +17,9 @@ namespace HospiceNiagara.Controllers
         // GET: Meeting
         public ActionResult Index(int? id)
         {
-            ViewData["Meeting"] = db.MeetingOrEvents.ToList();
+            ViewData["Meeting"] = db.Meetings.ToList();
             ViewData["MeetingID"] = id;
-            MeetingOrEvent meetingOrEvent = db.MeetingOrEvents.Find(id);
+            Meeting meetingOrEvent = db.Meetings.Find(id);
 
             return View(meetingOrEvent);
         }
@@ -31,7 +31,7 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MeetingOrEvent meetingOrEvent = db.MeetingOrEvents.Find(id);
+            Meeting meetingOrEvent = db.Meetings.Find(id);
             if (meetingOrEvent == null)
             {
                 return HttpNotFound();
@@ -52,11 +52,11 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
-        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] MeetingOrEvent meetingOrEvent)
+        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meetingOrEvent)
         {
             if (ModelState.IsValid)
             {
-                db.MeetingOrEvents.Add(meetingOrEvent);
+                db.Meetings.Add(meetingOrEvent);
                 db.SaveChanges();
 
             }
@@ -71,7 +71,7 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MeetingOrEvent meetingOrEvent = db.MeetingOrEvents.Find(id);
+            Meeting meetingOrEvent = db.Meetings.Find(id);
             if (meetingOrEvent == null)
             {
                 return HttpNotFound();
@@ -84,7 +84,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] MeetingOrEvent meetingOrEvent)
+        public ActionResult Edit([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meetingOrEvent)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MeetingOrEvent meetingOrEvent = db.MeetingOrEvents.Find(id);
+            Meeting meetingOrEvent = db.Meetings.Find(id);
             if (meetingOrEvent == null)
             {
                 return HttpNotFound();
@@ -115,8 +115,8 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MeetingOrEvent meetingOrEvent = db.MeetingOrEvents.Find(id);
-            db.MeetingOrEvents.Remove(meetingOrEvent);
+            Meeting meetingOrEvent = db.Meetings.Find(id);
+            db.Meetings.Remove(meetingOrEvent);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -77,6 +77,34 @@
                     </div>
                     @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
 
+    <div class="form-group">
+        <label class="control-label col-md-2">Past roleitions</label>
+        <div class="col-md-offset-2 col-md-10">
+            <table>
+                <tr>
+                    @{
+                      int cnt = 0;
+                      List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                      foreach(var r in roles)
+                      {
+                          if (cnt++ % 2 == 0)
+                          {
+                            @:</tr><tr>
+                          }
+                          @:<td>
+                                <input type="checkbox"
+                                name="selectedRoles"
+                                value="@r.RoleID"
+                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                @r.RoleName
+                         @:</td>
+                      }
+                 @:</tr>
+                    }
+                </table>
+            </div>
+        </div>
+
                    <div class="btn-group">
                         <input type="submit" value="Create" name="CreateAnnouncement" class="btn btn-primary">
                     </div>
@@ -159,6 +187,34 @@
                         @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Past roleitions</label>
+        <div class="col-md-offset-2 col-md-10">
+            <table>
+                <tr>
+                 @{
+                        int cnt = 0;
+                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                        foreach (var r in roles)
+                        {
+                            if (cnt++ % 2 == 0)
+                            {
+                            @:</tr><tr>
+                          }
+                        @:<td>
+                            <input type="checkbox"
+                            name="selectedRoles"
+                            value="@r.RoleID"
+                            @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                            @r.RoleName
+                       @:</td>
+                      }
+                    @:</tr>
+                    }
+                </table>
+            </div>
+        </div>
 
 
 

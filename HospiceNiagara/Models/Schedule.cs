@@ -27,7 +27,7 @@ namespace HospiceNiagara.Models
         [DataType(DataType.DateTime)]
         public DateTime SchedEndDate { get; set; }
 
-        public virtual ICollection<ScheduleRole> ScheduleRoles { get; set; }
+        public virtual ICollection<RoleList> ScheduleRoles { get; set; }
 
 
     }

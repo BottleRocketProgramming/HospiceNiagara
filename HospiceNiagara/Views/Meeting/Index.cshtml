@@ -1,4 +1,4 @@
-﻿@model HospiceNiagara.Models.MeetingOrEvent
+﻿@model HospiceNiagara.Models.Meeting
 
 @{
     ViewBag.Title = "Index";
@@ -43,7 +43,7 @@
                         <th></th>
                     </tr>
 
-                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.MeetingOrEvent>)ViewData["Meeting"])
+                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
                     {
                         <tr>
                             <td>
