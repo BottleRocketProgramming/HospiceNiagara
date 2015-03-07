@@ -30,6 +30,8 @@ namespace HospiceNiagara.Models
 
         public virtual ICollection<IdentityUser> UserAnnouncements { get; set; }
 
+        public virtual ICollection<FileStorage> FileStorages { get; set; }
+
        
     }
 }

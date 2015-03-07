@@ -1,18 +1,16 @@
-﻿using System;
+﻿using HospiceNiagara.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace HospiceNiagara.Models
+namespace HospiceNiagara.ViewModels
 {
-    public class FileStorage
+    public class FileStorageVM
     {
         public int ID { get; set; }
-
-        [Required(ErrorMessage = "Please select a file to upload")]
-        public byte[] FileContent { get; set; }
-
+               
         [Required]
         [StringLength(256)]
         public string MimeType { get; set; }
@@ -23,7 +21,7 @@ namespace HospiceNiagara.Models
 
         [StringLength(100, ErrorMessage = "The file discription can not exceed 100 characters")]
         public string FileDescription { get; set; }
-               
+
         public int FileSortTypeID { get; set; }
 
         public virtual FileSortType FileSortType { get; set; }
@@ -35,8 +33,5 @@ namespace HospiceNiagara.Models
         public virtual ICollection<Announcement> Announcements { get; set; }
 
         public virtual ICollection<FileCat> FileCats { get; set; }
-
-
-
     }
 }

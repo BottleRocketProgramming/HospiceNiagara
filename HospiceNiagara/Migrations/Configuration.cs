@@ -3,13 +3,13 @@ namespace HospiceNiagara.Migrations
     using HospiceNiagara.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.Validation;
-using System.Linq;
-using System.Text;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
+    using System.Linq;
+    using System.Text;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
