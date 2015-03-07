@@ -27,6 +27,7 @@ using System.Text;
             if (!context.Roles.Any(r => r.Name == "Administrator"))
             {
                 var roleresult = roleManager.Create(new IdentityRole("Administrator"));
+                
             }
 
             if (!context.Roles.Any(r => r.Name == "Staff"))
@@ -369,7 +370,32 @@ using System.Text;
                 manager.Create(newvolunteeruser, "password");
                 manager.AddToRole(newvolunteeruser.Id, "New Volunteers");
             }
-            
+
+            var rs = new List<RoleList>
+            {
+                new RoleList { RoleName = "Community" },
+                new RoleList { RoleName = "New Board Members" },
+                new RoleList { RoleName = "Welcome Desk" },
+                new RoleList { RoleName = "Outreach" },
+                new RoleList { RoleName = "Non-Client Event" },
+                new RoleList { RoleName = "Community Relations Committee" },
+                new RoleList { RoleName = "New Volunteers" },
+                new RoleList { RoleName = "Admin" },
+                new RoleList { RoleName = "Day Hospice" },
+                new RoleList { RoleName = "Staff" },
+                new RoleList { RoleName = "Audit & Finance Committee" },
+                new RoleList { RoleName = "Bereavement" },
+                new RoleList { RoleName = "Board" },
+                new RoleList { RoleName = "New Staff" },
+                new RoleList { RoleName = "Administrator" },
+                new RoleList { RoleName = "Non-Client Admin" },
+                new RoleList { RoleName = "Operations & Quality Improvement Committee" },
+                new RoleList { RoleName = "Leadership" },
+                new RoleList { RoleName = "Residential" },
+                new RoleList { RoleName = "Volunteers" },
+            };
+            rs.ForEach(r => context.RoleLists.AddOrUpdate(rn => rn.RoleName, r));
+            context.SaveChanges();
 
             //  This method will be called after migrating to the latest version.
 

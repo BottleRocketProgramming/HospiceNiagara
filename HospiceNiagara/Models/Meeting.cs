@@ -6,7 +6,7 @@ using System.Web;
 
 namespace HospiceNiagara.Models
 {
-    public class MeetingOrEvent
+    public class Meeting
     {
         [Required]
         public int ID { get; set; }
@@ -37,7 +37,10 @@ namespace HospiceNiagara.Models
         [StringLength(510, ErrorMessage = "Event links can not exceed 510 characters")]
         public string EventLinks { get; set; }
 
-        public virtual ICollection<MeetingOrEventUserRole> MeetingOrEventUserRoles { get; set; }
+        public virtual ICollection<RoleList> MeetingOrEventUserRoles { get; set; }
+
+        public virtual ICollection<FileStorage> FileStores { get; set; }
+
 
 
 
