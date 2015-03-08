@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HospiceNiagara.Controllers
 {
@@ -17,11 +19,16 @@ namespace HospiceNiagara.Controllers
         // GET: Meeting
         public ActionResult Index(int? id)
         {
+            var meet = new Meeting();
+            meet.RolesLists = new List<RoleList>();
+            PopulateAssignedRoles(meet);
+            var mtt = db.Announcements.Include(a => a.RolesLists);
+
             ViewData["Meeting"] = db.Meetings.ToList();
             ViewData["MeetingID"] = id;
-            Meeting meetingOrEvent = db.Meetings.Find(id);
+            Meeting meeting = db.Meetings.Find(id);
 
-            return View(meetingOrEvent);
+            return View(meeting);
         }
 
         // GET: Meeting/Details/5
@@ -52,16 +59,34 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
-        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meetingOrEvent)
+        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Meetings.Add(meetingOrEvent);
-                db.SaveChanges();
-
+                if (selectedRoles != null)
+                {
+                    meeting.RolesLists = new List<RoleList>();
+                    foreach (var role in selectedRoles)
+                    {
+                        var roleToAdd = db.RoleLists.Find(int.Parse(role));
+                        meeting.RolesLists.Add(roleToAdd);
+                    }
+                }
+                if (ModelState.IsValid)
+                {
+                    db.Meetings.Add(meeting);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            PopulateAssignedRoles(meeting);
+            return View(meeting);
 
-            return RedirectToAction("Index");
+
         }
 
         // GET: Meeting/Edit/5
@@ -119,6 +144,24 @@ namespace HospiceNiagara.Controllers
             db.Meetings.Remove(meetingOrEvent);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void PopulateAssignedRoles(Meeting meeting)
+        {
+            var allRole = db.RoleLists;
+            var aRoles = new HashSet<int>(meeting.RolesLists.Select(r => r.ID));
+            var viewModel = new List<RoleVM>();
+            foreach (var roll in allRole)
+            {
+                viewModel.Add(new RoleVM
+                {
+                    RoleID = roll.ID,
+                    RoleName = roll.RoleName,
+                    RoleAssigned = aRoles.Contains(roll.ID)
+                });
+            }
+
+            ViewBag.RolesLists = viewModel;
         }
 
         protected override void Dispose(bool disposing)
