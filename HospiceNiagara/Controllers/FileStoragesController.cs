@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using System.IO;
+using HospiceNiagara.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 namespace HospiceNiagara.Controllers
 {
@@ -17,8 +20,60 @@ namespace HospiceNiagara.Controllers
         // GET: FileStorages
         public ActionResult Index()
         {
-            var fileStorages = db.FileStorages.Include(f => f.FileSortType);
-            return View(fileStorages.ToList());
+            var fileR = new FileStorage();
+            fileR.FileStoreUserRoles = new List<RoleList>();
+            PopulateAssignedRoles(fileR);
+            
+            var allFiles = db.FileStorages;
+            var viewModel = new List<FileStorageVM>();
+            foreach (var f in allFiles)
+            {
+                viewModel.Add(new FileStorageVM
+                            {
+                                ID = f.ID,
+                                FileName = f.FileName,
+                                MimeType = f.MimeType,
+                                FileDescription = f.FileDescription
+
+                            });
+            }
+                      
+            return View(viewModel.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Index(string fileDescription, string[] selectedRoles)
+        {
+            string mimeType = Request.Files[0].ContentType;
+            string fileName = Path.GetFileName(Request.Files[0].FileName);
+            int fileLenght = Request.Files[0].ContentLength;
+            if (!(fileName == "" || fileLenght == 0))
+            {
+                Stream fileStream = Request.Files[0].InputStream;
+                byte[] fileData = new byte[fileLenght];
+                fileStream.Read(fileData, 0, fileLenght);
+
+                FileStorage newFile = new FileStorage
+                {
+                    FileContent = fileData,
+                    MimeType = mimeType,
+                    FileName = fileName,
+                    FileDescription = fileDescription
+                };
+            if(selectedRoles != null)
+            {
+                newFile.FileStoreUserRoles = new List<RoleList>();
+                foreach(var r in selectedRoles)
+                {
+                    var roleToAdd = db.RoleLists.Find(int.Parse(r));
+                    newFile.FileStoreUserRoles.Add(roleToAdd);
+                }
+            }
+                db.FileStorages.Add(newFile);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: FileStorages/Details/5
@@ -36,31 +91,6 @@ namespace HospiceNiagara.Controllers
             return View(fileStorage);
         }
 
-        // GET: FileStorages/Create
-        public ActionResult Create()
-        {
-            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion");
-            return View();
-        }
-
-        // POST: FileStorages/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FileContent,MimeType,FileName,FileSortTypeID")] FileStorage fileStorage)
-        {
-            if (ModelState.IsValid)
-            {
-                db.FileStorages.Add(fileStorage);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion", fileStorage.FileSortTypeID);
-            return View(fileStorage);
-        }
-
         // GET: FileStorages/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -68,30 +98,51 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FileStorage fileStorage = db.FileStorages.Find(id);
+            FileStorage fileStorage = db.FileStorages.Include(r => r.FileStoreUserRoles).Where(i => i.ID == id).Single();
             if (fileStorage == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion", fileStorage.FileSortTypeID);
+
+            PopulateAssignedRoles(fileStorage);
             return View(fileStorage);
         }
 
         // POST: FileStorages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FileContent,MimeType,FileName,FileSortTypeID")] FileStorage fileStorage)
+        public ActionResult EditPost(int? id, string[] selectedRoles)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(fileStorage).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.FileSortTypeID = new SelectList(db.FileSortTypes, "ID", "FileSrtDefintion", fileStorage.FileSortTypeID);
-            return View(fileStorage);
+
+            var roleToUpdate = db.FileStorages.Include(a => a.FileStoreUserRoles).Where(i => i.ID == id).Single();
+
+            if (TryUpdateModel(roleToUpdate, "", new string[] { "ID", "MimeType", "FileName","FileDescription" }))
+            {
+                try
+                {
+                    UpdateFileStorageRoles(selectedRoles, roleToUpdate);
+
+                    if (ModelState.IsValid)
+                    {
+
+                        db.Entry(roleToUpdate).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }
+            }
+            PopulateAssignedRoles(roleToUpdate);
+            return View(roleToUpdate);
         }
 
         // GET: FileStorages/Delete/5
@@ -120,6 +171,53 @@ namespace HospiceNiagara.Controllers
             return RedirectToAction("Index");
         }
 
+        public void PopulateAssignedRoles(FileStorage fileStore)
+        {
+            var allRole = db.RoleLists;
+            var aRoles = new HashSet<int>(fileStore.FileStoreUserRoles.Select(r => r.ID));
+            var viewModel = new List<RoleVM>();
+            foreach (var roll in allRole)
+            {
+                viewModel.Add(new RoleVM
+                {
+                    RoleID = roll.ID,
+                    RoleName = roll.RoleName,
+                    RoleAssigned = aRoles.Contains(roll.ID)
+                });
+            }
+
+            ViewBag.RolesLists = viewModel;
+        }
+
+        private void UpdateFileStorageRoles(string[] selectedRoles, FileStorage FileToUpdate)
+        {
+            if (selectedRoles == null)
+            {
+                FileToUpdate.FileStoreUserRoles = new List<RoleList>();
+                return;
+            }
+
+            var selectedRolesHS = new HashSet<string>(selectedRoles);
+            var fileRoles = new HashSet<int>
+                (FileToUpdate.FileStoreUserRoles.Select(c => c.ID));//IDs of the currently selected roles
+            foreach (var rls in db.RoleLists)
+            {
+                if (selectedRolesHS.Contains(rls.ID.ToString()))
+                {
+                    if (!fileRoles.Contains(rls.ID))
+                    {
+                        FileToUpdate.FileStoreUserRoles.Add(rls);
+                    }
+                }
+                else
+                {
+                    if (fileRoles.Contains(rls.ID))
+                    {
+                        FileToUpdate.FileStoreUserRoles.Remove(rls);
+                    }
+                }
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
