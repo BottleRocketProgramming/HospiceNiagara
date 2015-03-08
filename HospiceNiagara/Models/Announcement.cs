@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 
+//Paul Boyko Feb 2015
+
 namespace HospiceNiagara.Models
 {
     public class Announcement

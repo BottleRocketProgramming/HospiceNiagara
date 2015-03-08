@@ -9,7 +9,9 @@ using System.Web.Mvc;
 using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Infrastructure;
 
+//Paul Boyko Feb 2015
 
 namespace HospiceNiagara.Controllers
 {
@@ -145,7 +147,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateDeathNotice")]
-        public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] DeathNotice deathNotice)
+        public ActionResult Create([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {
@@ -166,28 +168,51 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Announcement announcement = db.Announcements.Find(id);
+            Announcement announcement = db.Announcements.Include(r=>r.RolesLists).Where(i=>i.ID == id).Single();
             if (announcement == null)
             {
                 return HttpNotFound();
             }
+            PopulateAssignedRoles(announcement);
             return View(announcement);
         }
 
         // POST: Announcement/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AnnounceText,AnnounceEndDate")] Announcement announcement)
+        public ActionResult EditPost(int? id, string[] selectedRoles)
         {
-            if (ModelState.IsValid)
+            if(id == null)
             {
-                db.Entry(announcement).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(announcement);
+
+            var roleToUpdate = db.Announcements.Include(a => a.RolesLists).Where(i => i.ID == id).Single();
+
+            if (TryUpdateModel(roleToUpdate, "", new string[] { "ID", "AnnounceText", "AnnounceEndDate", "IsEvent" }))
+            {
+                try
+                {
+                    UpdateAnnouncementRoles(selectedRoles, roleToUpdate);
+
+                    if (ModelState.IsValid)
+                    {
+
+                        db.Entry(roleToUpdate).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }                   
+                }
+                catch(RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }               
+            }
+            PopulateAssignedRoles(roleToUpdate);
+            return View(roleToUpdate);
+           
         }
 
         // GET: Announcement/Delete/5

@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+//Paul Boyko Feb 2015
+
 namespace HospiceNiagara.Models
 {
     public class FileStorage
@@ -24,7 +26,7 @@ namespace HospiceNiagara.Models
         [StringLength(100, ErrorMessage = "The file discription can not exceed 100 characters")]
         public string FileDescription { get; set; }
                
-        public int FileSortTypeID { get; set; }
+        //public int FileSortTypeID { get; set; }
 
         public virtual FileSortType FileSortType { get; set; }
 
@@ -35,8 +37,6 @@ namespace HospiceNiagara.Models
         public virtual ICollection<Announcement> Announcements { get; set; }
 
         public virtual ICollection<FileCat> FileCats { get; set; }
-
-
-
     }
+
 }

@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\FileStoragesController.cs" />
+    <Compile Include="Controllers\FileStoragesControllerBackUp.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -174,13 +175,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503060032088_1st.cs" />
-    <Compile Include="Migrations\201503060032088_1st.Designer.cs">
-      <DependentUpon>201503060032088_1st.cs</DependentUpon>
+    <Compile Include="Migrations\201503072223305_1st.cs" />
+    <Compile Include="Migrations\201503072223305_1st.Designer.cs">
+      <DependentUpon>201503072223305_1st.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503070222168_2nd.cs" />
-    <Compile Include="Migrations\201503070222168_2nd.Designer.cs">
-      <DependentUpon>201503070222168_2nd.cs</DependentUpon>
+    <Compile Include="Migrations\201503072331560_2nd.cs" />
+    <Compile Include="Migrations\201503072331560_2nd.Designer.cs">
+      <DependentUpon>201503072331560_2nd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503080124471_3rd.cs" />
+    <Compile Include="Migrations\201503080124471_3rd.Designer.cs">
+      <DependentUpon>201503080124471_3rd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503080337033_4th.cs" />
+    <Compile Include="Migrations\201503080337033_4th.Designer.cs">
+      <DependentUpon>201503080337033_4th.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -300,6 +309,10 @@
     <Content Include="Views\Resource\View.cshtml" />
     <Content Include="Views\Meeting\View.cshtml" />
     <Content Include="Views\Meeting\View1.cshtml" />
+    <Content Include="Views\FileStorages\Delete.cshtml" />
+    <Content Include="Views\FileStorages\Details.cshtml" />
+    <Content Include="Views\FileStorages\Edit.cshtml" />
+    <Content Include="Views\FileStorages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -311,14 +324,19 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Resources\" />
-    <Folder Include="Views\FileStorages\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503060032088_1st.resx">
-      <DependentUpon>201503060032088_1st.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503072223305_1st.resx">
+      <DependentUpon>201503072223305_1st.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503070222168_2nd.resx">
-      <DependentUpon>201503070222168_2nd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503072331560_2nd.resx">
+      <DependentUpon>201503072331560_2nd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503080124471_3rd.resx">
+      <DependentUpon>201503080124471_3rd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503080337033_4th.resx">
+      <DependentUpon>201503080337033_4th.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

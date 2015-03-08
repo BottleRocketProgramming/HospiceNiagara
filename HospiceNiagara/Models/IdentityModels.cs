@@ -60,5 +60,7 @@ namespace HospiceNiagara.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
         }
+
+        
     }
 }
