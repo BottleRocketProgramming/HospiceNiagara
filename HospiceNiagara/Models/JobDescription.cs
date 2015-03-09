@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,6 +22,6 @@ namespace HospiceNiagara.Models
         [StringLength(510, ErrorMessage = "Job  description can not exceed 510 characters")]
         public string JobDescpt { get; set; }
 
-
+        public virtual ICollection<ApplicationUser> IdentityUsers { get; set; }
     }
 }
