@@ -54,11 +54,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FileName)
-        </th>       
-        @*<th>
-            @Html.DisplayNameFor(model => model.FileContent)
-        </th>*@
-       
+        </th>        
         
         <th></th>
     </tr>
@@ -74,9 +70,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.FileName)
         </td>
-       @*<td>
-            @Html.DisplayFor(modelItem => item.FileContent)
-        </td>*@       
        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
