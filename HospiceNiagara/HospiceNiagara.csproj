@@ -306,12 +306,13 @@
     <Content Include="Views\Announcement\Details.cshtml" />
     <Content Include="Views\Announcement\Edit.cshtml" />
     <Content Include="Views\Resource\View.cshtml" />
-    <Content Include="Views\Meeting\View.cshtml" />
-    <Content Include="Views\Meeting\View1.cshtml" />
     <Content Include="Views\FileStorages\Delete.cshtml" />
     <Content Include="Views\FileStorages\Details.cshtml" />
     <Content Include="Views\FileStorages\Edit.cshtml" />
     <Content Include="Views\FileStorages\Index.cshtml" />
+    <Content Include="Views\Meeting\Delete.cshtml" />
+    <Content Include="Views\Meeting\Details.cshtml" />
+    <Content Include="Views\Meeting\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
