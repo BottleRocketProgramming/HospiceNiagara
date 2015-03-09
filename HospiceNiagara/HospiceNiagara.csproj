@@ -163,7 +163,6 @@
     <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\FileStoragesController.cs" />
-    <Compile Include="Controllers\FileStoragesControllerBackUp.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
