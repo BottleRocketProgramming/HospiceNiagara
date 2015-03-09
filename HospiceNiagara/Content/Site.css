@@ -58,18 +58,18 @@ textarea {
     padding-top: 85px;
 }
 
-/*Extends the footer across the whole width*/
+/*Puts a line on the top of footer*/
 .footer {
-    border-top: 1px solid #000000;
-    position: absolute;
+    border-top: 1px solid #808080;
+    /*position: absolute;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 100%;*/
 }
 
 /*background image*/
 .footer {
-    background-color: #ebebeb;
+    /*background-color: #ebebeb;*/
     background-image: url(../Resources/Stabler-Centre---White.png);
 }
 
