@@ -24,6 +24,11 @@ namespace HospiceNiagara.ViewModels
         [StringLength(100, ErrorMessage = "The file discription can not exceed 100 characters")]
         public string FileDescription { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FileUploadDate { get; set; }
+
         //public int FileSortTypeID { get; set; }
 
         public virtual FileSortType FileSortType { get; set; }
