@@ -170,6 +170,7 @@
     <Compile Include="Controllers\OnAction.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\testApplicationUsersController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -204,7 +205,6 @@
     <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\RoleList.cs" />
     <Compile Include="Models\Schedule.cs" />
-    <Compile Include="Models\UserJobDesc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FileStorageVM.cs" />
@@ -313,6 +313,11 @@
     <Content Include="Views\Meeting\Delete.cshtml" />
     <Content Include="Views\Meeting\Details.cshtml" />
     <Content Include="Views\Meeting\Edit.cshtml" />
+    <Content Include="Views\testApplicationUsers\Create.cshtml" />
+    <Content Include="Views\testApplicationUsers\Delete.cshtml" />
+    <Content Include="Views\testApplicationUsers\Details.cshtml" />
+    <Content Include="Views\testApplicationUsers\Edit.cshtml" />
+    <Content Include="Views\testApplicationUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -23,8 +23,8 @@ namespace HospiceNiagara.Models
         public string UserMName { get; set; }
         public string UserLName { get; set; }
         public DateTime? UserDOB { get; set; }
-        public string UserAddress { get; set; }       
-        public virtual ICollection<UserJobDesc> UserJobDescs { get; set; }
+        public string UserAddress { get; set; }
+        public virtual ICollection<JobDescription> JobDescriptions { get; set; }
         public virtual ICollection<Announcement> UserAnnouncements { get; set; }
 
 
@@ -49,7 +49,6 @@ namespace HospiceNiagara.Models
         public DbSet<FileSortType> FileSortTypes { get; set; }
         public DbSet<JobDescription> JobDescriptions { get; set; }
         public DbSet<Meeting> Meetings { get; set; }      
-        public DbSet<UserJobDesc> UserJobDesc { get; set; }
         public DbSet<RoleList> RoleLists { get; set; }
         
         
@@ -60,6 +59,8 @@ namespace HospiceNiagara.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
         }
+
+        //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> IdentityUsers { get; set; }
 
         
     }
