@@ -10,6 +10,8 @@ using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 
+//Andreas King March 2015
+
 namespace HospiceNiagara.Controllers
 {
     public class MeetingController : Controller
