@@ -140,14 +140,15 @@
 
                 <table class="table table-striped table-bordered" style="width:100%;">
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FileSortType.FileSrtDefintion)
-                        </th>
+                        
                         <th>
                             @Html.DisplayNameFor(model => model.FileDescription)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.FileName)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.FileUploadDate)
                         </th>
 
                         <th></th>
@@ -156,14 +157,15 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FileSortType.FileSrtDefintion)
-                            </td>
+                            
                             <td>
                                 @Html.DisplayFor(modelItem => item.FileDescription)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.FileName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileUploadDate)
                             </td>
 
                             <td>

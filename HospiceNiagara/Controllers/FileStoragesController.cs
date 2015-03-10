@@ -35,7 +35,8 @@ namespace HospiceNiagara.Controllers
                                 ID = f.ID,
                                 FileName = f.FileName,
                                 MimeType = f.MimeType,
-                                FileDescription = f.FileDescription
+                                FileDescription = f.FileDescription,
+                                FileUploadDate = f.FileUploadDate
 
                             });
             }
@@ -46,6 +47,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         public ActionResult Index(string fileDescription, string[] selectedRoles)
         {
+            DateTime uploadDate = DateTime.Now;
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
             int fileLenght = Request.Files[0].ContentLength;
@@ -60,7 +62,8 @@ namespace HospiceNiagara.Controllers
                     FileContent = fileData,
                     MimeType = mimeType,
                     FileName = fileName,
-                    FileDescription = fileDescription
+                    FileDescription = fileDescription,
+                    FileUploadDate = uploadDate
                 };
             if(selectedRoles != null)
             {
