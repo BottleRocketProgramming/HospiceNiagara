@@ -191,9 +191,9 @@
     <Compile Include="Migrations\201503080337033_4th.Designer.cs">
       <DependentUpon>201503080337033_4th.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503100345534_uploadDate.cs" />
-    <Compile Include="Migrations\201503100345534_uploadDate.Designer.cs">
-      <DependentUpon>201503100345534_uploadDate.cs</DependentUpon>
+    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.cs" />
+    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.Designer.cs">
+      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -212,6 +212,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FileStorageVM.cs" />
+    <Compile Include="ViewModels\JobDescVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +323,7 @@
     <Content Include="Views\testApplicationUsers\Details.cshtml" />
     <Content Include="Views\testApplicationUsers\Edit.cshtml" />
     <Content Include="Views\testApplicationUsers\Index.cshtml" />
+    <Content Include="Views\Contact\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -347,8 +349,8 @@
     <EmbeddedResource Include="Migrations\201503080337033_4th.resx">
       <DependentUpon>201503080337033_4th.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503100345534_uploadDate.resx">
-      <DependentUpon>201503100345534_uploadDate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503100341339_withBoardContactJobDesc.resx">
+      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
