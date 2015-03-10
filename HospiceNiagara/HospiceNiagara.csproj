@@ -319,6 +319,7 @@
     <Content Include="Views\testApplicationUsers\Details.cshtml" />
     <Content Include="Views\testApplicationUsers\Edit.cshtml" />
     <Content Include="Views\testApplicationUsers\Index.cshtml" />
+    <Content Include="Views\Contact\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
