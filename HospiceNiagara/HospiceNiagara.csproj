@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201503080337033_4th.Designer.cs">
       <DependentUpon>201503080337033_4th.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.cs" />
+    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.Designer.cs">
+      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -344,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503080337033_4th.resx">
       <DependentUpon>201503080337033_4th.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503100341339_withBoardContactJobDesc.resx">
+      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

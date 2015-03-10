@@ -40,5 +40,7 @@ namespace HospiceNiagara.Models
 
         [StringLength(100, ErrorMessage = "Board Member's partner's name can not exceed 100 characters")]
         public string BoardContPartnerName { get; set; }
+
+        public virtual ICollection<JobDescription> JobDescriptions { get; set; }
     }
 }

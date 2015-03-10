@@ -23,5 +23,7 @@ namespace HospiceNiagara.Models
         public string JobDescpt { get; set; }
 
         public virtual ICollection<ApplicationUser> IdentityUsers { get; set; }
+
+        public virtual ICollection<BoardContact> BoardContacts { get; set; }
     }
 }
