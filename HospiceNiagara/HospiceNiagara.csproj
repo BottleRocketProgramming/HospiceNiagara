@@ -162,9 +162,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
-    <Compile Include="Controllers\FileCatsController.cs" />
     <Compile Include="Controllers\FileStoragesController.cs" />
-    <Compile Include="Controllers\FileSubCatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -201,10 +199,6 @@
     <Compile Include="Migrations\201503100351074_uploadDate.Designer.cs">
       <DependentUpon>201503100351074_uploadDate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503101346521_fileCatANDSubCat.cs" />
-    <Compile Include="Migrations\201503101346521_fileCatANDSubCat.Designer.cs">
-      <DependentUpon>201503101346521_fileCatANDSubCat.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -213,7 +207,6 @@
     <Compile Include="Models\FileCat.cs" />
     <Compile Include="Models\FileSortType.cs" />
     <Compile Include="Models\FileStorage.cs" />
-    <Compile Include="Models\FileSubCat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -335,16 +328,10 @@
     <Content Include="Views\testApplicationUsers\Edit.cshtml" />
     <Content Include="Views\testApplicationUsers\Index.cshtml" />
     <Content Include="Views\Contact\List.cshtml" />
-    <Content Include="Views\FileCats\Create.cshtml" />
-    <Content Include="Views\FileCats\Delete.cshtml" />
-    <Content Include="Views\FileCats\Details.cshtml" />
-    <Content Include="Views\FileCats\Edit.cshtml" />
-    <Content Include="Views\FileCats\Index.cshtml" />
-    <Content Include="Views\FileSubCats\Create.cshtml" />
-    <Content Include="Views\FileSubCats\Delete.cshtml" />
-    <Content Include="Views\FileSubCats\Details.cshtml" />
-    <Content Include="Views\FileSubCats\Edit.cshtml" />
-    <Content Include="Views\FileSubCats\Index.cshtml" />
+    <Content Include="Views\Contact\Create.cshtml" />
+    <Content Include="Views\Contact\Edit.cshtml" />
+    <Content Include="Views\Contact\Details.cshtml" />
+    <Content Include="Views\Contact\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -375,9 +362,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503100351074_uploadDate.resx">
       <DependentUpon>201503100351074_uploadDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503101346521_fileCatANDSubCat.resx">
-      <DependentUpon>201503101346521_fileCatANDSubCat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

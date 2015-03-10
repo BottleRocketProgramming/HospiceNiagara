@@ -1,0 +1,82 @@
+﻿@model HospiceNiagara.Models.BoardContact
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BoardContact</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContPosition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContPosition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContHomeAddy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContHomeAddy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContWorkAddy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContWorkAddy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContHomePhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContHomePhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContWorkPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContWorkPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContCellPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContCellPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContFaxNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContFaxNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardContPartnerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardContPartnerName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -7,12 +7,11 @@
 <div class="col-sm-8">
     <div class="panel panel-success ">
         <div class="panel-heading">
-            Contacts
+            <span id="ContactsTitle">Contacts</span>
+            <span id="newContactTitle" hidden>New Contact</span>
+            <div id="glyphAddContact" class="glyphicon glyphicon-plus pull-right"></div>
         </div>
-        <div class="panel-body">
-            <div class="panel-body-toolbar form-inline">
-                <input class="form-control" id="txtSearchByName" type="text" placeholder="Search" />
-            </div>
+        <div class="panel-body" id="ContactPanel">
             <table class="table table-striped table-bordered" style="width:100%;">
                 <tr>
                     <th>
@@ -78,6 +77,126 @@
                 }
             </table>
         </div>
+
+        @* New Contact Body *@
+        <div class="panel-body" id="NewContact" hidden>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>BoardContact</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContPosition, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContPosition, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContPosition, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContHomeAddy, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContHomeAddy, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContHomeAddy, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContWorkAddy, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContWorkAddy, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContWorkAddy, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContHomePhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContHomePhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContHomePhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContWorkPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContWorkPhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContWorkPhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContCellPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContCellPhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContCellPhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContFaxNum, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContFaxNum, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContFaxNum, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BoardContPartnerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BoardContPartnerName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BoardContPartnerName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Job Descriptions</label>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>
+                                        Job Name
+                                    </th>
+                                    <th>
+                                        Job Description
+                                    </th>
+                                    <th>
+                                        Select
+                                    </th>
+                                </tr>
+                                <tr>
+                                    @{
+                                        List<HospiceNiagara.ViewModels.JobDescVM> jobs = ViewBag.JobDescriptions;
+                                        foreach (var j in jobs)
+                                        {
+                                             @:<td>
+                                                    @j.JobName
+                                             @:</td>
+                                             @:<td>
+                                                    @j.JobDesc
+                                             @:</td>
+                                              @:<td>
+                                                    <input type="checkbox" name="selectedRoles" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
+                                             @:</td>
+                                        }
+                                    @:</tr>
+                                    }
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" name="CreateContact" class="btn btn-default" />
+                            @Html.ActionLink("Cancel", "Index")
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
 
@@ -107,10 +226,12 @@
 
 <script>
     $(document).ready(function () {
-        $('#glyphJobInfo').on('click', function () {
-            $('#panelPositionDesc').slideToggle();
+        $('#glyphAddContact').on('click', function () {
+            $('#ContactsTitle').slideToggle();
+            $('#ContactPanel').slideToggle();
+            $('#NewContact').slideToggle();
+            $('#newContactTitle').slideToggle();
+            $('#glyphAddContact').fadeToggle();
         });
-
-
     });
 </script>

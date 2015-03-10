@@ -25,7 +25,7 @@ namespace HospiceNiagara.Controllers
             var meet = new Meeting();
             meet.RolesLists = new List<RoleList>();
             PopulateAssignedRoles(meet);
-            var mtt = db.Announcements.Include(a => a.RolesLists);
+            var mtt = db.Meetings.Include(a => a.RolesLists);
 
             ViewData["Meeting"] = db.Meetings.ToList();
             ViewData["MeetingID"] = id;

@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Infrastructure;
 
 //Andreas King March 2015
 
@@ -19,6 +22,11 @@ namespace HospiceNiagara.Controllers
         // GET: Contact
         public ActionResult Index(int? id)
         {
+            var cont = new BoardContact();
+            cont.JobDescriptions = new List<JobDescription>();
+            PopulateJobDescriptions(cont);
+            var ctt = db.BoardContacts.Include(a => a.JobDescriptions);
+
             ViewData["Contact"] = db.BoardContacts.ToList();
             ViewData["ContactID"] = id;
             BoardContact contact = db.BoardContacts.Find(id);
@@ -52,17 +60,52 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,BoardContPosition,BoardContHomeAddy,BoardContWorkAddy,BoardContHomePhone,BoardContWorkPhone,BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardContact)
+        [ActionName("Index")]
+        [OnAction(ButtonName = "CreateContact")]
+        public ActionResult Create([Bind(Include = "ID,BoardContPosition,BoardContHomeAddy,BoardContWorkAddy,BoardContHomePhone,BoardContWorkPhone,BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardContact, string[] selectedJobs)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.BoardContacts.Add(boardContact);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (selectedJobs != null)
+                {
+                    boardContact.JobDescriptions = new List<JobDescription>();
+                    foreach (var job in selectedJobs)
+                    {
+                        var jobToAdd = db.JobDescriptions.Find(int.Parse(job));
+                        boardContact.JobDescriptions.Add(jobToAdd);
+                    }
+                }
+                if (ModelState.IsValid)
+                {
+                    db.BoardContacts.Add(boardContact);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            PopulateJobDescriptions(boardContact);
             return View(boardContact);
+
+
         }
+
+        //Original Create
+
+        //public ActionResult Create([Bind(Include = "ID,BoardContPosition,BoardContHomeAddy,BoardContWorkAddy,BoardContHomePhone,BoardContWorkPhone,BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardContact)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.BoardContacts.Add(boardContact);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(boardContact);
+        //}
+
 
         // GET: Contact/Edit/5
         public ActionResult Edit(int? id)
@@ -71,11 +114,12 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BoardContact boardContact = db.BoardContacts.Find(id);
+            BoardContact boardContact = db.BoardContacts.Include(j => j.JobDescriptions).Where(i => i.ID == id).Single();
             if (boardContact == null)
             {
                 return HttpNotFound();
             }
+            PopulateJobDescriptions(boardContact);
             return View(boardContact);
         }
 
@@ -84,15 +128,37 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,BoardContPosition,BoardContHomeAddy,BoardContWorkAddy,BoardContHomePhone,BoardContWorkPhone,BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardContact)
+        public ActionResult Edit(int? id, string[] selectedJobs)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(boardContact).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(boardContact);
+
+            var jobToUpdate = db.BoardContacts.Include(a => a.JobDescriptions).Where(i => i.ID == id).Single();
+
+            if (TryUpdateModel(jobToUpdate, "", new string[] { "ID" , "BoardContPosition" , "BoardContHomeAddy" , "BoardContWorkAddy" , "BoardContHomePhone" , "BoardContWorkPhone" , "BoardContCellPhone" , "BoardContFaxNum" , "BoardContPartnerName" }))
+            {
+                try
+                {
+                    UpdateJobDescriptions(selectedJobs, jobToUpdate);
+
+                    if (ModelState.IsValid)
+                    {
+
+                        db.Entry(jobToUpdate).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }
+            }
+            PopulateJobDescriptions(jobToUpdate);
+            return View(jobToUpdate);
+
         }
 
         // GET: Contact/Delete/5
@@ -119,6 +185,55 @@ namespace HospiceNiagara.Controllers
             db.BoardContacts.Remove(boardContact);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void PopulateJobDescriptions(BoardContact contact)
+        {
+            var jobDescriptions = db.JobDescriptions;
+            var aJobs = new HashSet<int>(contact.JobDescriptions.Select(r => r.ID));
+            var viewModel = new List<JobDescVM>();
+            foreach (var job in jobDescriptions)
+            {
+                viewModel.Add(new JobDescVM
+                {
+                    JobID = job.ID,
+                    JobName = job.JobTitle,
+                    JobDesc = job.JobDescpt,
+                    JobAssigned = aJobs.Contains(job.ID)
+                });
+            }
+
+            ViewBag.JobDescriptions = viewModel;
+        }
+
+        private void UpdateJobDescriptions(string[] SelectedJob, BoardContact ContactToUpdate)
+        {
+            if (SelectedJob == null)
+            {
+                ContactToUpdate.JobDescriptions = new List<JobDescription>();
+                return;
+            }
+
+            var selectedJobsHS = new HashSet<string>(SelectedJob);
+            var meetingJobs = new HashSet<int>
+                (ContactToUpdate.JobDescriptions.Select(c => c.ID));
+            foreach (var jobs in db.JobDescriptions)
+            {
+                if (selectedJobsHS.Contains(jobs.ID.ToString()))
+                {
+                    if (!meetingJobs.Contains(jobs.ID))
+                    {
+                        ContactToUpdate.JobDescriptions.Add(jobs);
+                    }
+                }
+                else
+                {
+                    if (meetingJobs.Contains(jobs.ID))
+                    {
+                        ContactToUpdate.JobDescriptions.Remove(jobs);
+                    }
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)
