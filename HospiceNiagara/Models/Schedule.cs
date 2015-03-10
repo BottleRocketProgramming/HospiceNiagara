@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+//Paul Boyko Feb 2015
+
 namespace HospiceNiagara.Models
 {
     public class Schedule
@@ -27,7 +29,7 @@ namespace HospiceNiagara.Models
         [DataType(DataType.DateTime)]
         public DateTime SchedEndDate { get; set; }
 
-        public virtual ICollection<ScheduleRole> ScheduleRoles { get; set; }
+        public virtual ICollection<RoleList> ScheduleRoles { get; set; }
 
 
     }

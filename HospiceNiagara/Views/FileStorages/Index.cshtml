@@ -1,0 +1,82 @@
+﻿@model IEnumerable<HospiceNiagara.ViewModels.FileStorageVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p><div class="col-md-10">
+    @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <label for="fileDescription">Description</label><input type="text" name="fileDescription" /><br />
+        <input type="file" name="FileUpload" /><br />
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Select Roles</label>
+        <div class="col-md-offset-2 col-md-10">
+            <table>
+                <tr>
+                    @{
+                        int cnt = 0;
+                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                        foreach (var r in roles)
+                        {
+                            if (cnt++ % 2 == 0)
+                            {
+                            @:</tr><tr>
+                            }
+                            @:<td>
+                                  <input type="checkbox"
+                                   name="selectedRoles"
+                                   value="@r.RoleID"
+                                   @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                   @r.RoleName
+                           @:</td>
+                           }
+                           @:</tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+        <input type="submit" name="Submit" value="Upload" />
+    }
+</div>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FileSortType.FileSrtDefintion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>        
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileSortType.FileSrtDefintion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
+
+//Paul Boyko Feb 2015
 
 namespace HospiceNiagara.Models
 {
@@ -24,8 +28,12 @@ namespace HospiceNiagara.Models
         [Required]
         public bool IsEvent { get; set; }
 
-        public virtual ICollection<AnnouncementUserRole> AnnouncementUserRoles { get; set; }
+        public virtual ICollection<RoleList> RolesLists { get; set; }
 
-        public virtual ICollection<UserAnnouncement> UserAnnouncements { get; set; }
+        public virtual ICollection<IdentityUser> UserAnnouncements { get; set; }
+
+        public virtual ICollection<FileStorage> FileStorages { get; set; }
+
+       
     }
 }

@@ -24,9 +24,8 @@ namespace HospiceNiagara.Models
         public string UserLName { get; set; }
         public DateTime? UserDOB { get; set; }
         public string UserAddress { get; set; }
-        public virtual ICollection<UserEventRSVP> UserEventRSVPs { get; set; }
-        public virtual ICollection<UserJobDesc> UserJobDescs { get; set; }
-        public virtual ICollection<UserAnnouncement> UserAnnouncements { get; set; }
+        public virtual ICollection<JobDescription> JobDescriptions { get; set; }
+        public virtual ICollection<Announcement> UserAnnouncements { get; set; }
 
 
     }
@@ -43,18 +42,15 @@ namespace HospiceNiagara.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Announcement> Announcements { get; set; }
-        public DbSet<AnnouncementUserRole> AnnouncementUserRoles { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }     
         public DbSet<BoardContact> BoardContacts { get; set; }
         public DbSet<DeathNotice> DeathNotices { get; set; }
-        public DbSet<FileStorage> FileStorages { get; set; }
-        public DbSet<FileStoreUserRole> FileStoreUserRoles { get; set; }
+        public DbSet<FileStorage> FileStorages { get; set; }       
         public DbSet<FileSortType> FileSortTypes { get; set; }
         public DbSet<JobDescription> JobDescriptions { get; set; }
-        public DbSet<MeetingOrEvent> MeetingOrEvents { get; set; }
-        public DbSet<MeetingOrEventUserRole> MeetingOrEventUserRoles { get; set; }
-        public DbSet<UserEventRSVP> UserEventRSVPs { get; set; }
-        public DbSet<UserJobDesc> UserJobDesc { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }      
+        public DbSet<RoleList> RoleLists { get; set; }
+        
         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -63,5 +59,9 @@ namespace HospiceNiagara.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
         }
+
+        //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> IdentityUsers { get; set; }
+
+        
     }
 }
