@@ -12,5 +12,6 @@ namespace HospiceNiagara.ViewModels
         public int JobID { get; set; }
         public string JobName { get; set; }
         public string JobDesc { get; set; }
+        public bool JobAssigned { get; set; }
     }
 }
