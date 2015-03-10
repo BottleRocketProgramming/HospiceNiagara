@@ -207,6 +207,7 @@
     <Compile Include="Models\FileCat.cs" />
     <Compile Include="Models\FileSortType.cs" />
     <Compile Include="Models\FileStorage.cs" />
+    <Compile Include="Models\FileSubCat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
