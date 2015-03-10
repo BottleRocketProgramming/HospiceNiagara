@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Infrastructure;
+
+//Andreas King March 2015
 
 namespace HospiceNiagara.Controllers
 {
@@ -22,7 +25,7 @@ namespace HospiceNiagara.Controllers
             var meet = new Meeting();
             meet.RolesLists = new List<RoleList>();
             PopulateAssignedRoles(meet);
-            var mtt = db.Announcements.Include(a => a.RolesLists);
+            var mtt = db.Meetings.Include(a => a.RolesLists);
 
             ViewData["Meeting"] = db.Meetings.ToList();
             ViewData["MeetingID"] = id;
@@ -38,12 +41,12 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Meeting meetingOrEvent = db.Meetings.Find(id);
-            if (meetingOrEvent == null)
+            Meeting meeting = db.Meetings.Find(id);
+            if (meeting == null)
             {
                 return HttpNotFound();
             }
-            return View(meetingOrEvent);
+            return View(meeting);
         }
 
         // GET: Meeting/Create
@@ -96,12 +99,13 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Meeting meetingOrEvent = db.Meetings.Find(id);
-            if (meetingOrEvent == null)
+            Meeting meeting = db.Meetings.Include(r => r.RolesLists).Where(i => i.ID == id).Single();
+            if (meeting == null)
             {
                 return HttpNotFound();
             }
-            return View(meetingOrEvent);
+            PopulateAssignedRoles(meeting);
+            return View(meeting);
         }
 
         // POST: Meeting/Edit/5
@@ -109,15 +113,37 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meetingOrEvent)
+        public ActionResult Edit(int? id, string[] selectedRoles)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(meetingOrEvent).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(meetingOrEvent);
+
+            var roleToUpdate = db.Meetings.Include(a => a.RolesLists).Where(i => i.ID == id).Single();
+
+            if (TryUpdateModel(roleToUpdate, "", new string[] { "ID" , "EventTitle" , "EventDiscription" , "EventLocation" , "EventStart" , "EventEnd" , "EventRequirments" , "EventLinks" }))
+            {
+                try
+                {
+                    UpdateMeetingRoles(selectedRoles, roleToUpdate);
+
+                    if (ModelState.IsValid)
+                    {
+
+                        db.Entry(roleToUpdate).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }
+            }
+            PopulateAssignedRoles(roleToUpdate);
+            return View(roleToUpdate);
+
         }
 
         // GET: Meeting/Delete/5
@@ -127,12 +153,12 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Meeting meetingOrEvent = db.Meetings.Find(id);
-            if (meetingOrEvent == null)
+            Meeting meeting = db.Meetings.Find(id);
+            if (meeting == null)
             {
                 return HttpNotFound();
             }
-            return View(meetingOrEvent);
+            return View(meeting);
         }
 
         // POST: Meeting/Delete/5
@@ -140,8 +166,8 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Meeting meetingOrEvent = db.Meetings.Find(id);
-            db.Meetings.Remove(meetingOrEvent);
+            Meeting meeting = db.Meetings.Find(id);
+            db.Meetings.Remove(meeting);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -162,6 +188,36 @@ namespace HospiceNiagara.Controllers
             }
 
             ViewBag.RolesLists = viewModel;
+        }
+
+        private void UpdateMeetingRoles(string[] selectedRoles, Meeting MeetingToUpdate)
+        {
+            if (selectedRoles == null)
+            {
+                MeetingToUpdate.RolesLists = new List<RoleList>();
+                return;
+            }
+
+            var selectedRolesHS = new HashSet<string>(selectedRoles);
+            var meetingRoles = new HashSet<int>
+                (MeetingToUpdate.RolesLists.Select(c => c.ID));
+            foreach (var rls in db.RoleLists)
+            {
+                if (selectedRolesHS.Contains(rls.ID.ToString()))
+                {
+                    if (!meetingRoles.Contains(rls.ID))
+                    {
+                        MeetingToUpdate.RolesLists.Add(rls);
+                    }
+                }
+                else
+                {
+                    if (meetingRoles.Contains(rls.ID))
+                    {
+                        MeetingToUpdate.RolesLists.Remove(rls);
+                    }
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)

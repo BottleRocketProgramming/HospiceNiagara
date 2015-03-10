@@ -4,79 +4,292 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container">
 
-<p><div class="col-md-10">
-    @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <label for="fileDescription">Description</label><input type="text" name="fileDescription" /><br />
-        <input type="file" name="FileUpload" /><br />
+    <div class="col-sm-4">
+        <div class="panel panel-success ">
+            <div class="panel-heading">
+                Organization
+            </div>
+            <div id="organizationContent" class="panel-body">
+                <ul class="Organization-Index">
+                    <li>@Html.ActionLink("Forms", "Forms", "Resource")</li>
+                    <li>@Html.ActionLink("Strategic Plan", "StrategicPlan", "Resource")</li>
+                    <li>@Html.ActionLink("Quality Improvement Plan", "QualityImprovementPlan", "Resource")</li>
+                    <li>@Html.ActionLink("Memos", "Memos", "Resource")</li>
+                    <li>@Html.ActionLink("Events", "Events", "Resource")</li>
+                    <li>@Html.ActionLink("Hospice Niagara Related Links", "RelatedLinks", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2">Select Roles</label>
-        <div class="col-md-offset-2 col-md-10">
-            <table>
-                <tr>
-                    @{
+    <div class="col-sm-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Staff
+            </div>
+            <div id="staffContent" class="panel-body">
+                <ul class="Staff-Index">
+                    <li>@Html.ActionLink("Operational Policies", "Staff_OperationalPolicies", "Resource")</li>
+                    <li>@Html.ActionLink("Orientation Documents", "Staff_OrientationDocuments", "Resource")</li>
+                    <li>@Html.ActionLink("Memos", "Memos", "Resource")</li>
+                    <li>@Html.ActionLink("Staff Meeting Minutes", "Staff_StaffMeetingMinutes", "Resource")</li>
+                    <li>@Html.ActionLink("Emergency Call Chart", "Staff_EmergencyCallChart", "Resource")</li>
+                    <li>@Html.ActionLink("Staff Related Links", "Staff_RelatedLinks", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Board
+            </div>
+            <div id="boardContent" class="panel-body">
+                <ul class="Board-Index">
+                    <li>@Html.ActionLink("Board Minutes", "Board_BoardMinutes", "Resource")</li>
+                    <li>@Html.ActionLink("Board Packages", "Board_BoardPackages", "Resource")</li>
+                    <li>@Html.ActionLink("Board Orientation Documents", "Board_BoardOrientationDocuments", "Resource")</li>
+                    <li>@Html.ActionLink("Board Contacts List", "Board_BoardContactsList", "Resource")</li>
+                    <li>@Html.ActionLink("Governance Policies", "Board_GovernancePolicies", "Resource")</li>
+                    <li>@Html.ActionLink("Audited Financials", "Board_AuditedFinancials", "Resource")</li>
+                    <li>@Html.ActionLink("Audit and Finance Committee", "Board_AuditandFinanceCommittee", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Volunteer
+            </div>
+            <div id="volunteerContent" class="panel-body">
+                <ul class="Volunteer-Index">
+                    <li>@Html.ActionLink("Town Hall Meeting Minutes", "Volunteer_TownHallMeetingMinutes", "Resource")</li>
+                    <li>@Html.ActionLink("Memos", "Memos", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Updates", "Volunteer_VolunteerUpdates", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Application", "Volunteer_VolunteerApplication", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Presentation", "Volunteer_VolunteerPresentation", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Related Policies", "Volunteer_VolunteerRelatedPolicies", "Resource")</li>
+                    <li>@Html.ActionLink("Volunteer Roles Chart", "Volunteer_VolunteerRolesChart", "Resource")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+        <div class="panel panel-info ">
+            <div class="panel-heading">
+                <span id="fileListTitle">Files</span>
+                <span id="newFileListTitle" hidden>Upload Files</span>
+                <div id="glyphNewFile" class="glyphicon glyphicon-plus pull-right"></div>
+                Search
+            </div>
+            <div id="fileContent" class="panel-body">
+                <div class="panel-body-toolbar form-inline">
+                    @*<input class="btn btn-default" type="button" value="Upload" id="btnUpload" />*@
+                    <input class="form-control" id="txtSearchByName" type="text" placeholder="Search" />
+                </div>
+
+                @*<div class="col-md-10">
+                    @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <label for="fileDescription">Description</label><input type="text" name="fileDescription" /><br />
+                        <input type="file" name="FileUpload" /><br />
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Select Roles</label>
+                            <div class="col-md-offset-2 col-md-10">
+                                <table class="table">
+                                    <tr>
+                                        @{
                         int cnt = 0;
                         List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
                         foreach (var r in roles)
                         {
                             if (cnt++ % 2 == 0)
                             {
-                            @:</tr><tr>
+                                @:
+                            </tr>
+                            <tr>
+                            }
+                            @:
+                            <td>
+                                    <input type="checkbox"
+                                           name="selectedRoles"
+                                           value="@r.RoleID"
+                                           @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                            @r.RoleName
+                                            @:
+                                        </td>
+                           }
+                        @:
+                    </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+
+                            <input type="submit" name="Submit" value="Upload" />
+                    }
+                </div>*@
+                </p>
+
+                <table class="table table-striped table-bordered" style="width:100%;">
+                    <tr>
+                        
+                        <th>
+                            @Html.DisplayNameFor(model => model.FileDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FileName)
+                        </th>
+                        <th>
+                        @Html.DisplayNameFor(model => model.FileUploadDate)
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileUploadDate)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+                @*<table class="table table-striped table-bordered" style="width:100%;">
+                            <tr>
+                                <td>Name</td>
+                                <td>Date Uploaded</td>
+                                <td>Description</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>TicketSellerInfo.doc</td>
+                                <td>2/7/2015</td>
+                                <td>Information Sheet for Ticket Sellers</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button id="Download" class="btn btn-primary">Download</button>
+                                        <button id="Delete" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>IncidentReport.doc</td>
+                                <td>2/5/2015</td>
+                                <td>Incident Reporting Form</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button id="Download" class="btn btn-primary">Download</button>
+                                        <button id="Delete" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mileage&Expense.doc</td>
+                                <td>2/2/2015</td>
+                                <td>Mileage and Expenses Form</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button id="Download" class="btn btn-primary">Download</button>
+                                        <button id="Delete" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <nav>
+                            <ul class="pager">
+                                <li><a href="#">Previous</a></li>
+                                <li><a href="#">Next"</a></li>
+                            </ul>
+                        </nav>
+                    </div>*@
+
+            </div>
+
+            <div id="newFileContent" class="panel-body" hidden>
+
+                <div class="col-md-10">
+                    @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div>
+                            <label for="fileDescription">Description</label><input type="text" name="fileDescription" /><br />
+                            <input type="file" name="FileUpload" /><br />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Select Roles</label>
+                            <div class="col-md-offset-2 col-md-10">
+                                <table>
+                                    <tr>
+                                        @{
+                        int cnt = 0;
+                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                        foreach (var r in roles)
+                        {
+                            if (cnt++ % 2 == 0)
+                            {
+                                @:</tr><tr>
                             }
                             @:<td>
-                                  <input type="checkbox"
-                                   name="selectedRoles"
-                                   value="@r.RoleID"
-                                   @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                   @r.RoleName
-                           @:</td>
+                                <input type="checkbox"
+                                       name="selectedRoles"
+                                       value="@r.RoleID"
+                                       @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                            @r.RoleName
+                        @:</td>
                            }
-                           @:</tr>
+                        @:</tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+
+                            <input type="submit" name="Submit" value="Upload" />
                     }
-                </table>
+                </div>
             </div>
+
         </div>
+    </div>
 
-        <input type="submit" name="Submit" value="Upload" />
-    }
-</div>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FileSortType.FileSrtDefintion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>        
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+
+    $(document).ready(function () {
         
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileSortType.FileSrtDefintion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-       
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    $('#glyphNewFile').on('click', function () {
+        $('#fileListTitle').slideToggle();
+        $('#fileContent').slideToggle();
+        $('#newFileContent').slideToggle();
+        $('#newFileListTitle').slideToggle();
+        $('#glyphNewFile').fadeToggle();
+    })
 
-</table>
+    });
+</script>
+                                       
+ 

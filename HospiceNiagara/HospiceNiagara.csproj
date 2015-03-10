@@ -191,13 +191,13 @@
     <Compile Include="Migrations\201503080337033_4th.Designer.cs">
       <DependentUpon>201503080337033_4th.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503091653497_second.cs" />
-    <Compile Include="Migrations\201503091653497_second.Designer.cs">
-      <DependentUpon>201503091653497_second.cs</DependentUpon>
+    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.cs" />
+    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.Designer.cs">
+      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503091701044_third.cs" />
-    <Compile Include="Migrations\201503091701044_third.Designer.cs">
-      <DependentUpon>201503091701044_third.cs</DependentUpon>
+    <Compile Include="Migrations\201503100351074_uploadDate.cs" />
+    <Compile Include="Migrations\201503100351074_uploadDate.Designer.cs">
+      <DependentUpon>201503100351074_uploadDate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -207,6 +207,7 @@
     <Compile Include="Models\FileCat.cs" />
     <Compile Include="Models\FileSortType.cs" />
     <Compile Include="Models\FileStorage.cs" />
+    <Compile Include="Models\FileSubCat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FileStorageVM.cs" />
+    <Compile Include="ViewModels\JobDescVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +328,11 @@
     <Content Include="Views\testApplicationUsers\Details.cshtml" />
     <Content Include="Views\testApplicationUsers\Edit.cshtml" />
     <Content Include="Views\testApplicationUsers\Index.cshtml" />
+    <Content Include="Views\Contact\List.cshtml" />
+    <Content Include="Views\Contact\Create.cshtml" />
+    <Content Include="Views\Contact\Edit.cshtml" />
+    <Content Include="Views\Contact\Details.cshtml" />
+    <Content Include="Views\Contact\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -351,11 +358,11 @@
     <EmbeddedResource Include="Migrations\201503080337033_4th.resx">
       <DependentUpon>201503080337033_4th.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503091653497_second.resx">
-      <DependentUpon>201503091653497_second.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503100341339_withBoardContactJobDesc.resx">
+      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503091701044_third.resx">
-      <DependentUpon>201503091701044_third.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503100351074_uploadDate.resx">
+      <DependentUpon>201503100351074_uploadDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
