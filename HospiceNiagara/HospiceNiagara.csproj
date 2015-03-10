@@ -208,6 +208,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FileStorageVM.cs" />
+    <Compile Include="ViewModels\JobDescVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
   </ItemGroup>
   <ItemGroup>
