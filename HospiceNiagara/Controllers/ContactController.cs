@@ -217,20 +217,20 @@ namespace HospiceNiagara.Controllers
             var selectedJobsHS = new HashSet<string>(SelectedJob);
             var meetingJobs = new HashSet<int>
                 (ContactToUpdate.JobDescriptions.Select(c => c.ID));
-            foreach (var rls in db.JobDescriptions)
+            foreach (var jobs in db.JobDescriptions)
             {
-                if (selectedJobsHS.Contains(rls.ID.ToString()))
+                if (selectedJobsHS.Contains(jobs.ID.ToString()))
                 {
-                    if (!meetingJobs.Contains(rls.ID))
+                    if (!meetingJobs.Contains(jobs.ID))
                     {
-                        ContactToUpdate.JobDescriptions.Add(rls);
+                        ContactToUpdate.JobDescriptions.Add(jobs);
                     }
                 }
                 else
                 {
-                    if (meetingJobs.Contains(rls.ID))
+                    if (meetingJobs.Contains(jobs.ID))
                     {
-                        ContactToUpdate.JobDescriptions.Remove(rls);
+                        ContactToUpdate.JobDescriptions.Remove(jobs);
                     }
                 }
             }
