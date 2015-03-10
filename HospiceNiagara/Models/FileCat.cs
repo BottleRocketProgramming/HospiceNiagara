@@ -13,8 +13,7 @@ namespace HospiceNiagara.Models
 
         public string FileCatName { get; set; }
 
-        public virtual ICollection<FileStorage> FileStores { get; set; }
-
-        public virtual ICollection<RoleList> Role { get; set; }
+        public virtual ICollection<FileSubCat> FileSubCats { get; set; }
+        
     }
 }

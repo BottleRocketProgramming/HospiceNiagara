@@ -60,6 +60,10 @@ namespace HospiceNiagara.Models
             base.OnModelCreating(modelBuilder);
         }
 
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.FileCat> FileCats { get; set; }
+
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.FileSubCat> FileSubCats { get; set; }
+
         //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> IdentityUsers { get; set; }
 
         
