@@ -30,7 +30,14 @@ namespace HospiceNiagara.Controllers
             ViewData["Contact"] = db.BoardContacts.ToList();
             ViewData["ContactID"] = id;
             BoardContact contact = db.BoardContacts.Find(id);
+            return View(contact);
+        }
 
+        public ActionResult ContactJobDesc(int? id)
+        {
+            ViewData["Contact"] = db.BoardContacts.ToList();
+            ViewData["ContactID"] = id;
+            BoardContact contact = db.BoardContacts.Find(id);
             return View(contact);
         }
 

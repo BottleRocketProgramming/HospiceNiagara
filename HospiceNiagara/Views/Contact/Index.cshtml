@@ -69,6 +69,7 @@
                             @Html.DisplayFor(modelItem => item.BoardContPartnerName)
                         </td>
                         <td>
+                            @Html.ActionLink("Job Description", "Index", new { id = item.ID })
                             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
@@ -169,9 +170,14 @@
                                 </tr>
                                 <tr>
                                     @{
+                                        int count = 0;
                                         List<HospiceNiagara.ViewModels.JobDescVM> jobs = ViewBag.JobDescriptions;
                                         foreach (var j in jobs)
                                         {
+                                            if (count++ % 1 == 0)
+                                              {
+                                                @:</tr><tr>
+                                              }
                                              @:<td>
                                                     @j.JobName
                                              @:</td>
@@ -181,6 +187,7 @@
                                               @:<td>
                                                     <input type="checkbox" name="selectedRoles" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
                                              @:</td>
+
                                         }
                                     @:</tr>
                                     }
@@ -200,24 +207,81 @@
     </div>
 </div>
 
-<div class="col-sm-4" id="panelPositionDesc" hidden>
+<div class="col-sm-4" id="panelPositionDesc">
     <div class="panel panel-success">
         <div class="panel-heading">
             About this position
         </div>
         <div class="panel-body">
-            <h4>Areas of Responisibility</h4>
-            <p>
-                -Leadership Team Member<br />
-                -Finance Lead<br />
-                -IT Lead<br />
-                -Facilities Lead<br />
-                -Administration Lead<br />
-                -Coordinator of Volunteers:<br />
-                -Scheduling of Welcome Desk, Residential and Kitchen Helper volunteer roles<br />
-                -Communication, recognition and ongoing support of all Volunteers<br />
-                -Supervises Administrative Assistant, Financial Associate, Chef and Maintenance contract
-            </p>
+            <div>
+                <h4>BoardContact</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContPosition)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContPosition)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContHomeAddy)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContHomeAddy)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContWorkAddy)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContWorkAddy)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContHomePhone)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContHomePhone)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContWorkPhone)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContWorkPhone)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContCellPhone)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContCellPhone)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContFaxNum)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContFaxNum)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BoardContPartnerName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BoardContPartnerName)
+                    </dd>
+                </dl>
+            </div>
         </div>
     </div>
 </div>
