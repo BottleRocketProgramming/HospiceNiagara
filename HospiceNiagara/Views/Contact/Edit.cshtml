@@ -98,9 +98,14 @@
                     </tr>
                     <tr>
                         @{
+                            int count = 0;
                             List<HospiceNiagara.ViewModels.JobDescVM> jobs = ViewBag.JobDescriptions;
                             foreach (var j in jobs)
                             {
+                                if (count++ % 1 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
                                     @:<td>
                                         @j.JobName
                                     @:</td>
@@ -108,7 +113,7 @@
                                         @j.JobDesc
                                     @:</td>
                                     @:<td>
-                                        <input type="checkbox" name="selectedRoles" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
+                                        <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
                                     @:</td>
                             }
                         @:</tr>

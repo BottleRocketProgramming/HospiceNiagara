@@ -5,7 +5,7 @@
 }
 
 <div class="col-sm-8">
-    <div class="panel panel-success ">
+    <div class="panel panel-success">
         <div class="panel-heading">
             <span id="ContactsTitle">Contacts</span>
             <span id="newContactTitle" hidden>New Contact</span>
@@ -185,7 +185,7 @@
                                                     @j.JobDesc
                                              @:</td>
                                               @:<td>
-                                                    <input type="checkbox" name="selectedRoles" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
+                                                    <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
                                              @:</td>
 
                                         }
@@ -213,75 +213,42 @@
             About this position
         </div>
         <div class="panel-body">
-            <div>
-                <h4>BoardContact</h4>
-                <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContPosition)
-                    </dt>
+            <table>
+                                <tr>
+                                    <th>
+                                        Job Name
+                                    </th>
+                                    <th>
+                                        Job Description
+                                    </th>
+                                    <th>
+                                        Select
+                                    </th>
+                                </tr>
+                                <tr>
+                                    @{
+                                        int cnt = 0;
+                                        List<HospiceNiagara.ViewModels.JobDescVM> jobbs = ViewBag.JobDescriptions;
+                                        foreach (var j in jobbs)
+                                        {
+                                            if (cnt++ % 1 == 0)
+                                              {
+                                                @:</tr><tr>
+                                              }
+                                             @:<td>
+                                                    @j.JobName
+                                             @:</td>
+                                             @:<td>
+                                                    @j.JobDesc
+                                             @:</td>
+                                              @:<td>
+                                                    <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
+                                             @:</td>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContPosition)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContHomeAddy)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContHomeAddy)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContWorkAddy)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContWorkAddy)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContHomePhone)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContHomePhone)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContWorkPhone)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContWorkPhone)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContCellPhone)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContCellPhone)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContFaxNum)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContFaxNum)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.BoardContPartnerName)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.BoardContPartnerName)
-                    </dd>
-                </dl>
-            </div>
+                                        }
+                                    @:</tr>
+                                    }
+                            </table>
         </div>
     </div>
 </div>
