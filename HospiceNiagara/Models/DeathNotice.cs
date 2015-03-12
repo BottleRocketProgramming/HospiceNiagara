@@ -29,6 +29,7 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Date")]
         [Required(ErrorMessage = "Date is required for death notice")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime DnDate;
 
