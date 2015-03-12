@@ -15,61 +15,33 @@
             <table class="table table-striped table-bordered" style="width:100%;">
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.BoardContPartnerName)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.BoardContPosition)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContHomeAddy)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContWorkAddy)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContHomePhone)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.BoardContWorkPhone)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.BoardContCellPhone)
+                        
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContFaxNum)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContPartnerName)
-                    </th>
-                    <th></th>
                 </tr>
 
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.BoardContact>)ViewData["Contact"])
                 {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.BoardContPartnerName)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.BoardContPosition)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContHomeAddy)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContWorkAddy)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContHomePhone)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.BoardContWorkPhone)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.BoardContCellPhone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContFaxNum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContPartnerName)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Job Description", "Index", new { id = item.ID })
+                            @Html.ActionLink("Job Description", "Index", new { id = item.ID }) |
                             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
@@ -207,51 +179,27 @@
     </div>
 </div>
 
-<div class="col-sm-4" id="panelPositionDesc">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            About this position
-        </div>
-        <div class="panel-body">
-            <table>
-                                <tr>
-                                    <th>
-                                        Job Name
-                                    </th>
-                                    <th>
-                                        Job Description
-                                    </th>
-                                    <th>
-                                        Select
-                                    </th>
-                                </tr>
-                                <tr>
-                                    @{
-                                        int cnt = 0;
-                                        List<HospiceNiagara.ViewModels.JobDescVM> jobbs = ViewBag.JobDescriptions;
-                                        foreach (var j in jobbs)
-                                        {
-                                            if (cnt++ % 1 == 0)
-                                              {
-                                                @:</tr><tr>
-                                              }
-                                             @:<td>
-                                                    @j.JobName
-                                             @:</td>
-                                             @:<td>
-                                                    @j.JobDesc
-                                             @:</td>
-                                              @:<td>
-                                                    <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
-                                             @:</td>
-
-                                        }
-                                    @:</tr>
-                                    }
-                            </table>
-        </div>
-    </div>
-</div>
+@{
+int cnt = 0;
+List<HospiceNiagara.ViewModels.JobDescVM> jobbs = ViewBag.JobDescriptions;
+foreach (var j in jobbs)
+{
+    if(j.JobAssigned==true)
+    {
+        @:<div class="col-sm-4" id="panelPositionDesc">
+            @:<div class="panel panel-success">
+                @:<div class="panel-heading">
+                    @:About this position
+                @:</div>
+                @:<div class="panel-body">
+                    @:<h4>@j.JobName</h4>
+                    @:<p>@j.JobDesc</p>
+            @:</div>
+        @:</div>
+    @:</div>
+        }
+    }
+}
 
 @Scripts.Render("~/bundles/jquery")
 
