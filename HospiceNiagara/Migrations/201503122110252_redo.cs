@@ -3,7 +3,7 @@ namespace HospiceNiagara.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _1st : DbMigration
+    public partial class redo : DbMigration
     {
         public override void Up()
         {
@@ -13,16 +13,14 @@ namespace HospiceNiagara.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         AnnounceText = c.String(nullable: false, maxLength: 1020),
+                        AnnounceStartDate = c.DateTime(nullable: false),
                         AnnounceEndDate = c.DateTime(nullable: false),
                         IsEvent = c.Boolean(nullable: false),
                         ApplicationUser_Id = c.String(maxLength: 128),
-                        FileStorageVM_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.FileStorageVM", t => t.FileStorageVM_ID)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.FileStorageVM_ID);
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.FileStorage",
@@ -33,11 +31,15 @@ namespace HospiceNiagara.Migrations
                         MimeType = c.String(nullable: false, maxLength: 256),
                         FileName = c.String(nullable: false, maxLength: 100),
                         FileDescription = c.String(maxLength: 100),
-                        FileSortTypeID = c.Int(nullable: false),
+                        FileUploadDate = c.DateTime(nullable: false),
+                        FileSubCat_ID = c.Int(),
+                        FileSortType_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.FileSortType", t => t.FileSortTypeID)
-                .Index(t => t.FileSortTypeID);
+                .ForeignKey("dbo.FileSubCat", t => t.FileSubCat_ID)
+                .ForeignKey("dbo.FileSortType", t => t.FileSortType_ID)
+                .Index(t => t.FileSubCat_ID)
+                .Index(t => t.FileSortType_ID);
             
             CreateTable(
                 "dbo.FileCat",
@@ -45,11 +47,32 @@ namespace HospiceNiagara.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         FileCatName = c.String(),
-                        FileStorageVM_ID = c.Int(),
+                        FileStorage_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.FileStorageVM", t => t.FileStorageVM_ID)
-                .Index(t => t.FileStorageVM_ID);
+                .ForeignKey("dbo.FileStorage", t => t.FileStorage_ID)
+                .Index(t => t.FileStorage_ID);
+            
+            CreateTable(
+                "dbo.FileSubCat",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        FileSubCatName = c.String(nullable: false),
+                        FileCatFK_ID = c.Int(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.FileCat", t => t.FileCatFK_ID)
+                .Index(t => t.FileCatFK_ID);
+            
+            CreateTable(
+                "dbo.FileSortType",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        FileSrtDefintion = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.RoleList",
@@ -57,11 +80,8 @@ namespace HospiceNiagara.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         RoleName = c.String(),
-                        FileStorageVM_ID = c.Int(),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.FileStorageVM", t => t.FileStorageVM_ID)
-                .Index(t => t.FileStorageVM_ID);
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.Meeting",
@@ -75,11 +95,8 @@ namespace HospiceNiagara.Migrations
                         EventEnd = c.DateTime(nullable: false),
                         EventRequirments = c.String(maxLength: 510),
                         EventLinks = c.String(maxLength: 510),
-                        FileStorageVM_ID = c.Int(),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.FileStorageVM", t => t.FileStorageVM_ID)
-                .Index(t => t.FileStorageVM_ID);
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.Schedule",
@@ -90,15 +107,6 @@ namespace HospiceNiagara.Migrations
                         SchedLink = c.String(nullable: false, maxLength: 510),
                         SchedStartDate = c.DateTime(nullable: false),
                         SchedEndDate = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.FileSortType",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        FileSrtDefintion = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -167,23 +175,6 @@ namespace HospiceNiagara.Migrations
                 .Index(t => t.IdentityUser_Id);
             
             CreateTable(
-                "dbo.UserJobDesc",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        IdentityUsers_Id = c.String(maxLength: 128),
-                        JobDescriptions_ID = c.Int(),
-                        ApplicationUser_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.IdentityUser", t => t.IdentityUsers_Id)
-                .ForeignKey("dbo.JobDescription", t => t.JobDescriptions_ID)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.IdentityUsers_Id)
-                .Index(t => t.JobDescriptions_ID)
-                .Index(t => t.ApplicationUser_Id);
-            
-            CreateTable(
                 "dbo.JobDescription",
                 c => new
                     {
@@ -223,20 +214,6 @@ namespace HospiceNiagara.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.FileStorageVM",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        MimeType = c.String(nullable: false, maxLength: 256),
-                        FileName = c.String(nullable: false, maxLength: 100),
-                        FileDescription = c.String(maxLength: 100),
-                        FileSortTypeID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.FileSortType", t => t.FileSortTypeID)
-                .Index(t => t.FileSortTypeID);
-            
-            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -260,19 +237,6 @@ namespace HospiceNiagara.Migrations
                 .Index(t => t.Announcement_ID);
             
             CreateTable(
-                "dbo.FileCatFileStorage",
-                c => new
-                    {
-                        FileCat_ID = c.Int(nullable: false),
-                        FileStorage_ID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.FileCat_ID, t.FileStorage_ID })
-                .ForeignKey("dbo.FileCat", t => t.FileCat_ID, cascadeDelete: true)
-                .ForeignKey("dbo.FileStorage", t => t.FileStorage_ID, cascadeDelete: true)
-                .Index(t => t.FileCat_ID)
-                .Index(t => t.FileStorage_ID);
-            
-            CreateTable(
                 "dbo.RoleListAnnouncement",
                 c => new
                     {
@@ -284,19 +248,6 @@ namespace HospiceNiagara.Migrations
                 .ForeignKey("dbo.Announcement", t => t.Announcement_ID, cascadeDelete: true)
                 .Index(t => t.RoleList_ID)
                 .Index(t => t.Announcement_ID);
-            
-            CreateTable(
-                "dbo.RoleListFileCat",
-                c => new
-                    {
-                        RoleList_ID = c.Int(nullable: false),
-                        FileCat_ID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.RoleList_ID, t.FileCat_ID })
-                .ForeignKey("dbo.RoleList", t => t.RoleList_ID, cascadeDelete: true)
-                .ForeignKey("dbo.FileCat", t => t.FileCat_ID, cascadeDelete: true)
-                .Index(t => t.RoleList_ID)
-                .Index(t => t.FileCat_ID);
             
             CreateTable(
                 "dbo.RoleListFileStorage",
@@ -351,6 +302,32 @@ namespace HospiceNiagara.Migrations
                 .Index(t => t.RoleList_ID);
             
             CreateTable(
+                "dbo.BoardContactJobDescription",
+                c => new
+                    {
+                        BoardContact_ID = c.Int(nullable: false),
+                        JobDescription_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.BoardContact_ID, t.JobDescription_ID })
+                .ForeignKey("dbo.BoardContact", t => t.BoardContact_ID, cascadeDelete: true)
+                .ForeignKey("dbo.JobDescription", t => t.JobDescription_ID, cascadeDelete: true)
+                .Index(t => t.BoardContact_ID)
+                .Index(t => t.JobDescription_ID);
+            
+            CreateTable(
+                "dbo.JobDescriptionApplicationUser",
+                c => new
+                    {
+                        JobDescription_ID = c.Int(nullable: false),
+                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.JobDescription_ID, t.ApplicationUser_Id })
+                .ForeignKey("dbo.JobDescription", t => t.JobDescription_ID, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id, cascadeDelete: true)
+                .Index(t => t.JobDescription_ID)
+                .Index(t => t.ApplicationUser_Id);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -371,20 +348,15 @@ namespace HospiceNiagara.Migrations
         {
             DropForeignKey("dbo.AspNetUsers", "Id", "dbo.IdentityUser");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Meeting", "FileStorageVM_ID", "dbo.FileStorageVM");
-            DropForeignKey("dbo.RoleList", "FileStorageVM_ID", "dbo.FileStorageVM");
-            DropForeignKey("dbo.FileStorageVM", "FileSortTypeID", "dbo.FileSortType");
-            DropForeignKey("dbo.FileCat", "FileStorageVM_ID", "dbo.FileStorageVM");
-            DropForeignKey("dbo.Announcement", "FileStorageVM_ID", "dbo.FileStorageVM");
             DropForeignKey("dbo.IdentityUser", "Announcement_ID", "dbo.Announcement");
-            DropForeignKey("dbo.UserJobDesc", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.UserJobDesc", "JobDescriptions_ID", "dbo.JobDescription");
-            DropForeignKey("dbo.UserJobDesc", "IdentityUsers_Id", "dbo.IdentityUser");
             DropForeignKey("dbo.Announcement", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.JobDescriptionApplicationUser", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.JobDescriptionApplicationUser", "JobDescription_ID", "dbo.JobDescription");
+            DropForeignKey("dbo.BoardContactJobDescription", "JobDescription_ID", "dbo.JobDescription");
+            DropForeignKey("dbo.BoardContactJobDescription", "BoardContact_ID", "dbo.BoardContact");
             DropForeignKey("dbo.AspNetUserRoles", "IdentityUser_Id", "dbo.IdentityUser");
             DropForeignKey("dbo.AspNetUserLogins", "IdentityUser_Id", "dbo.IdentityUser");
             DropForeignKey("dbo.AspNetUserClaims", "IdentityUser_Id", "dbo.IdentityUser");
-            DropForeignKey("dbo.FileStorage", "FileSortTypeID", "dbo.FileSortType");
             DropForeignKey("dbo.ScheduleRoleList", "RoleList_ID", "dbo.RoleList");
             DropForeignKey("dbo.ScheduleRoleList", "Schedule_ID", "dbo.Schedule");
             DropForeignKey("dbo.MeetingRoleList", "RoleList_ID", "dbo.RoleList");
@@ -393,15 +365,19 @@ namespace HospiceNiagara.Migrations
             DropForeignKey("dbo.MeetingFileStorage", "Meeting_ID", "dbo.Meeting");
             DropForeignKey("dbo.RoleListFileStorage", "FileStorage_ID", "dbo.FileStorage");
             DropForeignKey("dbo.RoleListFileStorage", "RoleList_ID", "dbo.RoleList");
-            DropForeignKey("dbo.RoleListFileCat", "FileCat_ID", "dbo.FileCat");
-            DropForeignKey("dbo.RoleListFileCat", "RoleList_ID", "dbo.RoleList");
             DropForeignKey("dbo.RoleListAnnouncement", "Announcement_ID", "dbo.Announcement");
             DropForeignKey("dbo.RoleListAnnouncement", "RoleList_ID", "dbo.RoleList");
-            DropForeignKey("dbo.FileCatFileStorage", "FileStorage_ID", "dbo.FileStorage");
-            DropForeignKey("dbo.FileCatFileStorage", "FileCat_ID", "dbo.FileCat");
+            DropForeignKey("dbo.FileStorage", "FileSortType_ID", "dbo.FileSortType");
+            DropForeignKey("dbo.FileCat", "FileStorage_ID", "dbo.FileStorage");
+            DropForeignKey("dbo.FileStorage", "FileSubCat_ID", "dbo.FileSubCat");
+            DropForeignKey("dbo.FileSubCat", "FileCatFK_ID", "dbo.FileCat");
             DropForeignKey("dbo.FileStorageAnnouncement", "Announcement_ID", "dbo.Announcement");
             DropForeignKey("dbo.FileStorageAnnouncement", "FileStorage_ID", "dbo.FileStorage");
             DropIndex("dbo.AspNetUsers", new[] { "Id" });
+            DropIndex("dbo.JobDescriptionApplicationUser", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.JobDescriptionApplicationUser", new[] { "JobDescription_ID" });
+            DropIndex("dbo.BoardContactJobDescription", new[] { "JobDescription_ID" });
+            DropIndex("dbo.BoardContactJobDescription", new[] { "BoardContact_ID" });
             DropIndex("dbo.ScheduleRoleList", new[] { "RoleList_ID" });
             DropIndex("dbo.ScheduleRoleList", new[] { "Schedule_ID" });
             DropIndex("dbo.MeetingRoleList", new[] { "RoleList_ID" });
@@ -410,54 +386,44 @@ namespace HospiceNiagara.Migrations
             DropIndex("dbo.MeetingFileStorage", new[] { "Meeting_ID" });
             DropIndex("dbo.RoleListFileStorage", new[] { "FileStorage_ID" });
             DropIndex("dbo.RoleListFileStorage", new[] { "RoleList_ID" });
-            DropIndex("dbo.RoleListFileCat", new[] { "FileCat_ID" });
-            DropIndex("dbo.RoleListFileCat", new[] { "RoleList_ID" });
             DropIndex("dbo.RoleListAnnouncement", new[] { "Announcement_ID" });
             DropIndex("dbo.RoleListAnnouncement", new[] { "RoleList_ID" });
-            DropIndex("dbo.FileCatFileStorage", new[] { "FileStorage_ID" });
-            DropIndex("dbo.FileCatFileStorage", new[] { "FileCat_ID" });
             DropIndex("dbo.FileStorageAnnouncement", new[] { "Announcement_ID" });
             DropIndex("dbo.FileStorageAnnouncement", new[] { "FileStorage_ID" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.FileStorageVM", new[] { "FileSortTypeID" });
-            DropIndex("dbo.UserJobDesc", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.UserJobDesc", new[] { "JobDescriptions_ID" });
-            DropIndex("dbo.UserJobDesc", new[] { "IdentityUsers_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "IdentityUser_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "IdentityUser_Id" });
             DropIndex("dbo.AspNetUserClaims", new[] { "IdentityUser_Id" });
             DropIndex("dbo.IdentityUser", new[] { "Announcement_ID" });
             DropIndex("dbo.IdentityUser", "UserNameIndex");
-            DropIndex("dbo.Meeting", new[] { "FileStorageVM_ID" });
-            DropIndex("dbo.RoleList", new[] { "FileStorageVM_ID" });
-            DropIndex("dbo.FileCat", new[] { "FileStorageVM_ID" });
-            DropIndex("dbo.FileStorage", new[] { "FileSortTypeID" });
-            DropIndex("dbo.Announcement", new[] { "FileStorageVM_ID" });
+            DropIndex("dbo.FileSubCat", new[] { "FileCatFK_ID" });
+            DropIndex("dbo.FileCat", new[] { "FileStorage_ID" });
+            DropIndex("dbo.FileStorage", new[] { "FileSortType_ID" });
+            DropIndex("dbo.FileStorage", new[] { "FileSubCat_ID" });
             DropIndex("dbo.Announcement", new[] { "ApplicationUser_Id" });
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.JobDescriptionApplicationUser");
+            DropTable("dbo.BoardContactJobDescription");
             DropTable("dbo.ScheduleRoleList");
             DropTable("dbo.MeetingRoleList");
             DropTable("dbo.MeetingFileStorage");
             DropTable("dbo.RoleListFileStorage");
-            DropTable("dbo.RoleListFileCat");
             DropTable("dbo.RoleListAnnouncement");
-            DropTable("dbo.FileCatFileStorage");
             DropTable("dbo.FileStorageAnnouncement");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.FileStorageVM");
             DropTable("dbo.DeathNotice");
             DropTable("dbo.BoardContact");
             DropTable("dbo.JobDescription");
-            DropTable("dbo.UserJobDesc");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.IdentityUser");
-            DropTable("dbo.FileSortType");
             DropTable("dbo.Schedule");
             DropTable("dbo.Meeting");
             DropTable("dbo.RoleList");
+            DropTable("dbo.FileSortType");
+            DropTable("dbo.FileSubCat");
             DropTable("dbo.FileCat");
             DropTable("dbo.FileStorage");
             DropTable("dbo.Announcement");

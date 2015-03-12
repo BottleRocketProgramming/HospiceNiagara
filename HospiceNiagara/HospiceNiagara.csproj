@@ -175,37 +175,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503072223305_1st.cs" />
-    <Compile Include="Migrations\201503072223305_1st.Designer.cs">
-      <DependentUpon>201503072223305_1st.cs</DependentUpon>
+    <Compile Include="Migrations\201503122110252_redo.cs" />
+    <Compile Include="Migrations\201503122110252_redo.Designer.cs">
+      <DependentUpon>201503122110252_redo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503072331560_2nd.cs" />
-    <Compile Include="Migrations\201503072331560_2nd.Designer.cs">
-      <DependentUpon>201503072331560_2nd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503080124471_3rd.cs" />
-    <Compile Include="Migrations\201503080124471_3rd.Designer.cs">
-      <DependentUpon>201503080124471_3rd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503080337033_4th.cs" />
-    <Compile Include="Migrations\201503080337033_4th.Designer.cs">
-      <DependentUpon>201503080337033_4th.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.cs" />
-    <Compile Include="Migrations\201503100341339_withBoardContactJobDesc.Designer.cs">
-      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503100351074_uploadDate.cs" />
-    <Compile Include="Migrations\201503100351074_uploadDate.Designer.cs">
-      <DependentUpon>201503100351074_uploadDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503101709389_update.cs" />
-    <Compile Include="Migrations\201503101709389_update.Designer.cs">
-      <DependentUpon>201503101709389_update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503111607456_AnnounceStartDate.cs" />
-    <Compile Include="Migrations\201503111607456_AnnounceStartDate.Designer.cs">
-      <DependentUpon>201503111607456_AnnounceStartDate.cs</DependentUpon>
+    <Compile Include="Migrations\201503122122135_redo2.cs" />
+    <Compile Include="Migrations\201503122122135_redo2.Designer.cs">
+      <DependentUpon>201503122122135_redo2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -354,29 +330,11 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503072223305_1st.resx">
-      <DependentUpon>201503072223305_1st.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503122110252_redo.resx">
+      <DependentUpon>201503122110252_redo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503072331560_2nd.resx">
-      <DependentUpon>201503072331560_2nd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503080124471_3rd.resx">
-      <DependentUpon>201503080124471_3rd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503080337033_4th.resx">
-      <DependentUpon>201503080337033_4th.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503100341339_withBoardContactJobDesc.resx">
-      <DependentUpon>201503100341339_withBoardContactJobDesc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503100351074_uploadDate.resx">
-      <DependentUpon>201503100351074_uploadDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503101709389_update.resx">
-      <DependentUpon>201503101709389_update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503111607456_AnnounceStartDate.resx">
-      <DependentUpon>201503111607456_AnnounceStartDate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503122122135_redo2.resx">
+      <DependentUpon>201503122122135_redo2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -20,14 +20,14 @@ namespace HospiceNiagara.Models
         [StringLength(1020, ErrorMessage = "Announcement can not exceed 1020 characters")]
         public string AnnounceText { get; set; }
 
-        [Display(Name = "Start Date")]       
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Start Date")]
+        //[DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         [DataType(DataType.DateTime)]
-        public DateTime AnnounceStartDate { get; set; }
+        public DateTime? AnnounceStartDate { get; set; }
         
         [Display(Name= "End Date")]
         [Required(ErrorMessage = "Announcement end date is required")]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         [DataType(DataType.DateTime)]
         public DateTime AnnounceEndDate { get; set; }
 
