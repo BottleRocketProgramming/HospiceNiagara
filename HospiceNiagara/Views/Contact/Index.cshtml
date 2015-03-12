@@ -185,7 +185,10 @@
                                                     @j.JobDesc
                                              @:</td>
                                               @:<td>
-                                                    <input type="checkbox" name="selectedRoles" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
+                                                    <input type="checkbox" 
+                                                           name="selectedRoles" 
+                                                           value="@j.JobID" 
+                                                           @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
                                              @:</td>
 
                                         }

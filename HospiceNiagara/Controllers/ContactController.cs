@@ -213,15 +213,15 @@ namespace HospiceNiagara.Controllers
             ViewBag.JobDescriptions = viewModel;
         }
 
-        private void UpdateJobDescriptions(string[] SelectedJob, BoardContact ContactToUpdate)
+        private void UpdateJobDescriptions(string[] selectedJobs, BoardContact ContactToUpdate)
         {
-            if (SelectedJob == null)
+            if (selectedJobs == null)
             {
                 ContactToUpdate.JobDescriptions = new List<JobDescription>();
                 return;
             }
 
-            var selectedJobsHS = new HashSet<string>(SelectedJob);
+            var selectedJobsHS = new HashSet<string>(selectedJobs);
             var meetingJobs = new HashSet<int>
                 (ContactToUpdate.JobDescriptions.Select(c => c.ID));
             foreach (var jobs in db.JobDescriptions)
