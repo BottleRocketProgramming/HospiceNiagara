@@ -11,15 +11,37 @@
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
                     <tr>
-                        <td>Title</td>
-                        <td>Description</td>
-                        <td>Date Posted</td>
+                        <th>
+                            Announcement
+                        </th>
+                        <th>
+                            End Date
+                        </th>
+                        <th></th>
                     </tr>
-                    <tr>
-                        <td>@Html.ActionLink("New Health and Safety Policy", "Announcement", "Announcement")</td>
-                        <td>We now have a new health and safety policy! Please review the attached document</td>
-                        <td>Saturday, Febuary 7th</td>
-                    </tr>
+
+                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
+                    {
+                        if (item.IsEvent == false)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AnnounceText)
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AnnounceEndDate)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
                 </table>
             </div>
         </div>
