@@ -1,0 +1,58 @@
+﻿@model HospiceNiagara.Models.DeathNotice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DeathNotice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DnFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DnFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DnMiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DnMiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DnLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DnLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DnLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DnLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DnNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DnNotes)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
