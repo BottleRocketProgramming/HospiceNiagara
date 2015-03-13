@@ -162,6 +162,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\DeathNoticeController.cs" />
     <Compile Include="Controllers\FileStoragesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
@@ -317,6 +318,10 @@
     <Content Include="Views\Contact\Edit.cshtml" />
     <Content Include="Views\Contact\Details.cshtml" />
     <Content Include="Views\Contact\Delete.cshtml" />
+    <Content Include="Views\DeathNotice\Index.cshtml" />
+    <Content Include="Views\DeathNotice\Details.cshtml" />
+    <Content Include="Views\DeathNotice\Edit.cshtml" />
+    <Content Include="Views\DeathNotice\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

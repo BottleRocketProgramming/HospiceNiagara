@@ -113,7 +113,7 @@
 
                   }       
             </div>
-        </div>        
+        </div>
     </div>
 
 @* Div for Events list view and CRUD *@
@@ -215,218 +215,21 @@
                 </table>
             </div>
         </div>
-
-
-
-
                     <div class="btn-group">
                         <input type="submit" value="Create2" name="CreateEvent" class="btn btn-primary">
                     </div>
                     @Html.ActionLink("Cancel", "Index")
-
-
                 }
             </div>           
         </div>
-
-@* Div for Deathnotice List and CRUD *@
-        <div class="panel panel-default ">
-            <div class="panel-heading">
-                <span id="deathNoticeTitle">Notices of Death</span>
-                <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
-                <div id="glyphDeathHide" class="glyphicon glyphicon-collapse-down pull-right"></div>
-                <div id="glyphDeathShow" class="glyphicon glyphicon-collapse-up pull-right"></div>
-                <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
-            </div>
-            <div id="panelDeathNoticeContent">
-@* Div for death notice List view *@
-                <div id="deathNoticeContent" class="panel-body">
-                    <table class="table table-striped table-bordered">
-                       
-                       
-                       @foreach(var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
-                       { 
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => item.DnFirstName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => item.DnMiddleName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => item.DnLastName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => item.DnDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => item.DnLocation)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => item.DnNotes)
-                            </th>
-                            <th></th>
-                        </tr>
-                           break;
-                       }                       
-
-                        @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
-                        {
-                           
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DnFirstName)
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DnMiddleName)
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DnLastName)
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DnDate)
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DnLocation)
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DnNotes)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-
-                                    </td>
-                                </tr>
-                            }
-                        
-
-
-                    </table>
-                </div>
-
-@* Panel for Create Death Notice *@
-                <div id="newDeathNotice" class="panel-body" hidden>
-            
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <div class="form-horizontal">
-                            <h4>DeathNotice</h4>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                       @foreach(var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
-                       {
-                            <div class="form-group">
-
-                                @Html.LabelFor(model => item.DnFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => item.DnFirstName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => item.DnFirstName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => item.DnMiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => item.DnMiddleName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => item.DnMiddleName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => item.DnLastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => item.DnLastName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => item.DnLastName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => item.DnLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => item.DnLocation, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => item.DnLocation, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => item.DnNotes, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => item.DnNotes, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => item.DnNotes, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                           break;
-                       }
-
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create3" name="CreateDeathNotice" class="btn btn-primary">
-                                </div>
-                            </div>
-                        </div>
-                    }
-
-                    <div>
-                        @Html.ActionLink("Back to List", "Index")
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
     </div>
-
-
+    @Html.ActionLink("Death Notices", "../DeathNotice")
 </div>
 
 @Scripts.Render("~/bundles/jquery")
 
 <script>
     $(document).ready(function () {
-        //Hides death notices by default
-        $('#glyphDeathHide').hide();
-        $('#glyphNewDeathNotice').hide();
-        $('#panelDeathNoticeContent').hide();
-
-        //Controls hiding and showing the death notices
-        $('#glyphDeathHide').on('click', function () {
-            $('#panelDeathNoticeContent').slideToggle();
-            $('#glyphDeathHide').hide();
-            $('#glyphDeathShow').toggle();
-            $('#glyphNewDeathNotice').fadeToggle();
-        });
-        
-        $('#glyphDeathShow').on('click', function () {
-            $('#panelDeathNoticeContent').slideToggle();
-            $('#glyphDeathShow').hide();
-            $('#glyphDeathHide').show();
-            $('#glyphNewDeathNotice').fadeToggle();
-        });
-
-        $('#glyphNewDeathNotice').on('click', function () {
-            $('#deathNoticeTitle').slideToggle();
-            $('#deathNoticeContent').slideToggle();
-            $('#newDeathNotice').slideToggle();
-            $('#newDeathNoticeTitle').slideToggle();
-            $('#glyphNewDeathNotice').fadeToggle();
-        });
-
-        $('#btnAddDeathNotice').on('click', function () {
-            $('#deathNoticeTitle').slideToggle();
-            $('#deathNoticeContent').slideToggle();
-            $('#newDeathNotice').slideToggle();
-            $('#newDeathNoticeTitle').slideToggle();
-            $('#glyphNewDeathNotice').fadeToggle();
-        });
-
-        $('#btnCancelDeathNotice').on('click', function () {
-            $('#deathNoticeTitle').slideToggle();
-            $('#deathNoticeContent').slideToggle();
-            $('#newDeathNotice').slideToggle();
-            $('#newDeathNoticeTitle').slideToggle();
-            $('#glyphNewDeathNotice').fadeToggle();
-        });
-
         $('#glyphNewEvent').on('click', function () {
             $('#eventsTitle').slideToggle();
             $('#eventContent').slideToggle();
@@ -458,23 +261,6 @@
             $('#newAnnouncmentTitle').slideToggle();
             $('#glyphNewAnnouncment').fadeToggle();
         });
-
-        //$('#btnAddAnnouncment').on('click', function () {
-        //    //$('#announcmentsTitle').slideToggle();
-        //    //$('#announcmentContent').slideToggle();
-        //    //$('#newAnnouncmentContent').slideToggle();
-        //    //$('#newAnnouncmentTitle').slideToggle();
-        //    //$('#glyphNewAnnouncment').fadeToggle();
-           
-        //});
-
-        //$('#btnCancelAnnouncment').on('click', function () {
-        //    $('#announcmentsTitle').slideToggle();
-        //    $('#announcmentContent').slideToggle();
-        //    $('#newAnnouncmentContent').slideToggle();
-        //    $('#newAnnouncmentTitle').slideToggle();
-        //    $('#glyphNewAnnouncment').fadeToggle();
-        //});
     });
 </script>
 
