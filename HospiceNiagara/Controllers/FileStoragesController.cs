@@ -37,7 +37,6 @@ namespace HospiceNiagara.Controllers
                                 MimeType = f.MimeType,
                                 FileDescription = f.FileDescription,
                                 FileUploadDate = f.FileUploadDate
-
                             });
             }
                       
