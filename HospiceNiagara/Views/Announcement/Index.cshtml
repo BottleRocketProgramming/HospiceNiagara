@@ -28,22 +28,29 @@
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
-                    {
-                        if(item.IsEvent == false)
-                        {
+                    {             
                        
-                        <tr>
-                            <td>
-                                <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
+                        @:<tr><td>
+                                var url = Request.Url.PathAndQuery;
+                                if(url.EndsWith("Announcement/Index"))
+                                {                              
+                                    <a href=Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
+                                }
+                                else
+                                {
+                                    <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
+                                }
                             <td>
                                 @Html.DisplayFor(modelItem => item.AnnounceEndDate)
                             </td>
+                    
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                             </td>
-                        </tr>
-                         }
+                    @:</tr>
+                         
+                       
                     }
                    
 
