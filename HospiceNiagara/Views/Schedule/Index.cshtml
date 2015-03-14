@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HospiceNiagara.Models.Schedule
+@*Andreas King March 2015*@
+@{
     ViewBag.Title = "Index";
 }
 
@@ -12,226 +14,35 @@
             </div>
             <div id="welcomeDeskScheduleContent">
                 <div id="scheduleWelcomeDeskList" class="panel-body">
-                    <table class="table" style="width:100%;">
+                    <table class="table">
                         <tr>
-                            <td>Febuary 2015</td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SchedName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SchedStartDate)
+                            </th>
+                            <th></th>
                         </tr>
-                        <tr>
-                            <td>@Html.ActionLink("January 2015", "January2015", "Schedule")</td>
-                        </tr>
-                        <tr>
-                            <td>December 2014</td>
-                        </tr>
+                        @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
+                        {
+                            <tr>
+                                <td>                          
+                                    <a href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName)</a>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                </td>
+                            </tr>
+                        }
                     </table>
-                    <button id="viewAll" class="btn btn-default">View All</button>
                 </div>
                 <div id="newWelcomeDeskSchedule" class="panel-body" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">File Upload</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                            <button id="btnUploadWelcomeDeskSchedule" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
-                        </div>
-
-                        <div class="btn-group">
-                            <button id="btnAddNewWelcomeDeskSchedule" class="btn btn-primary">Add</button>
-                            <button id="btnCancelNewWelcomeDeskSchedule" class="btn btn-default">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                <span id="residentialScheduleTitle">Residential Schedule</span>
-                <span id="newResidentialScheduleTitle" hidden>New Welcome Desk Schedule</span>
-                <div id="glyphNewResidentialSchedule" class="glyphicon glyphicon-plus pull-right"></div>
-            </div>
-            <div id="residentialScheduleContent">
-                <div id="residentialScheduleList" class="panel-body">
-                    <table class="table" style="width:100%;">
-                        <tr>
-                            <td>Febuary 2015</td>
-                        </tr>
-                        <tr>
-                            <td>January 2015</td>
-                        </tr>
-                        <tr>
-                            <td>December 2014</td>
-                        </tr>
-                    </table>
-                    <button id="viewAll" class="btn btn-default">View All</button>
-                </div>
-                <div id="newResidentialSchedule" class="panel-body" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">File Upload</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                            <button id="btnuploadResidentialSchedule" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
-                        </div>
-
-                        <div class="btn-group">
-                            <button id="btnAddNewResidentialSchedule" class="btn btn-primary">Add</button>
-                            <button id="btnCancelResidentialSchedule" class="btn btn-default">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                <span id="welcomeDeskScheduleTitle">Event Schedule</span>
-                <span id="newWelcomeDeskScheduleTitle" hidden>New Event Schedule</span>
-                <div id="glyphNewWelcomeDeskSchedule" class="glyphicon glyphicon-plus pull-right"></div>
-            </div>
-            <div id="welcomeDeskScheduleContent">
-                <div id="scheduleWelcomeDeskList" class="panel-body">
-                    <table class="table" style="width:100%;">
-                        <tr>
-                            <td>Febuary 2015</td>
-                        </tr>
-                        <tr>
-                            <td>January 2015</td>
-                        </tr>
-                        <tr>
-                            <td>December 2014</td>
-                        </tr>
-                    </table>
-                    <button id="viewAll" class="btn btn-default">View All</button>
-                </div>
-                <div id="newWelcomeDeskSchedule" class="panel-body" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">File Upload</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                            <button id="btnuploadSchedule" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
-                        </div>
-
-                        <div class="btn-group">
-                            <button id="btnAddNewWelcomeDeskSchedule" class="btn btn-primary">Add</button>
-                            <button id="btnCancelNewWelcomeDeskSchedule" class="btn btn-default">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                <span id="petTherapyScheduleTitle">Pet Therapy Schedule</span>
-                <span id="newPetTherapyScheduleTitle" hidden>New Pet Therapy Schedule</span>
-                <div id="glyphNewPetTherapySchedule" class="glyphicon glyphicon-plus pull-right"></div>
-            </div>
-            <div id="petTherapyScheduleContent">
-                <div id="schedulePetTherapyList" class="panel-body">
-                    <table class="table" style="width:100%;">
-                        <tr>
-                            <td>Febuary 2015</td>
-                        </tr>
-                        <tr>
-                            <td>January 2015</td>
-                        </tr>
-                        <tr>
-                            <td>December 2014</td>
-                        </tr>
-                    </table>
-                    <button id="viewAll" class="btn btn-default">View All</button>
-                </div>
-                <div id="newPetTherapySchedule" class="panel-body" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">File Upload</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                            <button id="btnUploadPetTherapySchedule" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
-                        </div>
-
-                        <div class="btn-group">
-                            <button id="btnAddNewPetTherapySchedule" class="btn btn-primary">Add</button>
-                            <button id="btnCancelNewPetTherapySchedule" class="btn btn-default">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-
-    <div class="col-sm-4">
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                <span id="welcomeDeskScheduleTitle">St Catharines Day Hospice Schedule</span>
-                <span id="newWelcomeDeskScheduleTitle" hidden>New St Catharines Day Hospice Schedule</span>
-                <div id="glyphNewWelcomeDeskSchedule" class="glyphicon glyphicon-plus pull-right"></div>
-            </div>
-            <div id="welcomeDeskScheduleContent">
-                <div id="scheduleWelcomeDeskList" class="panel-body">
-                    <table class="table" style="width:100%;">
-                        <tr>
-                            <td>Febuary 2015</td>
-                        </tr>
-                        <tr>
-                            <td>January 2015</td>
-                        </tr>
-                        <tr>
-                            <td>December 2014</td>
-                        </tr>
-                    </table>
-                    <button id="viewAll" class="btn btn-default">View All</button>
-                </div>
-                <div id="newWelcomeDeskSchedule" class="panel-body" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">File Upload</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                            <button id="btnuploadSchedule" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
-                        </div>
-
-                        <div class="btn-group">
-                            <button id="btnAddNewWelcomeDeskSchedule" class="btn btn-primary">Add</button>
-                            <button id="btnCancelNewWelcomeDeskSchedule" class="btn btn-default">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                <span id="welcomeDeskScheduleTitle">Welland Day Hospice Schedule Schedule</span>
-                <span id="newWelcomeDeskScheduleTitle" hidden>New Welland Day Hospice Schedule Schedule</span>
-                <div id="glyphNewWelcomeDeskSchedule" class="glyphicon glyphicon-plus pull-right"></div>
-            </div>
-            <div id="welcomeDeskScheduleContent">
-                <div id="scheduleWelcomeDeskList" class="panel-body">
-                    <table class="table" style="width:100%;">
-                        <tr>
-                            <td>Febuary 2015</td>
-                        </tr>
-                        <tr>
-                            <td>January 2015</td>
-                        </tr>
-                        <tr>
-                            <td>December 2014</td>
-                        </tr>
-                    </table>
-                    <button id="viewAll" class="btn btn-default">View All</button>
-                </div>
-                <div id="newWelcomeDeskSchedule" class="panel-body" hidden>
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">File Upload</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1">
-                            <button id="btnuploadSchedule" class="btn btn-primary"><div class="glyphicon glyphicon-download-alt"></div></button>
-                        </div>
-
-                        <div class="btn-group">
-                            <button id="btnAddNewWelcomeDeskSchedule" class="btn btn-primary">Add</button>
-                            <button id="btnCancelNewWelcomeDeskSchedule" class="btn btn-default">Cancel</button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

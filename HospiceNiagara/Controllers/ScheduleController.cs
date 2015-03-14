@@ -23,9 +23,22 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index(int? id)
         {
             var sched = new Schedule();
-            sched.SchedTypes = new List<SchedType>();
+            sched.SchedType = new SchedType();
 
-            return View(db.Schedules.ToList());
+            if (id != null)
+            {
+                Schedule Schedule = db.Schedules.Include(j => j.SchedType).Where(i => i.ID == id).Single();
+                PopulateScheduleTypes(Schedule);
+            }
+            else
+            {
+                PopulateScheduleTypes(sched);
+            }
+
+            ViewData["Schedule"] = db.Schedules.ToList();
+            ViewData["ScheduleID"] = id;
+            Schedule schedule = db.Schedules.Find(id);
+            return View(schedule);
         }
 
         // GET: Schedule/Details/5
@@ -126,7 +139,7 @@ namespace HospiceNiagara.Controllers
         public void PopulateScheduleTypes(Schedule schedule)
         {
             var scheduleTypes = db.SchedTypes;
-            var aTypes = new HashSet<int>(schedule.SchedTypes.Select(t => t.ID));
+            var selected = schedule.SchedType;
             var viewModel = new List<SchedTypeVM>();
             foreach (var type in scheduleTypes)
             {
@@ -134,38 +147,25 @@ namespace HospiceNiagara.Controllers
                 {
                     ID = type.ID,
                     SchedTypeName = type.SchedTypeName,
-                    SchedTypeSelected = aTypes.Contains(type.ID)
+                    SchedTypeSelected = selected.Equals(type.ID)
                 });
             }
             ViewBag.SchedTypes = viewModel;
         }
 
-        private void UpdateScheduleTypes(string[] selectedSchedType, Schedule ScheduleToUpdate)
+        private void UpdateScheduleType(int selectedSchedType, Schedule ScheduleToUpdate)
         {
             if (selectedSchedType == null)
             {
-                ScheduleToUpdate.SchedTypes = new List<JobDescription>();
+                ScheduleToUpdate.SchedType = null;
                 return;
             }
 
-            var selectedJobsHS = new HashSet<string>(selectedSchedType);
-            var meetingJobs = new HashSet<int>
-                (ScheduleToUpdate.SchedTypes.Select(c => c.ID));
-            foreach (var jobs in db.SchedTypes)
+            foreach (var type in db.SchedTypes)
             {
-                if (selectedJobsHS.Contains(jobs.ID.ToString()))
+                if (selectedSchedType.Equals(type.ID))
                 {
-                    if (!meetingJobs.Contains(jobs.ID))
-                    {
-                        ScheduleToUpdate.SchedTypes.Add(jobs);
-                    }
-                }
-                else
-                {
-                    if (meetingJobs.Contains(jobs.ID))
-                    {
-                        ScheduleToUpdate.SchedTypes.Remove(jobs);
-                    }
+                    ScheduleToUpdate.SchedType = type;
                 }
             }
         }

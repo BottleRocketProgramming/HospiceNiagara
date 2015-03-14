@@ -223,8 +223,8 @@ namespace HospiceNiagara.Controllers
             }
 
             var selectedJobsHS = new HashSet<string>(selectedJobs);
-            var meetingJobs = new HashSet<int>
-                (ContactToUpdate.JobDescriptions.Select(c => c.ID));
+            var meetingJobs = new HashSet<int>(ContactToUpdate.JobDescriptions.Select(c => c.ID));
+
             foreach (var jobs in db.JobDescriptions)
             {
                 if (selectedJobsHS.Contains(jobs.ID.ToString()))
