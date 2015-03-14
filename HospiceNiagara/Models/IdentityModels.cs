@@ -64,6 +64,8 @@ namespace HospiceNiagara.Models
             base.OnModelCreating(modelBuilder);
         }
 
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }
+
               
     }
 }

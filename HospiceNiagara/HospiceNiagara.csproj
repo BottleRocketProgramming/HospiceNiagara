@@ -333,6 +333,8 @@
     <Content Include="Views\DeathNotice\Details.cshtml" />
     <Content Include="Views\DeathNotice\Edit.cshtml" />
     <Content Include="Views\DeathNotice\Delete.cshtml" />
+    <Content Include="Views\DeathNotice\AdminList.cshtml" />
+    <Content Include="Views\DeathNotice\adminCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
