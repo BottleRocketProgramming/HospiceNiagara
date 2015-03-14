@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Infrastructure;
 
 //Andreas King March 2015
 
@@ -17,8 +20,11 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Schedule
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+            var sched = new Schedule();
+            sched.SchedTypes = new List<SchedType>();
+
             return View(db.Schedules.ToList());
         }
 
@@ -124,6 +130,24 @@ namespace HospiceNiagara.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void PopulateScheduleTypes(Schedule schedule)
+        {
+            var scheduleTypes = db.;
+            var aTypes = new HashSet<int>(schedule.SchedTypes.Select(t => t.ID));
+            var viewModel = new List<SchedTypeVM>();
+            foreach (var type in scheduleTypes)
+            {
+                viewModel.Add(new SchedTypeVM
+                {
+                    ID = 
+                    SchedTypeName =
+                    SchedTypeSelected = 
+                });
+            }
+
+            ViewBag.JobDescriptions = viewModel;
         }
     }
 }
