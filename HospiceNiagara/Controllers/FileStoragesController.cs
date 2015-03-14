@@ -24,7 +24,9 @@ namespace HospiceNiagara.Controllers
         {
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();
+            //fileR.FileSubCats = new List<FileSubCat>();
             PopulateAssignedRoles(fileR);
+            //PopulateSubCat(fileR);
             
             var allFiles = db.FileStorages;
             var viewModel = new List<FileStorageVM>();
@@ -192,6 +194,26 @@ namespace HospiceNiagara.Controllers
 
             ViewBag.RolesLists = viewModel;
         }
+
+        //public void PopulateSubCat(FileStorage fileStore)
+        //{
+        //    var allSubCats = db.FileSubCats;           
+        //    var aSubCats = new HashSet<int>(fileStore.FileSubCats.Select(r => r.ID));
+        //    var viewModelSubCat = new List<FileSubCatVM>();
+        //    foreach(var subCat in allSubCats)
+        //    {
+        //        viewModelSubCat.Add(new FileSubCatVM
+        //        {
+        //           ID = subCat.ID,
+        //           FileSubCatName = subCat.FileSubCatName,
+        //           FileCatFK = subCat.FileCatFK,
+        //           FileSubCatAssigned = aSubCats.Contains(subCat.ID)
+
+        //        });
+        //    }
+
+        //    ViewBag.FileSubCat = viewModelSubCat;
+        //}
 
         private void UpdateFileStorageRoles(string[] selectedRoles, FileStorage FileToUpdate)
         {
