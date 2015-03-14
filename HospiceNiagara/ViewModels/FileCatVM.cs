@@ -8,12 +8,11 @@ namespace HospiceNiagara.ViewModels
 {
     public class FileCatVM
     {
-        public class FileCat
-        {
+     
             public int ID { get; set; }
 
             public string FileCatName { get; set; }
            
-        }
+        
     }
 }

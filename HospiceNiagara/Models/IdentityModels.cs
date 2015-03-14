@@ -53,6 +53,7 @@ namespace HospiceNiagara.Models
         public DbSet<RoleList> RoleLists { get; set; }
         public DbSet<FileCat> FileCats { get; set; }
         public DbSet<FileSubCat> FileSubCats { get; set; }
+        public DbSet<SchedType> SchedTypes { get; set; }
         
         
 
