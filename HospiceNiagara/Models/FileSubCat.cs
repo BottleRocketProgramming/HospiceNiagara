@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+//Paul Boyko March 2015
+
 namespace HospiceNiagara.Models
 {
     public class FileSubCat
@@ -14,7 +16,7 @@ namespace HospiceNiagara.Models
         [Required]
         public string FileSubCatName { get; set; }
 
-        public virtual FileCat FileCatFK { get; set; }
+        public virtual ICollection<FileCat> FileCats { get; set; }
 
         public virtual ICollection<FileStorage> FileStores { get; set; }
     }
