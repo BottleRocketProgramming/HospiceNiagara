@@ -27,18 +27,25 @@
                         if (item.IsEvent == false)
                         {
 
-                            <tr>
-                                <td>
+                            @:<tr><td>
+                                var url = Request.Url.PathAndQuery;
+                                if(url.EndsWith("Home/Index"))
+                                {                              
+                                    <a href=Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
+                                }
+                                else
+                                {
                                     <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AnnounceEndDate)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "../Announcement/Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Delete", "../Announcement/Delete", new { id = item.ID })
-
-                                </td>
-                            </tr>
+                                }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnnounceEndDate)
+                            </td>
+                    
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                    @:</tr>
                         }
                     }
 
