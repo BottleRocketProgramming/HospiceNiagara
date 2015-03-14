@@ -19,14 +19,14 @@
             <table class="table table-striped table-bordered">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.DnFirstName)
+                            @Html.DisplayNameFor(model => model.DnFullName)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.DnMiddleName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.DnLastName)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.DnLocation)
                         </th>
@@ -41,11 +41,11 @@
 
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DnFirstName)
-                        <td>
+                            @Html.DisplayFor(modelItem => item.DnFullName)
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.DnMiddleName)
                         <td>
-                            @Html.DisplayFor(modelItem => item.DnLastName)
+                            @Html.DisplayFor(modelItem => item.DnLastName)*@
                         <td>
                             @Html.DisplayFor(modelItem => item.DnLocation)
                         <td>
