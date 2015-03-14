@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
 
+//Andreas King March 2015
+
 namespace HospiceNiagara.Controllers
 {
     public class DeathNoticeController : Controller
@@ -25,6 +27,12 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
+        //Admin List
+        public ActionResult AdminList()
+        {
+            return View(db.DeathNotices.ToList());
+        }
+
         // GET: DeathNotice/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,8 +48,8 @@ namespace HospiceNiagara.Controllers
             return View(deathNotice);
         }
 
-        // GET: DeathNotice/Create
-        public ActionResult Create()
+        // GET: DeathNotice/adminCreate
+        public ActionResult adminCreate()
         {
             return View();
         }
@@ -54,6 +62,21 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateDeathNotice")]
         public ActionResult Create([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnLocation,DnNotes")] DeathNotice deathNotice)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DeathNotices.Add(deathNotice);
+                db.SaveChanges();
+                return RedirectToAction("AdminList");
+            }
+
+            return View(deathNotice);
+        }
+
+        //Admin Create for Death Notices
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult adminCreate([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnLocation,DnNotes")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {

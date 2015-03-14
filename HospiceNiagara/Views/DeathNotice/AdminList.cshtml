@@ -1,0 +1,59 @@
+﻿@model IEnumerable<HospiceNiagara.Models.DeathNotice>
+
+@{
+    ViewBag.Title = "AdminList";
+}
+
+@*Andreas King March 2015*@
+
+<h2>Death Notices</h2>
+
+<p>
+    @Html.ActionLink("Create New", "adminCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DnFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DnMiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DnLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DnLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DnNotes)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DnFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DnMiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DnLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DnLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DnNotes)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
