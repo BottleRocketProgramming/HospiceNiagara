@@ -18,15 +18,17 @@ namespace HospiceNiagara.Controllers
     public class FileStoragesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+      
 
         // GET: FileStorages
         public ActionResult Index()
         {
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();
-            //fileR.FileSubCats = new List<FileSubCat>();
+            fileR.FileSubCats = new List<FileSubCat>();
             PopulateAssignedRoles(fileR);
-            //PopulateSubCat(fileR);
+            PopulateCatAndSubCat(fileR);
+           
             
             var allFiles = db.FileStorages;
             var viewModel = new List<FileStorageVM>();
@@ -195,25 +197,36 @@ namespace HospiceNiagara.Controllers
             ViewBag.RolesLists = viewModel;
         }
 
-        //public void PopulateSubCat(FileStorage fileStore)
-        //{
-        //    var allSubCats = db.FileSubCats;           
-        //    var aSubCats = new HashSet<int>(fileStore.FileSubCats.Select(r => r.ID));
-        //    var viewModelSubCat = new List<FileSubCatVM>();
-        //    foreach(var subCat in allSubCats)
-        //    {
-        //        viewModelSubCat.Add(new FileSubCatVM
-        //        {
-        //           ID = subCat.ID,
-        //           FileSubCatName = subCat.FileSubCatName,
-        //           FileCatFK = subCat.FileCatFK,
-        //           FileSubCatAssigned = aSubCats.Contains(subCat.ID)
+        public void PopulateCatAndSubCat(FileStorage fileStore)
+        {
+            var allSubCats = db.FileSubCats.Include(fc => fc.FileCats);
+            var aSubCats = new HashSet<int>(fileStore.FileSubCats.Select(r => r.ID));
+            var viewModelSubCat = new List<FileSubCatVM>();
+            foreach (var subCat in allSubCats)
+            {
+                viewModelSubCat.Add(new FileSubCatVM
+                {
+                    ID = subCat.ID,
+                    FileSubCatName = subCat.FileSubCatName,                   
+                    FileSubCatAssigned = aSubCats.Contains(subCat.ID)
 
-        //        });
-        //    }
+                });
+            }
 
-        //    ViewBag.FileSubCat = viewModelSubCat;
-        //}
+            var allCats = db.FileCats;
+            var viewModelCats = new List<FileCatVM>();
+            foreach (var cat in allCats)
+            {
+                viewModelCats.Add(new FileCatVM
+                {
+                    ID = cat.ID,
+                    FileCatName = cat.FileCatName
+                });
+            }
+
+            ViewBag.FileSubCat = viewModelSubCat;
+            ViewBag.Cat = viewModelCats;
+        }
 
         private void UpdateFileStorageRoles(string[] selectedRoles, FileStorage FileToUpdate)
         {
