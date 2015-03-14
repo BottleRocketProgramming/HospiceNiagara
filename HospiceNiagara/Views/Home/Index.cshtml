@@ -29,13 +29,12 @@
 
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.AnnounceText)
+                                    <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AnnounceEndDate)
                                 </td>
                                 <td>
                                     @Html.ActionLink("Edit", "../Announcement/Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Details", "../Announcement/Details", new { id = item.ID }) |
                                     @Html.ActionLink("Delete", "../Announcement/Delete", new { id = item.ID })
 
                                 </td>
