@@ -123,6 +123,53 @@ namespace HospiceNiagara.Controllers
             return RedirectToAction("Index");
         }
 
+        public void PopulateScheduleTypes(Schedule schedule)
+        {
+            var scheduleTypes = db.SchedTypes;
+            var aTypes = new HashSet<int>(schedule.SchedTypes.Select(t => t.ID));
+            var viewModel = new List<SchedTypeVM>();
+            foreach (var type in scheduleTypes)
+            {
+                viewModel.Add(new SchedTypeVM
+                {
+                    ID = type.ID,
+                    SchedTypeName = type.SchedTypeName,
+                    SchedTypeSelected = aTypes.Contains(type.ID)
+                });
+            }
+            ViewBag.SchedTypes = viewModel;
+        }
+
+        private void UpdateScheduleTypes(string[] selectedSchedType, Schedule ScheduleToUpdate)
+        {
+            if (selectedSchedType == null)
+            {
+                ScheduleToUpdate.SchedTypes = new List<JobDescription>();
+                return;
+            }
+
+            var selectedJobsHS = new HashSet<string>(selectedSchedType);
+            var meetingJobs = new HashSet<int>
+                (ScheduleToUpdate.SchedTypes.Select(c => c.ID));
+            foreach (var jobs in db.SchedTypes)
+            {
+                if (selectedJobsHS.Contains(jobs.ID.ToString()))
+                {
+                    if (!meetingJobs.Contains(jobs.ID))
+                    {
+                        ScheduleToUpdate.SchedTypes.Add(jobs);
+                    }
+                }
+                else
+                {
+                    if (meetingJobs.Contains(jobs.ID))
+                    {
+                        ScheduleToUpdate.SchedTypes.Remove(jobs);
+                    }
+                }
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -132,22 +179,6 @@ namespace HospiceNiagara.Controllers
             base.Dispose(disposing);
         }
 
-        public void PopulateScheduleTypes(Schedule schedule)
-        {
-            var scheduleTypes = db.;
-            var aTypes = new HashSet<int>(schedule.SchedTypes.Select(t => t.ID));
-            var viewModel = new List<SchedTypeVM>();
-            foreach (var type in scheduleTypes)
-            {
-                viewModel.Add(new SchedTypeVM
-                {
-                    ID = 
-                    SchedTypeName =
-                    SchedTypeSelected = 
-                });
-            }
-
-            ViewBag.JobDescriptions = viewModel;
-        }
+        
     }
 }
