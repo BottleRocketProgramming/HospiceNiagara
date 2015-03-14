@@ -14,5 +14,9 @@ namespace HospiceNiagara.ViewModels
         public string FileSubCatName { get; set; }       
 
         public bool FileSubCatAssigned { get; set; }
+
+        public int FileCatFK { get; set; }
+
+        public virtual FileCat FlCat { get; set; }
     }
 }

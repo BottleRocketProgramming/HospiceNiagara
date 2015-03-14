@@ -7,28 +7,34 @@
 <div class="container">
 
     @{
+        List<HospiceNiagara.ViewModels.FileCatVM> cat = ViewBag.Cat;
         List<HospiceNiagara.ViewModels.FileSubCatVM> subCat = ViewBag.FileSubCat;
-        foreach(var cats in subCat)
-        { 
-            foreach(var cat in cats)
-        <div class="col-sm-4">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    @*@Html.DisplayFor(fc => fc.)*@
-                </div>
-                <div id="staffContent" class="panel-body">
-                    <ul class="Staff-Index">
-                        <li>@Html.ActionLink("Operational Policies", "Staff_OperationalPolicies", "Resource")</li>
-                        <li>@Html.ActionLink("Orientation Documents", "Staff_OrientationDocuments", "Resource")</li>
-                        <li>@Html.ActionLink("Memos", "Memos", "Resource")</li>
-                        <li>@Html.ActionLink("Staff Meeting Minutes", "Staff_StaffMeetingMinutes", "Resource")</li>
-                        <li>@Html.ActionLink("Emergency Call Chart", "Staff_EmergencyCallChart", "Resource")</li>
-                        <li>@Html.ActionLink("Staff Related Links", "Staff_RelatedLinks", "Resource")</li>
-                    </ul>
-                </div>
+        
+        foreach(var cats in cat)
+        {        
+                <div class="col-sm-4">
+                    <div class="panel panel-success">
+            <div class="panel-heading">
+                @Html.DisplayFor(modelItem => cats.FileCatName)
+            </div>
+            <div id="staffContent" class="panel-body">
+                <ul class="Staff-Index">
+            @foreach (var subCats in subCat)
+            {
+                 if(cats.ID == subCats.FileCatFK)
+                 { 
+                <li>@Html.DisplayFor(modelItem => subCats.FileSubCatName) </li>
+                }
+                
+               
+            }
+                </ul>
             </div>
         </div>
+        </div>
+            
         }
+     }
 
         @*<div class="col-sm-4">
                 <div class="panel panel-success">
@@ -84,7 +90,7 @@
                         </ul>
                     </div>
                 </div>*@
-</div>
+@*</div>*@
 
     <div class="col-sm-8">
         <div class="panel panel-info ">
