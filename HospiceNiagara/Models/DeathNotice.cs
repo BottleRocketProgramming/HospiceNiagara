@@ -13,6 +13,15 @@ namespace HospiceNiagara.Models
         [Required]
         public int ID { get; set; }
 
+        [Display(Name = "Name")]
+        public string DnFullName
+        {
+            get
+            {
+                return DnFirstName + (string.IsNullOrEmpty(DnMiddleName) ? " " : (" " + (char?)DnMiddleName[0] + ". ").ToUpper()) + DnLastName;
+            }
+        }
+
         [Display(Name= "First")]
         [Required(ErrorMessage = "First name is required for a death notice")]
         [StringLength(50, ErrorMessage = "First name can not exceed 50 characters")]

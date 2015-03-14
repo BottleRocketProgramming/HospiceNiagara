@@ -180,26 +180,38 @@
 </div>
 
 @{
-int cnt = 0;
 List<HospiceNiagara.ViewModels.JobDescVM> jobbs = ViewBag.JobDescriptions;
-foreach (var j in jobbs)
-{
-    if(j.JobAssigned==true)
+
+bool assigned = false;
+    foreach (var j in jobbs)
     {
-        @:<div class="col-sm-4" id="panelPositionDesc">
-            @:<div class="panel panel-success">
-                @:<div class="panel-heading">
-                    @:About this position
+        if(j.JobAssigned==true)
+        {
+            if(assigned == false)
+            {
+                @:<div class="col-sm-4" id="panelPositionDesc">
+                @:<div class="panel panel-success">
+                    @:<div class="panel-heading">
+                        @:About this position
+                    @:</div>
+                    assigned = true;
+            }
+            
+                    @:<div class="panel-body">
+                        @:<h4>@j.JobName</h4>
+                        @:<p>@j.JobDesc</p>
                 @:</div>
-                @:<div class="panel-body">
-                    @:<h4>@j.JobName</h4>
-                    @:<p>@j.JobDesc</p>
+
+            }
+        }
+        if(assigned == true)
+        {
             @:</div>
         @:</div>
-    @:</div>
         }
     }
-}
+
+    
 
 @Scripts.Render("~/bundles/jquery")
 

@@ -184,13 +184,16 @@
     <Compile Include="Migrations\201503122122135_redo2.Designer.cs">
       <DependentUpon>201503122122135_redo2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503140158480_CatsAndSubCats.cs" />
+    <Compile Include="Migrations\201503140158480_CatsAndSubCats.Designer.cs">
+      <DependentUpon>201503140158480_CatsAndSubCats.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
     <Compile Include="Models\BoardContact.cs" />
     <Compile Include="Models\DeathNotice.cs" />
     <Compile Include="Models\FileCat.cs" />
-    <Compile Include="Models\FileSortType.cs" />
     <Compile Include="Models\FileStorage.cs" />
     <Compile Include="Models\FileSubCat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -201,7 +204,9 @@
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\FileCatVM.cs" />
     <Compile Include="ViewModels\FileStorageVM.cs" />
+    <Compile Include="ViewModels\FileSubCatVM.cs" />
     <Compile Include="ViewModels\JobDescVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
   </ItemGroup>
@@ -340,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503122122135_redo2.resx">
       <DependentUpon>201503122122135_redo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503140158480_CatsAndSubCats.resx">
+      <DependentUpon>201503140158480_CatsAndSubCats.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -36,17 +36,13 @@ namespace HospiceNiagara.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FileUploadDate { get; set; }
                
-        //public int FileSortTypeID { get; set; }
-
-        public virtual FileSortType FileSortType { get; set; }
-
         public virtual ICollection<RoleList> FileStoreUserRoles { get; set; }
 
         public virtual ICollection<Meeting> Meetings { get; set; }
 
         public virtual ICollection<Announcement> Announcements { get; set; }
 
-        public virtual ICollection<FileCat> FileCats { get; set; }
+        public virtual ICollection<FileSubCat> FileSubCats { get; set; }
     }
 
 }

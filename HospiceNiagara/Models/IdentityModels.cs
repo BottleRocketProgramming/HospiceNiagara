@@ -46,10 +46,11 @@ namespace HospiceNiagara.Models
         public DbSet<BoardContact> BoardContacts { get; set; }
         public DbSet<DeathNotice> DeathNotices { get; set; }
         public DbSet<FileStorage> FileStorages { get; set; }       
-        public DbSet<FileSortType> FileSortTypes { get; set; }
         public DbSet<JobDescription> JobDescriptions { get; set; }
         public DbSet<Meeting> Meetings { get; set; }      
         public DbSet<RoleList> RoleLists { get; set; }
+        public DbSet<FileCat> FileCats { get; set; }
+        public DbSet<FileSubCat> FileSubCats { get; set; }
         
         
 
@@ -60,12 +61,6 @@ namespace HospiceNiagara.Models
             base.OnModelCreating(modelBuilder);
         }
 
-        public System.Data.Entity.DbSet<HospiceNiagara.Models.FileCat> FileCats { get; set; }
-
-        public System.Data.Entity.DbSet<HospiceNiagara.Models.FileSubCat> FileSubCats { get; set; }
-
-        //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> IdentityUsers { get; set; }
-
-        
+              
     }
 }

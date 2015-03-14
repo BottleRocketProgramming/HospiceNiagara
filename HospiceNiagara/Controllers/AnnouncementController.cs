@@ -154,8 +154,6 @@ namespace HospiceNiagara.Controllers
 
                 dbb.DeathNotices.Add(deathNotice);
                 dbb.SaveChanges();
-
-
             }
 
             return RedirectToAction("Index");
@@ -243,7 +241,7 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateAssignedRoles(Announcement announcement)
         {
-            var allRole = db.RoleLists;
+            var allRole = db.RoleLists.OrderBy(r => r.RoleName);
             var aRoles = new HashSet<int>(announcement.RolesLists.Select(r => r.ID));
             var viewModel = new List<RoleVM>();
             foreach (var roll in allRole)

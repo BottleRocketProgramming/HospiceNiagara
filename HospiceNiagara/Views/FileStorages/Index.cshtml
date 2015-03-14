@@ -136,7 +136,7 @@
                             <input type="submit" name="Submit" value="Upload" />
                     }
                 </div>*@
-                </p>
+                @*</p>*@
 
                 <table class="table table-striped table-bordered" style="width:100%;">
                     <tr>
@@ -266,6 +266,34 @@
                                 </div>
                             </div>
 
+    @*<div class="form-group">
+        <label class="control-label col-md-2">Select Roles</label>
+        <div class="col-md-offset-2 col-md-10">
+            <table>
+                <tr>
+                    @{
+                        int ct = 0;
+                        List<HospiceNiagara.ViewModels.FileSubCatVM> subCats = ViewBag.FileSubCats;
+                        foreach (var sc in subCats)
+                        {
+                            if (ct++ % 1 == 0)
+                            {
+                                @:</tr><tr>
+                            }
+                            @:<td>
+                                    <input type="checkbox"
+                                           name="selectedSubCats"
+                                           value="@sc.ID"
+                                           @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
+                                    @sc.FileSubCatName
+                                    @:</td>
+                           }
+                        @:</tr>
+                    }
+                </table>
+            </div>
+        </div>*@
+
                             <input type="submit" name="Submit" value="Upload" />
                     }
                 </div>
@@ -273,7 +301,7 @@
 
         </div>
     </div>
-
+</div>
 @Scripts.Render("~/bundles/jquery")
 
 <script>
