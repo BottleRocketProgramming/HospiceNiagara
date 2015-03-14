@@ -17,6 +17,9 @@
                         <th>
                             End Date
                         </th>
+                        <th>
+                            
+                        </th>
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
@@ -29,6 +32,12 @@
                                     @Html.DisplayFor(modelItem => item.AnnounceText)
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AnnounceEndDate)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "../Announcement/Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "../Announcement/Details", new { id = item.ID }) |
+                                    @Html.ActionLink("Delete", "../Announcement/Delete", new { id = item.ID })
+
                                 </td>
                             </tr>
                         }
