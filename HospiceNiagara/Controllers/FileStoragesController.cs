@@ -199,7 +199,7 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateCatAndSubCat(FileStorage fileStore)
         {
-            var allSubCats = db.FileSubCats.Include(fc => fc.FileCats);
+            var allSubCats = db.FileSubCats.Include(fc => fc.FlCat);
             var aSubCats = new HashSet<int>(fileStore.FileSubCats.Select(r => r.ID));
             var viewModelSubCat = new List<FileSubCatVM>();
             foreach (var subCat in allSubCats)
@@ -207,7 +207,9 @@ namespace HospiceNiagara.Controllers
                 viewModelSubCat.Add(new FileSubCatVM
                 {
                     ID = subCat.ID,
-                    FileSubCatName = subCat.FileSubCatName,                   
+                    FileSubCatName = subCat.FileSubCatName,                    
+                    FlCat = subCat.FlCat,
+                    FileCatFK = subCat.FileCatFK,
                     FileSubCatAssigned = aSubCats.Contains(subCat.ID)
 
                 });
@@ -215,12 +217,14 @@ namespace HospiceNiagara.Controllers
 
             var allCats = db.FileCats;
             var viewModelCats = new List<FileCatVM>();
+         
             foreach (var cat in allCats)
             {
                 viewModelCats.Add(new FileCatVM
                 {
                     ID = cat.ID,
-                    FileCatName = cat.FileCatName
+                    FileCatName = cat.FileCatName,
+                    
                 });
             }
 

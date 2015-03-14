@@ -12,7 +12,7 @@ namespace HospiceNiagara.ViewModels
             public int ID { get; set; }
 
             public string FileCatName { get; set; }
-           
-        
+
+            public ICollection<FileSubCat> FileSubCats { get; set; }
     }
 }
