@@ -8,12 +8,12 @@
     <div class="col-sm-12">
         <div class="panel panel-success ">
             <div class="panel-heading">
-                <span id="welcomeDeskScheduleTitle">Welcome Desk Schedule</span>
-                <span id="newWelcomeDeskScheduleTitle" hidden>New Welcome Desk Schedule</span>
-                <div id="glyphNewWelcomeDeskSchedule" class="glyphicon glyphicon-plus pull-right"></div>
+                <span id="schedulesTitle">Schedules</span>
+                <span id="newschedulesTitle" hidden>New Schedule</span>
+                <div id="glyphNewSchedule" class="glyphicon glyphicon-plus pull-right"></div>
             </div>
-            <div id="welcomeDeskScheduleContent">
-                <div id="scheduleWelcomeDeskList" class="panel-body">
+            <div id="scheduleContent">
+                <div id="scheduleLists" class="panel-body">
                     <table class="table">
                         <tr>
                             <th>
@@ -41,62 +41,67 @@
                         }
                     </table>
                 </div>
-                <div id="newWelcomeDeskSchedule" class="panel-body" hidden>
+                <div id="newSchedule" class="panel-body" hidden>
                     @using (Html.BeginForm())
                         {
                              @Html.AntiForgeryToken()
 
                             <div class="form-group">
-                                <div>
-                                    <div class="form-horizontal">
-                                            <h4>Schedule</h4>
-                                            <hr />
-                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.SchedName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.SchedName, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.SchedName, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.SchedLink, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.SchedLink, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.SchedLink, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.SchedStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.SchedStartDate, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.SchedStartDate, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.SchedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.SchedEndDate, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.SchedEndDate, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SchedName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.SchedName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SchedName, "", new { @class = "text-danger" })
                                         </div>
-                                    <label class="control-label col-md-2">Schedule Types</label>
-                                    <select class="dropdown" name="selectedSchedType">
-                                        @{
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SchedLink, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.SchedLink, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SchedLink, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SchedStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.SchedStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SchedStartDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SchedEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.SchedEndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SchedEndDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Schedule Types</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control" name="selectedSchedType">
+                                            @{
 
                                             List<HospiceNiagara.ViewModels.SchedTypeVM> types = ViewBag.SchedTypes;
                                             foreach (var t in types)
                                             {
                                                 <option value=@t.ID>@t.SchedTypeName</option>
                                             }
-                                            @:
-                                        }
-                                    </select>
+                                                @:
+                                            }
+                                        </select>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
+
+                                
+
+                                
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
@@ -116,28 +121,20 @@
 
 <script>
     $(document).ready(function () {
-        $('#glyphNewWelcomeDeskSchedule').on('click', function () {
-            $('#welcomeDeskScheduleTitle').slideToggle();
-            $('#scheduleWelcomeDeskList').slideToggle();
-            $('#newWelcomeDeskSchedule').slideToggle();
-            $('#newWelcomeDeskScheduleTitle').slideToggle();
-            $('#glyphNewWelcomeDeskSchedule').fadeToggle();
+        $('#glyphNewSchedule').on('click', function () {
+            $('#schedulesTitle').slideToggle();
+            $('#scheduleLists').slideToggle();
+            $('#newSchedule').slideToggle();
+            $('#newschedulesTitle').slideToggle();
+            $('#glyphNewSchedule').fadeToggle();
         });
 
-        $('#btnAddNewWelcomeDeskSchedule').on('click', function () {
-            $('#welcomeDeskScheduleTitle').slideToggle();
-            $('#scheduleWelcomeDeskList').slideToggle();
-            $('#newWelcomeDeskSchedule').slideToggle();
-            $('#newWelcomeDeskScheduleTitle').slideToggle();
-            $('#glyphNewWelcomeDeskSchedule').fadeToggle();
-        });
-
-        $('#btnCancelNewWelcomeDeskSchedule').on('click', function () {
-            $('#welcomeDeskScheduleTitle').slideToggle();
-            $('#scheduleWelcomeDeskList').slideToggle();
-            $('#newWelcomeDeskSchedule').slideToggle();
-            $('#newWelcomeDeskScheduleTitle').slideToggle();
-            $('#glyphNewWelcomeDeskSchedule').fadeToggle();
+        $('#btnAddnewSchedule').on('click', function () {
+            $('#schedulesTitle').slideToggle();
+            $('#scheduleLists').slideToggle();
+            $('#newSchedule').slideToggle();
+            $('#newschedulesTitle').slideToggle();
+            $('#glyphNewSchedule').fadeToggle();
         });
     });
 </script>
