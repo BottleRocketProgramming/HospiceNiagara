@@ -6,7 +6,7 @@
 
 @* Paul Boyko March 2015 *@
 
-@* All the Catigories and Sub Catigories *@
+@* All the Categories and Sub Categories *@
 
 <div class="container">
 
@@ -131,8 +131,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">Select Roles</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <table>
+                                <table class="table col-md-offset-3">
                                     <tr>
                                         @{
                         int cnt = 0;
@@ -154,49 +153,37 @@
                         @:</tr>
                                         }
                                     </table>
-                                </div>
                             </div>
-
-     
-                
-
-        <div class="form-group">
-        <label class="control-label col-md-2">Select Catigories</label>
-        <div class="col-md-offset-2 col-md-10">
-            <table>
-                
-
-                @foreach (var cats in cat)
-                {
-                     @:<tr><th>
-                            @Html.DisplayFor(modelItem => cats.FileCatName)
-                         @:</th>
-
-                                        
-
-
-                        foreach (var sc in subCat)
+                        <br />
+                        <label class="control-label col-md-2">Select Categories</label>
+                        foreach (var cats in cat)
                         {
-                            if (cats.ID == sc.FileCatFK)
-                            {
-
-                                @:<td>
-                                    <input type="checkbox"
-                                           name="selectedSubCats"
-                                           value="@sc.ID"
-                                           @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
-                                    @sc.FileSubCatName
-                                @:</td>
-                           }
+                            @:<div class="form-group col-md-offset-3">
+                                <label class="control-label">@Html.DisplayFor(modelItem => cats.FileCatName)</label>
+                                <table class="table">
+                                    @foreach (var sc in subCat)
+                                    {
+                                        if (cats.ID == sc.FileCatFK)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @sc.FileSubCatName
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox"
+                                                           name="selectedSubCats"
+                                                           value="@sc.ID"
+                                                           @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
+                                                    
+                                                </td>
+                                            </tr>
+                                            
+                                       }
+                                    }
+                                </table>
+                            @:</div>
                         }
-                        @:</tr>
-
-                    }
-                </table>
-            </div>
-        </div>
-
-                            <input type="submit" name="UploadFile" value="Create" />
+                        <input type="submit" name="UploadFile" value="Create" />
                     }
                 </div>
             </div>
