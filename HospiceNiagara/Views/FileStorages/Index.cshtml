@@ -71,7 +71,7 @@
                    { 
                      @Html.TextBox("searchString", null, new { @class = "form-control" }) 
                     <input type="submit" value="Search" class="btn btn-default" />  
-                     @Html.ActionLink("Clear", "Index");
+                     @Html.ActionLink("Clear", "Index", new  { id = 0 });
                     }
                 </div>
 
