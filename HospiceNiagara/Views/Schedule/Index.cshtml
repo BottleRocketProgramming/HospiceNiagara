@@ -14,7 +14,9 @@
             </div>
             <div id="scheduleContent">
                 <div id="scheduleLists" class="panel-body">
-                    <table class="table">
+                    <div class="col-md-6">
+                        <h4>Welcome Desk</h4>
+                        <table class="table">
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.SchedName)
@@ -26,20 +28,185 @@
                         </tr>
                         @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                         {
-                            <tr>
-                                <td>                          
-                                    <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SchedStartDate)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                </td>
-                            </tr>
+                            if (item.SchedType.ID.Equals(1))
+                            {
+                                <tr>
+                                    <td>
+                                        <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    </td>
+                                </tr>
+                            }
                         }
-                    </table>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Residential</h4>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedStartDate)
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
+                            {
+                                if (item.SchedType.ID.Equals(2))
+                                {
+                                    <tr>
+                                        <td>
+                                            <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Pet Therapy</h4>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedStartDate)
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
+                            {
+                                if (item.SchedType.ID.Equals(3))
+                                {
+                                    <tr>
+                                        <td>
+                                            <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>St. Catharines Day Hospice</h4>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedStartDate)
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
+                            {
+                                if (item.SchedType.ID.Equals(4))
+                                {
+                                    <tr>
+                                        <td>
+                                            <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Welland Day Hospice</h4>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedStartDate)
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
+                            {
+                                if (item.SchedType.ID.Equals(5))
+                                {
+                                    <tr>
+                                        <td>
+                                            <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Event</h4>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SchedStartDate)
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
+                            {
+                                if (item.SchedType.ID.Equals(6))
+                                {
+                                    <tr>
+                                        <td>
+                                            <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    
                 </div>
                 <div id="newSchedule" class="panel-body" hidden>
                     @using (Html.BeginForm())
