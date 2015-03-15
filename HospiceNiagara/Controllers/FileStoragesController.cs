@@ -186,6 +186,14 @@ namespace HospiceNiagara.Controllers
             return RedirectToAction("Index");
         }
 
+        //Download
+        public FileContentResult Download(int id)
+        {
+            
+            var downloadFile = db.FileStorages.Where(f => f.ID == id).SingleOrDefault();
+            return File(downloadFile.FileContent, downloadFile.MimeType, downloadFile.FileName);
+        }
+
         public void PopulateAssignedRoles(FileStorage fileStore)
         {
             var allRole = db.RoleLists;
