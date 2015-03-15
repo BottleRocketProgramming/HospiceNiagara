@@ -331,7 +331,6 @@
     <Content Include="Views\testApplicationUsers\Details.cshtml" />
     <Content Include="Views\testApplicationUsers\Edit.cshtml" />
     <Content Include="Views\testApplicationUsers\Index.cshtml" />
-    <Content Include="Views\Contact\List.cshtml" />
     <Content Include="Views\Contact\Create.cshtml" />
     <Content Include="Views\Contact\Edit.cshtml" />
     <Content Include="Views\Contact\Details.cshtml" />
@@ -345,6 +344,10 @@
     <Content Include="Views\Schedule\Edit.cshtml" />
     <Content Include="Views\Schedule\Details.cshtml" />
     <Content Include="Views\Schedule\Delete.cshtml" />
+    <Content Include="Views\Announcement\AdminList.cshtml" />
+    <Content Include="Views\Announcement\adminCreate.cshtml" />
+    <Content Include="Views\Contact\AdminList.cshtml" />
+    <Content Include="Views\Contact\AdminCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

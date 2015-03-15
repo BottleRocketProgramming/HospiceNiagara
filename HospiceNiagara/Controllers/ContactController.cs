@@ -42,6 +42,22 @@ namespace HospiceNiagara.Controllers
             return View(contact);
         }
 
+        //Admin List
+        public ActionResult AdminList()
+        {
+            return View(db.BoardContacts.ToList());
+        }
+
+        // GET: Announcement/adminCreate
+        public ActionResult AdminCreate()
+        {
+            var cont = new BoardContact();
+            cont.JobDescriptions = new List<JobDescription>();
+            PopulateJobDescriptions(cont);
+
+            return View();
+        }
+
         // GET: Contact/Details/5
         public ActionResult Details(int? id)
         {

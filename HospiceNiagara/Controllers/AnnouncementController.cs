@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
 
 //Paul Boyko Feb 2015
+//Edits from Andreas King March 2015
 
 namespace HospiceNiagara.Controllers
 {
@@ -37,7 +38,24 @@ namespace HospiceNiagara.Controllers
 
             //return View(db.Announcements.ToList());
         }
-        
+
+        //Admin List
+        public ActionResult AdminList()
+        {
+            return View(db.Announcements.ToList());
+        }
+
+        // GET: Announcement/adminCreate
+        public ActionResult adminCreate()
+        {
+            var announce = new Announcement();
+            announce.RolesLists = new List<RoleList>();
+            PopulateAssignedRoles(announce);
+
+            return View();
+        }
+
+
         //public ActionResult DeathNotices(int? id)
         //{
         //    ViewData["DeathNoticeList"] = dbb.DeathNotices.ToList();
@@ -61,15 +79,6 @@ namespace HospiceNiagara.Controllers
             return View(announcement);
         }
 
-        //// GET: Announcement/Create
-        //public ActionResult Create()
-        //{
-        //    var announce = new Announcement();
-        //    announce.RolesLists = new List<RoleList>();
-        //    PopulateAssignedRoles(announce);
-
-        //    return View();
-        //}
 
         // POST: Announcement/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
