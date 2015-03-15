@@ -22,6 +22,7 @@ namespace HospiceNiagara.Controllers
             var ann = db.Announcements.Include(a => a.RolesLists);
 
             ViewData["AnnouncementOrEvent"] = ann.ToList();
+            ViewData["Schedule"] = db.Schedules.ToList();
             return View();
         }
 

@@ -31,7 +31,11 @@
                                 var url = Request.Url.PathAndQuery;
                                 if(url.EndsWith("Home/Index"))
                                 {                              
-                                    <a href=Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
+                                    <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
+                                }
+                                else if (url.EndsWith("Home"))
+                                {
+                                    <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
                                 }
                                 else
                                 {
@@ -130,26 +134,26 @@
                 My Schedules
             </div>
             <div class="panel-body">
-                <table class="table" style="width:100%;">
-                    <tr>
-                        <td>@Html.ActionLink("Welcome Desk January 2015", "January2015", "Schedule")</td>
-                    </tr>
-                    <tr>
-                        <td>Welcome Desk Febuary 2015</td>
-                    </tr>
-                    <tr>
-                        <td>Welcome Desk March 2015</td>
-                    </tr>
-                    <tr>
-                        <td>Staff January 2015</td>
-                    </tr>
-                    <tr>
-                        <td>Staff Febuary 2015</td>
-                    </tr>
-                    <tr>
-                        <td>Staff March 2015</td>
-                    </tr>
-                </table>
+                <table class="table">
+                            <tr>
+                                <th>
+                                    Schedule
+                                </th>
+                                <th>
+                                    Start Date
+                                </th>
+                            </tr>
+                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
+                            {
+                                <tr>
+                                    <td>
+                                        <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SchedStartDate)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
             </div>
         </div>
         
