@@ -103,7 +103,12 @@
             <div id="fileContent" class="panel-body">
                 <div class="panel-body-toolbar form-inline">
                     @*<input class="btn btn-default" type="button" value="Upload" id="btnUpload" />*@
-                    <input class="form-control" id="txtSearchByName" type="text" placeholder="Search" />
+                   @using (Html.BeginForm())
+                   { 
+                     @Html.TextBox("searchString", null, new { @class = "form-control" }) 
+                    <input type="submit" value="Search" class="btn btn-default" />  
+                     @Html.ActionLink("Clear", "Index");
+                    }
                 </div>
 
                 @*<div class="col-md-10">
@@ -306,7 +311,7 @@
             </div>
         </div>*@
 
-                            <input type="submit" name="Submit" value="Upload" />
+                            <input type="submit" name="UploadFile" value="Create" />
                     }
                 </div>
             </div>
