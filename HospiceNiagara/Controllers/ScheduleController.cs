@@ -191,7 +191,7 @@ namespace HospiceNiagara.Controllers
             ViewBag.SchedTypes = viewModel;
         }
 
-        private void UpdateScheduleType(int selectedSchedType, Schedule ScheduleToUpdate)
+        private void UpdateScheduleType(int? selectedSchedType, Schedule ScheduleToUpdate)
         {
             if (selectedSchedType == null)
             {
