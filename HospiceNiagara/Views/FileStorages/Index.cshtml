@@ -9,6 +9,8 @@
     @{
         List<HospiceNiagara.ViewModels.FileCatVM> cat = ViewBag.Cat;
         List<HospiceNiagara.ViewModels.FileSubCatVM> subCat = ViewBag.FileSubCat;
+
+        var url = Request.Url.PathAndQuery;
         
         foreach(var cats in cat)
         {        
@@ -23,10 +25,18 @@
             {
                  if(cats.ID == subCats.FileCatFK)
                  { 
-                <li>@Html.DisplayFor(modelItem => subCats.FileSubCatName) </li>
-                }
-                
-               
+                    
+                     if(url.EndsWith("FileStorages/Index"))
+                     {
+                        <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName) </a> </li>
+                     }
+                     else
+                     {
+                        <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName) </a> </li>
+                     }
+                 }
+
+
             }
                 </ul>
             </div>

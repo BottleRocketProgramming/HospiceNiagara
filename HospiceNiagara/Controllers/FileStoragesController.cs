@@ -21,7 +21,7 @@ namespace HospiceNiagara.Controllers
       
 
         // GET: FileStorages
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, int? id)
         {
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();
@@ -31,7 +31,12 @@ namespace HospiceNiagara.Controllers
 
 
             var allFiles = db.FileStorages.Include(r => r.FileStoreUserRoles).Include(fsc => fsc.FileSubCats);                
-                
+            
+            if(id != null)
+            {
+                allFiles =allFiles.Where(f => f.FileSubCats.Any(sc => sc.ID == id));
+            }
+    
             if(!String.IsNullOrEmpty(searchString))
             {
                 allFiles = allFiles.Where(f => f.FileDescription.ToUpper().Contains(searchString.ToUpper()) || f.FileName.ToUpper().Contains(searchString.ToUpper()));
