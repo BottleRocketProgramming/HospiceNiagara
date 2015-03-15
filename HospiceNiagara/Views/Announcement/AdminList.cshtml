@@ -1,0 +1,51 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Announcement>
+
+@{
+    ViewBag.Title = "AdminList";
+}
+
+<h2>Announcements</h2>
+
+<p>
+    @Html.ActionLink("Create New", "adminCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnounceText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnounceStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnounceEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEvent)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnounceText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnounceStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnounceEndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsEvent)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
