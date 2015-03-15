@@ -67,17 +67,34 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SchedName,SchedLink,SchedStartDate,SchedEndDate")] Schedule schedule)
+        [ActionName("Index")]
+        [OnAction(ButtonName = "CreateSchedule")]
+        public ActionResult Create([Bind(Include = "ID,SchedName,SchedLink,SchedStartDate,SchedEndDate")] Schedule schedule, int selectedSchedType)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Schedules.Add(schedule);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    schedule.SchedType = new SchedType();
+                    var typeToAdd = db.SchedTypes.Find(selectedSchedType);
+
+                    schedule.SchedType = typeToAdd;
+                
+                if (ModelState.IsValid)
+                {
+                    db.Schedules.Add(schedule);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
+            PopulateScheduleTypes(schedule);
             return View(schedule);
         }
+
+
 
         // GET: Schedule/Edit/5
         public ActionResult Edit(int? id)
