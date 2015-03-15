@@ -108,6 +108,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            PopulateScheduleTypes(schedule);
             return View(schedule);
         }
 
@@ -116,15 +117,35 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SchedName,SchedLink,SchedStartDate,SchedEndDate")] Schedule schedule)
+        public ActionResult Edit(int? id, int selectedSchedType)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(schedule).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(schedule);
+
+            var scheduleToUpdate = db.Schedules.Include(a => a.SchedType).Where(i => i.ID == id).Single();
+
+            if (TryUpdateModel(scheduleToUpdate, "", new string[] { "ID" , "SchedName" , "SchedLink" , "SchedStartDate" , "SchedEndDate" }))
+            {
+                try
+                {
+                    UpdateScheduleType(selectedSchedType, scheduleToUpdate);
+
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(scheduleToUpdate).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }
+            }
+            PopulateScheduleTypes(scheduleToUpdate);
+            return View(scheduleToUpdate);
         }
 
         // GET: Schedule/Delete/5
