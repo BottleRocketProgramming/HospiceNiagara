@@ -21,16 +21,22 @@ namespace HospiceNiagara.Controllers
       
 
         // GET: FileStorages
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();
             fileR.FileSubCats = new List<FileSubCat>();
             PopulateAssignedRoles(fileR);
             PopulateCatAndSubCat(fileR);
-           
-            
-            var allFiles = db.FileStorages;
+
+
+            var allFiles = db.FileStorages.Include(r => r.FileStoreUserRoles).Include(fsc => fsc.FileSubCats);                
+                
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                allFiles = allFiles.Where(f => f.FileDescription.ToUpper().Contains(searchString.ToUpper()) || f.FileName.ToUpper().Contains(searchString.ToUpper()));
+            }
+
             var viewModel = new List<FileStorageVM>();
             foreach (var f in allFiles)
             {
@@ -48,6 +54,7 @@ namespace HospiceNiagara.Controllers
         }
 
         [HttpPost]
+        [OnAction(ButtonName = "UploadFile")]
         public ActionResult Index(string fileDescription, string[] selectedRoles)
         {
             DateTime uploadDate = DateTime.Now;
