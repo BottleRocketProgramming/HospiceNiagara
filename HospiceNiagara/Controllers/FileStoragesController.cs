@@ -32,7 +32,7 @@ namespace HospiceNiagara.Controllers
 
             var allFiles = db.FileStorages.Include(r => r.FileStoreUserRoles).Include(fsc => fsc.FileSubCats);                
             
-            if(id != null)
+            if(id != null && id != 0)
             {
                 allFiles =allFiles.Where(f => f.FileSubCats.Any(sc => sc.ID == id));
             }
