@@ -315,7 +315,6 @@
     <Content Include="Views\Resource\Volunteer_VolunteerUpdates.cshtml" />
     <Content Include="Views\Resource\Events.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
-    <Content Include="Views\Schedule\January2015.cshtml" />
     <Content Include="Views\Announcement\Delete.cshtml" />
     <Content Include="Views\Announcement\Details.cshtml" />
     <Content Include="Views\Announcement\Edit.cshtml" />
@@ -344,6 +343,8 @@
     <Content Include="Views\DeathNotice\AdminList.cshtml" />
     <Content Include="Views\DeathNotice\adminCreate.cshtml" />
     <Content Include="Views\Schedule\Edit.cshtml" />
+    <Content Include="Views\Schedule\Details.cshtml" />
+    <Content Include="Views\Schedule\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

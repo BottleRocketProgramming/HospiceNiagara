@@ -14,6 +14,7 @@ namespace HospiceNiagara.Models
         public int ID { get; set; }
 
         [Required]
+        [Display(Name = "Schedule")]
         [StringLength(50, ErrorMessage = "Shedule name can not exceed 50 characters")]
         public string SchedName { get; set; }
 
@@ -22,10 +23,12 @@ namespace HospiceNiagara.Models
         public string SchedLink { get; set; }
 
         [Required]
+        [Display(Name = "Start Date")]
         [DataType(DataType.DateTime)]
         public DateTime SchedStartDate { get; set; }
 
         [Required]
+        [Display(Name = "End Date")]
         [DataType(DataType.DateTime)]
         public DateTime SchedEndDate { get; set; }
 

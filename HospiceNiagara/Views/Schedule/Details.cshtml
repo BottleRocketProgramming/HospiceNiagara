@@ -1,0 +1,50 @@
+﻿@model HospiceNiagara.Models.Schedule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Schedule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SchedName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchedName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchedLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchedLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchedStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchedStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchedEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchedEndDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
