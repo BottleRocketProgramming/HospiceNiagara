@@ -60,7 +60,7 @@ namespace HospiceNiagara.Controllers
 
         [HttpPost]
         [OnAction(ButtonName = "UploadFile")]
-        public ActionResult Index(string fileDescription, string[] selectedRoles)
+        public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
             DateTime uploadDate = DateTime.Now;
             string mimeType = Request.Files[0].ContentType;
@@ -87,6 +87,16 @@ namespace HospiceNiagara.Controllers
                 {
                     var roleToAdd = db.RoleLists.Find(int.Parse(r));
                     newFile.FileStoreUserRoles.Add(roleToAdd);
+                }
+            }
+
+            if (selectedSubCats != null)
+            {
+                newFile.FileSubCats = new List<FileSubCat>();
+                foreach(var sc in selectedSubCats)
+                {
+                    var subCatToAdd = db.FileSubCats.Find(int.Parse(sc));
+                    newFile.FileSubCats.Add(subCatToAdd);
                 }
             }
                 db.FileStorages.Add(newFile);

@@ -183,7 +183,11 @@
                                 </table>
                             @:</div>
                         }
-                        <input type="submit" name="UploadFile" value="Create" />
+                                           
+                        <div class="btn-group">
+                            <input type="submit" value="Create" name="UploadFile" />
+                        </div>
+                        @Html.ActionLink("Cancel", "Index")
                     }
                 </div>
             </div>

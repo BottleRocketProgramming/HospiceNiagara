@@ -14,9 +14,9 @@
                         <th>
                             Announcement
                         </th>
-                        <th>
+                        @*<th>
                             End Date
-                        </th>
+                        </th>*@
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
@@ -40,9 +40,9 @@
                                     <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
                                 }
                                 @:</td>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.AnnounceEndDate)
-                            </td>
+                            </td>*@
                     @:</tr>
                         }
                     }
@@ -110,13 +110,13 @@
             </div>
             <div class="panel-body">
                 <ul class="list media-list">
-                    <li><a href="http://www.hospiceniagara.ca">Hospice Niagara Website</a></li>
-                    <li><a href="http://www.hospiceniagara.ca/resources/default/index/">Hospice Niagara Newsletter</a></li>
-                    <li><a href="http://www.hpceducation.ca">HPC Education Website</a></li>
-                    <li><a href="https://www.hospiceniagara.ca/donations/donate.php">Hospice Niagara Online Donation Website</a></li>
-                    <li><a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts">Facebook</a></li>
-                    <li><a href="https://twitter.com/HospiceNiagara">Twitter</a></li>
-                    <li><a href="http://www.hikeforhospiceniagara.ca">Hike for Hospice Niagara Website</a></li>
+                    <li><a href="http://www.hospiceniagara.ca" target="_blank">Hospice Niagara Website</a></li>
+                    <li><a href="http://www.hospiceniagara.ca/resources/default/index/" target="_blank">Hospice Niagara Newsletter</a></li>
+                    <li><a href="http://www.hpceducation.ca" target="_blank">HPC Education Website</a></li>
+                    <li><a href="https://www.hospiceniagara.ca/donations/donate.php" target="_blank">Hospice Niagara Online Donation Website</a></li>
+                    <li><a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts" target="_blank">Facebook</a></li>
+                    <li><a href="https://twitter.com/HospiceNiagara" target="_blank">Twitter</a></li>
+                    <li><a href="http://www.hikeforhospiceniagara.ca" target="_blank">Hike for Hospice Niagara Website</a></li>
                 </ul>
             </div>
         </div>
