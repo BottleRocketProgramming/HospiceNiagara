@@ -83,7 +83,7 @@
                     @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
 
     <div class="form-group">
-        <label class="control-label col-md-2">Index</label>
+        <label class="control-label col-md-2">Select Roles</label>
         <div class="col-md-offset-2 col-md-10">
             <table>
                 <tr>
@@ -173,7 +173,7 @@
             </div>         
         </div>
     </div>
-    <button type="button" id="deathnoticebutton" class="btn btn-default">@Html.ActionLink("Death Notices", "../DeathNotice")</button>
+    <a href="~/DeathNotice/Index" type="button" id="deathnoticebutton" class="btn btn-default">Death Notices</a>
 </div>
 
 @Scripts.Render("~/bundles/jquery")
