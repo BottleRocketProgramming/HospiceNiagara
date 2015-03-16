@@ -4,47 +4,52 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="page-header">Details</h2>
 
-<div>
-    <h4>Schedule</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SchedName)
-        </dt>
+<div class="col-sm-8">
+    <div class="panel panel-success ">
+        <div class="panel-heading">
+            Schedule
+        </div>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SchedName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SchedName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SchedName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SchedLink)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SchedLink)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SchedLink)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SchedLink)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SchedStartDate)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SchedStartDate)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SchedStartDate)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SchedStartDate)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SchedEndDate)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SchedEndDate)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SchedEndDate)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SchedEndDate)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+    <p class="text-center">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
