@@ -109,7 +109,7 @@ namespace HospiceNiagara.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    announcement.IsEvent = false;
+                    //announcement.IsEvent = false;
                     db.Announcements.Add(announcement);
                     db.SaveChanges();
                     return RedirectToAction("Index");

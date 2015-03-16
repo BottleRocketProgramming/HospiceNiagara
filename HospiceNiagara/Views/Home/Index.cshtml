@@ -21,10 +21,7 @@
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
                     {
-                        if (item.IsEvent == false)
-                        {
-
-                            @:<tr>
+                             @:<tr>
                                 @:<td>
                                 var url = Request.Url.PathAndQuery;
                                 if(url.EndsWith("Home/Index"))
@@ -44,7 +41,7 @@
                                 @Html.DisplayFor(modelItem => item.AnnounceEndDate)
                             </td>*@
                     @:</tr>
-                        }
+                        
                     }
 
 
@@ -53,7 +50,7 @@
         </div>
 
 
-        <div class="panel panel-success">
+        <div class="panel panel-success" hidden>
             <div class="panel-heading">
                 Upcoming
             </div>
