@@ -11,7 +11,7 @@
         <div class="panel-heading">
             Event
         </div>
-        <div>
+        <div class="panel-body">
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.AnnounceText)
@@ -31,10 +31,39 @@
 
             </dl>
         </div>
+        </div>
         <p class="text-center">
             @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
             @Html.ActionLink("Back to List", "Index")
         </p>
-
+</div>
+<div class="col-sm-4">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Related Files
+        </div>
+        <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        @{
+                          List<HospiceNiagara.ViewModels.FileStorageVM> files = ViewBag.FileStorages;
+                          foreach (var f in files)
+                          {
+                              if(f.FileSelected.Equals(true))
+                              {
+                                  @:</tr><tr>
+                              @:<td>
+                                    <a href=../../FileStorages/Download/@f.ID>@f.FileName</a>
+                             @:</td>
+                             @:<td>
+                                    @f.FileDescription
+                             @:</td>
+                              }
+                          }
+                     @:</tr>
+                        }
+                </table>
+        </div>
     </div>
 </div>
+    

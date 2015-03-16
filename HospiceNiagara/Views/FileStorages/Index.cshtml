@@ -125,9 +125,13 @@
                 <div class="col-md-10">
                     @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-                        <div>
-                            <label for="fileDescription">Description</label><input type="text" name="fileDescription" /><br />
-                            <input type="file" name="FileUpload" /><br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="fileDescription">Description</label>
+                            <input type="text" name="fileDescription" class="form-control col-md-10 col-md-offset-1" /><br />
+                            
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="FileUpload" class="col-md-offset-3" /><br />
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">Select Roles</label>

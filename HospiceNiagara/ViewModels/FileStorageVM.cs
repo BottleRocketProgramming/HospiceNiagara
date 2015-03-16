@@ -33,6 +33,9 @@ namespace HospiceNiagara.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FileUploadDate { get; set; }
 
+
+        public bool FileSelected { get; set; }
+
        public virtual ICollection<RoleList> FileStoreUserRoles { get; set; }
 
         public virtual ICollection<Meeting> Meetings { get; set; }
