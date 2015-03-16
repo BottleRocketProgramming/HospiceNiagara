@@ -19,7 +19,7 @@ namespace HospiceNiagara.Controllers
     public class AnnouncementController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationDbContext dbb = new ApplicationDbContext();
+        
 
         // GET: Announcement
         public ActionResult Index(int? id)
@@ -35,8 +35,7 @@ namespace HospiceNiagara.Controllers
             ViewData["Meeting"] = db.Meetings.ToList();
             
             return View();
-
-            //return View(db.Announcements.ToList());
+            
         }
 
         //Admin List
@@ -53,16 +52,7 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedRoles(announce);
 
             return View();
-        }
-
-
-        //public ActionResult DeathNotices(int? id)
-        //{
-        //    ViewData["DeathNoticeList"] = dbb.DeathNotices.ToList();
-        //    ViewData["DeathNoticeId"] = id;
-        //    DeathNotice deathNotice = dbb.DeathNotices.Find(id);
-        //    return View(deathNotice);
-        //}
+        }       
 
         // GET: Announcement/Details/5
         public ActionResult Details(int? id)
@@ -117,57 +107,7 @@ namespace HospiceNiagara.Controllers
             return View(announcement);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ActionName("Index")]
-        [OnAction(ButtonName = "CreateEvent")]
-        public ActionResult Create2([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement, string[] selectedRoles)
-        {
-            try
-            {
-                if (selectedRoles != null)
-                {
-                    announcement.RolesLists = new List<RoleList>();
-                    foreach (var role in selectedRoles)
-                    {
-                        var roleToAdd = db.RoleLists.Find(int.Parse(role));
-                        announcement.RolesLists.Add(roleToAdd);
-                    }
-                }
-                if (ModelState.IsValid)
-                {
-                    announcement.IsEvent = true;
-                    db.Announcements.Add(announcement);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (DataException)
-            {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
-
-            PopulateAssignedRoles(announcement);
-            return View(announcement);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ActionName("Index")]
-        [OnAction(ButtonName = "CreateDeathNotice")]
-        public ActionResult Create([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes")] DeathNotice deathNotice)
-        {
-            if (ModelState.IsValid)
-            {
-
-                dbb.DeathNotices.Add(deathNotice);
-                dbb.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
-        }
-
+       
         // GET: Announcement/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -248,6 +188,7 @@ namespace HospiceNiagara.Controllers
             return RedirectToAction("Index");
         }
 
+        //empty Roles for create
         public void PopulateAssignedRoles(Announcement announcement)
         {
             var allRole = db.RoleLists.OrderBy(r => r.RoleName);
@@ -265,7 +206,8 @@ namespace HospiceNiagara.Controllers
 
             ViewBag.RolesLists = viewModel;
         }
-
+        
+        //Roles for edit with already selected Roles
         private void UpdateAnnouncementRoles(string[] selectedRoles, Announcement AnnouncementToUpdate)
         {
             if (selectedRoles == null)
