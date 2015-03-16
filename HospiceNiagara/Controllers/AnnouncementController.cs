@@ -32,7 +32,7 @@ namespace HospiceNiagara.Controllers
             ViewData["AnnouncementOrEvent"] = ann.ToList();
             ViewData["AnnOrEvntId"] = id;
             Announcement announcement = db.Announcements.Find(id);
-            ViewData["DeathNoticeList"] = dbb.DeathNotices.ToList();
+            ViewData["Meeting"] = db.Meetings.ToList();
             
             return View();
 
