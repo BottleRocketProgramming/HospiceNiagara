@@ -228,10 +228,12 @@ namespace HospiceNiagara.Controllers
             ViewBag.RolesLists = viewModel;
         }
 
+//Empty Files for Create
+
         public void PopulateAssignedFiles(Announcement announcement)
         {
             var allFile = db.FileStorages.OrderBy(r => r.FileName);
-            var afiles = new HashSet<int>(announcement.RolesLists.Select(r => r.ID));
+            var afiles = new HashSet<int>(announcement.FileStorages.Select(r => r.ID));
             var viewModel = new List<FileStorageVM>();
             foreach (var file in allFile)
             {
@@ -279,6 +281,8 @@ namespace HospiceNiagara.Controllers
             }
         }
 
+//Files for Edit with ones already selected
+
         private void UpdateAnnouncementFiles(string[] selectedFiles, Announcement AnnouncementToUpdate)
         {
             if (selectedFiles == null)
@@ -290,20 +294,20 @@ namespace HospiceNiagara.Controllers
             var selectedFilesHS = new HashSet<string>(selectedFiles);
             var announcementFiles = new HashSet<int>
                 (AnnouncementToUpdate.FileStorages.Select(c => c.ID));//IDs of the currently selected roles
-            foreach (var files in db.RoleLists)
+            foreach (var files in db.FileStorages)
             {
                 if (selectedFilesHS.Contains(files.ID.ToString()))
                 {
                     if (!announcementFiles.Contains(files.ID))
                     {
-                        AnnouncementToUpdate.RolesLists.Add(files);
+                        AnnouncementToUpdate.FileStorages.Add(files);
                     }
                 }
                 else
                 {
                     if (announcementFiles.Contains(files.ID))
                     {
-                        AnnouncementToUpdate.RolesLists.Remove(files);
+                        AnnouncementToUpdate.FileStorages.Remove(files);
                     }
                 }
             }
