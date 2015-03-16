@@ -4,79 +4,84 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="page-header">Details</h2>
 
-<div>
-    <h4>BoardContact</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContPosition)
-        </dt>
+<div class="col-sm-8">
+    <div class="panel panel-success ">
+        <div class="panel-heading">
+            Contact Information
+        </div>
+        <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContPosition)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContPosition)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContPosition)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContHomeAddy)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContHomeAddy)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContHomeAddy)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContHomeAddy)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContWorkAddy)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContWorkAddy)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContWorkAddy)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContWorkAddy)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContHomePhone)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContHomePhone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContHomePhone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContHomePhone)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContWorkPhone)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContWorkPhone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContWorkPhone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContWorkPhone)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContCellPhone)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContCellPhone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContCellPhone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContCellPhone)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContFaxNum)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContFaxNum)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContFaxNum)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContFaxNum)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardContPartnerName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BoardContPartnerName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoardContPartnerName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BoardContPartnerName)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <p class="text-center">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
