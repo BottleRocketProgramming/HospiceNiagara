@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201503142216504_ChangeBack2.Designer.cs">
       <DependentUpon>201503142216504_ChangeBack2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503161511513_removeIsEvent.cs" />
+    <Compile Include="Migrations\201503161511513_removeIsEvent.Designer.cs">
+      <DependentUpon>201503161511513_removeIsEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -352,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503142216504_ChangeBack2.resx">
       <DependentUpon>201503142216504_ChangeBack2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503161511513_removeIsEvent.resx">
+      <DependentUpon>201503161511513_removeIsEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
