@@ -4,53 +4,59 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="page-header">Details</h2>
 
-<div>
-    <h4>FileStorage</h4>
-    <hr />
+<div class="col-sm-8">
+    <div class="panel panel-success ">
+        <div class="panel-heading">
+            File Storage
+        </div>
+        <div>
+            <div id="storageimage">
 
-    @{
-        if (Model.FileContent != null && Model.MimeType.Contains("image"))
-        {
-            string image64 = Convert.ToBase64String(Model.FileContent);
-            string imageSrc = string.Format("data:" + Model.MimeType + ";base64, {0}", image64);
-            <img src="@imageSrc" width="100" height="100" />
-        }
-    }
-   
-    <dl class="dl-horizontal">
-      
-        <dt>
-            @Html.DisplayNameFor(model => model.FileDescription)
-        </dt>
+                @{
+                    if (Model.FileContent != null && Model.MimeType.Contains("image"))
+                    {
+                        string image64 = Convert.ToBase64String(Model.FileContent);
+                        string imageSrc = string.Format("data:" + Model.MimeType + ";base64, {0}", image64);
+                        <img src="@imageSrc" width="150" height="150" />
+                    }
+                }
+            </div>
+            <div id="fileinformation">
+                <dl class="dl-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.FileDescription)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FileDescription)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FileName)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FileDescription)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FileName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FileName)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MimeType)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FileName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MimeType)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MimeType)
+                    </dt>
 
-       
+                    <dd>
+                        @Html.DisplayFor(model => model.MimeType)
+                    </dd>
 
-
-    </dl>
+                </dl>
+            </div>
+        </div>
+        <p class="text-center">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        
