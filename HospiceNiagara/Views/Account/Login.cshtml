@@ -5,8 +5,9 @@
 }
 
 <h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
+<div class="body-content LogInPage">
+    <div class="center-block LogInContent" id="LogInContent">
+
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -38,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <input type="submit" value="Log in" class="btn-info btn-sm" />
                     </div>
                 </div>
                 <p>
@@ -50,13 +51,22 @@
                     </p>*@
             }
         </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+        @*<input class="form-control" type="text" placeholder="UserName">
+        <br />
+        <input class="form-control" type="text" placeholder="Password">
+        <br />*@
+        @*<button id="logInButton" class="btn-info btn-sm">Log-In</button>*@
+        @*<button id="forgotPasswordButton" class="btn-danger btn-sm">Forgot Password</button>*@
     </div>
 </div>
+    
+
+@*<div class="col-md-4">
+    <section id="socialLoginForm">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
