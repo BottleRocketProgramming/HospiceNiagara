@@ -159,7 +159,7 @@ namespace HospiceNiagara.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("paulboyko@outlook.com", "Web Registration"),
+                    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("hospicetestuser@outlook.com", "Web Registration"),
                         new System.Net.Mail.MailAddress(user.Email));
 
                         m.Subject = "Hospice Niagara Registration Cofirmation";
@@ -263,7 +263,7 @@ namespace HospiceNiagara.Controllers
                 // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 
-                 System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("paulboyko@outlook.com", "Hospice Niagara Password Reset"),
+                 System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("hospicetestuser@outlook.com", "Hospice Niagara Password Reset"),
                         new System.Net.Mail.MailAddress(user.Email));
 
                         m.Subject = "Hospice Niagara Password Reset";
