@@ -9,7 +9,10 @@
         <div class="panel-heading">
             <span id="ContactsTitle">Contacts</span>
             <span id="newContactTitle" hidden>New Contact</span>
+            @if (User.IsInRole("Administrator"))
+            {
             <div id="glyphAddContact" class="glyphicon glyphicon-plus pull-right"></div>
+            }
         </div>
         <div class="panel-body" id="ContactPanel">
             <table class="table table-striped table-bordered" style="width:100%;">

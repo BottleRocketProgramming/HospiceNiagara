@@ -43,14 +43,14 @@ namespace HospiceNiagara.Controllers
         }
 
         //Admin List
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult AdminList()
         {
             return View(db.Announcements.ToList());
         }
 
         // GET: Announcement/adminCreate
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult adminCreate()
         {
             var announce = new Announcement();
@@ -87,7 +87,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateAnnouncement")]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement, string[] selectedRoles, string[] selectedFiles)
         {
             try
@@ -131,7 +131,7 @@ namespace HospiceNiagara.Controllers
 
        
         // GET: Announcement/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -153,7 +153,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult EditPost(int? id, string[] selectedRoles, string[] selectedFiles)
         {
             if(id == null)
