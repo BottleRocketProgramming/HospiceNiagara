@@ -31,8 +31,10 @@
                         <li>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
+                        @*@if(User.IsInRole("Administrator"))
+                        {*@ 
                         <li>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
-
+                        }
                     </ul>
                     
                 </div>
