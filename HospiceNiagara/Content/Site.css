@@ -44,7 +44,7 @@ textarea {
 }
 
 /*pushs navbar navigations down and right*/
-.navbar-nav {
+.navbar-down-right {
     padding-top:57px;
     padding-right: 10%;
 }
