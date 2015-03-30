@@ -155,10 +155,25 @@ namespace HospiceNiagara.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.EmailConfirmed = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("hospicetestuser@outlook.com", "Web Registration"),
+                        new System.Net.Mail.MailAddress(user.Email));
+
+                        m.Subject = "Hospice Niagara Registration Cofirmation";
+                        m.Body = String.Format("Dear {0}, <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
+                        m.IsBodyHtml = true;
+
+                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
+                    smtp.Credentials = new System.Net.NetworkCredential("hospicetestuser@outlook.com", "Pa55word01");
+                    smtp.EnableSsl = true;
+                    smtp.Send(m);
+
+                    return RedirectToAction("Confirm", "Account", new { Email = user.Email });                   
+                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -166,9 +181,13 @@ namespace HospiceNiagara.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
                 }
-                AddErrors(result);
+                else
+                {
+                    AddErrors(result);
+                }
+                
             }
 
             // If we got this far, something failed, redisplay form
@@ -178,14 +197,35 @@ namespace HospiceNiagara.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(string Token, string Email)
         {
-            if (userId == null || code == null)
+            ApplicationUser user = this.UserManager.FindById(Token);
+            if(user != null)
             {
-                return View("Error");
+                if(user.Email == Email)
+                {
+                    user.EmailConfirmed = true;
+                    await UserManager.UpdateAsync(user);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToAction("Index", "Home", new { ConfirmEmail = user.Email } );
+                }
+                else
+                {
+                    return RedirectToAction("Confirm", "Account", new { Email = user.Email });
+                }
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            else
+            {
+                return RedirectToAction("Confirm", "Account", new { Email = user.Email });
+            }
+           
+        }
+
+        [AllowAnonymous]
+        public ActionResult Confirm(string Email)
+        {
+            ViewBag.Email = Email;
+            return View();
         }
 
         //
@@ -212,12 +252,30 @@ namespace HospiceNiagara.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                //var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here <a href=\"" + callbackUrl + "\">link</a>");
+
+                //return View("ForgotPasswordConfirmation");
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                
+                 System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("hospicetestuser@outlook.com", "Hospice Niagara Password Reset"),
+                        new System.Net.Mail.MailAddress(user.Email));
+
+                        m.Subject = "Hospice Niagara Password Reset";
+                        m.Body = String.Format("Dear {0}, <br/> You have requested a password reset for the Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to reset your password. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Click this link so you can reset your Password</a>", user.UserName, Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme));
+                        m.IsBodyHtml = true;
+
+                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
+                    smtp.Credentials = new System.Net.NetworkCredential("hospicetestuser@outlook.com", "Pa55word01");
+                    smtp.EnableSsl = true;
+                    smtp.Send(m);
+
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form

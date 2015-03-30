@@ -24,8 +24,11 @@ namespace HospiceNiagara.Controllers
         {
             var meet = new Meeting();
             meet.RolesLists = new List<RoleList>();
+            meet.FileStores = new List<FileStorage>();
+            PopulateAssignedFiles(meet);
             PopulateAssignedRoles(meet);
             var mtt = db.Meetings.Include(a => a.RolesLists);
+            mtt = db.Meetings.Include(a => a.FileStores);
 
             ViewData["Meeting"] = db.Meetings.ToList();
             ViewData["MeetingID"] = id;
@@ -46,13 +49,8 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            PopulateAssignedFiles(meeting);
             return View(meeting);
-        }
-
-        // GET: Meeting/Create
-        public ActionResult Create()
-        {
-            return View();
         }
 
         // POST: Meeting/Create
@@ -62,7 +60,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
-        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles)
+        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
         {
             try
             {
@@ -73,8 +71,21 @@ namespace HospiceNiagara.Controllers
                     {
                         var roleToAdd = db.RoleLists.Find(int.Parse(role));
                         meeting.RolesLists.Add(roleToAdd);
+                        PopulateAssignedRoles(meeting);
                     }
                 }
+
+                if (selectedFiles != null)
+                {
+                    meeting.FileStores = new List<FileStorage>();
+                    foreach (var file in selectedRoles)
+                    {
+                        var fileToAdd = db.FileStorages.Find(int.Parse(file));
+                        meeting.FileStores.Add(fileToAdd);
+                        PopulateAssignedFiles(meeting);
+                    }
+                }
+
                 if (ModelState.IsValid)
                 {
                     db.Meetings.Add(meeting);
@@ -105,6 +116,7 @@ namespace HospiceNiagara.Controllers
                 return HttpNotFound();
             }
             PopulateAssignedRoles(meeting);
+            PopulateAssignedFiles(meeting);
             return View(meeting);
         }
 
@@ -113,25 +125,26 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int? id, string[] selectedRoles)
+        public ActionResult Edit(int? id, string[] selectedRoles, string[] selectedFiles)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var roleToUpdate = db.Meetings.Include(a => a.RolesLists).Where(i => i.ID == id).Single();
+            var meetingToUpdate = db.Meetings.Include(a => a.RolesLists).Where(i => i.ID == id).Single();
 
-            if (TryUpdateModel(roleToUpdate, "", new string[] { "ID" , "EventTitle" , "EventDiscription" , "EventLocation" , "EventStart" , "EventEnd" , "EventRequirments" , "EventLinks" }))
+            if (TryUpdateModel( meetingToUpdate,  "", new string[] { "ID" , "EventTitle" , "EventDiscription" , "EventLocation" , "EventStart" , "EventEnd" , "EventRequirments" , "EventLinks" }))
             {
                 try
                 {
-                    UpdateMeetingRoles(selectedRoles, roleToUpdate);
+                    UpdateMeetingRoles(selectedRoles, meetingToUpdate);
+                    UpdateMeetingFiles(selectedFiles, meetingToUpdate);
 
                     if (ModelState.IsValid)
                     {
 
-                        db.Entry(roleToUpdate).State = EntityState.Modified;
+                        db.Entry(meetingToUpdate).State = EntityState.Modified;
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -141,8 +154,9 @@ namespace HospiceNiagara.Controllers
                     ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
                 }
             }
-            PopulateAssignedRoles(roleToUpdate);
-            return View(roleToUpdate);
+            PopulateAssignedRoles(meetingToUpdate);
+            PopulateAssignedFiles(meetingToUpdate);
+            return View(meetingToUpdate);
 
         }
 
@@ -172,6 +186,7 @@ namespace HospiceNiagara.Controllers
             return RedirectToAction("Index");
         }
 
+//Empty Roles for Create
         public void PopulateAssignedRoles(Meeting meeting)
         {
             var allRole = db.RoleLists;
@@ -190,6 +205,7 @@ namespace HospiceNiagara.Controllers
             ViewBag.RolesLists = viewModel;
         }
 
+//Roles for Edit
         private void UpdateMeetingRoles(string[] selectedRoles, Meeting MeetingToUpdate)
         {
             if (selectedRoles == null)
@@ -215,6 +231,58 @@ namespace HospiceNiagara.Controllers
                     if (meetingRoles.Contains(rls.ID))
                     {
                         MeetingToUpdate.RolesLists.Remove(rls);
+                    }
+                }
+            }
+        }
+
+//Empty Files for Create
+        public void PopulateAssignedFiles(Meeting meeting)
+        {
+            var allFile = db.FileStorages.OrderBy(r => r.FileName);
+            var afiles = new HashSet<int>(meeting.FileStores.Select(r => r.ID));
+            var viewModel = new List<FileStorageVM>();
+            foreach (var file in allFile)
+            {
+                viewModel.Add(new FileStorageVM
+                {
+                    ID = file.ID,
+                    FileName = file.FileName,
+                    FileDescription = file.FileDescription,
+                    FileUploadDate = file.FileUploadDate,
+                    FileSelected = afiles.Contains(file.ID)
+                });
+            }
+
+            ViewBag.FileStorages = viewModel;
+        }
+
+//Files for Edit
+        private void UpdateMeetingFiles(string[] selectedFiles, Meeting MeetingToUpdate)
+        {
+            if (selectedFiles == null)
+            {
+                MeetingToUpdate.FileStores = new List<FileStorage>();
+                return;
+            }
+
+            var selectedFilesHS = new HashSet<string>(selectedFiles);
+            var meetingFiles = new HashSet<int>
+                (MeetingToUpdate.FileStores.Select(c => c.ID));//IDs of the currently selected roles
+            foreach (var files in db.FileStorages)
+            {
+                if (selectedFilesHS.Contains(files.ID.ToString()))
+                {
+                    if (!meetingFiles.Contains(files.ID))
+                    {
+                        MeetingToUpdate.FileStores.Add(files);
+                    }
+                }
+                else
+                {
+                    if (meetingFiles.Contains(files.ID))
+                    {
+                        MeetingToUpdate.FileStores.Remove(files);
                     }
                 }
             }

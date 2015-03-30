@@ -22,7 +22,9 @@
                     </button>
                     
                         @Html.ActionLink("Hospice Niagara Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand brandName", @style = "color:white;" })
-                    
+                    @*<div class="nav navbar-nav navbar-right nav-text">
+                        @Html.Partial("_LoginPartial")
+                    </div>*@
                     
                 </div>
                 <div class="navbar-collapse collapse nav-text">
@@ -34,9 +36,9 @@
                         <li>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
-
+                       
                     </ul>
-                    @*@Html.Partial("_LoginPartial")*@
+                    
                 </div>
                 </div>
             </div>

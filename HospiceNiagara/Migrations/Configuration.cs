@@ -150,7 +150,7 @@ namespace HospiceNiagara.Migrations
             //}
 
            
-            //Now the Admin user named admin1 with password Password1
+            //Now the Admin user named admin1 with password password
             var administratoruser = new ApplicationUser
             {
                 UserName = "administrator1@outlook.com",

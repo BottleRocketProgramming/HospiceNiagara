@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HospiceNiagara.Models
@@ -68,6 +69,27 @@ namespace HospiceNiagara.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name="First Name")]
+        public string UserFName { get; set; }
+
+        [Display(Name = "Middle Name")]
+        public string UserMName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string UserLName { get; set; }
+
+        [Display(Name="Date of Birth")]
+        [DataType(DataType.DateTime)]
+        public DateTime? UserDOB { get; set; }
+
+        [Display(Name = "Address")]
+        public string UserAddress { get; set; }
+
+        [Display(Name = "Home Phone")]
+        public string PhoneNumber { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

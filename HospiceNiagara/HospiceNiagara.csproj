@@ -201,6 +201,14 @@
     <Compile Include="Migrations\201503142216504_ChangeBack2.Designer.cs">
       <DependentUpon>201503142216504_ChangeBack2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503161511513_removeIsEvent.cs" />
+    <Compile Include="Migrations\201503161511513_removeIsEvent.Designer.cs">
+      <DependentUpon>201503161511513_removeIsEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503260256132_more.cs" />
+    <Compile Include="Migrations\201503260256132_more.Designer.cs">
+      <DependentUpon>201503260256132_more.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -289,7 +297,6 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\LogIn\Index.cshtml" />
     <Content Include="Views\Announcement\Delete.cshtml" />
     <Content Include="Views\Announcement\Details.cshtml" />
     <Content Include="Views\Announcement\Edit.cshtml" />
@@ -322,6 +329,7 @@
     <Content Include="Views\Announcement\adminCreate.cshtml" />
     <Content Include="Views\Contact\AdminList.cshtml" />
     <Content Include="Views\Contact\AdminCreate.cshtml" />
+    <Content Include="Views\Account\Confirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -352,6 +360,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503142216504_ChangeBack2.resx">
       <DependentUpon>201503142216504_ChangeBack2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503161511513_removeIsEvent.resx">
+      <DependentUpon>201503161511513_removeIsEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503260256132_more.resx">
+      <DependentUpon>201503260256132_more.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

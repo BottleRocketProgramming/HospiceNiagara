@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -49,5 +50,7 @@ namespace HospiceNiagara.Models
         public string BoardContPartnerName { get; set; }
 
         public virtual ICollection<JobDescription> JobDescriptions { get; set; }
+
+        public virtual ICollection<IdentityUser> IdentUsers { get; set;  }
     }
 }
