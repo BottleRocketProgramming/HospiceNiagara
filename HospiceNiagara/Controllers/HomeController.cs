@@ -17,6 +17,7 @@ namespace HospiceNiagara.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize]
         public ActionResult Index()
         {
             var ann = db.Announcements.Include(a => a.RolesLists);
@@ -26,6 +27,7 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -33,6 +35,7 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
