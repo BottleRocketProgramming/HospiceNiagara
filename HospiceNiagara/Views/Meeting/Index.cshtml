@@ -11,7 +11,10 @@
         <div class="panel-heading">
             <span id="EventsTitle">Events</span>
             <span id="newMeetingEventTitle" hidden>New Event</span>
-            <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
+            @if (User.IsInRole("Administrator"))
+            {
+                <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
+            }
         </div>
         @* Ask Chantal *@
         <div id="Event">

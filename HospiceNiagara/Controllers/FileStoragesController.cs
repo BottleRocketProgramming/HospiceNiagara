@@ -21,6 +21,7 @@ namespace HospiceNiagara.Controllers
       
 
         // GET: FileStorages
+        [Authorize]
         public ActionResult Index(string searchString, int? id)
         {
             var fileR = new FileStorage();
@@ -60,6 +61,7 @@ namespace HospiceNiagara.Controllers
 
         [HttpPost]
         [OnAction(ButtonName = "UploadFile")]
+        [Authorize]
         public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
             DateTime uploadDate = DateTime.Now;
@@ -107,6 +109,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileStorages/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -122,6 +125,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileStorages/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -143,6 +147,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult EditPost(int? id, string[] selectedRoles)
         {
             if (id == null)
@@ -176,6 +181,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileStorages/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -193,6 +199,7 @@ namespace HospiceNiagara.Controllers
         // POST: FileStorages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             FileStorage fileStorage = db.FileStorages.Find(id);

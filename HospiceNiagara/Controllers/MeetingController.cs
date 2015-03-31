@@ -20,6 +20,7 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Meeting
+        [Authorize]
         public ActionResult Index(int? id)
         {
             var meet = new Meeting();
@@ -38,6 +39,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Meeting/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -60,6 +62,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
         {
             try
@@ -104,6 +107,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Meeting/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -125,6 +129,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id, string[] selectedRoles, string[] selectedFiles)
         {
             if (id == null)
@@ -161,6 +166,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Meeting/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -178,6 +184,7 @@ namespace HospiceNiagara.Controllers
         // POST: Meeting/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Meeting meeting = db.Meetings.Find(id);

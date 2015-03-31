@@ -20,6 +20,7 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contact
+        [Authorize]
         public ActionResult Index(int? id)
         {
             var cont = new BoardContact();
@@ -43,12 +44,14 @@ namespace HospiceNiagara.Controllers
         }
 
         //Admin List
+        [Authorize(Roles = "Administrator")]
         public ActionResult AdminList()
         {
             return View(db.BoardContacts.ToList());
         }
 
         // GET: Announcement/adminCreate
+        [Authorize(Roles = "Administrator")]
         public ActionResult AdminCreate()
         {
             var cont = new BoardContact();
@@ -59,6 +62,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contact/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -74,6 +78,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contact/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -86,6 +91,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateContact")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,BoardContPosition,BoardContHomeAddy,BoardContWorkAddy,BoardContHomePhone,BoardContWorkPhone,BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardContact, string[] selectedJobs)
         {
             try
@@ -132,6 +138,7 @@ namespace HospiceNiagara.Controllers
 
 
         // GET: Contact/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -152,6 +159,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id, string[] selectedJobs)
         {
             if (id == null)
@@ -186,6 +194,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contact/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -203,6 +212,7 @@ namespace HospiceNiagara.Controllers
         // POST: Contact/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             BoardContact boardContact = db.BoardContacts.Find(id);

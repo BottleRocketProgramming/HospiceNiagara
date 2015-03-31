@@ -20,6 +20,7 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Schedule
+        [Authorize]
         public ActionResult Index(int? id)
         {
             var sched = new Schedule();
@@ -42,6 +43,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Schedule/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,6 +59,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Schedule/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -69,6 +72,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateSchedule")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,SchedName,SchedLink,SchedStartDate,SchedEndDate")] Schedule schedule, int selectedSchedType)
         {
             try
@@ -97,6 +101,7 @@ namespace HospiceNiagara.Controllers
 
 
         // GET: Schedule/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -117,6 +122,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id, int selectedSchedType)
         {
             if (id == null)
@@ -149,6 +155,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Schedule/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -166,6 +173,7 @@ namespace HospiceNiagara.Controllers
         // POST: Schedule/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Schedule schedule = db.Schedules.Find(id);

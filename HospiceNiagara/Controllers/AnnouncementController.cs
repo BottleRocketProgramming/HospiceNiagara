@@ -23,10 +23,11 @@ namespace HospiceNiagara.Controllers
         
 
         // GET: Announcement
+        [Authorize]
         public ActionResult Index(int? id)
         {
-            string[] roleArray = Roles.GetRolesForUser();
-            var r = new List<RoleList>();
+            
+            //var cUserRoles = Roles.GetRolesForUser();
             var announce = new Announcement();
             announce.RolesLists = new List<RoleList>();
             announce.FileStorages = new List<FileStorage>();
@@ -34,12 +35,14 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedFiles(announce);
             var ann = db.Announcements.Include(a => a.RolesLists);
             ann = db.Announcements.Include(a => a.FileStorages);
-           foreach(string ur in roleArray)
-           {
-               ann = ann.Where(a => a.RolesLists.Any(b => b.RoleName == ur));
-           }
-                    
-         
+
+            //foreach(var ur in cUserRoles)
+            //{
+            //    if(User.IsInRole(ur.ToString()))
+            //    {
+            //        ann = ann.Where(a => a.RolesLists.Any(ar => ar.RoleName == ur.ToString()));
+            //    }
+            //}
 
             ViewData["AnnouncementOrEvent"] = ann.ToList();
             ViewData["AnnOrEvntId"] = id;
@@ -51,12 +54,14 @@ namespace HospiceNiagara.Controllers
         }
 
         //Admin List
+        [Authorize(Roles="Administrator")]
         public ActionResult AdminList()
         {
             return View(db.Announcements.ToList());
         }
 
         // GET: Announcement/adminCreate
+        [Authorize(Roles="Administrator")]
         public ActionResult adminCreate()
         {
             var announce = new Announcement();
@@ -69,6 +74,7 @@ namespace HospiceNiagara.Controllers
         }       
 
         // GET: Announcement/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -92,6 +98,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateAnnouncement")]
+        [Authorize(Roles="Administrator")]
         public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement, string[] selectedRoles, string[] selectedFiles)
         {
             try
@@ -135,6 +142,7 @@ namespace HospiceNiagara.Controllers
 
        
         // GET: Announcement/Edit/5
+        [Authorize(Roles="Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -156,6 +164,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Administrator")]
         public ActionResult EditPost(int? id, string[] selectedRoles, string[] selectedFiles)
         {
             if(id == null)
@@ -193,6 +202,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Announcement/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -210,6 +220,7 @@ namespace HospiceNiagara.Controllers
         // POST: Announcement/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Announcement announcement = db.Announcements.Find(id);

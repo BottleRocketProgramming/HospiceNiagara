@@ -17,6 +17,7 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: DeathNotice
+        [Authorize(Roles = "Staff, Board, Volunteers, Leadership, Admin, Community, Outreach, Residential, New Staff, Audit, Audit & Finance Committee, Community Relations Committee, Operations & Quality Improvement Committee, New Board Members, Bereavement, Day Hospice, Residential, Welcome Desk, New Volunteers")]
         public ActionResult Index(int? id)
         {
             ViewData["DeathNoticeList"] = db.DeathNotices.ToList();
@@ -28,12 +29,14 @@ namespace HospiceNiagara.Controllers
         }
 
         //Admin List
+        [Authorize(Roles = "Administrator")]
         public ActionResult AdminList()
         {
             return View(db.DeathNotices.ToList());
         }
 
         // GET: DeathNotice/Details/5
+        [Authorize(Roles = "Administrator, Staff, Board, Volunteers, Leadership, Admin, Community, Outreach, Residential, New Staff, Audit, Audit & Finance Committee, Community Relations Committee, Operations & Quality Improvement Committee, New Board Members, Bereavement, Day Hospice, Residential, Welcome Desk, Admin, New Volunteers")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -49,6 +52,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: DeathNotice/adminCreate
+        [Authorize(Roles = "Administrator")]
         public ActionResult adminCreate()
         {
             return View();
@@ -61,6 +65,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateDeathNotice")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnLocation,DnNotes")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
@@ -76,6 +81,7 @@ namespace HospiceNiagara.Controllers
         //Admin Create for Death Notices
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult adminCreate([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnLocation,DnNotes")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
@@ -89,6 +95,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: DeathNotice/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -108,6 +115,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnLocation,DnNotes")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
@@ -120,6 +128,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: DeathNotice/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace HospiceNiagara.Controllers
         // POST: DeathNotice/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             DeathNotice deathNotice = db.DeathNotices.Find(id);

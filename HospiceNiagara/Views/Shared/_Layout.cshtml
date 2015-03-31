@@ -22,23 +22,24 @@
                     </button>
                     
                         @Html.ActionLink("Hospice Niagara Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand brandName", @style = "color:white;" })
-                    @*<div class="nav navbar-nav navbar-right nav-text">
-                        @Html.Partial("_LoginPartial")
-                    </div>*@
-                    
                 </div>
                 <div class="navbar-collapse collapse nav-text">
-                    <ul class="nav navbar-nav navbar-right nav-text">
+                    <ul class="nav navbar-nav navbar-down-right navbar-right nav-text">
                         <li>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Announcements", "Index", "Announcement", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
+                        @*@if(User.IsInRole("Administrator"))
+                        {*@ 
                         <li>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
-                       
+                        }
                     </ul>
                     
+                </div>
+                <div class="nav navbar-nav navbar-fixed-top">
+                    @Html.Partial("_LoginPartial")
                 </div>
                 </div>
             </div>

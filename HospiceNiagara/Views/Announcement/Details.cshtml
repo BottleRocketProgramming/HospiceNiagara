@@ -33,7 +33,10 @@
         </div>
         </div>
         <p class="text-center">
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            }
             @Html.ActionLink("Back to List", "Index")
         </p>
 </div>
@@ -53,7 +56,7 @@
                               {
                                   @:</tr><tr>
                               @:<td>
-                                    <a href=../../FileStorages/Download/@f.ID>@f.FileName</a>
+                                    <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
                              @:</td>
                              @:<td>
                                     @f.FileDescription
