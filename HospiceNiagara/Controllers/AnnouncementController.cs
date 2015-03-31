@@ -10,6 +10,7 @@ using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
+using System.Web.Security;
 
 //Paul Boyko Feb 2015
 //Edits from Andreas King March 2015
@@ -25,6 +26,8 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
+            
+            //var cUserRoles = Roles.GetRolesForUser();
             var announce = new Announcement();
             announce.RolesLists = new List<RoleList>();
             announce.FileStorages = new List<FileStorage>();
@@ -32,6 +35,14 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedFiles(announce);
             var ann = db.Announcements.Include(a => a.RolesLists);
             ann = db.Announcements.Include(a => a.FileStorages);
+
+            //foreach(var ur in cUserRoles)
+            //{
+            //    if(User.IsInRole(ur.ToString()))
+            //    {
+            //        ann = ann.Where(a => a.RolesLists.Any(ar => ar.RoleName == ur.ToString()));
+            //    }
+            //}
 
             ViewData["AnnouncementOrEvent"] = ann.ToList();
             ViewData["AnnOrEvntId"] = id;
