@@ -34,8 +34,7 @@ namespace HospiceNiagara.Controllers
             announce.FileStorages = new List<FileStorage>();
             PopulateAssignedRoles(announce);
             PopulateAssignedFiles(announce);
-            var ann = db.Announcements.Include(a => a.RolesLists);
-            ann = db.Announcements.Include(a => a.FileStorages);
+            var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
 
             foreach (var ur in cUserRoles)
             {
