@@ -11,7 +11,10 @@
         <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
         <div id="glyphDeathHide" class="glyphicon glyphicon-collapse-down pull-right"></div>
         <div id="glyphDeathShow" class="glyphicon glyphicon-collapse-up pull-right"></div>
-        <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
+        @if (User.IsInRole("Administrator"))
+        {
+            <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
+        }
     </div>
     <div id="panelDeathNoticeContent">
         @* Div for death notice List view *@

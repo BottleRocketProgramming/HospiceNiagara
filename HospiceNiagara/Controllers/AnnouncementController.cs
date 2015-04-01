@@ -10,6 +10,7 @@ using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
+using System.Web.Security;
 
 //Paul Boyko Feb 2015
 //Edits from Andreas King March 2015
@@ -20,18 +21,31 @@ namespace HospiceNiagara.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         
+        
 
         // GET: Announcement
         [Authorize]
         public ActionResult Index(int? id)
         {
+
+
+            var cUserRoles = db.RoleLists;
             var announce = new Announcement();
             announce.RolesLists = new List<RoleList>();
             announce.FileStorages = new List<FileStorage>();
             PopulateAssignedRoles(announce);
             PopulateAssignedFiles(announce);
-            var ann = db.Announcements.Include(a => a.RolesLists);
-            ann = db.Announcements.Include(a => a.FileStorages);
+            var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
+            var meet = db.Meetings.Include(a=> a.RolesLists);
+
+            foreach (var ur in cUserRoles)
+            {
+                if (User.IsInRole(ur.RoleName))
+                {
+                    ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                    meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID)); 
+                }
+            }
 
             ViewData["AnnouncementOrEvent"] = ann.ToList();
             ViewData["AnnOrEvntId"] = id;
@@ -43,14 +57,14 @@ namespace HospiceNiagara.Controllers
         }
 
         //Admin List
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult AdminList()
         {
             return View(db.Announcements.ToList());
         }
 
         // GET: Announcement/adminCreate
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult adminCreate()
         {
             var announce = new Announcement();
@@ -87,7 +101,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateAnnouncement")]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement, string[] selectedRoles, string[] selectedFiles)
         {
             try
@@ -105,7 +119,7 @@ namespace HospiceNiagara.Controllers
                 if (selectedFiles != null)
                 {
                     announcement.FileStorages = new List<FileStorage>();
-                    foreach (var file in selectedRoles)
+                    foreach (var file in selectedFiles)
                     {
                         var fileToAdd = db.FileStorages.Find(int.Parse(file));
                         announcement.FileStorages.Add(fileToAdd);
@@ -131,7 +145,7 @@ namespace HospiceNiagara.Controllers
 
        
         // GET: Announcement/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -153,7 +167,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles="Administrator")]
         public ActionResult EditPost(int? id, string[] selectedRoles, string[] selectedFiles)
         {
             if(id == null)
@@ -241,7 +255,7 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateAssignedFiles(Announcement announcement)
         {
-            var allFile = db.FileStorages.OrderBy(r => r.FileName);
+            var allFile = db.FileStorages.OrderBy(r => r.FileDescription);
             var afiles = new HashSet<int>(announcement.FileStorages.Select(r => r.ID));
             var viewModel = new List<FileStorageVM>();
             foreach (var file in allFile)

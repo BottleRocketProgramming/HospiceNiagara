@@ -55,9 +55,9 @@ namespace HospiceNiagara
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false,
-                RequireDigit = true,
+                RequireDigit = false,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = false,
             };
 
             // Configure user lockout defaults

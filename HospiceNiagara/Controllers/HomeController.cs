@@ -20,7 +20,16 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            var cUserRoles = db.RoleLists;
             var ann = db.Announcements.Include(a => a.RolesLists);
+
+            foreach (var ur in cUserRoles)
+            {
+                if (User.IsInRole(ur.RoleName))
+                {
+                    ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));                   
+                }
+            }
 
             ViewData["AnnouncementOrEvent"] = ann.ToList();
             ViewData["Schedule"] = db.Schedules.ToList();

@@ -61,7 +61,10 @@
             <div class="panel-heading">
                 <span id="fileListTitle">Files</span>
                 <span id="newFileListTitle" hidden>Upload Files</span>
+                @if (User.IsInRole("Administrator"))
+                {
                 <div id="glyphNewFile" class="glyphicon glyphicon-plus pull-right"></div>
+                }
                 Search
             </div>
             <div id="fileContent" class="panel-body">

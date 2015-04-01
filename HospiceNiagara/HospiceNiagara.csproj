@@ -177,38 +177,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503122110252_redo.cs" />
-    <Compile Include="Migrations\201503122110252_redo.Designer.cs">
-      <DependentUpon>201503122110252_redo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503122122135_redo2.cs" />
-    <Compile Include="Migrations\201503122122135_redo2.Designer.cs">
-      <DependentUpon>201503122122135_redo2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503140158480_CatsAndSubCats.cs" />
-    <Compile Include="Migrations\201503140158480_CatsAndSubCats.Designer.cs">
-      <DependentUpon>201503140158480_CatsAndSubCats.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503141925591_MoreChanges.cs" />
-    <Compile Include="Migrations\201503141925591_MoreChanges.Designer.cs">
-      <DependentUpon>201503141925591_MoreChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503142210563_ChangeBack.cs" />
-    <Compile Include="Migrations\201503142210563_ChangeBack.Designer.cs">
-      <DependentUpon>201503142210563_ChangeBack.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503142216504_ChangeBack2.cs" />
-    <Compile Include="Migrations\201503142216504_ChangeBack2.Designer.cs">
-      <DependentUpon>201503142216504_ChangeBack2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503161511513_removeIsEvent.cs" />
-    <Compile Include="Migrations\201503161511513_removeIsEvent.Designer.cs">
-      <DependentUpon>201503161511513_removeIsEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503260256132_more.cs" />
-    <Compile Include="Migrations\201503260256132_more.Designer.cs">
-      <DependentUpon>201503260256132_more.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Views\Models\AccountViewModels.cs" />
     <Compile Include="Views\Models\Announcement.cs" />
@@ -254,7 +222,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -341,32 +311,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503122110252_redo.resx">
-      <DependentUpon>201503122110252_redo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503122122135_redo2.resx">
-      <DependentUpon>201503122122135_redo2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503140158480_CatsAndSubCats.resx">
-      <DependentUpon>201503140158480_CatsAndSubCats.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503141925591_MoreChanges.resx">
-      <DependentUpon>201503141925591_MoreChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503142210563_ChangeBack.resx">
-      <DependentUpon>201503142210563_ChangeBack.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503142216504_ChangeBack2.resx">
-      <DependentUpon>201503142216504_ChangeBack2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503161511513_removeIsEvent.resx">
-      <DependentUpon>201503161511513_removeIsEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503260256132_more.resx">
-      <DependentUpon>201503260256132_more.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

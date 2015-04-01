@@ -12,7 +12,10 @@
             <div class="panel-heading">
                 <span id="announcmentsTitle">Announcments</span>
                 <span id="newAnnouncmentTitle" hidden>New Announcment</span>
+                @if(User.IsInRole("Administrator"))
+                { 
                 <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
+                }
             </div>
 @* Announcement list view panel *@
             <div id="announcmentContent" class="panel-body">
@@ -125,10 +128,10 @@
                                                 name="selectedFiles"
                                                 value="@f.ID"
                                                 @(Html.Raw(f.FileSelected ? "checked=\"checked\"" : "")) />
-                                                @f.FileName
+                                                @f.FileDescription
                                             @:</td>
                                             @:<td>
-                                                @f.FileDescription
+                                                @f.FileName
                                             @:</td>
                                       }
                                  @:</tr>
