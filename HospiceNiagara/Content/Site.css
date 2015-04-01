@@ -116,6 +116,16 @@ textarea {
      /*align-content: center;*/
   }
 
+  #LogInPanel {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+  }
+
+#Panel-Body-Color {
+    background-color: rgba(255,255,255,0.0);
+}
+
   .center-block {
   display: block;
   margin-left: auto;
@@ -127,8 +137,7 @@ textarea {
 }
 
 .LogInContent {
-    padding-left: 1200px;
-    padding-top: 190px;
+  padding-left: 15px;
 }
 
 #deathnoticebutton {
