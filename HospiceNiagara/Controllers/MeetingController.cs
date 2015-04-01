@@ -23,6 +23,7 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
+            var cUserRoles = db.RoleLists;
             var meet = new Meeting();
             meet.RolesLists = new List<RoleList>();
             meet.FileStores = new List<FileStorage>();
@@ -30,6 +31,14 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedRoles(meet);
             var mtt = db.Meetings.Include(a => a.RolesLists);
             mtt = db.Meetings.Include(a => a.FileStores);
+
+            foreach(var u in cUserRoles)
+            {
+                if(User.IsInRole(u.RoleName))
+                {
+                    mtt = mtt.Where(a => a.RolesLists.Any(aur => aur.ID == u.ID));
+                }
+            }
 
             ViewData["Meeting"] = db.Meetings.ToList();
             ViewData["MeetingID"] = id;

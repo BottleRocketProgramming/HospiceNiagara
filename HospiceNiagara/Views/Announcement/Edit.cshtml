@@ -76,8 +76,11 @@
                                 name="selectedFiles"
                                 value="@f.ID"
                                 @(Html.Raw(f.FileSelected ? "checked=\"checked\"" : "")) />
-                                @f.FileName
-                         @:</td>
+                                 @f.FileDescription
+                           @:</td>
+                           @:<td>
+                                 @f.FileName
+                          @:</td>
                       }
                  @:</tr>
                     }

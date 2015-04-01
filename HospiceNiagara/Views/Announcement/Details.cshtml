@@ -11,6 +11,21 @@
         <div class="panel-heading">
             Event
         </div>
+        <div>
+            <div id="storageimage">
+
+                @{
+                    foreach(var f in Model.FileStorages)
+                    { 
+                        if (f.FileContent != null && f.MimeType.Contains("image"))
+                        {
+                            string image64 = Convert.ToBase64String(f.FileContent);
+                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                            <img src="@imageSrc" width="300" height="300" />                            
+                        }
+                    }
+                }
+            </div>
         <div class="panel-body">
             <dl class="dl-horizontal">
                 <dt>
@@ -32,6 +47,7 @@
             </dl>
         </div>
         </div>
+       </div>
         <p class="text-center">
             @if (User.IsInRole("Administrator"))
             {

@@ -23,23 +23,33 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
+            //var cUserRole = db.RoleLists;
+            var schd = db.Schedules.Include(j => j.SchedType);
             var sched = new Schedule();
             sched.SchedType = new SchedType();
 
+            //foreach(var r in cUserRole)
+            //{
+            //    if(User.IsInRole(r.RoleName))
+            //    {
+            //        schd = schd.Where(a => a.ScheduleRoles.Any(aur => aur.ID == r.ID));
+            //    }
+            //}
+
             if (id != null)
             {
-                Schedule Schedule = db.Schedules.Include(j => j.SchedType).Where(i => i.ID == id).Single();
-                PopulateScheduleTypes(Schedule);
+                Schedule schedule = db.Schedules.Include(j => j.SchedType).Where(i => i.ID == id).Single();
+                PopulateScheduleTypes(schedule);
             }
             else
             {
                 PopulateScheduleTypes(sched);
             }
 
-            ViewData["Schedule"] = db.Schedules.ToList();
+            ViewData["Schedule"] = schd;
             ViewData["ScheduleID"] = id;
-            Schedule schedule = db.Schedules.Find(id);
-            return View(schedule);
+            Schedule schedules = db.Schedules.Find(id);
+            return View(schedules);
         }
 
         // GET: Schedule/Details/5

@@ -24,14 +24,22 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(string searchString, int? id)
         {
+            var uRole = db.RoleLists;
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();
             fileR.FileSubCats = new List<FileSubCat>();
             PopulateAssignedRoles(fileR);
             PopulateCatAndSubCat(fileR);
 
+             var allFiles = db.FileStorages.Include(r => r.FileStoreUserRoles).Include(fsc => fsc.FileSubCats);
 
-            var allFiles = db.FileStorages.Include(r => r.FileStoreUserRoles).Include(fsc => fsc.FileSubCats);                
+            foreach(var u in uRole)
+            {
+                 if(User.IsInRole(u.RoleName))
+                 {
+                     allFiles = allFiles.Where(f => f.FileStoreUserRoles.Any(fu => fu.ID == u.ID));
+                 }
+            }                           
             
             if(id != null && id != 0)
             {

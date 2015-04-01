@@ -21,6 +21,7 @@ namespace HospiceNiagara.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         
+        
 
         // GET: Announcement
         [Authorize]
@@ -35,12 +36,14 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedRoles(announce);
             PopulateAssignedFiles(announce);
             var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
+            var meet = db.Meetings.Include(a=> a.RolesLists);
 
             foreach (var ur in cUserRoles)
             {
                 if (User.IsInRole(ur.RoleName))
                 {
                     ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                    meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID)); 
                 }
             }
 
@@ -116,7 +119,7 @@ namespace HospiceNiagara.Controllers
                 if (selectedFiles != null)
                 {
                     announcement.FileStorages = new List<FileStorage>();
-                    foreach (var file in selectedRoles)
+                    foreach (var file in selectedFiles)
                     {
                         var fileToAdd = db.FileStorages.Find(int.Parse(file));
                         announcement.FileStorages.Add(fileToAdd);
@@ -252,7 +255,7 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateAssignedFiles(Announcement announcement)
         {
-            var allFile = db.FileStorages.OrderBy(r => r.FileName);
+            var allFile = db.FileStorages.OrderBy(r => r.FileDescription);
             var afiles = new HashSet<int>(announcement.FileStorages.Select(r => r.ID));
             var viewModel = new List<FileStorageVM>();
             foreach (var file in allFile)
