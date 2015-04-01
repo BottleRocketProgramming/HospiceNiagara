@@ -40,10 +40,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SqlProvider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SqlProvider-sp.1.1.0\lib\net45\SqlProvider.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -55,9 +51,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Providers">
-      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -184,10 +177,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503310452298_first.cs" />
-    <Compile Include="Migrations\201503310452298_first.Designer.cs">
-      <DependentUpon>201503310452298_first.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -233,26 +222,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="sqlprovider-database\dbo.db-lang.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role-add_user_to_role.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role-create_role.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role-delete_role.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role-delete_user_from_role.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role-get_rolenames.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role-get_roles_for_user.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role-get_users_in_role.sql" />
-    <Content Include="sqlprovider-database\dbo.db-role.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-change_password.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-delete_user.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-get_onlinenumber.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-get_pw_and_answer.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-get_users.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-set_last_login.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-set_user.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-unlock_user.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user-update_failure.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user.sql" />
-    <Content Include="sqlprovider-database\dbo.db-user_role.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -345,11 +314,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503310452298_first.resx">
-      <DependentUpon>201503310452298_first.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

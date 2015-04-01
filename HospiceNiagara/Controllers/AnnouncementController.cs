@@ -26,23 +26,21 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
-            
-            
+
+
+            var cUserRoles = db.RoleLists;
             var announce = new Announcement();
             announce.RolesLists = new List<RoleList>();
             announce.FileStorages = new List<FileStorage>();
             PopulateAssignedRoles(announce);
             PopulateAssignedFiles(announce);
-            var ann = db.Announcements.Include(a => a.RolesLists);
-            ann = db.Announcements.Include(a => a.FileStorages);
-            var cUserRoles = db.RoleLists;
+            var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
 
             foreach (var ur in cUserRoles)
             {
                 if (User.IsInRole(ur.RoleName))
                 {
-                    ann = ann.Where(a => a.RolesLists.Any(cur => cur.ID == ur.ID));
-                    
+                    ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                 }
             }
 
