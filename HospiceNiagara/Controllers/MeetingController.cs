@@ -40,7 +40,7 @@ namespace HospiceNiagara.Controllers
                 }
             }
 
-            ViewData["Meeting"] = db.Meetings.ToList();
+            ViewData["Meeting"] = mtt.ToList();
             ViewData["MeetingID"] = id;
             Meeting meeting = db.Meetings.Find(id);
 
