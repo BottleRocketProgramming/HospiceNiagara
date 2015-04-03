@@ -150,5 +150,9 @@ textarea {
 }
 
 #selectButtons {
-    margin-top: 25px;
+    margin-top: 30px;
+}
+
+.select-button {
+    padding-bottom:5px;
 }
