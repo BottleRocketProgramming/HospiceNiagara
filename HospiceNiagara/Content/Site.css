@@ -1,6 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-size: 20px;
+    font-family: Andalus;
+    
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -50,8 +53,9 @@ textarea {
 }
 
 .navbar-nav {
-    font-size: 18px;
+    font-size: 20px;
 }
+
 
 /*Pushes body content out from under navbar*/
 .body-content {
