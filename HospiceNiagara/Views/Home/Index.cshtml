@@ -130,18 +130,13 @@
                                 <th>
                                     Schedule
                                 </th>
-                                <th>
-                                    Start Date
-                                </th>
+                                
                             </tr>
                             @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                             {
                                 <tr>
                                     <td>
-                                        <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.SchedStartDate)
-                                    </td>
+                                        <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>                                  
                                 </tr>
                             }
                         </table>
