@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@*Andreas King April 2015*@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -31,6 +32,7 @@
                         <li>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
                         <li>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
+                        <li>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
                         @if(User.IsInRole("Administrator"))
                         {
                         <li>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>

@@ -9,8 +9,6 @@
     <div class="panel-heading">
         <span id="deathNoticeTitle">Notices of Death</span>
         <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
-        <div id="glyphDeathHide" class="glyphicon glyphicon-collapse-down pull-right"></div>
-        <div id="glyphDeathShow" class="glyphicon glyphicon-collapse-up pull-right"></div>
         @if (User.IsInRole("Administrator"))
         {
             <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
@@ -139,24 +137,7 @@
 <script>
     $(document).ready(function () {
         //Hides death notices by default
-        $('#glyphDeathHide').hide();
         $('#glyphNewDeathNotice').hide();
-        $('#panelDeathNoticeContent').hide();
-
-        //Controls hiding and showing the death notices
-        $('#glyphDeathHide').on('click', function () {
-            $('#panelDeathNoticeContent').slideToggle();
-            $('#glyphDeathHide').hide();
-            $('#glyphDeathShow').toggle();
-            $('#glyphNewDeathNotice').fadeToggle();
-        });
-
-        $('#glyphDeathShow').on('click', function () {
-            $('#panelDeathNoticeContent').slideToggle();
-            $('#glyphDeathShow').hide();
-            $('#glyphDeathHide').show();
-            $('#glyphNewDeathNotice').fadeToggle();
-        });
 
         $('#glyphNewDeathNotice').on('click', function () {
             $('#deathNoticeTitle').slideToggle();
