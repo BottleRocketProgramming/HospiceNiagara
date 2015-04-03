@@ -56,6 +56,7 @@ namespace HospiceNiagara.Models
         public DbSet<FileCat> FileCats { get; set; }
         public DbSet<FileSubCat> FileSubCats { get; set; }
         public DbSet<SchedType> SchedTypes { get; set; }
+        public DbSet<IdentityUserRole> IdentityUserRoles { get; set; }
         
         
         
@@ -65,6 +66,8 @@ namespace HospiceNiagara.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("IdentityUser");
         }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }
