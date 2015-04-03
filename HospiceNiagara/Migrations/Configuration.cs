@@ -16,7 +16,7 @@ namespace HospiceNiagara.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-        }
+       }
 
         protected override void Seed(ApplicationDbContext context)
         {

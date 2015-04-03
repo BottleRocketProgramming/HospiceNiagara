@@ -29,6 +29,7 @@ namespace HospiceNiagara.Models
         public string UserAddress { get; set; }
         public virtual ICollection<JobDescription> JobDescriptions { get; set; }
         public virtual ICollection<Announcement> UserAnnouncements { get; set; }
+        public virtual ICollection<RoleList> RoleLists { get; set; }
 
 
     }

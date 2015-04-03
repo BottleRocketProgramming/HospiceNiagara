@@ -9,12 +9,19 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HospiceNiagara.Models;
+using System.Collections.Generic;
+using HospiceNiagara.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HospiceNiagara.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        public ApplicationDbContext db = new ApplicationDbContext();
+        ApplicationDbContext context = new ApplicationDbContext();
+        
+        
         private ApplicationUserManager _userManager;
 
         public AccountController()
@@ -142,6 +149,8 @@ namespace HospiceNiagara.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ApplicationUser user = new ApplicationUser();
+            PopulateAssignedRoles(user);
             return View();
         }
 
@@ -150,11 +159,14 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, string[] selectedRoles, ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber  };
+                PopulateAssignedRoles(user);
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>());
+                var manager2 = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+                user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber  };
                 user.EmailConfirmed = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -163,26 +175,36 @@ namespace HospiceNiagara.Controllers
                         new System.Net.Mail.MailAddress(user.Email));
 
                         m.Subject = "Hospice Niagara Registration Cofirmation";
-                        m.Body = String.Format("Dear {0}, <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
+                        m.Body = String.Format("Dear " + user.UserFName + " " + user.UserLName + ", <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
                         m.IsBodyHtml = true;
 
                     System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
                     smtp.Credentials = new System.Net.NetworkCredential("hospicetestuser@outlook.com", "Pa55word01");
                     smtp.EnableSsl = true;
-                    smtp.Send(m);
+                    smtp.Send(m);                                   
+             
+                    if(selectedRoles != null)
+                    {
+                        user.RoleLists = new List<RoleList>();
+                        foreach (var r in selectedRoles)
+                        {
+                            var roleToAdd = db.RoleLists.Find(int.Parse(r));
+                            user.RoleLists.Add(roleToAdd);
+                            PopulateAssignedRoles(user);
+                            manager.AddToRole(user.Id, roleToAdd.RoleName);
+                            manager2.AddToRole(user.Id, roleToAdd.RoleName);
+                        }
+                    }
+             
 
-                    return RedirectToAction("Confirm", "Account", new { Email = user.Email });                   
-                    
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    //return RedirectToAction("Index", "Home");
+
+
+
+                    return RedirectToAction("Confirm", "Account", new { Email = user.Email });       
+                   
                 }
+                   
                 else
                 {
                     AddErrors(result);
@@ -462,6 +484,24 @@ namespace HospiceNiagara.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        //empty Roles for create
+        public void PopulateAssignedRoles(ApplicationUser appUser)
+        {
+            var allRole = db.RoleLists;            
+            var viewModel = new List<RoleVM>();
+            foreach (var roll in allRole)
+            {
+                viewModel.Add(new RoleVM
+                {
+                    RoleID = roll.ID,
+                    RoleName = roll.RoleName
+                    
+                });
+            }
+
+            ViewBag.RolesLists = viewModel;
         }
 
         #region Helpers
