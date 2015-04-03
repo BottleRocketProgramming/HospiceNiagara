@@ -164,8 +164,7 @@ namespace HospiceNiagara.Controllers
             if (ModelState.IsValid)
             {
                 PopulateAssignedRoles(user);
-                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>());
-                var manager2 = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));                
                 user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber  };
                 user.EmailConfirmed = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -191,8 +190,7 @@ namespace HospiceNiagara.Controllers
                             var roleToAdd = db.RoleLists.Find(int.Parse(r));
                             user.RoleLists.Add(roleToAdd);
                             PopulateAssignedRoles(user);
-                            manager.AddToRole(user.Id, roleToAdd.RoleName);
-                            manager2.AddToRole(user.Id, roleToAdd.RoleName);
+                            manager.AddToRole(user.Id, roleToAdd.RoleName);                         
                         }
                     }
              
