@@ -84,21 +84,10 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <span id="welcomeTitle">Welcome</span>
-                <span id="editWelcomeTitle" hidden>Edit Welcome</span>
-                <div id="glyphWelcomeEdit" class="glyphicon glyphicon-edit pull-right"></div>
             </div>
             <div id="welcomeContent" class="panel-body text-center">
                 Welcome to the Hospice Niagara Portal!
             </div>
-            <div id="editWelcomeContent" class="panel-body" hidden>
-                <div>
-                    <textarea id="editWelcomeContent" class="form-control" rows="4"></textarea>
-                    <button id="btnUpdateWelcomeContent" class="btn btn-default">Update</button>
-                </div>
-
-            </div>
-        
-        
         </div>
 
         <div class="panel panel-success">
@@ -176,22 +165,5 @@
 
 <script>
     $(document).ready(function () {
-
-        //Editing the Welcome Widget
-        $('#glyphWelcomeEdit').on('click', function () {
-            $('#welcomeContent').slideToggle();
-            $('#editWelcomeContent').slideToggle();
-            $('#editWelcomeTitle').slideToggle();
-            $('#welcomeTitle').slideToggle();
-            $('#glyphWelcomeEdit').fadeToggle();
-        });
-
-        $('#btnUpdateWelcomeContent').on('click', function () {
-            $('#welcomeContent').slideToggle();
-            $('#editWelcomeContent').slideToggle();
-            $('#editWelcomeTitle').slideToggle();
-            $('#welcomeTitle').slideToggle();
-            $('#glyphWelcomeEdit').fadeToggle();
-        });
     });
 </script>

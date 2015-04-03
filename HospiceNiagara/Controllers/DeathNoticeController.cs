@@ -17,7 +17,7 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: DeathNotice
-        [Authorize(Roles = "Staff, Board, Volunteers, Leadership, Admin, Community, Outreach, Residential, New Staff, Audit, Audit & Finance Committee, Community Relations Committee, Operations & Quality Improvement Committee, New Board Members, Bereavement, Day Hospice, Residential, Welcome Desk, New Volunteers")]
+        [Authorize(Roles = "Administrator, Staff, Board, Volunteers, Leadership, Admin, Community, Outreach, Residential, New Staff, Audit, Audit & Finance Committee, Community Relations Committee, Operations & Quality Improvement Committee, New Board Members, Bereavement, Day Hospice, Residential, Welcome Desk, New Volunteers")]
         public ActionResult Index(int? id)
         {
             ViewData["DeathNoticeList"] = db.DeathNotices.ToList();
