@@ -177,21 +177,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504021827508_removeSchdDate.cs" />
+    <Compile Include="Migrations\201504021827508_removeSchdDate.Designer.cs">
+      <DependentUpon>201504021827508_removeSchdDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Views\Models\AccountViewModels.cs" />
-    <Compile Include="Views\Models\Announcement.cs" />
-    <Compile Include="Views\Models\BoardContact.cs" />
-    <Compile Include="Views\Models\DeathNotice.cs" />
-    <Compile Include="Views\Models\FileCat.cs" />
-    <Compile Include="Views\Models\FileStorage.cs" />
-    <Compile Include="Views\Models\FileSubCat.cs" />
-    <Compile Include="Views\Models\IdentityModels.cs" />
-    <Compile Include="Views\Models\JobDescription.cs" />
-    <Compile Include="Views\Models\ManageViewModels.cs" />
-    <Compile Include="Views\Models\Meeting.cs" />
-    <Compile Include="Views\Models\RoleList.cs" />
-    <Compile Include="Views\Models\SchedType.cs" />
-    <Compile Include="Views\Models\Schedule.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Announcement.cs" />
+    <Compile Include="Models\BoardContact.cs" />
+    <Compile Include="Models\DeathNotice.cs" />
+    <Compile Include="Models\FileCat.cs" />
+    <Compile Include="Models\FileStorage.cs" />
+    <Compile Include="Models\FileSubCat.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobDescription.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Meeting.cs" />
+    <Compile Include="Models\RoleList.cs" />
+    <Compile Include="Models\SchedType.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FileCatVM.cs" />
@@ -314,6 +318,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504021827508_removeSchdDate.resx">
+      <DependentUpon>201504021827508_removeSchdDate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
