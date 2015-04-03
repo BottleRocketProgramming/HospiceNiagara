@@ -119,14 +119,13 @@
                                 <th>
                                     Schedule
                                 </th>
-                                
                             </tr>
                             @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                             {
                                 <tr>
                                     <td>
                                         <a target="_blank" href=@item.SchedLink>@Html.DisplayFor(modelItem => item.SchedName) </a>   
-                                                                   
+                                    </td>                   
                                 </tr>
                             }
                         </table>

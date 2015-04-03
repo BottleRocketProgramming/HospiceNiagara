@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<div class="col-sm-8">
+<div class="col-md-6">
     <div class="panel panel-success">
         <div class="panel-heading">
             <span id="ContactsTitle">Contacts</span>
@@ -61,8 +61,6 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>BoardContact</h4>
-                    <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         @Html.LabelFor(model => model.BoardContPosition, htmlAttributes: new { @class = "control-label col-md-2" })
