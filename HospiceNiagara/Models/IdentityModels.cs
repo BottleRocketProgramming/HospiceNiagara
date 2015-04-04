@@ -56,7 +56,7 @@ namespace HospiceNiagara.Models
         public DbSet<FileCat> FileCats { get; set; }
         public DbSet<FileSubCat> FileSubCats { get; set; }
         public DbSet<SchedType> SchedTypes { get; set; }
-        public DbSet<IdentityUserRole> IdentityUserRoles { get; set; }
+        
         
         
         
@@ -71,6 +71,8 @@ namespace HospiceNiagara.Models
         }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }
+
+      
 
               
     }

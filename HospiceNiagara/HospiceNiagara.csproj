@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
+    <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DeathNoticeController.cs" />
     <Compile Include="Controllers\FileStoragesController.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\OnAction.cs" />
+    <Compile Include="Controllers\RoleListsController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\testApplicationUsersController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
@@ -180,6 +182,10 @@
     <Compile Include="Migrations\201504031908511_user1TableIhope.cs" />
     <Compile Include="Migrations\201504031908511_user1TableIhope.Designer.cs">
       <DependentUpon>201504031908511_user1TableIhope.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504040236346_IdentUsers.cs" />
+    <Compile Include="Migrations\201504040236346_IdentUsers.Designer.cs">
+      <DependentUpon>201504040236346_IdentUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -305,6 +311,11 @@
     <Content Include="Views\Contact\AdminList.cshtml" />
     <Content Include="Views\Contact\AdminCreate.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
+    <Content Include="Views\RoleLists\Create.cshtml" />
+    <Content Include="Views\RoleLists\Delete.cshtml" />
+    <Content Include="Views\RoleLists\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Views\ApplicationUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -323,6 +334,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504031908511_user1TableIhope.resx">
       <DependentUpon>201504031908511_user1TableIhope.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504040236346_IdentUsers.resx">
+      <DependentUpon>201504040236346_IdentUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
