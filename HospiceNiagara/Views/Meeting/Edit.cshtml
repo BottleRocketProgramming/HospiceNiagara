@@ -100,30 +100,28 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Related Files</label>
-            <div class="col-md-offset-2 col-md-10">
-                <table class="table">
-                    <tr>
-                        @{
-                        int count = 0;
-                        List<HospiceNiagara.ViewModels.FileStorageVM> files = ViewBag.FileStorages;
-                        foreach (var f in files)
-                        {
-                            @:</tr><tr>
-                            @:<td>
-                                <input type="checkbox"
-                                       name="selectedFiles"
-                                       value="@f.ID"
-                                       @(Html.Raw(f.FileSelected ? "checked=\"checked\"" : "")) />
-                                @f.FileName
-                           @:</td>
-                      }
-                    @:</tr>
-                        }
-                    </table>
+        <div class="row form-group">
+            <div class="form-group col-md-4">
+                <label class="control-label">Selected Files</label>
+                @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
+            </div>
+            <div id="selectButtons" class="form-group col-md-1">
+                <div class="form-group">
+                    <button type="button" id="btnFileRight" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="form-group ">
+                    <button type="button" id="btnFileLeft" class="btn btn-success">
+                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
+            <div class="form-group col-md-4">
+                <label class="control-label">Selected Files</label>
+                @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

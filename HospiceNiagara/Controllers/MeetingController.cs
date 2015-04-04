@@ -255,22 +255,37 @@ namespace HospiceNiagara.Controllers
 //Empty Files for Create
         public void PopulateAssignedFiles(Meeting meeting)
         {
-            var allFile = db.FileStorages.OrderBy(r => r.FileName);
+            var allFile = db.FileStorages.OrderBy(r => r.FileDescription);
             var afiles = new HashSet<int>(meeting.FileStores.Select(r => r.ID));
-            var viewModel = new List<FileStorageVM>();
+            var viewModelAvailible = new List<FileStorageVM>();
+            var viewModelSelected = new List<FileStorageVM>();
             foreach (var file in allFile)
             {
-                viewModel.Add(new FileStorageVM
+                if (afiles.Contains(file.ID))
                 {
-                    ID = file.ID,
-                    FileName = file.FileName,
-                    FileDescription = file.FileDescription,
-                    FileUploadDate = file.FileUploadDate,
-                    FileSelected = afiles.Contains(file.ID)
-                });
+                    viewModelSelected.Add(new FileStorageVM
+                    {
+                        ID = file.ID,
+                        FileName = file.FileName,
+                        FileDescription = file.FileDescription,
+                        FileUploadDate = file.FileUploadDate
+                    });
+                }
+                else
+                {
+                    viewModelAvailible.Add(new FileStorageVM
+                    {
+                        ID = file.ID,
+                        FileName = file.FileName,
+                        FileDescription = file.FileDescription,
+                        FileUploadDate = file.FileUploadDate
+                    });
+                }
+
             }
 
-            ViewBag.FileStorages = viewModel;
+            ViewBag.selFiles = new MultiSelectList(viewModelSelected, "ID", "FileName");
+            ViewBag.avlFiles = new MultiSelectList(viewModelAvailible, "ID", "FileName");
         }
 
 //Files for Edit
