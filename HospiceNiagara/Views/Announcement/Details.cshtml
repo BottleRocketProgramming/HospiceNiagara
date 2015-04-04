@@ -13,15 +13,14 @@
         </div>
         <div>
             <div id="storageimage">
-
                 @{
-                    foreach(var f in Model.FileStorages)
-                    { 
+                    foreach (var f in Model.FileStorages)
+                    {
                         if (f.FileContent != null && f.MimeType.Contains("image"))
                         {
                             string image64 = Convert.ToBase64String(f.FileContent);
                             string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                            <img src="@imageSrc" width="300" height="300" />                            
+                            <img src="@imageSrc" width="85%" />
                         }
                     }
                 }
@@ -51,7 +50,7 @@
         <p class="text-center">
             @if (User.IsInRole("Administrator"))
             {
-                @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) <span>|</span>
             }
             @Html.ActionLink("Back to List", "Index")
         </p>
@@ -68,16 +67,13 @@
                           List<HospiceNiagara.ViewModels.FileStorageVM> files = ViewBag.FileStorages;
                           foreach (var f in files)
                           {
-                              if(f.FileSelected.Equals(true))
-                              {
                                   @:</tr><tr>
                               @:<td>
                                     <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
                              @:</td>
                              @:<td>
-                                    @f.FileDescription
+                                    @f.FileName
                              @:</td>
-                              }
                           }
                      @:</tr>
                         }

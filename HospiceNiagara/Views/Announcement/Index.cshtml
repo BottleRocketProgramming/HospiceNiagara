@@ -49,7 +49,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.AnnounceEndDate)
                             </td>
-                            @if(User.IsInRole("Administrator"))
+                            if(User.IsInRole("Administrator"))
                             {
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

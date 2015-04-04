@@ -94,16 +94,13 @@
                         List<HospiceNiagara.ViewModels.FileStorageVM> files = ViewBag.FileStorages;
                         foreach (var f in files)
                         {
-                            if (f.FileSelected.Equals(true))
-                            {
-                                @:</tr><tr>
-                                @:<td>
-                                    <a href=../../FileStorages/Download/@f.ID>@f.FileName</a>
-                                    @:</td>
-                                @:<td>
-                                    @f.FileDescription
-                                    @:</td>
-                                     }
+                            @:</tr><tr>
+                            @:<td>
+                                <a href=../../FileStorages/Download/@f.ID>@f.FileName</a>
+                                @:</td>
+                            @:<td>
+                                @f.FileDescription
+                                @:</td>
                         }
                         @:</tr>
                     }

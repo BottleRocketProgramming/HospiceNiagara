@@ -283,7 +283,7 @@ namespace HospiceNiagara.Controllers
                 }
                 
             }
-
+            ViewBag.FileStorages = viewModelSelected;
             ViewBag.selFiles = new MultiSelectList(viewModelSelected, "ID", "FileName");
             ViewBag.avlFiles = new MultiSelectList(viewModelAvailible, "ID", "FileName");
         }
