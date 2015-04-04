@@ -7,13 +7,13 @@ namespace HospiceNiagara.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class user1TableIhope : IMigrationMetadata
+    public sealed partial class testing : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(user1TableIhope));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(testing));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504031908511_user1TableIhope"; }
+            get { return "201504040017543_testing"; }
         }
         
         string IMigrationMetadata.Source
