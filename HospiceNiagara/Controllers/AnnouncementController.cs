@@ -57,14 +57,14 @@ namespace HospiceNiagara.Controllers
         }
 
         //Admin List
-        [Authorize(Roles="Administrator")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult AdminList()
         {
             return View(db.Announcements.ToList());
         }
 
         // GET: Announcement/adminCreate
-        [Authorize(Roles="Administrator")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult adminCreate()
         {
             var announce = new Announcement();
