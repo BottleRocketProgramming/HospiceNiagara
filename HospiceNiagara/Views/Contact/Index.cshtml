@@ -29,6 +29,7 @@
                     <th>
                         
                     </th>
+                    
                 </tr>
 
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.BoardContact>)ViewData["Contact"])
@@ -44,10 +45,14 @@
                             @Html.DisplayFor(modelItem => item.BoardContWorkPhone)
                         </td>
                         <td>
-                            @Html.ActionLink("Job Description", "Index", new { id = item.ID }) |
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Job Description", "Index", new { id = item.ID }) 
+                            @if(User.IsInRole("Administrator"))
+                            {       
+                            <span>&#124;</span>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID })    <span>&#124;</span>
+                            @Html.ActionLink("Details", "Details", new { id = item.ID })    <span>&#124;</span>
                             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            }
                         </td>
                     </tr>
                 }

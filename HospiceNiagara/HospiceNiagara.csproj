@@ -166,7 +166,9 @@
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DeathNoticeController.cs" />
+    <Compile Include="Controllers\FileCatsController.cs" />
     <Compile Include="Controllers\FileStoragesController.cs" />
+    <Compile Include="Controllers\FileSubCatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -316,6 +318,16 @@
     <Content Include="Views\RoleLists\Index.cshtml" />
     <Content Include="Views\ApplicationUsers\Delete.cshtml" />
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\FileCats\Create.cshtml" />
+    <Content Include="Views\FileCats\Delete.cshtml" />
+    <Content Include="Views\FileCats\Details.cshtml" />
+    <Content Include="Views\FileCats\Edit.cshtml" />
+    <Content Include="Views\FileCats\Index.cshtml" />
+    <Content Include="Views\FileSubCats\Create.cshtml" />
+    <Content Include="Views\FileSubCats\Delete.cshtml" />
+    <Content Include="Views\FileSubCats\Details.cshtml" />
+    <Content Include="Views\FileSubCats\Edit.cshtml" />
+    <Content Include="Views\FileSubCats\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

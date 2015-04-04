@@ -11,9 +11,10 @@
         <div class="panel-heading">
             <span id="EventsTitle">Events</span>
             <span id="newMeetingEventTitle" hidden>New Event</span>
-            
+                @if (User.IsInRole("Administrator"))
+                {
                 <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
-            
+                }
         </div>
         @* Ask Chantal *@
         <div id="Event">
@@ -42,7 +43,10 @@
                         <th>
                             @Html.DisplayNameFor(model => model.EventLinks)
                         </th>
+                        @if (User.IsInRole("Administrator"))
+                        {
                         <th></th>
+                        }
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
@@ -69,11 +73,14 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.EventLinks)
                             </td>
+                            @if (User.IsInRole("Administrator"))
+                            {
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                             </td>
+                            }
                         </tr>
                     }
 

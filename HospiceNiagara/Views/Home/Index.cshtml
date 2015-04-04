@@ -14,9 +14,13 @@
                         <th>
                             Announcement
                         </th>
-                        @*<th>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                        <th>
                             End Date
-                        </th>*@
+                        </th>
+                        }
+                        
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
@@ -37,9 +41,12 @@
                                     <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
                                 }
                                 @:</td>
-                            @*<td>
-                                @Html.DisplayFor(modelItem => item.AnnounceEndDate)
-                            </td>*@
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AnnounceEndDate)
+                                </td>
+                                }
                     @:</tr>
                         
                     }

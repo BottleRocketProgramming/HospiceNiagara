@@ -110,9 +110,13 @@
 
                             <td>
                                 @Html.ActionLink("Download", "Download", new { id = item.ID }) |
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <span>&#124;</span>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })    <span>&#124;</span>
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID })    <span>&#124;</span>
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                }
                             </td>
                         </tr>
                     }
