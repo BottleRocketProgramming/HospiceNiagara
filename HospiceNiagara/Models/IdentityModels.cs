@@ -30,6 +30,7 @@ namespace HospiceNiagara.Models
         public virtual ICollection<JobDescription> JobDescriptions { get; set; }
         public virtual ICollection<Announcement> UserAnnouncements { get; set; }
         public virtual ICollection<RoleList> RoleLists { get; set; }
+        public virtual ICollection<BoardContact> BoardContacts { get; set; }
 
 
     }
@@ -67,7 +68,7 @@ namespace HospiceNiagara.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>().ToTable("IdentityUser");
+            //modelBuilder.Entity<ApplicationUser>().ToTable("IdentityUser");
         }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }

@@ -51,6 +51,6 @@ namespace HospiceNiagara.Models
 
         public virtual ICollection<JobDescription> JobDescriptions { get; set; }
 
-        public virtual ICollection<IdentityUser> IdentUsers { get; set;  }
+        public virtual ICollection<ApplicationUser> IdentUsers { get; set;  }
     }
 }

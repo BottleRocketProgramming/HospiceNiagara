@@ -28,7 +28,7 @@ namespace HospiceNiagara.Models
 
         public virtual ICollection<RoleList> RolesLists { get; set; }
 
-        public virtual ICollection<IdentityUser> UserAnnouncements { get; set; }
+        public virtual ICollection<ApplicationUser> UserAnnouncements { get; set; }
 
         public virtual ICollection<FileStorage> FileStorages { get; set; }
 

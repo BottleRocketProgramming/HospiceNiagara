@@ -7,13 +7,13 @@ namespace HospiceNiagara.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class FileDescReq : IMigrationMetadata
+    public sealed partial class _1st : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FileDescReq));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_1st));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504050237184_FileDescReq"; }
+            get { return "201504050407375_1st"; }
         }
         
         string IMigrationMetadata.Source
