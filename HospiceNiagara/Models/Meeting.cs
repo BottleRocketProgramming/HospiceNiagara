@@ -23,6 +23,22 @@ namespace HospiceNiagara.Models
         [StringLength(510, ErrorMessage = "Event's discription can not exceed 510 characters")]
         public string EventDiscription { get; set; }
 
+        private int DescriptionLimit = 100;
+
+        //You probably need this if you want to use .LabelFor() 
+        //and let this property mimic the "full" one  
+        [Display(Name = "Description Short")]
+        public string DescriptionTrimmed
+        {
+            get
+            {
+                if (this.EventDiscription.Length > this.DescriptionLimit)
+                    return this.EventDiscription.Substring(0, this.DescriptionLimit) + "...";
+                else
+                    return this.EventDiscription;
+            }
+        }
+
         [Display(Name="Location")]
         [Required(ErrorMessage = "Event location can not be left blank")]
         [StringLength(510, ErrorMessage = "Event location can not exceed 510 characters")]

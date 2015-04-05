@@ -8,8 +8,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-</head>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'></head>
 <body>
     <div id="navbar" class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
@@ -25,29 +24,29 @@
                     
                         @Html.ActionLink("Hospice Niagara Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand brandName", @style = "color:white;" })
                 </div>
-                <div class="navbar-collapse collapse nav-text">
-                    <ul class="nav navbar-nav navbar-down-right navbar-right nav-text">
-                        <li class='@Html.IsActive("Home", "Index")'>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
-                        <li class='@Html.IsActive("Announcement", "Index")'>@Html.ActionLink("Announcements", "Index", "Announcement", null, new { style = "color:white" })</li>
-                        <li class='@Html.IsActive("FileStorages", "Index")'>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
-                        <li class='@Html.IsActive("Meeting", "Index")'>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
-                        <li class='@Html.IsActive("Schedule", "Index")'>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
-                        <li class='@Html.IsActive("Contact", "Index")'>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
-                        <li class='@Html.IsActive("DeathNotice", "Index")'>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
-                        @if(User.IsInRole("Administrator"))
-                        {
-                        <li class='@Html.IsActive("Admin", "Index")'>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
-                        }
-                    </ul>
-                    
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-collapse collapse nav-text">
+                        <ul class="nav navbar-nav navbar-down-right navbar-right nav-text">
+                            <li class='@Html.IsActive("Home", "Index")'>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
+                            <li class='@Html.IsActive("Announcement", "Index")'>@Html.ActionLink("Announcements", "Index", "Announcement", null, new { style = "color:white" })</li>
+                            <li class='@Html.IsActive("FileStorages", "Index")'>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
+                            <li class='@Html.IsActive("Meeting", "Index")'>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
+                            <li class='@Html.IsActive("Schedule", "Index")'>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
+                            <li class='@Html.IsActive("Contact", "Index")'>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
+                            <li class='@Html.IsActive("DeathNotice", "Index")'>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <li class='@Html.IsActive("Admin", "Index")'>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
+                            }
+                        </ul>
+                    </div>
+                }
                 <div class="nav navbar-nav navbar-fixed-top">
                     @Html.Partial("_LoginPartial")
                 </div>
                 </div>
             </div>
-    <br />
-    <br />
     <br />
     <br />
     <br />
