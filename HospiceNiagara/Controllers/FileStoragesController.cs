@@ -72,46 +72,54 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
-            DateTime uploadDate = DateTime.Now;
-            string mimeType = Request.Files[0].ContentType;
-            string fileName = Path.GetFileName(Request.Files[0].FileName);
-            int fileLenght = Request.Files[0].ContentLength;
-            if (!(fileName == "" || fileLenght == 0))
+            try
             {
-                Stream fileStream = Request.Files[0].InputStream;
-                byte[] fileData = new byte[fileLenght];
-                fileStream.Read(fileData, 0, fileLenght);
+                DateTime uploadDate = DateTime.Now;
+                string mimeType = Request.Files[0].ContentType;
+                string fileName = Path.GetFileName(Request.Files[0].FileName);
+                int fileLenght = Request.Files[0].ContentLength;
+                if (!(fileName == "" || fileLenght == 0))
+                {
+                    Stream fileStream = Request.Files[0].InputStream;
+                    byte[] fileData = new byte[fileLenght];
+                    fileStream.Read(fileData, 0, fileLenght);
 
-                FileStorage newFile = new FileStorage
-                {
-                    FileContent = fileData,
-                    MimeType = mimeType,
-                    FileName = fileName,
-                    FileDescription = fileDescription,
-                    FileUploadDate = uploadDate
-                };
-            if(selectedRoles != null)
-            {
-                newFile.FileStoreUserRoles = new List<RoleList>();
-                foreach(var r in selectedRoles)
-                {
-                    var roleToAdd = db.RoleLists.Find(int.Parse(r));
-                    newFile.FileStoreUserRoles.Add(roleToAdd);
+                    FileStorage newFile = new FileStorage
+                    {
+                        FileContent = fileData,
+                        MimeType = mimeType,
+                        FileName = fileName,
+                        FileDescription = fileDescription,
+                        FileUploadDate = uploadDate
+                    };
+                    if (selectedRoles != null)
+                    {
+                        newFile.FileStoreUserRoles = new List<RoleList>();
+                        foreach (var r in selectedRoles)
+                        {
+                            var roleToAdd = db.RoleLists.Find(int.Parse(r));
+                            newFile.FileStoreUserRoles.Add(roleToAdd);
+                        }
+                    }
+
+                    if (selectedSubCats != null)
+                    {
+                        newFile.FileSubCats = new List<FileSubCat>();
+                        foreach (var sc in selectedSubCats)
+                        {
+                            var subCatToAdd = db.FileSubCats.Find(int.Parse(sc));
+                            newFile.FileSubCats.Add(subCatToAdd);
+                        }
+                    }
+                    db.FileStorages.Add(newFile);
+                    db.SaveChanges();
                 }
             }
-
-            if (selectedSubCats != null)
+            catch (DataException)
             {
-                newFile.FileSubCats = new List<FileSubCat>();
-                foreach(var sc in selectedSubCats)
-                {
-                    var subCatToAdd = db.FileSubCats.Find(int.Parse(sc));
-                    newFile.FileSubCats.Add(subCatToAdd);
-                }
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-                db.FileStorages.Add(newFile);
-                db.SaveChanges();
-            }
+            
 
             return RedirectToAction("Index");
         }

@@ -132,6 +132,7 @@
                 <div class="col-md-10">
                     @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
+                        @Html.AntiForgeryToken()
                         <div class="form-group">
                             <label class="control-label col-md-2" for="fileDescription">Description</label>
                             <input type="text" name="fileDescription" class="form-control col-md-10 col-md-offset-1" /><br />

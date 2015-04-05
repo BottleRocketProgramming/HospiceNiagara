@@ -183,13 +183,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504040017543_testing.cs" />
-    <Compile Include="Migrations\201504040017543_testing.Designer.cs">
-      <DependentUpon>201504040017543_testing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504040236346_IdentUsers.cs" />
-    <Compile Include="Migrations\201504040236346_IdentUsers.Designer.cs">
-      <DependentUpon>201504040236346_IdentUsers.cs</DependentUpon>
+    <Compile Include="Migrations\201504050237184_FileDescReq.cs" />
+    <Compile Include="Migrations\201504050237184_FileDescReq.Designer.cs">
+      <DependentUpon>201504050237184_FileDescReq.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -351,11 +347,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504040017543_testing.resx">
-      <DependentUpon>201504040017543_testing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504040236346_IdentUsers.resx">
-      <DependentUpon>201504040236346_IdentUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504050237184_FileDescReq.resx">
+      <DependentUpon>201504050237184_FileDescReq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

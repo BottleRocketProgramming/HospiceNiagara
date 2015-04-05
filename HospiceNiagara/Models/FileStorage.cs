@@ -26,6 +26,7 @@ namespace HospiceNiagara.Models
         [StringLength(100, ErrorMessage = "File name can not be longer than 100 characters")]
         public string FileName { get; set; }
 
+        [Required(ErrorMessage = "Please give the file a description")]
         [StringLength(100, ErrorMessage = "The file discription can not exceed 100 characters")]
         [Display(Name="Description")]
         public string FileDescription { get; set; }
