@@ -57,8 +57,10 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.SchedName)
                                 </th>
-                                
-                                <th></th>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <th></th>
+                                }
                             </tr>
                             @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                             {
@@ -68,12 +70,14 @@
                                         <td>
                                             <a target="_blank" href="https://@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                         </td>
-                                           
+                                        @if (User.IsInRole("Administrator"))
+                                        {
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                                             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                                             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                         </td>
+                                        }
                                     </tr>
                                 }
                             }
@@ -86,8 +90,10 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.SchedName)
                                 </th>
-                                
-                                <th></th>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <th></th>
+                                }
                             </tr>
                             @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                             {
@@ -97,12 +103,14 @@
                                         <td>
                                             <a target="_blank" href="https://@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                         </td>
-                                           
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                        </td>
+                                        @if (User.IsInRole("Administrator"))
+                                        {
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        }
                                     </tr>
                                 }
                             }
@@ -115,7 +123,10 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.SchedName)
                                 </th>                                
-                                <th></th>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <th></th>
+                                }
                             </tr>
                             @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                             {
@@ -125,11 +136,14 @@
                                         <td>
                                             <a target="_blank" href="https://@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                         </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                        </td>
+                                        @if (User.IsInRole("Administrator"))
+                                        {
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        }
                                     </tr>
                                 }
                             }
@@ -142,7 +156,10 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.SchedName)
                                 </th>                                
-                                <th></th>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <th></th>
+                                }
                             </tr>
                             @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                             {
@@ -152,11 +169,14 @@
                                         <td>
                                             <a target="_blank" href="https://@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                         </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                        </td>
+                                        @if (User.IsInRole("Administrator"))
+                                        {
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        }
                                     </tr>
                                 }
                             }
@@ -169,7 +189,10 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.SchedName)
                                 </th>                                
-                                <th></th>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <th></th>
+                                }
                             </tr>
                             @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                             {
@@ -179,11 +202,14 @@
                                         <td>
                                             <a target="_blank" href="https://@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                         </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                        </td>
+                                        @if (User.IsInRole("Administrator"))
+                                        {
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        }
                                     </tr>
                                 }
                             }
