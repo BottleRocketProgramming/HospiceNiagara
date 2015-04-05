@@ -170,22 +170,16 @@
     <Compile Include="Controllers\FileStoragesController.cs" />
     <Compile Include="Controllers\FileSubCatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\OnAction.cs" />
     <Compile Include="Controllers\RoleListsController.cs" />
     <Compile Include="Controllers\SchedTypesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
-    <Compile Include="Controllers\testApplicationUsersController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
     <Compile Include="Extentions\Extentions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504050407375_1st.cs" />
-    <Compile Include="Migrations\201504050407375_1st.Designer.cs">
-      <DependentUpon>201504050407375_1st.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -345,11 +339,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504050407375_1st.resx">
-      <DependentUpon>201504050407375_1st.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

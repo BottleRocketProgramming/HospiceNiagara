@@ -23,6 +23,7 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
+            int c = 0;
             var cUserRoles = db.RoleLists;
             var meet = new Meeting();
             meet.RolesLists = new List<RoleList>();
@@ -37,7 +38,12 @@ namespace HospiceNiagara.Controllers
                 if(User.IsInRole(u.RoleName))
                 {
                     mtt = mtt.Where(a => a.RolesLists.Any(aur => aur.ID == u.ID));
+                    c++;
                 }
+            }
+            if( c == 0 )
+            {
+                mtt = mtt.Where(a => a.ID == 0);
             }
 
             ViewData["Meeting"] = mtt.ToList();

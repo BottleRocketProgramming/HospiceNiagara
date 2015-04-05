@@ -28,7 +28,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index(int? id)
         {
 
-
+            int c = 0;
             var cUserRoles = db.RoleLists;
             var announce = new Announcement();
             announce.RolesLists = new List<RoleList>();
@@ -38,14 +38,22 @@ namespace HospiceNiagara.Controllers
             var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
             var meet = db.Meetings.Include(a=> a.RolesLists);
 
-            foreach (var ur in cUserRoles)
-            {
-                if (User.IsInRole(ur.RoleName))
+           
+                foreach (var ur in cUserRoles)
                 {
-                    ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
-                    meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID)); 
+                    if (User.IsInRole(ur.RoleName))
+                    {
+                        ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                        meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                        c++;
+                    }
                 }
+            if( c == 0)
+            {
+                ann = ann.Where(a => a.ID == 0);
+                meet = meet.Where(a => a.ID == 0);
             }
+           
 
             ViewData["AnnouncementOrEvent"] = ann.ToList();
             ViewData["AnnOrEvntId"] = id;
