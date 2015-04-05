@@ -44,6 +44,11 @@ textarea {
   background-color: #1f740b;
 }
 
+.nav-selected{
+  color: #ffffff;
+  background-color: #1f740b;
+}
+
 /*pushs navbar navigations down and right*/
 .navbar-down-right {
     padding-top:57px;

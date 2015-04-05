@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    @using HospiceNiagara.Extentions
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
@@ -26,16 +27,16 @@
                 </div>
                 <div class="navbar-collapse collapse nav-text">
                     <ul class="nav navbar-nav navbar-down-right navbar-right nav-text">
-                        <li>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
-                        <li>@Html.ActionLink("Announcements", "Index", "Announcement", null, new { style = "color:white" })</li>
-                        <li>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
-                        <li>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
-                        <li>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
-                        <li>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
-                        <li>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("Home", "Index")'>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("Announcement", "Index")'>@Html.ActionLink("Announcements", "Index", "Announcement", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("FileStorages", "Index")'>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("Meeting", "Index")'>@Html.ActionLink("Meetings", "Index", "Meeting", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("Schedule", "Index")'>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("Contact", "Index")'>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("DeathNotice", "Index")'>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
                         @if(User.IsInRole("Administrator"))
                         {
-                        <li>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
+                        <li class='@Html.IsActive("Admin", "Index")'>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
                         }
                     </ul>
                     
