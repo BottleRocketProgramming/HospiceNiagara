@@ -175,6 +175,7 @@
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\OnAction.cs" />
     <Compile Include="Controllers\RoleListsController.cs" />
+    <Compile Include="Controllers\SchedTypesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\testApplicationUsersController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
@@ -328,6 +329,11 @@
     <Content Include="Views\FileSubCats\Details.cshtml" />
     <Content Include="Views\FileSubCats\Edit.cshtml" />
     <Content Include="Views\FileSubCats\Index.cshtml" />
+    <Content Include="Views\SchedTypes\Create.cshtml" />
+    <Content Include="Views\SchedTypes\Delete.cshtml" />
+    <Content Include="Views\SchedTypes\Details.cshtml" />
+    <Content Include="Views\SchedTypes\Edit.cshtml" />
+    <Content Include="Views\SchedTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
