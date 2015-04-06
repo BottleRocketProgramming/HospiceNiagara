@@ -56,6 +56,26 @@ namespace HospiceNiagara.Controllers
             return View(meeting);
         }
 
+        //Admin List
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminList()
+        {
+            return View(db.Meetings.ToList());
+        }
+
+        // GET: Meeting/adminCreate
+        [Authorize(Roles = "Administrator")]
+        public ActionResult adminCreate()
+        {
+            var meet = new Meeting();
+            meet.RolesLists = new List<RoleList>();
+            meet.FileStores = new List<FileStorage>();
+            PopulateAssignedRoles(meet);
+            PopulateAssignedFiles(meet);
+
+            return View();
+        }       
+
         // GET: Meeting/Details/5
         [Authorize]
         public ActionResult Details(int? id)

@@ -52,6 +52,13 @@ namespace HospiceNiagara.Controllers
             return View(schedules);
         }
 
+        //Admin List
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminList()
+        {
+            return View(db.Schedules.ToList());
+        }
+
         // GET: Schedule/Details/5
         [Authorize]
         public ActionResult Details(int? id)
@@ -72,6 +79,10 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
+            var sched = new Schedule();
+            sched.SchedType = new SchedType();
+            PopulateScheduleTypes(sched);
+
             return View();
         }
 

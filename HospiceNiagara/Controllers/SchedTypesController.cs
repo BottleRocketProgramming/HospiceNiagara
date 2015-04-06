@@ -15,12 +15,14 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: SchedTypes
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View(db.SchedTypes.ToList());
         }
 
         // GET: SchedTypes/Details/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: SchedTypes/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,SchedTypeName")] SchedType schedType)
         {
             if (ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: SchedTypes/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "ID,SchedTypeName")] SchedType schedType)
         {
             if (ModelState.IsValid)
@@ -90,6 +96,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: SchedTypes/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +114,7 @@ namespace HospiceNiagara.Controllers
         // POST: SchedTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             SchedType schedType = db.SchedTypes.Find(id);
