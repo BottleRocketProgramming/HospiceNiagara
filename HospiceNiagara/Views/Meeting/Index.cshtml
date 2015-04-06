@@ -41,10 +41,8 @@
                         <th>
                             @Html.DisplayNameFor(model => model.EventRequirments)
                         </th>
-                        @if (User.IsInRole("Administrator"))
-                        {
                         <th></th>
-                        }
+                        
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
