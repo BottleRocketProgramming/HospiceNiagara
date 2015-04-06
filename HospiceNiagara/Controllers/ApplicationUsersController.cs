@@ -41,9 +41,17 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
-            db.SaveChanges();
+            try
+            {
+                ApplicationUser applicationUser = db.Users.Find(id);
+                db.Users.Remove(applicationUser);
+                db.SaveChanges();
+            }
+            catch (DataException ex)
+            {
+                
+            }
+
             return RedirectToAction("Index");
         }
 
