@@ -20,7 +20,7 @@ namespace HospiceNiagara.Controllers
     public class MeetingController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationDbContext db2 = new ApplicationDbContext();
+        
 
         // GET: Meeting
         [Authorize]
@@ -132,43 +132,13 @@ namespace HospiceNiagara.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Meetings.Add(meeting);
-                    db.SaveChanges();
-
-                    
-                     if (sendRSVP == 1)
-                     {
-                         
-                         foreach(var roles in selectedRoles)
-                         {
-
-                             
-                             int updateRole = int.Parse(roles);
-
-                             var RSVPUsers = db.Users.Include(a=> a.RoleLists);                             
-                         
-                             foreach(var u in RSVPUsers)
-                             {
-                                 var u2 = u.RoleLists;
-                                 foreach( var u3 in u2)
-                                 {
-                                     if(u3.ID == updateRole)
-                                     {
-                                           MeetingUserRSVP newRSVP = new MeetingUserRSVP();
-                                           newRSVP.AppUser.Id = u.Id;
-                                           newRSVP.MeetingRSVP.ID = meeting.ID;
-                                           newRSVP.ComingYorN = false;
-
-                                           db2.MeetingUserRSVPs.Add(newRSVP);
-                                     }
-                                 }
-                              }
-                            }
-                        }
-                                        
-                    db2.SaveChanges();
-                    return RedirectToAction("Index");
+                    db.SaveChanges();                   
                 }
+                                        
+                    
+                    return RedirectToAction("Index");
             }
+            
             catch (DataException)
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");

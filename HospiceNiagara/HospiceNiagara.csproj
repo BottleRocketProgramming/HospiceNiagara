@@ -208,8 +208,10 @@
     <Compile Include="ViewModels\FileStorageVM.cs" />
     <Compile Include="ViewModels\FileSubCatVM.cs" />
     <Compile Include="ViewModels\JobDescVM.cs" />
+    <Compile Include="ViewModels\MettingVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
     <Compile Include="ViewModels\SchedTypeVM.cs" />
+    <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -336,6 +338,7 @@
     <Content Include="Views\MeetingUserRSVPs\Details.cshtml" />
     <Content Include="Views\MeetingUserRSVPs\Edit.cshtml" />
     <Content Include="Views\MeetingUserRSVPs\Index.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\AdminList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

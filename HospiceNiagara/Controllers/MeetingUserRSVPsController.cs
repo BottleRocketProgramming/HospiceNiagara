@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
 
 namespace HospiceNiagara.Controllers
 {
@@ -22,6 +23,14 @@ namespace HospiceNiagara.Controllers
 
 
             return View(meetingUserRSVP);
+        }
+
+        //Admin List
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminList()
+        {
+            var orderedMeetRSVP = db.MeetingUserRSVPs.OrderBy(m => m.MeetingRSVP.ID).ToList();
+            return View(orderedMeetRSVP);
         }
 
         // GET: MeetingUserRSVPs/Details/5
@@ -42,6 +51,9 @@ namespace HospiceNiagara.Controllers
         // GET: MeetingUserRSVPs/Create
         public ActionResult Create()
         {
+            var meetRSVP = new MeetingUserRSVP();
+            PopulateAssignedMeetings(meetRSVP);
+            PopulateAssignedUsers(meetRSVP);
             return View();
         }
 
@@ -50,12 +62,39 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ComingYorN,RSVPNotes")] MeetingUserRSVP meetingUserRSVP)
+        public ActionResult Create([Bind(Include = "ID,ComingYorN,RSVPNotes")] MeetingUserRSVP meetingUserRSVP, string[] selectedMeetings, string[] selectedUsers)
         {
+            
+            if(selectedMeetings != null)
+            {
+                foreach(var m in selectedMeetings)
+                {
+                   var meetingToAdd = db.Meetings.Find(int.Parse(m));
+                    //meetingUserRSVP.MeetingRSVP = meetingToAdd;
+
+                    if (selectedUsers != null)
+                    {
+                        foreach (var u in selectedUsers)
+                        {
+                            var userToAdd = db.Users.Find(u);
+                            meetingUserRSVP.MeetingRSVP = meetingToAdd;
+                            meetingUserRSVP.AppUser = userToAdd;
+                            db.MeetingUserRSVPs.Add(meetingUserRSVP);
+                            db.SaveChanges();
+                        }
+                    }
+                    
+                }
+            }
+
+            
+            
             if (ModelState.IsValid)
             {
-                db.MeetingUserRSVPs.Add(meetingUserRSVP);
-                db.SaveChanges();
+                
+                
+                //PopulateAssignedMeetings(meetingUserRSVP);
+                //PopulateAssignedUsers(meetingUserRSVP);
                 return RedirectToAction("Index");
             }
 
@@ -69,10 +108,11 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var meetingUserRSVP = db.MeetingUserRSVPs.Include(u => u.AppUser).Include(m => m.MeetingRSVP);
-            meetingUserRSVP = meetingUserRSVP.Where(u => u.AppUser.UserName == User.Identity.Name);
-            MeetingUserRSVP MuRSVP = meetingUserRSVP.Where(m => m.MeetingRSVP.ID == id).Single();
-            if (meetingUserRSVP == null)
+            MeetingUserRSVP MuRSVP = db.MeetingUserRSVPs.Include(m => m.MeetingRSVP).Include(u => u.AppUser).Where(i => i.ID == id).Single(); 
+            //var meetingUserRSVP = db.MeetingUserRSVPs.Include(u => u.AppUser).Include(m => m.MeetingRSVP);
+            //meetingUserRSVP = meetingUserRSVP.Where(u => u.AppUser.UserName == User.Identity.Name);
+            //MeetingUserRSVP MuRSVP = meetingUserRSVP.Where(m => m.MeetingRSVP.ID == id).Single();
+            if (MuRSVP == null)
             {
                 return HttpNotFound();
             }
@@ -121,6 +161,41 @@ namespace HospiceNiagara.Controllers
             return RedirectToAction("Index");
         }
 
+        public void PopulateAssignedMeetings(MeetingUserRSVP meetings)
+        {
+            var allMeetings = db.Meetings;            
+            var veiwModel = new List<MettingVM>();
+            foreach(var m in allMeetings)
+            {
+                veiwModel.Add(new MettingVM
+                {
+                    MeetingId = m.ID,
+                    MeetingName = m.DescriptionTrimmed,
+                });
+            }
+
+            ViewBag.Meeting = veiwModel;
+        }
+
+        public void PopulateAssignedUsers(MeetingUserRSVP meetings)
+        {
+            var allUsers = db.Users;
+            var veiwModel = new List<UserVM>();
+            foreach (var m in allUsers)
+            {
+                veiwModel.Add(new UserVM
+                {
+                    UserID = m.Id,
+                    UserFName = m.UserFName,
+                    UserLName = m.UserLName,
+                    UserFullName = m.UserFName + " " + m.UserLName 
+                    
+                });
+            }
+
+            ViewBag.User = veiwModel;
+        }        
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -129,5 +204,7 @@ namespace HospiceNiagara.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }

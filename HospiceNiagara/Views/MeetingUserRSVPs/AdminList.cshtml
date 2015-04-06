@@ -1,0 +1,55 @@
+﻿@model IEnumerable<HospiceNiagara.Models.MeetingUserRSVP>
+
+@{
+    ViewBag.Title = "AdminList";
+}
+
+<h2>RSVP List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser.UserFName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUser.UserLName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.DescriptionTrimmed)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.ComingYorN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RSVPNotes)
+        </th>
+        @*<th></th>*@
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.AppUser.UserFName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.AppUser.UserLName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.MeetingRSVP.DescriptionTrimmed)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.ComingYorN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RSVPNotes)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>*@
+    </tr>
+}
+
+</table>
