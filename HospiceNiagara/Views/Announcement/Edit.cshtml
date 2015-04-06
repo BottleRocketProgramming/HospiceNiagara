@@ -42,17 +42,17 @@
             <div id="selectButtons" class="form-group col-md-1">
                 <div class="form-group">
                     <button type="button" id="btnFileRight" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="form-group ">
                     <button type="button" id="btnFileLeft" class="btn btn-success">
-                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     </button>
                 </div>
             </div>
             <div class="form-group col-md-4">
-                <label class="control-label">Selected Files</label>
+                <label class="control-label">Availible Files</label>
                 @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
             </div>
         </div>
