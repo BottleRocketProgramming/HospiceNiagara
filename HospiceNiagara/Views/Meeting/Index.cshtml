@@ -50,7 +50,16 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.EventTitle)
+                                @{var url = Request.Url.PathAndQuery;}
+                                @if(url.EndsWith("Meeting/Index"))
+                                {
+                                <a href=Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
+                                }
+                                else
+                                {
+                                <a href=Meeting/Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
+                                }
+                                
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DescriptionTrimmed)

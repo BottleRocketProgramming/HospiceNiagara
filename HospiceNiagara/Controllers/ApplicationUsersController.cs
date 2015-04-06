@@ -15,6 +15,7 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ApplicationUsers
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
@@ -22,6 +23,7 @@ namespace HospiceNiagara.Controllers
       
 
         // GET: ApplicationUsers/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -39,6 +41,7 @@ namespace HospiceNiagara.Controllers
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(string id)
         {
             try
