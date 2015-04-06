@@ -15,12 +15,14 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: FileCats
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View(db.FileCats.ToList());
         }
 
         // GET: FileCats/Details/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileCats/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +62,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileCats/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +82,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "ID,FileCatName")] FileCat fileCat)
         {
             if (ModelState.IsValid)
@@ -90,6 +95,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileCats/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +113,7 @@ namespace HospiceNiagara.Controllers
         // POST: FileCats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             FileCat fileCat = db.FileCats.Find(id);

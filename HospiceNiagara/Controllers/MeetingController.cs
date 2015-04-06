@@ -10,6 +10,8 @@ using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
+using System.Web.Security;
+
 
 //Andreas King March 2015
 
@@ -18,6 +20,7 @@ namespace HospiceNiagara.Controllers
     public class MeetingController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        
 
         // GET: Meeting
         [Authorize]
@@ -53,6 +56,26 @@ namespace HospiceNiagara.Controllers
             return View(meeting);
         }
 
+        //Admin List
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminList()
+        {
+            return View(db.Meetings.ToList());
+        }
+
+        // GET: Meeting/adminCreate
+        [Authorize(Roles = "Administrator")]
+        public ActionResult adminCreate()
+        {
+            var meet = new Meeting();
+            meet.RolesLists = new List<RoleList>();
+            meet.FileStores = new List<FileStorage>();
+            PopulateAssignedRoles(meet);
+            PopulateAssignedFiles(meet);
+
+            return View();
+        }       
+
         // GET: Meeting/Details/5
         [Authorize]
         public ActionResult Details(int? id)
@@ -78,7 +101,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
+        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles, int? sendRSVP)
         {
             try
             {
@@ -90,6 +113,8 @@ namespace HospiceNiagara.Controllers
                         var roleToAdd = db.RoleLists.Find(int.Parse(role));
                         meeting.RolesLists.Add(roleToAdd);
                         PopulateAssignedRoles(meeting);
+                        //var RSVPUsers = db.Users.Where(u => u.RoleLists.Any(r=>r.RoleName == role));
+                       
                     }
                 }
 
@@ -107,10 +132,13 @@ namespace HospiceNiagara.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Meetings.Add(meeting);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    db.SaveChanges();                   
                 }
+                                        
+                    
+                    return RedirectToAction("Index");
             }
+            
             catch (DataException)
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");

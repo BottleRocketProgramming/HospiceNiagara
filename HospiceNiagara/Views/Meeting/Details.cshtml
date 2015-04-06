@@ -79,7 +79,10 @@
     
 
         <p class="text-center">
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) <span>|</span>
+            }
             @Html.ActionLink("Back to List", "Index")
         </p>
 

@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Controllers\MeetingUserRSVPsController.cs" />
     <Compile Include="Controllers\OnAction.cs" />
     <Compile Include="Controllers\RoleListsController.cs" />
     <Compile Include="Controllers\SchedTypesController.cs" />
@@ -180,6 +181,10 @@
     <Compile Include="Extentions\Extentions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504060408168_RSVP.cs" />
+    <Compile Include="Migrations\201504060408168_RSVP.Designer.cs">
+      <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -193,6 +198,7 @@
     <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Meeting.cs" />
+    <Compile Include="Models\MeetingUserRSVP.cs" />
     <Compile Include="Models\RoleList.cs" />
     <Compile Include="Models\SchedType.cs" />
     <Compile Include="Models\Schedule.cs" />
@@ -202,8 +208,10 @@
     <Compile Include="ViewModels\FileStorageVM.cs" />
     <Compile Include="ViewModels\FileSubCatVM.cs" />
     <Compile Include="ViewModels\JobDescVM.cs" />
+    <Compile Include="ViewModels\MettingVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
     <Compile Include="ViewModels\SchedTypeVM.cs" />
+    <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -325,6 +333,12 @@
     <Content Include="Views\SchedTypes\Details.cshtml" />
     <Content Include="Views\SchedTypes\Edit.cshtml" />
     <Content Include="Views\SchedTypes\Index.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\Create.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\Delete.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\Details.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\Edit.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\Index.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\AdminList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -339,6 +353,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504060408168_RSVP.resx">
+      <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
