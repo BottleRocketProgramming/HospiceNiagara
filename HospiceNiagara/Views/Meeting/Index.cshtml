@@ -20,6 +20,7 @@
         <div id="Event">
             @* Main Body *@
             <div class="panel-body" id="EventPanel">
+                @Html.ActionLink("View RSVP", "../MeetingUserRSVPs/Index")
                 <table class="table">
                     <tr>
                         <th>
@@ -75,10 +76,11 @@
                                 @Html.DisplayFor(modelItem => item.EventRequirments)
                             </td>
                             <td>
-                                @Html.ActionLink("RSVP", "../MeetingUserRSVPs/Edit", new { id = item.ID }) 
+                               
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                                 @if (User.IsInRole("Administrator"))
                             {
-                                    @:|
+
                                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
                                     @:|
                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
@@ -192,12 +194,12 @@
                                 <div id="selectButtons" class="form-group col-md-4 text-center">
                                     <div class="select-button text-center">
                                         <button type="button" id="btnFileRight" class="btn btn-warning">
-                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                         </button>
                                     </div>
                                     <div class="select-button">
                                         <button type="button" id="btnFileLeft" class="btn btn-success">
-                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -205,11 +207,7 @@
                                     <label class="control-label">Availible Files</label>
                                     @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
                                 </div>
-                            </div>
-
-                        <div>
-                            <input type="checkbox" name="sendRSVP" value="1"> Send RSVP?
-                        </div>
+                            </div>                        
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
