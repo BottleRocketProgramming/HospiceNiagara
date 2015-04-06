@@ -16,7 +16,27 @@
         <dd>
             @Html.DisplayFor(model=> model.MeetingRSVP.DescriptionTrimmed)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.EventStart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRSVP.EventStart)
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.EventEnd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRSVP.EventEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.EventLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRSVP.EventLocation)
+        </dd>
+                
         <dt>
             @Html.DisplayNameFor(model => model.ComingYorN)
         </dt>
@@ -36,6 +56,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    
     @Html.ActionLink("Back to List", "Index")
 </p>

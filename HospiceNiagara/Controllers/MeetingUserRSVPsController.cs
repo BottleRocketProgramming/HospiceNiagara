@@ -16,6 +16,7 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MeetingUserRSVPs
+        [Authorize]
         public ActionResult Index()
         {
             var meetingUserRSVP = db.MeetingUserRSVPs.Include(u => u.AppUser).Include(m => m.MeetingRSVP);
@@ -34,6 +35,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: MeetingUserRSVPs/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -49,6 +51,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: MeetingUserRSVPs/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             var meetRSVP = new MeetingUserRSVP();
@@ -61,6 +64,7 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ComingYorN,RSVPNotes")] MeetingUserRSVP meetingUserRSVP, string[] selectedMeetings, string[] selectedUsers)
         {
@@ -102,6 +106,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: MeetingUserRSVPs/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -109,9 +114,7 @@ namespace HospiceNiagara.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             MeetingUserRSVP MuRSVP = db.MeetingUserRSVPs.Include(m => m.MeetingRSVP).Include(u => u.AppUser).Where(i => i.ID == id).Single(); 
-            //var meetingUserRSVP = db.MeetingUserRSVPs.Include(u => u.AppUser).Include(m => m.MeetingRSVP);
-            //meetingUserRSVP = meetingUserRSVP.Where(u => u.AppUser.UserName == User.Identity.Name);
-            //MeetingUserRSVP MuRSVP = meetingUserRSVP.Where(m => m.MeetingRSVP.ID == id).Single();
+            
             if (MuRSVP == null)
             {
                 return HttpNotFound();
@@ -123,6 +126,7 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ComingYorN,RSVPNotes")] MeetingUserRSVP meetingUserRSVP)
         {
@@ -135,31 +139,31 @@ namespace HospiceNiagara.Controllers
             return View(meetingUserRSVP);
         }
 
-        // GET: MeetingUserRSVPs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MeetingUserRSVP meetingUserRSVP = db.MeetingUserRSVPs.Find(id);
-            if (meetingUserRSVP == null)
-            {
-                return HttpNotFound();
-            }
-            return View(meetingUserRSVP);
-        }
+        //// GET: MeetingUserRSVPs/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    MeetingUserRSVP meetingUserRSVP = db.MeetingUserRSVPs.Find(id);
+        //    if (meetingUserRSVP == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(meetingUserRSVP);
+        //}
 
-        // POST: MeetingUserRSVPs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MeetingUserRSVP meetingUserRSVP = db.MeetingUserRSVPs.Find(id);
-            db.MeetingUserRSVPs.Remove(meetingUserRSVP);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: MeetingUserRSVPs/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    MeetingUserRSVP meetingUserRSVP = db.MeetingUserRSVPs.Find(id);
+        //    db.MeetingUserRSVPs.Remove(meetingUserRSVP);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         public void PopulateAssignedMeetings(MeetingUserRSVP meetings)
         {

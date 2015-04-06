@@ -39,6 +39,7 @@
                             @Html.DisplayFor(modelItem => item.RSVPNotes)
                         </td>
                         <td>
+                            @Html.ActionLink("Select to RSVP", "Edit", new { id = item.ID }) |
                             @Html.ActionLink("Details", "Details", new { id = item.ID })
                         </td>
                     </tr>
