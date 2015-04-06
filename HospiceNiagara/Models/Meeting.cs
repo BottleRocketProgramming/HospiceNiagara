@@ -68,6 +68,8 @@ namespace HospiceNiagara.Models
 
         public virtual ICollection<FileStorage> FileStores { get; set; }
 
+        public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }
+
 
 
 

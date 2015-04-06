@@ -10,6 +10,8 @@ using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
+using System.Web.Security;
+
 
 //Andreas King March 2015
 
@@ -18,6 +20,7 @@ namespace HospiceNiagara.Controllers
     public class MeetingController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db2 = new ApplicationDbContext();
 
         // GET: Meeting
         [Authorize]
@@ -78,7 +81,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
+        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles, int? sendRSVP)
         {
             try
             {
@@ -90,6 +93,8 @@ namespace HospiceNiagara.Controllers
                         var roleToAdd = db.RoleLists.Find(int.Parse(role));
                         meeting.RolesLists.Add(roleToAdd);
                         PopulateAssignedRoles(meeting);
+                        //var RSVPUsers = db.Users.Where(u => u.RoleLists.Any(r=>r.RoleName == role));
+                       
                     }
                 }
 
@@ -108,6 +113,39 @@ namespace HospiceNiagara.Controllers
                 {
                     db.Meetings.Add(meeting);
                     db.SaveChanges();
+
+                    
+                     if (sendRSVP == 1)
+                     {
+                         
+                         foreach(var roles in selectedRoles)
+                         {
+
+                             
+                             int updateRole = int.Parse(roles);
+
+                             var RSVPUsers = db.Users.Include(a=> a.RoleLists);                             
+                         
+                             foreach(var u in RSVPUsers)
+                             {
+                                 var u2 = u.RoleLists;
+                                 foreach( var u3 in u2)
+                                 {
+                                     if(u3.ID == updateRole)
+                                     {
+                                           MeetingUserRSVP newRSVP = new MeetingUserRSVP();
+                                           newRSVP.AppUser.Id = u.Id;
+                                           newRSVP.MeetingRSVP.ID = meeting.ID;
+                                           newRSVP.ComingYorN = false;
+
+                                           db2.MeetingUserRSVPs.Add(newRSVP);
+                                     }
+                                 }
+                              }
+                            }
+                        }
+                                        
+                    db2.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }

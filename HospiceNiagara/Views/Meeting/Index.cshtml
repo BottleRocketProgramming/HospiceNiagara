@@ -67,14 +67,18 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.EventRequirments)
                             </td>
-                            @if (User.IsInRole("Administrator"))
-                            {
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("RSVP", "../MeetingUserRSVPs/Edit", new { id = item.ID }) |
                                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                            </td>
+                                @if (User.IsInRole("Administrator"))
+                            {
+
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
+                                    @:|
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
                             }
+                            </td>
                         </tr>
                     }
 
@@ -196,6 +200,10 @@
                                     @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
                                 </div>
                             </div>
+
+                        <div>
+                            <input type="checkbox" name="sendRSVP" value="1"> Send RSVP?
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">

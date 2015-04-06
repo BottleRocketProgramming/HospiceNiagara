@@ -31,6 +31,7 @@ namespace HospiceNiagara.Models
         public virtual ICollection<Announcement> UserAnnouncements { get; set; }
         public virtual ICollection<RoleList> RoleLists { get; set; }
         public virtual ICollection<BoardContact> BoardContacts { get; set; }
+        public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }
 
 
     }
@@ -72,6 +73,8 @@ namespace HospiceNiagara.Models
         }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }
+
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.MeetingUserRSVP> MeetingUserRSVPs { get; set; }
 
       
 
