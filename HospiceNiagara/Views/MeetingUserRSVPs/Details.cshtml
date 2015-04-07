@@ -1,0 +1,61 @@
+﻿@model HospiceNiagara.Models.MeetingUserRSVP
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MeetingUserRSVP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.DescriptionTrimmed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model=> model.MeetingRSVP.DescriptionTrimmed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.EventStart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRSVP.EventStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.EventEnd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRSVP.EventEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingRSVP.EventLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeetingRSVP.EventLocation)
+        </dd>
+                
+        <dt>
+            @Html.DisplayNameFor(model => model.ComingYorN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComingYorN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RSVPNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RSVPNotes)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    
+    @Html.ActionLink("Back to List", "Index")
+</p>

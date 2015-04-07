@@ -75,7 +75,7 @@ namespace HospiceNiagara.Controllers
 
         [HttpPost]
         [OnAction(ButtonName = "UploadFile")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
             try
@@ -231,6 +231,7 @@ namespace HospiceNiagara.Controllers
         }
 
         //Download
+        [Authorize]
         public FileContentResult Download(int id)
         {
             

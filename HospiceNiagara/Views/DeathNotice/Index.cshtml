@@ -1,13 +1,13 @@
-﻿@model HospiceNiagara.Models.DeathNotice
+﻿r @model HospiceNiagara.Models.DeathNotice
 
 @{
     ViewBag.Title = "Index";
 }
-
+<link href="http://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" type="text/css">
 @* Div for Deathnotice List and CRUD *@
-<div class="panel panel-default ">
-    <div class="panel-heading">
-        <span id="deathNoticeTitle">Notices of Death</span>
+<div class="panel panel-success">
+    <div class="panel-heading handwriting-title">
+        <span id="deathNoticeTitle">Recently Passed</span>
         <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
         @if (User.IsInRole("Administrator"))
         {
@@ -16,8 +16,8 @@
     </div>
     <div id="panelDeathNoticeContent">
         @* Div for death notice List view *@
-        <div id="deathNoticeContent" class="panel-body">
-            <table class="table table-striped table-bordered">
+        <div id="deathNoticeContent" class="panel-body handwriting">
+            <table class="table ">
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.DnFullName)

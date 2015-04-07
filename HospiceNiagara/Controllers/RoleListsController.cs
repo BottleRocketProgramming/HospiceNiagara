@@ -18,12 +18,14 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: RoleLists
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View(db.RoleLists.ToList());
         }
 
         // GET: RoleLists/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -34,6 +36,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,RoleName")] RoleList roleList)
         {
             if (ModelState.IsValid)
@@ -58,6 +61,7 @@ namespace HospiceNiagara.Controllers
 
        
         // GET: RoleLists/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -75,6 +79,7 @@ namespace HospiceNiagara.Controllers
         // POST: RoleLists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             try
