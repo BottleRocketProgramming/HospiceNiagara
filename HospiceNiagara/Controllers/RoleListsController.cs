@@ -88,6 +88,11 @@ namespace HospiceNiagara.Controllers
                 RoleList roleList = db.RoleLists.Find(id);
                 db.RoleLists.Remove(roleList);
                 var thisRole = db.Roles.Where(r => r.Name.Equals(roleList.RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                var userRoleUsed = db.IdentUserRoles.Where(a => a.RoleId == thisRole.Id);
+                foreach(var ur in userRoleUsed)
+                {
+                    db.IdentUserRoles.Remove(ur);
+                }
                 db.Roles.Remove(thisRole);
 
                 db.SaveChanges();

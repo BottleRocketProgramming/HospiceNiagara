@@ -26,6 +26,9 @@
                         </th>
                         @if(User.IsInRole("Administrator"))
                         {
+                             <th>
+                            @Html.DisplayNameFor(model => model.ID)
+                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.AnnounceEndDate)
                         </th>
@@ -53,6 +56,9 @@
                                 }
                             if (User.IsInRole("Administrator"))
                             {
+                                <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                                </td>
                                 <td>
                                 @Html.DisplayFor(modelItem => item.AnnounceEndDate)
                                 </td>
