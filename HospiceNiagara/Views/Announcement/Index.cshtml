@@ -7,7 +7,7 @@
 @* Div for entire page *@
 <div class="container">
 @*Div holding Announment List view and CRUD *@
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="panel panel-success ">
             <div class="panel-heading">
                 <span id="announcmentsTitle">Announcments</span>
@@ -166,10 +166,10 @@
     </div>
 
 @* Div for Events list view and CRUD *@
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="panel panel-success ">
             <div class="panel-heading">
-                <span id="eventsTitle">Events</span>
+                <span id="eventsTitle">Upcoming Events</span>
             </div>
 
 @* Div for Event list view *@
@@ -180,37 +180,30 @@
                             Name
                         </th>
                         <th>
-                            Description
-                        </th>
-                        <th>
                             Location
                         </th>
                         <th>
-                            Starts
-                        </th>
-                        <th>
-                            Ends
+                            Day
                         </th>
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
                     {
-                             @:<tr><td>
+                        DateTime infivedays = DateTime.Today.AddDays(5);
+                        if (item.EventStart < infivedays && item.EventEnd > DateTime.Today)
+                        {
+                              @:<tr><td>
                                     <a href=../Meeting/Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
-                                @:</td>
-                                @:<td>
-                                    @Html.DisplayFor(modelItem => item.DescriptionTrimmed)
                                 @:</td>
                                 @:<td>
                                     @Html.DisplayFor(modelItem => item.EventLocation)
                                 @:</td>
                                 @:<td>
-                                    @Html.DisplayFor(modelItem => item.EventStart)
+                                    @Html.DisplayFor(modelItem => item.EventStart.DayOfWeek)
                                 @:</td>
-                                @:<td>
-                                    @Html.DisplayFor(modelItem => item.EventEnd)
-                                @:</td>
-                            @:</tr>
+                            @:</tr>  
+                        }
+                             
                     }
 
             </table>
