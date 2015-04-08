@@ -170,6 +170,7 @@
     <Compile Include="Controllers\FileStoragesController.cs" />
     <Compile Include="Controllers\FileSubCatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobDescriptionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\MeetingUserRSVPsController.cs" />
@@ -339,6 +340,11 @@
     <Content Include="Views\MeetingUserRSVPs\Edit.cshtml" />
     <Content Include="Views\MeetingUserRSVPs\Index.cshtml" />
     <Content Include="Views\MeetingUserRSVPs\AdminList.cshtml" />
+    <Content Include="Views\JobDescriptions\Create.cshtml" />
+    <Content Include="Views\JobDescriptions\Delete.cshtml" />
+    <Content Include="Views\JobDescriptions\Details.cshtml" />
+    <Content Include="Views\JobDescriptions\Edit.cshtml" />
+    <Content Include="Views\JobDescriptions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -14,7 +14,7 @@ namespace HospiceNiagara.Models
         [Required]
         public int ID { get; set; }
 
-        [Display(Name = "Position")]
+        [Display(Name = "Primary Position")]
         [Required(ErrorMessage = "Board Member's positon is required")]
         [StringLength(100, ErrorMessage = "Board Member's positon can not exceed 100 characters")]
         public string BoardContPosition { get; set; }
@@ -33,7 +33,7 @@ namespace HospiceNiagara.Models
         [StringLength(25, ErrorMessage = "Board Member's home phone number can not exceed 25 characters")]
         public string BoardContHomePhone { get; set; }
 
-        [Display(Name = "Work Phone")]
+        [Display(Name = "Work Extension")]
         [StringLength(25, ErrorMessage = "Board Member's work phone number can not exceed 25 characters")]
         public string BoardContWorkPhone { get; set; }
 

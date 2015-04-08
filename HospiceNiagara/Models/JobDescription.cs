@@ -14,10 +14,12 @@ namespace HospiceNiagara.Models
         [Required]
         public int ID { get; set; }
 
+        [Display(Name="Job Title")]
         [Required(ErrorMessage = "Job title can not be left empty")]
         [StringLength(100, ErrorMessage = "Job title can not exceed 100 characters")]
         public string JobTitle { get; set; }
 
+        [Display(Name="Job Description")]
         [Required(ErrorMessage = "Job description can not be left empty")]
         [StringLength(510, ErrorMessage = "Job  description can not exceed 510 characters")]
         public string JobDescpt { get; set; }
