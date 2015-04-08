@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using System.Web.Security;
 
 namespace HospiceNiagara.Controllers
 {
@@ -44,16 +45,36 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(string id)
         {
-            try
-            {
+            //try
+            //{
                 ApplicationUser applicationUser = db.Users.Find(id);
+                List<MeetingUserRSVP> uMeet = applicationUser.MeetingUserRSVPs.ToList();
+                var uRole = applicationUser.Roles.ToList();
+                foreach(var m in uMeet)
+                {
+                    var userMeetingToRemove = db.MeetingUserRSVPs.Where(r => r.AppUser.Id == m.AppUser.Id);
+                    foreach(var uTr in userMeetingToRemove)
+                    {
+                        db.MeetingUserRSVPs.Remove(uTr);
+                    }
+                }
+                foreach(var r in uRole)
+                {
+                    var rl = db.IdentUserRoles.Where(rs => rs.RoleId == r.RoleId);
+                    foreach(var rr in rl)
+                    {
+                        db.IdentUserRoles.Remove(rr);
+                    }
+                    
+                }
                 db.Users.Remove(applicationUser);
                 db.SaveChanges();
-            }
-            catch
-            {
                 
-            }
+            //}
+            //catch
+            //{
+
+            //}
 
             return RedirectToAction("Index");
         }

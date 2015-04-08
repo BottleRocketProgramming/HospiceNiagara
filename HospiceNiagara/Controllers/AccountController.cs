@@ -159,13 +159,13 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, string[] selectedRoles, ApplicationUser user)
+        public async Task<ActionResult> Register(RegisterViewModel model, string[] selectedRoles) //, ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
-                PopulateAssignedRoles(user);
+                //PopulateAssignedRoles(user);
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));                
-                user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber  };
+                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber  };
                 user.EmailConfirmed = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -184,12 +184,12 @@ namespace HospiceNiagara.Controllers
              
                     if(selectedRoles != null)
                     {
-                        user.RoleLists = new List<RoleList>();
+                        //user.RoleLists = new List<RoleList>();
                         foreach (var r in selectedRoles)
                         {
                             var roleToAdd = db.RoleLists.Find(int.Parse(r));
-                            user.RoleLists.Add(roleToAdd);
-                            PopulateAssignedRoles(user);
+                            //user.RoleLists.Add(roleToAdd);
+                            //PopulateAssignedRoles(user);
                             manager.AddToRole(user.Id, roleToAdd.RoleName);                         
                         }
                     }

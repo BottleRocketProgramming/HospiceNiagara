@@ -28,16 +28,15 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index(int? id)
         {
 
-            int c = 0;
+            //int c = 0;
             var cUserRoles = db.RoleLists;
             var announce = new Announcement();
             announce.RolesLists = new List<RoleList>();
             announce.FileStorages = new List<FileStorage>();
             PopulateAssignedRoles(announce);
-            PopulateAssignedFiles(announce);
-            
-            var meet = db.Meetings.Include(a=> a.RolesLists);
-
+            PopulateAssignedFiles(announce);            
+           
+            var meetForList = db.Meetings.Where(m => m.ID == 0);
             var annForList = db.Announcements.Where(a => a.ID == 0);
 
            
@@ -46,24 +45,24 @@ namespace HospiceNiagara.Controllers
                     if (User.IsInRole(ur.RoleName))
                     {
                         var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
+                        var meet = db.Meetings.Include(a => a.RolesLists);
                         ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                         meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                        meetForList = meetForList.Concat(meet);
                         annForList = annForList.Concat(ann);
-                        c++;
+                        //c++;
                     }
                 }
-            if( c == 0)
-            {
-                //annForList = db ann.Where(a => a.ID == 0);
-                meet = meet.Where(a => a.ID == 0);
-            }
-            annForList.GroupBy(a=>a.ID).Distinct();
-           
+            //if( c == 0)
+            //{
+            //    annForList = db ann.Where(a => a.ID == 0);
+            //    meet = meet.Where(a => a.ID == 0);
+            //}           
 
-            ViewData["AnnouncementOrEvent"] = annForList.ToList();
+            ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct();
             ViewData["AnnOrEvntId"] = id;
             Announcement announcement = db.Announcements.Find(id);
-            ViewData["Meeting"] = db.Meetings.ToList();
+            ViewData["Meeting"] = meetForList.ToList().Distinct();
             
             return View();
             
