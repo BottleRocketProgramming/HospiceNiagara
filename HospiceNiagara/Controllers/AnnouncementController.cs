@@ -35,27 +35,32 @@ namespace HospiceNiagara.Controllers
             announce.FileStorages = new List<FileStorage>();
             PopulateAssignedRoles(announce);
             PopulateAssignedFiles(announce);
-            var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
+            
             var meet = db.Meetings.Include(a=> a.RolesLists);
+
+            var annForList = db.Announcements.Where(a => a.ID == 0);
 
            
                 foreach (var ur in cUserRoles)
                 {
                     if (User.IsInRole(ur.RoleName))
                     {
+                        var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages);
                         ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                         meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                        annForList = annForList.Concat(ann);
                         c++;
                     }
                 }
             if( c == 0)
             {
-                ann = ann.Where(a => a.ID == 0);
+                //annForList = db ann.Where(a => a.ID == 0);
                 meet = meet.Where(a => a.ID == 0);
             }
+            annForList.GroupBy(a=>a.ID).Distinct();
            
 
-            ViewData["AnnouncementOrEvent"] = ann.ToList();
+            ViewData["AnnouncementOrEvent"] = annForList.ToList();
             ViewData["AnnOrEvntId"] = id;
             Announcement announcement = db.Announcements.Find(id);
             ViewData["Meeting"] = db.Meetings.ToList();

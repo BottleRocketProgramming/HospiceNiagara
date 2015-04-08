@@ -50,7 +50,7 @@ namespace HospiceNiagara.Controllers
                 db.Users.Remove(applicationUser);
                 db.SaveChanges();
             }
-            catch (DataException ex)
+            catch
             {
                 
             }
