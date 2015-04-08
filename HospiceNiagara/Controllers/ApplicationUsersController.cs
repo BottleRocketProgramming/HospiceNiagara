@@ -61,6 +61,7 @@ namespace HospiceNiagara.Controllers
                 foreach(var r in uRole)
                 {
                     var rl = db.IdentUserRoles.Where(rs => rs.RoleId == r.RoleId);
+                    rl = rl.Where(a => a.UserId == applicationUser.Id);
                     foreach(var rr in rl)
                     {
                         db.IdentUserRoles.Remove(rr);
