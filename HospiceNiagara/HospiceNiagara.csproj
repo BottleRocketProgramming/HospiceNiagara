@@ -187,9 +187,13 @@
     <Compile Include="Migrations\201504060408168_RSVP.Designer.cs">
       <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504091852277_Requireds.cs" />
-    <Compile Include="Migrations\201504091852277_Requireds.Designer.cs">
-      <DependentUpon>201504091852277_Requireds.cs</DependentUpon>
+    <Compile Include="Migrations\201504091951375_Sync.cs" />
+    <Compile Include="Migrations\201504091951375_Sync.Designer.cs">
+      <DependentUpon>201504091951375_Sync.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504091958554_RequiredSchType.cs" />
+    <Compile Include="Migrations\201504091958554_RequiredSchType.Designer.cs">
+      <DependentUpon>201504091958554_RequiredSchType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -373,8 +377,11 @@
     <EmbeddedResource Include="Migrations\201504060408168_RSVP.resx">
       <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504091852277_Requireds.resx">
-      <DependentUpon>201504091852277_Requireds.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504091951375_Sync.resx">
+      <DependentUpon>201504091951375_Sync.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504091958554_RequiredSchType.resx">
+      <DependentUpon>201504091958554_RequiredSchType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
