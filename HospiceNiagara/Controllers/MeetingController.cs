@@ -101,7 +101,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles, int? sendRSVP)
+        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
         {
             try
             {
@@ -112,9 +112,7 @@ namespace HospiceNiagara.Controllers
                     {
                         var roleToAdd = db.RoleLists.Find(int.Parse(role));
                         meeting.RolesLists.Add(roleToAdd);
-                        PopulateAssignedRoles(meeting);
-                        //var RSVPUsers = db.Users.Where(u => u.RoleLists.Any(r=>r.RoleName == role));
-                       
+                        //PopulateAssignedRoles(meeting);                       
                     }
                 }
 
@@ -125,7 +123,7 @@ namespace HospiceNiagara.Controllers
                     {
                         var fileToAdd = db.FileStorages.Find(int.Parse(file));
                         meeting.FileStores.Add(fileToAdd);
-                        PopulateAssignedFiles(meeting);
+                        //PopulateAssignedFiles(meeting);
                     }
                 }
 

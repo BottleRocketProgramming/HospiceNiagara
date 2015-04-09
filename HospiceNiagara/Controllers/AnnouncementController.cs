@@ -27,8 +27,6 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
-
-            //int c = 0;
             var cUserRoles = db.RoleLists;
             var announce = new Announcement();
             announce.RolesLists = new List<RoleList>();
@@ -50,14 +48,9 @@ namespace HospiceNiagara.Controllers
                         meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                         meetForList = meetForList.Concat(meet);
                         annForList = annForList.Concat(ann);
-                        //c++;
                     }
                 }
-            //if( c == 0)
-            //{
-            //    annForList = db ann.Where(a => a.ID == 0);
-            //    meet = meet.Where(a => a.ID == 0);
-            //}           
+                
 
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct();
             ViewData["AnnOrEvntId"] = id;

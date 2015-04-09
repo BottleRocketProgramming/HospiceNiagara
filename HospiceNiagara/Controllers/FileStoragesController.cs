@@ -32,33 +32,30 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedRoles(fileR);
             PopulateCatAndSubCat(fileR);
 
-             var allFiles = db.FileStorages.Include(r => r.FileStoreUserRoles).Include(fsc => fsc.FileSubCats);
+            var allFileForList = db.FileStorages.Where(f => f.ID == 0);
 
             foreach(var u in uRole)
             {
                  if(User.IsInRole(u.RoleName))
                  {
+                     var allFiles = db.FileStorages.Include(r => r.FileStoreUserRoles).Include(fsc => fsc.FileSubCats);
                      allFiles = allFiles.Where(f => f.FileStoreUserRoles.Any(fu => fu.ID == u.ID));
-                     c++;
+                     allFileForList = allFileForList.Concat(allFiles);
                  }
             }
-            if( c == 0 )
-            {
-                allFiles = allFiles.Where(a => a.ID == 0);
-            }
-            
+           
             if(id != null && id != 0)
             {
-                allFiles =allFiles.Where(f => f.FileSubCats.Any(sc => sc.ID == id));
+                allFileForList =allFileForList.Where(f => f.FileSubCats.Any(sc => sc.ID == id));
             }
     
             if(!String.IsNullOrEmpty(searchString))
             {
-                allFiles = allFiles.Where(f => f.FileDescription.ToUpper().Contains(searchString.ToUpper()) || f.FileName.ToUpper().Contains(searchString.ToUpper()));
+                allFileForList = allFileForList.Where(f => f.FileDescription.ToUpper().Contains(searchString.ToUpper()) || f.FileName.ToUpper().Contains(searchString.ToUpper()));
             }
-
+            var fs = allFileForList.ToList().Distinct();
             var viewModel = new List<FileStorageVM>();
-            foreach (var f in allFiles)
+            foreach (var f in fs)
             {
                 viewModel.Add(new FileStorageVM
                             {
@@ -70,7 +67,7 @@ namespace HospiceNiagara.Controllers
                             });
             }
                       
-            return View(viewModel.ToList());
+            return View(viewModel);
         }
 
         [HttpPost]
