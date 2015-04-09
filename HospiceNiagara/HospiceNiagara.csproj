@@ -345,6 +345,10 @@
     <Content Include="Views\JobDescriptions\Details.cshtml" />
     <Content Include="Views\JobDescriptions\Edit.cshtml" />
     <Content Include="Views\JobDescriptions\Index.cshtml" />
+    <Content Include="Views\Schedule\Create.cshtml" />
+    <Content Include="Views\Schedule\AdminList.cshtml" />
+    <Content Include="Views\Meeting\adminCreate.cshtml" />
+    <Content Include="Views\Meeting\AdminList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
