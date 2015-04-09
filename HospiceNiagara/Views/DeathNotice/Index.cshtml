@@ -7,7 +7,7 @@
 @* Div for Deathnotice List and CRUD *@
 <div class="panel panel-success">
     <div class="panel-heading handwriting-title">
-        <span id="deathNoticeTitle">Recently Passed</span>
+        <span id="deathNoticeTitle" >Recently Passed</span>
         <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
         @if (User.IsInRole("Administrator"))
         {
@@ -16,10 +16,10 @@
     </div>
     <div id="panelDeathNoticeContent">
         @* Div for death notice List view *@
-        <div id="deathNoticeContent" class="panel-body handwriting">
+        <div id="deathNoticeContent" class="panel-body">
             <table class="table ">
                     <tr>
-                        <th>
+                        <th class="handwriting">
                             @Html.DisplayNameFor(model => model.DnFullName)
                         </th>
                         @*<th>
@@ -28,10 +28,10 @@
                         <th>
                             @Html.DisplayNameFor(model => model.DnLastName)
                         </th>*@
-                        <th>
+                        <th class="handwriting">
                             @Html.DisplayNameFor(model => model.DnLocation)
                         </th>
-                        <th>
+                        <th class="handwriting">
                             @Html.DisplayNameFor(model => model.DnNotes)
                         </th>
                         @if(User.IsInRole("Administrator"))
@@ -44,15 +44,15 @@
                 {
 
                     <tr>
-                        <td>
+                        <td class="handwriting">
                             @Html.DisplayFor(modelItem => item.DnFullName)
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.DnMiddleName)
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DnLastName)*@
-                        <td>
+                            @*<td>
+                @Html.DisplayFor(modelItem => item.DnMiddleName)
+            <td>
+                @Html.DisplayFor(modelItem => item.DnLastName)*@
+                        <td class="handwriting">
                             @Html.DisplayFor(modelItem => item.DnLocation)
-                        <td>
+                        <td class="handwriting">
                             @Html.DisplayFor(modelItem => item.DnNotes)
                         </td>
                         @if(User.IsInRole("Administrator"))
