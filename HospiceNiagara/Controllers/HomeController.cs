@@ -11,6 +11,7 @@ using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
 
+//Andreas King April 2015
 namespace HospiceNiagara.Controllers
 {
     public class HomeController : Controller
@@ -23,12 +24,16 @@ namespace HospiceNiagara.Controllers
             int c = 0;
             var cUserRoles = db.RoleLists;
             var ann = db.Announcements.Include(a => a.RolesLists);
+            var meetForList = db.Meetings.Where(m => m.ID == 0);
 
             foreach (var ur in cUserRoles)
             {
                 if (User.IsInRole(ur.RoleName))
                 {
                     ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                    var meet = db.Meetings.Include(a => a.RolesLists);
+                    meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                    meetForList = meetForList.Concat(meet);
                     c++;
                 }
             }
@@ -38,6 +43,7 @@ namespace HospiceNiagara.Controllers
             }
             ViewData["AnnouncementOrEvent"] = ann.ToList();
             ViewData["Schedule"] = db.Schedules.ToList();
+            ViewData["Meeting"] = meetForList.ToList().Distinct();
             return View();
         }
 
