@@ -13,5 +13,7 @@ namespace HospiceNiagara.ViewModels
         public string SchedTypeName { get; set; }
 
         public bool SchedTypeSelected { get; set; }
+
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

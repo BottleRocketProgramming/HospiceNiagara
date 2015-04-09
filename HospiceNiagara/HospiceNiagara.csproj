@@ -211,6 +211,7 @@
     <Compile Include="ViewModels\JobDescVM.cs" />
     <Compile Include="ViewModels\MettingVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
+    <Compile Include="ViewModels\SchdVM.cs" />
     <Compile Include="ViewModels\SchedTypeVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>

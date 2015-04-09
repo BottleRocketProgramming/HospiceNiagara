@@ -27,6 +27,7 @@ namespace HospiceNiagara.Controllers
             var schd = db.Schedules.Include(j => j.SchedType);
             var sched = new Schedule();
             sched.SchedType = new SchedType();
+            PopulateSchdType();
 
             //foreach(var r in cUserRole)
             //{
@@ -237,6 +238,38 @@ namespace HospiceNiagara.Controllers
             }
         }
 
+        public void PopulateSchdType()
+        {
+            var allSchdTyp = db.SchedTypes.Include(sc => sc.Schedules);
+            //var aSchdTyp = new HashSet<int>(allSchdTyp.s .FileSubCats.Select(r => r.ID));
+            var viewModelSchTyp = new List<SchedTypeVM>();
+            foreach (var schdTyp in allSchdTyp)
+            {
+                viewModelSchTyp.Add(new SchedTypeVM
+                {
+                    ID = schdTyp.ID,
+                    SchedTypeName = schdTyp.SchedTypeName,
+                    Schedules = schdTyp.Schedules
+                });
+            }
+
+            var allSchd = db.Schedules;
+            var viewModelSchd = new List<SchdVM>();
+
+            foreach (var schd in allSchd)
+            {
+                viewModelSchd.Add(new SchdVM
+                {
+                    ID = schd.ID,
+                    SchedName = schd.SchedName,
+                    SchedLink = schd.SchedLink,
+                    SchedType = schd.SchedType
+                });
+            }
+
+            ViewBag.SchTyp = viewModelSchTyp;
+            ViewBag.Schd = viewModelSchd;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

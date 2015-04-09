@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
 
 //Andreas King March 2015
+//Paul Boyko April 2015
 
 namespace HospiceNiagara.Controllers
 {

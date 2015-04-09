@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
 
+
+
 namespace HospiceNiagara.Controllers
 {
     public class SchedTypesController : Controller
