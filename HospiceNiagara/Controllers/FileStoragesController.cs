@@ -24,7 +24,6 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(string searchString, int? id)
         {
-            var c = 0;
             var uRole = db.RoleLists;
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();

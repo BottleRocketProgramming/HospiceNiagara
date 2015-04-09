@@ -1,6 +1,7 @@
 ﻿using HospiceNiagara.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +18,7 @@ namespace HospiceNiagara.ViewModels
         
         public string SchedLink { get; set; }
 
+       
         public virtual SchedType SchedType { get; set; }
 
         public virtual ICollection<RoleList> ScheduleRoles { get; set; }

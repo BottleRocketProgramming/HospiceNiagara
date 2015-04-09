@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201504060408168_RSVP.Designer.cs">
       <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504091852277_Requireds.cs" />
+    <Compile Include="Migrations\201504091852277_Requireds.Designer.cs">
+      <DependentUpon>201504091852277_Requireds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -368,6 +372,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504060408168_RSVP.resx">
       <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504091852277_Requireds.resx">
+      <DependentUpon>201504091852277_Requireds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

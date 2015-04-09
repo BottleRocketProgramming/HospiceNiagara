@@ -22,6 +22,7 @@ namespace HospiceNiagara.Models
         [StringLength(510, ErrorMessage = "Schedule Link URL can not exceed 510 characters")]
         public string SchedLink { get; set; }       
 
+        [Required]
         public virtual SchedType SchedType { get; set; }
 
         public virtual ICollection<RoleList> ScheduleRoles { get; set; }
