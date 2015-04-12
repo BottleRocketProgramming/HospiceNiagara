@@ -83,6 +83,7 @@ namespace HospiceNiagara.Controllers
             var sched = new Schedule();
             sched.SchedType = new SchedType();
             PopulateScheduleTypes(sched);
+            PopulateAssignedRoles(sched);
 
             return View();
         }
@@ -117,6 +118,7 @@ namespace HospiceNiagara.Controllers
             }
 
             PopulateScheduleTypes(schedule);
+            PopulateAssignedRoles(schedule);
             return View(schedule);
         }
 
@@ -136,6 +138,7 @@ namespace HospiceNiagara.Controllers
                 return HttpNotFound();
             }
             PopulateScheduleTypes(schedule);
+            PopulateAssignedRoles(schedule);
             return View(schedule);
         }
 
@@ -173,6 +176,7 @@ namespace HospiceNiagara.Controllers
                 }
             }
             PopulateScheduleTypes(scheduleToUpdate);
+            PopulateAssignedRoles(scheduleToUpdate);
             return View(scheduleToUpdate);
         }
 
