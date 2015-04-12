@@ -7,6 +7,7 @@ using System;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Collections.Generic;
 using System.Web.Security;
+using System.ComponentModel.DataAnnotations;
 
 //Paul Boyko Feb 2015
 
@@ -22,10 +23,30 @@ namespace HospiceNiagara.Models
             // Add custom user claims here
             return userIdentity;
         }
+        [Display(Name = "First Name")]
         public string UserFName { get; set; }
+
+        [Display(Name = "Middle Name")]
         public string UserMName { get; set; }
+
+        [Display(Name = "Last Name")]
         public string UserLName { get; set; }
-        public DateTime? UserDOB { get; set; }
+
+        [Display(Name = "Date of Birth")]
+        public DateTime UserDOB { get; set; }
+
+        [Display(Name = "Date of Birth")]
+        public string UserDOBString
+        {
+            get
+            {
+
+                return this.UserDOB.ToLongDateString();
+
+            }
+        }
+
+        [Display(Name = "Address")]
         public string UserAddress { get; set; }
         public virtual ICollection<JobDescription> JobDescriptions { get; set; }
         public virtual ICollection<Announcement> UserAnnouncements { get; set; }
