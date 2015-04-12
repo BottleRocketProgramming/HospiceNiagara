@@ -40,7 +40,16 @@ namespace HospiceNiagara.Models
         [Required(ErrorMessage = "Date is required for death notice")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime DnDate;
+        public DateTime DnDate { get; set; }
+
+        [Display(Name ="Date")]
+        public string DnDateString
+        {
+            get
+            {
+                return this.DnDate.ToLongDateString();
+            }
+        }
 
         [Display(Name="Location")]
         [StringLength(150, ErrorMessage = "Location can not exceed 150 characters")]

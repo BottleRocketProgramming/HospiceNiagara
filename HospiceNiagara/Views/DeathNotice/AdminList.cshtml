@@ -23,6 +23,9 @@
             @Html.DisplayNameFor(model => model.DnLastName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.DnDate)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.DnLocation)
         </th>
         <th>
@@ -41,6 +44,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DnLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DnDateString)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DnLocation)

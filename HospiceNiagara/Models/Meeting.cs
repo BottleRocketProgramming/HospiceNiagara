@@ -50,11 +50,30 @@ namespace HospiceNiagara.Models
         [DataType(DataType.DateTime)]
         public DateTime EventStart { get; set; }
 
+        [Display(Name = "Start")]
+        public string EventStartString
+        {
+            get
+            {
+                return this.EventStart.ToLongDateString();
+            }
+        }
+
         [Display(Name="End")]
         [Required(ErrorMessage = "Event needs an end time")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         [DataType(DataType.DateTime)]
         public DateTime EventEnd { get; set; }
+
+
+        [Display(Name = "End")]
+        public string EventEndString
+        {
+            get
+            {
+                return this.EventEnd.ToLongDateString();
+            }
+        }
 
         [Display(Name="Event Requirements")]
         [StringLength(510, ErrorMessage = "Event requirements can not exceed 510 characters")]
