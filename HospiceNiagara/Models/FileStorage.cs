@@ -34,8 +34,18 @@ namespace HospiceNiagara.Models
         [Required]
         [Display(Name="Upload Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime FileUploadDate { get; set; }
+
+
+        [Display(Name = "Upload Date")]
+        public string FileUploadDateString
+        {
+            get
+            {
+                return this.FileUploadDate.ToLongDateString();
+            }
+        }
                
         public virtual ICollection<RoleList> FileStoreUserRoles { get; set; }
 

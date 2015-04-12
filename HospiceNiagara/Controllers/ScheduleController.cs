@@ -23,19 +23,21 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
-            //var cUserRole = db.RoleLists;
-            var schd = db.Schedules.Include(j => j.SchedType);
+            var cUserRole = db.RoleLists;
             var sched = new Schedule();
             sched.SchedType = new SchedType();
+            sched.ScheduleRoles = new List<RoleList>();
             PopulateSchdType();
+            PopulateAssignedRoles(sched);
 
-            //foreach(var r in cUserRole)
-            //{
-            //    if(User.IsInRole(r.RoleName))
-            //    {
-            //        schd = schd.Where(a => a.ScheduleRoles.Any(aur => aur.ID == r.ID));
-            //    }
-            //}
+            foreach (var r in cUserRole)
+            {
+                if (User.IsInRole(r.RoleName))
+                {
+                    var schd = db.Schedules.Include(a => a.ScheduleRoles);
+                    schd = schd.Where(a => a.ScheduleRoles.Any(aur => aur.ID == r.ID));
+                }
+            }
 
             if (id != null)
             {
@@ -47,8 +49,6 @@ namespace HospiceNiagara.Controllers
                 PopulateScheduleTypes(sched);
             }
 
-            ViewData["Schedule"] = schd;
-            ViewData["ScheduleID"] = id;
             Schedule schedules = db.Schedules.Find(id);
             return View(schedules);
         }
@@ -202,6 +202,53 @@ namespace HospiceNiagara.Controllers
             db.Schedules.Remove(schedule);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void PopulateAssignedRoles(Schedule schedule)
+        {
+            var allRole = db.RoleLists;
+            var aRoles = new HashSet<int>(schedule.ScheduleRoles.Select(r => r.ID));
+            var viewModel = new List<RoleVM>();
+            foreach (var roll in allRole)
+            {
+                viewModel.Add(new RoleVM
+                {
+                    RoleID = roll.ID,
+                    RoleName = roll.RoleName,
+                    RoleAssigned = aRoles.Contains(roll.ID)
+                });
+            }
+
+            ViewBag.RolesLists = viewModel;
+        }
+
+        private void UpdateScheduleRoles(string[] selectedRoles, Schedule ScheduleToUpdate)
+        {
+            if (selectedRoles == null)
+            {
+                ScheduleToUpdate.ScheduleRoles = new List<RoleList>();
+                return;
+            }
+
+            var selectedRolesHS = new HashSet<string>(selectedRoles);
+            var scheduleRoles = new HashSet<int> (ScheduleToUpdate.ScheduleRoles.Select(c => c.ID));
+            foreach (var rls in db.RoleLists)
+            {
+                if (selectedRolesHS.Contains(rls.ID.ToString()))
+                {
+                    if (!scheduleRoles.Contains(rls.ID))
+                    {
+                        ScheduleToUpdate.ScheduleRoles.Add(rls);
+                    }
+                }
+                else
+                {
+                    if (scheduleRoles.Contains(rls.ID))
+                    {
+                        ScheduleToUpdate.ScheduleRoles.Remove(rls);
+                    }
+                }
+            }
         }
 
         public void PopulateScheduleTypes(Schedule schedule)

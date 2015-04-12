@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -12,6 +13,8 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
+        [Required(ErrorMessage="Role name is required")]
+        [StringLength(50, ErrorMessage = "Role name can not exceed 50 characters")]
         public string RoleName { get; set; }
         
         public virtual ICollection<Announcement> Announcements { get; set; }
