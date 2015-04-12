@@ -195,6 +195,10 @@
     <Compile Include="Migrations\201504091958554_RequiredSchType.Designer.cs">
       <DependentUpon>201504091958554_RequiredSchType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504120242452_FixDateFormats.cs" />
+    <Compile Include="Migrations\201504120242452_FixDateFormats.Designer.cs">
+      <DependentUpon>201504120242452_FixDateFormats.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -382,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504091958554_RequiredSchType.resx">
       <DependentUpon>201504091958554_RequiredSchType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504120242452_FixDateFormats.resx">
+      <DependentUpon>201504120242452_FixDateFormats.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

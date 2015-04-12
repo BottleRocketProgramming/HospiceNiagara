@@ -42,6 +42,15 @@ namespace HospiceNiagara.Models
         [DataType(DataType.Date)]
         public DateTime DnDate;
 
+        [Display(Name = "Date")]
+        public string DnDateString
+        {
+            get
+            {
+                return this.DnDate.ToLongDateString();
+            }
+        }
+
         [Display(Name="Location")]
         [StringLength(150, ErrorMessage = "Location can not exceed 150 characters")]
         public string DnLocation { get; set; }
