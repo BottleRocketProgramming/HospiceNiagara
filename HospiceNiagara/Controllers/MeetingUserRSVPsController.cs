@@ -82,11 +82,14 @@ namespace HospiceNiagara.Controllers
                     {
                         foreach (var u in selectedUsers)
                         {
-                            var userToAdd = db.Users.Find(u);
-                            meetingUserRSVP.MeetingRSVP = meetingToAdd;
-                            meetingUserRSVP.AppUser = userToAdd;
-                            db.MeetingUserRSVPs.Add(meetingUserRSVP);
-                            db.SaveChanges();
+                            if (!db.MeetingUserRSVPs.Any(us => us.AppUser.Id == u && us.MeetingRSVP.ID == meetingToAdd.ID))
+                            {
+                                var userToAdd = db.Users.Find(u);
+                                meetingUserRSVP.MeetingRSVP = meetingToAdd;
+                                meetingUserRSVP.AppUser = userToAdd;
+                                db.MeetingUserRSVPs.Add(meetingUserRSVP);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     

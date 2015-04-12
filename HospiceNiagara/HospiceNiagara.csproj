@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201504121759255_requireDOBonReg.Designer.cs">
       <DependentUpon>201504121759255_requireDOBonReg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504121939449_RSVPnullable.cs" />
+    <Compile Include="Migrations\201504121939449_RSVPnullable.Designer.cs">
+      <DependentUpon>201504121939449_RSVPnullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -403,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504121759255_requireDOBonReg.resx">
       <DependentUpon>201504121759255_requireDOBonReg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504121939449_RSVPnullable.resx">
+      <DependentUpon>201504121939449_RSVPnullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

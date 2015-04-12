@@ -33,7 +33,18 @@
                             @Html.DisplayFor(model => item.MeetingRSVP.DescriptionTrimmed)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ComingYorN)
+                            @if(item.ComingYorN == true)
+                            {
+                                @:Yes
+                            }
+                            else if(item.ComingYorN == false)
+                            {
+                                @:No
+                            }
+                            else
+                            {
+                                @:No Response
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.RSVPNotes)
