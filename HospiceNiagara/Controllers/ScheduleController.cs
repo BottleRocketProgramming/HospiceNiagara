@@ -26,6 +26,7 @@ namespace HospiceNiagara.Controllers
             var cUserRole = db.RoleLists;
             var sched = new Schedule();
             sched.SchedType = new SchedType();
+            sched.ScheduleRoles = new List<RoleList>();
             PopulateSchdType();
             PopulateAssignedRoles(sched);
 
@@ -230,8 +231,7 @@ namespace HospiceNiagara.Controllers
             }
 
             var selectedRolesHS = new HashSet<string>(selectedRoles);
-            var scheduleRoles = new HashSet<int>
-                (ScheduleToUpdate.ScheduleRoles.Select(c => c.ID));
+            var scheduleRoles = new HashSet<int> (ScheduleToUpdate.ScheduleRoles.Select(c => c.ID));
             foreach (var rls in db.RoleLists)
             {
                 if (selectedRolesHS.Contains(rls.ID.ToString()))
