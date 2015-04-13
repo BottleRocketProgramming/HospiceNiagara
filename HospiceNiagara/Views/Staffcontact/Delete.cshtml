@@ -11,12 +11,45 @@
     <h4>StaffContact</h4>
     <hr />
     <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.ContUser.UserFName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContUser.UserFName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContUser.UserLName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContUser.UserLName)
+        </dd> 
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.ContUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContUser.Email)
+        </dd>      
+        
         <dt>
             @Html.DisplayNameFor(model => model.ContExten)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ContExten)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContWorkCell)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContWorkCell)
         </dd>
 
     </dl>

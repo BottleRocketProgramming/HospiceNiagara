@@ -216,6 +216,10 @@
     <Compile Include="Migrations\201504131619339_RemovebadTablesAddNewTables.Designer.cs">
       <DependentUpon>201504131619339_RemovebadTablesAddNewTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504131752565_AddContactWorkCell.cs" />
+    <Compile Include="Migrations\201504131752565_AddContactWorkCell.Designer.cs">
+      <DependentUpon>201504131752565_AddContactWorkCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -424,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504131619339_RemovebadTablesAddNewTables.resx">
       <DependentUpon>201504131619339_RemovebadTablesAddNewTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504131752565_AddContactWorkCell.resx">
+      <DependentUpon>201504131752565_AddContactWorkCell.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

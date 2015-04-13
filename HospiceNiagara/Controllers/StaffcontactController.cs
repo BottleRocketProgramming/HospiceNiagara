@@ -52,7 +52,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ContExten")] StaffContact staffContact, string[] selectedUsers, string[] selectedJobs)
+        public ActionResult Create([Bind(Include = "ID,ContExten, ContWorkCell")] StaffContact staffContact, string selectedUsers, string[] selectedJobs)
         {
            
             if(selectedUsers != null)
@@ -102,8 +102,10 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,ContExten")] StaffContact staffcontact)
+        public ActionResult Edit([Bind(Include = "ID,ContExten,ContWorkCell")] StaffContact staffcontact, string[] selectedJobs)
         {
+            UpdateJobDescriptions(selectedJobs, staffcontact);
+
             if (ModelState.IsValid)
             {
                 db.Entry(staffcontact).State = EntityState.Modified;
