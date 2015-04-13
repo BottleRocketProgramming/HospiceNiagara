@@ -48,6 +48,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(deathNotice);
         }
 
