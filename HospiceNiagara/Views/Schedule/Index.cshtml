@@ -101,38 +101,36 @@
 
                                             </div>
                                         </div>
-
-
-
-
                                     </div>
+                                    
                                     <div class="form-group">
-                            <label class="control-label col-md-2">User Roles</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <table>
-                                    <tr>
-                                        @{
-                                          int cnt = 0;
-                                          List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                          foreach(var r in roles)
-                                          {
-                                              if (cnt++ % 2 == 0)
-                                              {
-                                                @:</tr><tr>
-                                              }
-                                              @:<td>
-                                                    <input type="checkbox"
-                                                    name="selectedRoles"
-                                                    value="@r.RoleID"
-                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                    @r.RoleName
-                                             @:</td>
-                                          }
-                                     @:</tr>
-                                        }
-                                </table>
-                            </div>
-                        </div>
+                                        <label class="control-label col-md-2">User Roles</label>
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <table>
+                                                <tr>
+                                                    @{
+                                                      int cnt = 0;
+                                                      List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                                      foreach(var r in roles)
+                                                      {
+                                                          if (cnt++ % 2 == 0)
+                                                          {
+                                                            @:</tr><tr>
+                                                          }
+                                                          @:<td>
+                                                                <input type="checkbox"
+                                                                name="selectedRoles"
+                                                                value="@r.RoleID"
+                                                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                @r.RoleName
+                                                         @:</td>
+                                                      }
+                                                 @:</tr>
+                                                    }
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
                                             <input type="submit" value="Create" name="CreateSchedule" class="btn btn-default" />

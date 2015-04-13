@@ -82,6 +82,7 @@ namespace HospiceNiagara.Controllers
         {
             var sched = new Schedule();
             sched.SchedType = new SchedType();
+            sched.ScheduleRoles = new List<RoleList>();
             PopulateScheduleTypes(sched);
             PopulateAssignedRoles(sched);
 
@@ -132,7 +133,7 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Schedule schedule = db.Schedules.Find(id);
+            Schedule schedule = db.Schedules.Include(r => r.ScheduleRoles).Where(i => i.ID == id).Single();
             if (schedule == null)
             {
                 return HttpNotFound();
@@ -148,21 +149,21 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int? id, int selectedSchedType)
+        public ActionResult Edit(int? id, int selectedSchedType, string[] selectedRoles)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var scheduleToUpdate = db.Schedules.Include(a => a.SchedType).Where(i => i.ID == id).Single();
+            var scheduleToUpdate = db.Schedules.Include(a => a.ScheduleRoles).Where(i => i.ID == id).Single();
 
             if (TryUpdateModel(scheduleToUpdate, "", new string[] { "ID" , "SchedName" , "SchedLink" , "SchedStartDate" , "SchedEndDate" }))
             {
                 try
                 {
                     UpdateScheduleType(selectedSchedType, scheduleToUpdate);
-
+                    UpdateScheduleRoles(selectedRoles, scheduleToUpdate);
                     if (ModelState.IsValid)
                     {
                         db.Entry(scheduleToUpdate).State = EntityState.Modified;
