@@ -15,7 +15,7 @@
             <table class="table table-striped table-bordered">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.MeetingRSVP.DescriptionTrimmed)
+                        @Html.DisplayNameFor(model => model.MeetingRSVP.EventTitle)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ComingYorN)
@@ -30,7 +30,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(model => item.MeetingRSVP.DescriptionTrimmed)
+                            @Html.DisplayFor(model => item.MeetingRSVP.EventTitle)
                         </td>
                         <td>
                             @if(item.ComingYorN == true)
