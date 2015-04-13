@@ -13,6 +13,9 @@ namespace HospiceNiagara.Models
         [Display(Name="Ext:")]
         public string ContExten { get; set; }
 
+        [Display(Name="Work Cell")]
+        public string ContWorkCell { get; set; }
+
         public virtual ApplicationUser ContUser { get; set; }
 
         [Display(Name="Job Titles")]

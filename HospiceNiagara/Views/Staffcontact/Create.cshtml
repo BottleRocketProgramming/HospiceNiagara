@@ -11,33 +11,24 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-group">
-                            <label class="control-label col-md-2">Select Users</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <table class="table">
-                                    <tr>
-                                        @{
-                                            int ct = 0;
-                                            List<HospiceNiagara.ViewModels.UserVM> use = ViewBag.User;
-                                            foreach(var r in use)
-                                            {
-                                                if (ct++ % 2 == 0)
-                                                {
-                                                @:</tr><tr>
-                                                }
-                                                @:<td>
-                                                    <input type="checkbox"
-                                                    name="selectedUsers"
-                                                    value="@r.UserID"
-                                                         />
-                                                    @r.UserFullName
-                                                @:</td>
-                                            }
-                                        @:</tr>
-                                        }
-                                    </table>
-                                </div>
-                            </div>
+    
+     <div class="form-group">
+            <label class="control-label col-md-2">Schedule Types</label>
+            <div class="col-md-10">
+                <select class="form-control" name="selectedUsers">
+                    @{
+
+                    List<HospiceNiagara.ViewModels.UserVM> use = ViewBag.User;
+                    foreach (var t in use)
+                    {
+                            <option value=@t.UserID>@t.UserFullName</option>
+                    }
+                            @:
+                    }
+                 </select>
+
+            </div>                    
+        </div>
 
     
     <div class="form-horizontal">
@@ -50,6 +41,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ContExten)
                 @Html.ValidationMessageFor(model => model.ContExten)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContWorkCell, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContWorkCell)
+                @Html.ValidationMessageFor(model => model.ContWorkCell)
             </div>
         </div>
 

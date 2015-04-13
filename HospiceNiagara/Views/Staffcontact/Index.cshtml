@@ -26,6 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ContExten)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContWorkCell)
+        </th>
         <th></th>
     </tr>
 
@@ -47,9 +50,12 @@
         </td>
         <td>
             @Html.DisplayFor(model => item.ContUser.Email)
-        </td>
+        </td>        
         <td>
             @Html.DisplayFor(model => item.ContExten)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.ContWorkCell)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
