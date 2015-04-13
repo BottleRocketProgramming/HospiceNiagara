@@ -48,11 +48,13 @@ namespace HospiceNiagara.Models
 
         [Display(Name = "Address")]
         public string UserAddress { get; set; }
-        public virtual ICollection<JobDescription> JobDescriptions { get; set; }
-        public virtual ICollection<Announcement> UserAnnouncements { get; set; }
-        public virtual ICollection<RoleList> RoleLists { get; set; }
+        //public virtual ICollection<JobDescription> JobDescriptions { get; set; }
+        //public virtual ICollection<Announcement> UserAnnouncements { get; set; }
+        //public virtual ICollection<RoleList> RoleLists { get; set; }
         public virtual ICollection<BoardContact> BoardContacts { get; set; }
         public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }
+
+        public virtual ICollection<StaffContact> StaffContacts { get; set; }
 
 
     }
@@ -98,6 +100,8 @@ namespace HospiceNiagara.Models
         public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.MeetingUserRSVP> MeetingUserRSVPs { get; set; }
+
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.StaffContact> StaffContacts { get; set; }
 
       
 

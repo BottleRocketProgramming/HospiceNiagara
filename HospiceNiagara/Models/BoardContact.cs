@@ -14,7 +14,7 @@ namespace HospiceNiagara.Models
         [Required]
         public int ID { get; set; }
 
-        [Display(Name = "Primary Position")]
+        [Display(Name = "Position")]
         [Required(ErrorMessage = "Board Member's positon is required")]
         [StringLength(100, ErrorMessage = "Board Member's positon can not exceed 100 characters")]
         public string BoardContPosition { get; set; }
@@ -49,8 +49,8 @@ namespace HospiceNiagara.Models
         [StringLength(100, ErrorMessage = "Board Member's partner's name can not exceed 100 characters")]
         public string BoardContPartnerName { get; set; }
 
-        public virtual ICollection<JobDescription> JobDescriptions { get; set; }
+        //public virtual ICollection<JobDescription> JobDescriptions { get; set; }
 
-        public virtual ICollection<ApplicationUser> IdentUsers { get; set;  }
+        public virtual ApplicationUser AppUser { get; set; }
     }
 }
