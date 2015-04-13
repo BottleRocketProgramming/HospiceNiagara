@@ -24,8 +24,10 @@ namespace HospiceNiagara.Models
         [StringLength(510, ErrorMessage = "Job  description can not exceed 510 characters")]
         public string JobDescpt { get; set; }
 
-        public virtual ICollection<ApplicationUser> IdentityUsers { get; set; }
+        //public virtual ICollection<ApplicationUser> IdentityUsers { get; set; }
 
-        public virtual ICollection<BoardContact> BoardContacts { get; set; }
+        //public virtual ICollection<BoardContact> BoardContacts { get; set; }
+
+        public virtual ICollection<StaffContact> StaffContacts { get; set; }
     }
 }

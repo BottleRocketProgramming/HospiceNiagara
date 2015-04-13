@@ -139,7 +139,16 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            return View(fileStorage);
+            var FileUserRoles =  fileStorage.FileStoreUserRoles;
+
+            foreach (var ur in FileUserRoles)
+            {
+                if (User.IsInRole(ur.RoleName))
+                {
+                    return View(fileStorage);
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: FileStorages/Edit/5

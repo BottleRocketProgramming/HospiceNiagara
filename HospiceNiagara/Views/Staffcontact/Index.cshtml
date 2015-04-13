@@ -1,0 +1,68 @@
+﻿@model IEnumerable<HospiceNiagara.Models.StaffContact>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContUser.UserFName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContUser.UserLName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobDescriptions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContExten)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContWorkCell)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.ContUser.UserFName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.ContUser.UserLName)
+        </td>
+        <td>
+            @foreach (var jd in item.JobDescriptions)
+            {
+
+                @Html.DisplayFor(model => jd.JobTitle) <br />
+
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.ContUser.Email)
+        </td>        
+        <td>
+            @Html.DisplayFor(model => item.ContExten)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.ContWorkCell)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

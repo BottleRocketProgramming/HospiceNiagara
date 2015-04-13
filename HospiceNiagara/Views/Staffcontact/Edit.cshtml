@@ -1,0 +1,93 @@
+﻿@model HospiceNiagara.Models.StaffContact
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>StaffContact</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContExten, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContExten)
+                @Html.ValidationMessageFor(model => model.ContExten)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContWorkCell, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContWorkCell)
+                @Html.ValidationMessageFor(model => model.ContWorkCell)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Job Descriptions</label>
+            <div>
+                <table>
+                    <tr>
+                        <th>
+                            Job Name
+                        </th>
+                        <th>
+                            Job Description
+                        </th>
+                        <th>
+                            Select
+                        </th>
+                    </tr>
+                    <tr>
+                        @{
+    int count = 0;
+    List<HospiceNiagara.ViewModels.JobDescVM> jobs = ViewBag.JobDescriptions;
+    foreach (var j in jobs)
+    {
+        if (count++ % 1 == 0)
+        {
+            @:</tr><tr>
+        }
+            @:<td>
+                 @j.JobName
+            @:</td>
+            @:<td>
+                  @j.JobDesc
+            @:</td>
+            @: <td>
+               <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
+            @:</td>
+         }
+            @:</tr>
+        }
+     </table>
+  </div>
+</div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

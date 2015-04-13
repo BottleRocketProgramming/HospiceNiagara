@@ -19,13 +19,26 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ComingYorN, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.ComingYorN)
+                <div class="radio">
+                   
+                    @Html.RadioButtonFor(model => model.ComingYorN, true) Yes                   
+                    @Html.ValidationMessageFor(model => model.ComingYorN, "", new { @class = "text-danger" })
+                </div> 
+                <div class="radio">
+                   
+                    @Html.RadioButtonFor(model => model.ComingYorN, false) No
                     @Html.ValidationMessageFor(model => model.ComingYorN, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.ComingYorN, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                
+            </div>
+        </div>*@
+        
         <div class="form-group">
             @Html.LabelFor(model => model.RSVPNotes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

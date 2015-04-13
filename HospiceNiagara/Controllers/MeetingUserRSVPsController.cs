@@ -70,7 +70,8 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ComingYorN,RSVPNotes")] MeetingUserRSVP meetingUserRSVP, string[] selectedMeetings, string[] selectedUsers)
         {
-            
+
+           
             if(selectedMeetings != null)
             {
                 foreach(var m in selectedMeetings)
@@ -83,10 +84,18 @@ namespace HospiceNiagara.Controllers
                         foreach (var u in selectedUsers)
                         {
                             var userToAdd = db.Users.Find(u);
-                            meetingUserRSVP.MeetingRSVP = meetingToAdd;
-                            meetingUserRSVP.AppUser = userToAdd;
-                            db.MeetingUserRSVPs.Add(meetingUserRSVP);
-                            db.SaveChanges();
+                            if (!db.MeetingUserRSVPs.Any(us => us.AppUser.Id == u && us.MeetingRSVP.ID == meetingToAdd.ID))
+                            {
+                                
+                                meetingUserRSVP.MeetingRSVP = meetingToAdd;
+                                meetingUserRSVP.AppUser = userToAdd;
+                                db.MeetingUserRSVPs.Add(meetingUserRSVP);
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                               ModelState.AddModelError("", "User " + userToAdd.UserFName +" " + userToAdd.UserLName + " has already been sent RSVP for this event");
+                            }
                         }
                     }
                     
@@ -101,9 +110,10 @@ namespace HospiceNiagara.Controllers
                 
                 //PopulateAssignedMeetings(meetingUserRSVP);
                 //PopulateAssignedUsers(meetingUserRSVP);
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminList");
             }
-
+            PopulateAssignedMeetings(meetingUserRSVP);
+            PopulateAssignedUsers(meetingUserRSVP);
             return View(meetingUserRSVP);
         }
 
@@ -194,7 +204,7 @@ namespace HospiceNiagara.Controllers
                     UserID = m.Id,
                     UserFName = m.UserFName,
                     UserLName = m.UserLName,
-                    UserFullName = m.UserFName + " " + m.UserLName 
+                    UserFullName = m.UserFName + " " + m.UserLName + ", " + m.UserName 
                     
                 });
             }
