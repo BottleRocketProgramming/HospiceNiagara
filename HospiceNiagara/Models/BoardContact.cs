@@ -19,21 +19,21 @@ namespace HospiceNiagara.Models
         [StringLength(100, ErrorMessage = "Board Member's positon can not exceed 100 characters")]
         public string BoardContPosition { get; set; }
 
-        [Display(Name = "Home Address")]
-        [Required(ErrorMessage = "Board Member's home address is required")]
-        [StringLength(250, ErrorMessage = "Board Member's home address can not exceed 250 characters")]
-        public string BoardContHomeAddy { get; set; }
+        //[Display(Name = "Home Address")]
+        //[Required(ErrorMessage = "Board Member's home address is required")]
+        //[StringLength(250, ErrorMessage = "Board Member's home address can not exceed 250 characters")]
+        //public string BoardContHomeAddy { get; set; }
 
         [Display(Name = "Work Address")]
         [StringLength(250, ErrorMessage = "Board Member's work address can not exceed 250 characters")]
         public string BoardContWorkAddy { get; set; }
 
-        [Display(Name = "Home Phone")]
-        [Required(ErrorMessage = "Board Member's home phone number is required")]
-        [StringLength(25, ErrorMessage = "Board Member's home phone number can not exceed 25 characters")]
-        public string BoardContHomePhone { get; set; }
+        //[Display(Name = "Home Phone")]
+        //[Required(ErrorMessage = "Board Member's home phone number is required")]
+        //[StringLength(25, ErrorMessage = "Board Member's home phone number can not exceed 25 characters")]
+        //public string BoardContHomePhone { get; set; }
 
-        [Display(Name = "Work Extension")]
+        [Display(Name = "Work Phone")]
         [StringLength(25, ErrorMessage = "Board Member's work phone number can not exceed 25 characters")]
         public string BoardContWorkPhone { get; set; }
 
@@ -45,7 +45,7 @@ namespace HospiceNiagara.Models
         [StringLength(25, ErrorMessage = "Board Member's fax number can not exceed 25 characters")]
         public string BoardContFaxNum { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "Partner Name")]
         [StringLength(100, ErrorMessage = "Board Member's partner's name can not exceed 100 characters")]
         public string BoardContPartnerName { get; set; }
 

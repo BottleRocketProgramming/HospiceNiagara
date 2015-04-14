@@ -19,13 +19,33 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.FileCatFK, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FileCatFK, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FileCatFK, "", new { @class = "text-danger" })
             </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select Catigory</label>
+            <div class="col-md-10">
+                <select class="form-control" name="selectedCats">
+                    @{
+
+                List<HospiceNiagara.ViewModels.FileCatVM> cat = ViewBag.FileCats;
+                        foreach (var c in cat)
+                        {
+                             <option value=@c.ID>@c.FileCatName</option>
+                        }
+                        @:
+                     }
+                </select>
+
+            </div>
         </div>
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

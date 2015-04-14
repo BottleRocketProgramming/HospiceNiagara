@@ -12,11 +12,11 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ContUser.UserFName)
+            @Html.DisplayNameFor(model => model.ContUser.UserFullName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ContUser.UserLName)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.JobDescriptions)
         </th>
@@ -35,11 +35,11 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(model => item.ContUser.UserFName)
+            @Html.DisplayFor(model => item.ContUser.UserFullName)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(model => item.ContUser.UserLName)
-        </td>
+        </td>*@
         <td>
             @foreach (var jd in item.JobDescriptions)
             {

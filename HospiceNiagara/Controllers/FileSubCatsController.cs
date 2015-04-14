@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
 
 //Paul Boyko April 2015
 
@@ -43,6 +44,8 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
+            FileSubCat fSubCat = new FileSubCat();
+            PopulateAssignedCat(fSubCat);
             return View();
         }
 
@@ -52,8 +55,12 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,FileSubCatName,FileCatFK")] FileSubCat fileSubCat)
+        public ActionResult Create([Bind(Include = "ID,FileSubCatName,FileCatFK")] FileSubCat fileSubCat, int selectedCats)
         {
+            var catToAdd = db.FileCats.Find(selectedCats);
+            fileSubCat.FlCat = catToAdd;
+            fileSubCat.FileCatFK = catToAdd.ID;
+
             if (ModelState.IsValid)
             {
                 db.FileSubCats.Add(fileSubCat);
@@ -61,6 +68,7 @@ namespace HospiceNiagara.Controllers
                 return RedirectToAction("Index");
             }
 
+            PopulateAssignedCat(fileSubCat);
             return View(fileSubCat);
         }
 
@@ -86,7 +94,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,FileSubCatName,FileCatFK")] FileSubCat fileSubCat)
+        public ActionResult Edit([Bind(Include = "ID,FileSubCatName,FileCatFK")] FileSubCat fileSubCat, string selectedCats)
         {
             if (ModelState.IsValid)
             {
@@ -110,6 +118,8 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+
+            PopulateAssignedCat(fileSubCat);
             return View(fileSubCat);
         }
 
@@ -124,6 +134,22 @@ namespace HospiceNiagara.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+         public void PopulateAssignedCat(FileSubCat fileSubCat)
+        {
+            var allCats = db.FileCats;
+            var veiwModel = new List<FileCatVM>();
+            foreach (var m in allCats)
+            {
+                veiwModel.Add(new FileCatVM
+                {
+                    ID = m.ID,
+                    FileCatName = m.FileCatName
+                });
+            }
+
+            ViewBag.FileCats = veiwModel;
+        }    
 
         protected override void Dispose(bool disposing)
         {

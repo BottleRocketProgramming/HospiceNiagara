@@ -70,7 +70,7 @@ namespace HospiceNiagara.Controllers
                     }
                 }
                
-                db.StaffContacts.Add(staffContact);
+//                db.StaffContacts.Add(staffContact);
             }
             
             if (ModelState.IsValid)

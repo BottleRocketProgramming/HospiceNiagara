@@ -12,10 +12,26 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>StaffContact</h4>
+        <h4>Staff Contact</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ContUser.UserFullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ContUser.UserFullName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ContUser.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ContUser.Email)
+            </dd>
+
+        </dl>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ContExten, new { @class = "control-label col-md-2" })

@@ -32,6 +32,15 @@ namespace HospiceNiagara.Models
         [Display(Name = "Last Name")]
         public string UserLName { get; set; }
 
+        [Display(Name="Name")]
+        public string UserFullName
+        {
+            get
+            {
+                return this.UserFName + (string.IsNullOrEmpty(this.UserMName) ? " " : (" " + (char?)this.UserMName[0] + ". ").ToUpper()) + this.UserLName;
+            }
+        }
+
         [Display(Name = "Date of Birth")]
         public DateTime UserDOB { get; set; }
 

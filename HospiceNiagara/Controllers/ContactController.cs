@@ -1,127 +1,119 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Data;
-//using System.Data.Entity;
-//using System.Linq;
-//using System.Net;
-//using System.Web;
-//using System.Web.Mvc;
-//using HospiceNiagara.Models;
-//using HospiceNiagara.ViewModels;
-//using Microsoft.AspNet.Identity.EntityFramework;
-//using System.Data.Entity.Infrastructure;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Infrastructure;
 
-////Andreas King March 2015
-////Paul Boyko April 2015
+//Andreas King March 2015
+//Paul Boyko April 2015
 
-//namespace HospiceNiagara.Controllers
-//{
-//    public class ContactController : Controller
-//    {
-//        private ApplicationDbContext db = new ApplicationDbContext();
+namespace HospiceNiagara.Controllers
+{
+    public class ContactController : Controller
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
 
-//        // GET: Contact
-//        [Authorize]
-//        public ActionResult Index(int? id)
-//        {
-//            var cont = new BoardContact();
-//            cont.JobDescriptions = new List<JobDescription>();
+        // GET: Contact
+        [Authorize]
+        public ActionResult Index(int? id)
+        {
+            BoardContact bc = new BoardContact();
+            PopulateAssignedUsers(bc);
+            ViewData["Contact"] = db.BoardContacts.ToList();
+            ViewData["ContactID"] = id;
+            BoardContact contact = db.BoardContacts.Find(id);
+            return View(contact);
+        }
+
+        //Admin List
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminList()
+        {
+            return View(db.BoardContacts.ToList());
+        }
+
+        // GET: Announcement/adminCreate
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminCreate()
+        {
+             BoardContact boardContact = new BoardContact();
+            boardContact.AppUser = new ApplicationUser();
+            PopulateAssignedUsers(boardContact);
             
-//            if(id != null)
-//            {
-//                BoardContact boardContact = db.BoardContacts.Include(j => j.JobDescriptions).Where(i => i.ID == id).Single();
-//                PopulateJobDescriptions(boardContact);
-//            }
-//            else
-//            {
-//                PopulateJobDescriptions(cont);
-//            }
-//            var ctt = db.BoardContacts.Include(a => a.JobDescriptions);
+            return View();
 
-//            ViewData["Contact"] = db.BoardContacts.ToList();
-//            ViewData["ContactID"] = id;
-//            BoardContact contact = db.BoardContacts.Find(id);
-//            return View(contact);
-//        }
+        }
 
-//        //Admin List
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult AdminList()
-//        {
-//            return View(db.BoardContacts.ToList());
-//        }
+        // GET: Contact/Details/5
+        [Authorize]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BoardContact boardContact = db.BoardContacts.Find(id);
+            if (boardContact == null)
+            {
+                return HttpNotFound();
+            }
+            return View(boardContact);
+        }
 
-//        // GET: Announcement/adminCreate
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult AdminCreate()
-//        {
-//            var cont = new BoardContact();
-//            cont.JobDescriptions = new List<JobDescription>();
-//            PopulateJobDescriptions(cont);
+        // GET: Contact/Create
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Create()
+        {
+            BoardContact boardContact = new BoardContact();
+            boardContact.AppUser = new ApplicationUser();
+            PopulateAssignedUsers(boardContact);
 
-//            return View();
-//        }
+            return View();
+        }
 
-//        // GET: Contact/Details/5
-//        [Authorize]
-//        public ActionResult Details(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            BoardContact boardContact = db.BoardContacts.Find(id);
-//            if (boardContact == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            return View(boardContact);
-//        }
+        // POST: Contact/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Index")]
+        [OnAction(ButtonName = "CreateContact")]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Create([Bind(Include = "ID,BoardContPosition, BoardContWorkAddy, BoardContWorkPhone, BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardContact, string selectedUsers)
+        {
+            try
+            {
+                if (selectedUsers != null)
+                {
+                    
+                       var userToAdd = db.Users.Find(selectedUsers);
+                        boardContact.AppUser = userToAdd;
+                      
+//                   
+                }
+                if (ModelState.IsValid)
+                {
+                    db.BoardContacts.Add(boardContact);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
 
-//        // GET: Contact/Create
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult Create()
-//        {
-//            return View();
-//        }
-
-//        // POST: Contact/Create
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        [ActionName("Index")]
-//        [OnAction(ButtonName = "CreateContact")]
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult Create([Bind(Include = "ID,BoardContPosition,BoardContHomeAddy,BoardContWorkAddy,BoardContHomePhone,BoardContWorkPhone,BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardContact, string[] selectedJobs)
-//        {
-//            try
-//            {
-//                if (selectedJobs != null)
-//                {
-//                    boardContact.JobDescriptions = new List<JobDescription>();
-//                    foreach (var job in selectedJobs)
-//                    {
-//                        var jobToAdd = db.JobDescriptions.Find(int.Parse(job));
-//                        boardContact.JobDescriptions.Add(jobToAdd);
-//                    }
-//                }
-//                if (ModelState.IsValid)
-//                {
-//                    db.BoardContacts.Add(boardContact);
-//                    db.SaveChanges();
-//                    return RedirectToAction("Index");
-//                }
-//            }
-//            catch (DataException)
-//            {
-//                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-//            }
-//            PopulateJobDescriptions(boardContact);
-//            return View(boardContact);
+            return View(boardContact);
 
 
-//        }
+        }
 
 //        //Original Create
 
@@ -138,89 +130,120 @@
 //        //}
 
 
-//        // GET: Contact/Edit/5
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult Edit(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            BoardContact boardContact = db.BoardContacts.Include(j => j.JobDescriptions).Where(i => i.ID == id).Single();
-//            if (boardContact == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            PopulateJobDescriptions(boardContact);
-//            return View(boardContact);
-//        }
+        // GET: /Default1/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BoardContact boardcontact = db.BoardContacts.Find(id);
+            if (boardcontact == null)
+            {
+                return HttpNotFound();
+            }
+            return View(boardcontact);
+        }
 
-//        // POST: Contact/Edit/5
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult Edit(int? id, string[] selectedJobs)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
+        // POST: /Default1/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,BoardContPosition,BoardContWorkAddy,BoardContWorkPhone,BoardContCellPhone,BoardContFaxNum,BoardContPartnerName")] BoardContact boardcontact)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(boardcontact).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(boardcontact);
+        }
 
-//            var jobToUpdate = db.BoardContacts.Include(a => a.JobDescriptions).Where(i => i.ID == id).Single();
+        //// GET: Contact/Edit/5
+        //[Authorize(Roles = "Administrator")]
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    BoardContact boardContact = db.BoardContacts.Where(i => i.ID == id).Single();
+        //    if (boardContact == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-//            if (TryUpdateModel(jobToUpdate, "", new string[] { "ID" , "BoardContPosition" , "BoardContHomeAddy" , "BoardContWorkAddy" , "BoardContHomePhone" , "BoardContWorkPhone" , "BoardContCellPhone" , "BoardContFaxNum" , "BoardContPartnerName" }))
-//            {
-//                try
-//                {
-//                    UpdateJobDescriptions(selectedJobs, jobToUpdate);
+        //    return View(boardContact);
+        //}
 
-//                    if (ModelState.IsValid)
-//                    {
+        //// POST: Contact/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost, ActionName("Edit")]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Administrator")]
+        //public ActionResult EditPost(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-//                        db.Entry(jobToUpdate).State = EntityState.Modified;
-//                        db.SaveChanges();
-//                        return RedirectToAction("Index");
-//                    }
-//                }
-//                catch (RetryLimitExceededException)
-//                {
-//                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
-//                }
-//            }
-//            PopulateJobDescriptions(jobToUpdate);
-//            return View(jobToUpdate);
+        //    var boardCont = db.BoardContacts.Where(b => b.ID == id).Single();
+            
+        //    if (TryUpdateModel(new string[] { "ID", "BoardContPosition", "BoardContWorkAddy",  "BoardContWorkPhone", "BoardContCellPhone", "BoardContFaxNum", "BoardContPartnerName" }))
+        //    {
+               
+        //        try
+        //        {
+                    
+        //            if (ModelState.IsValid)
+        //            {
 
-//        }
+        //                db.Entry(boardCont).State = EntityState.Modified;
+        //                db.SaveChanges();
+        //                return RedirectToAction("Index");
+        //            }
+        //        }
+        //        catch (RetryLimitExceededException)
+        //        {
+        //            ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+        //        }
+        //    }
 
-//        // GET: Contact/Delete/5
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult Delete(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            BoardContact boardContact = db.BoardContacts.Find(id);
-//            if (boardContact == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            return View(boardContact);
-//        }
+        //    return View(boardCont);
 
-//        // POST: Contact/Delete/5
-//        [HttpPost, ActionName("Delete")]
-//        [ValidateAntiForgeryToken]
-//        [Authorize(Roles = "Administrator")]
-//        public ActionResult DeleteConfirmed(int id)
-//        {
-//            BoardContact boardContact = db.BoardContacts.Find(id);
-//            db.BoardContacts.Remove(boardContact);
-//            db.SaveChanges();
-//            return RedirectToAction("Index");
-//        }
+        //}
+
+        // GET: Contact/Delete/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BoardContact boardContact = db.BoardContacts.Find(id);
+            if (boardContact == null)
+            {
+                return HttpNotFound();
+            }
+            return View(boardContact);
+        }
+
+        // POST: Contact/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            BoardContact boardContact = db.BoardContacts.Find(id);
+            db.BoardContacts.Remove(boardContact);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
 //        public void PopulateJobDescriptions(BoardContact contact)
 //        {
@@ -271,13 +294,32 @@
 //            }
 //        }
 
-//        protected override void Dispose(bool disposing)
-//        {
-//            if (disposing)
-//            {
-//                db.Dispose();
-//            }
-//            base.Dispose(disposing);
-//        }
-//    }
-//}
+        public void PopulateAssignedUsers(BoardContact boardCont)
+        {
+            var allUsers = db.Users;
+            var veiwModel = new List<UserVM>();
+            foreach (var m in allUsers)
+            {
+                veiwModel.Add(new UserVM
+                {
+                    UserID = m.Id,
+                    UserFName = m.UserFName,
+                    UserLName = m.UserLName,
+                    UserFullName = m.UserFName + " " + m.UserLName + ", " + m.UserName
+
+                });
+            }
+
+            ViewBag.User = veiwModel;
+        }   
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}
