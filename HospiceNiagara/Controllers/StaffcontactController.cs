@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 namespace HospiceNiagara.Controllers
 {
@@ -89,30 +90,59 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StaffContact staffcontact = db.StaffContacts.Find(id);
+            StaffContact staffcontact = db.StaffContacts.Include(u => u.ContUser).Include(j=>j.JobDescriptions).Where(i=> i.ID == id).Single();
             if (staffcontact == null)
             {
                 return HttpNotFound();
             }
+            PopulateAssignedUsers(staffcontact);
+            PopulateJobDescriptions(staffcontact);
             return View(staffcontact);
         }
 
         // POST: /Staffcontact/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ContExten,ContWorkCell")] StaffContact staffcontact, string[] selectedJobs)
+        [Authorize(Roles = "Administrator")]
+        public ActionResult EditPost(int? id, string[] selectedJobs)
+        //"ID,ContExten,ContWorkCell"
         {
-            UpdateJobDescriptions(selectedJobs, staffcontact);
-
-            if (ModelState.IsValid)
+            if(id == null)
             {
-                db.Entry(staffcontact).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(staffcontact);
+
+            var staffContact = db.StaffContacts.Include(j => j.JobDescriptions).Include(u => u.ContUser).Where(i => i.ID == id).Single();
+
+            if (TryUpdateModel(staffContact, "", new string[] { "ID","ContExten","ContWorkCell" }))
+            {
+                try
+                {
+                    UpdateJobDescriptions(selectedJobs, staffContact);
+
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(staffContact).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }
+            }
+
+            PopulateAssignedUsers(staffContact);
+            PopulateJobDescriptions(staffContact);
+
+            return View(staffContact);
         }
 
         // GET: /Staffcontact/Delete/5
