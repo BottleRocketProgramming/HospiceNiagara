@@ -25,8 +25,10 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index(int? id)
         {
             BoardContact bc = new BoardContact();
+            StaffContact sc = new StaffContact();
             PopulateAssignedUsers(bc);
             ViewData["Contact"] = db.BoardContacts.ToList();
+            ViewData["StaffContact"] = db.StaffContacts.ToList();
             ViewData["ContactID"] = id;
             BoardContact contact = db.BoardContacts.Find(id);
             return View(contact);
