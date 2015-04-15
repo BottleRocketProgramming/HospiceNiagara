@@ -18,210 +18,207 @@
                 <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
                 }
         </div>
-        @* Ask Chantal *@
-        <div id="Event">
-            @* Main Body *@
-            <div class="panel-body" id="EventPanel">
+        @* Main Body *@
+        <div class="panel-body" id="EventPanel">
                 
-                    @Html.ActionLink("View RSVP requests", "../MeetingUserRSVPs/Index")                    
+                @Html.ActionLink("View RSVP requests", "../MeetingUserRSVPs/Index")                    
                 
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EventTitle)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EventDiscription)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EventLocation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EventStart)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EventEnd)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EventRequirments)
-                        </th>
-                        <th></th>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventDiscription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventLocation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventStartString)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventEndString)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventRequirments)
+                    </th>
+                    <th></th>
                         
-                    </tr>
+                </tr>
 
-                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
-                    {
-                        <tr>
-                            <td>
-                                @{var url = Request.Url.PathAndQuery;}
-                                @if(url.EndsWith("Meeting/Index"))
-                                {
-                                <a href=Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
-                                }
-                                else
-                                {
-                                <a href=Meeting/Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
-                                }
-                                
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DescriptionTrimmed)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EventLocation)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EventStart)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EventEnd)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EventRequirments)
-                            </td>
-                            <td>
-                               
-                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                @if (User.IsInRole("Administrator"))
-                            {
-
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
-                                    @:|
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-
-                            }
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-            </div>
-            @* New Meeting Body *@
-            <div class="panel-body" id="NewEvent" hidden>
-                @using (Html.BeginForm())
+                @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
                 {
-                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>
+                            @{var url = Request.Url.PathAndQuery;}
+                            @if(url.EndsWith("Meeting/Index"))
+                            {
+                            <a href=Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
+                            }
+                            else
+                            {
+                            <a href=Meeting/Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
+                            }
+                                
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DescriptionTrimmed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventStartString)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventEndString)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventRequirments)
+                        </td>
+                        <td>
+                               
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @if (User.IsInRole("Administrator"))
+                        {
 
-                    <div class="form-horizontal">
-                        <h4>MeetingOrEvent</h4>
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EventTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EventTitle, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EventTitle, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
+                                @:|
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EventDiscription, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EventDiscription, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EventDiscription, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                        }
+                        </td>
+                    </tr>
+                }
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EventLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EventLocation, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EventLocation, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+            </table>
+        </div>
+        @* New Meeting Body *@
+        <div class="panel-body" id="NewEvent" hidden>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EventStart, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EventStart, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EventStart, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EventEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EventEnd, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EventEnd, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EventRequirments, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EventRequirments, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EventRequirments, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EventLinks, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EventLinks, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EventLinks, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">User Roles</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <table>
-                                    <tr>
-                                        @{
-                                          int cnt = 0;
-                                          List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                          foreach(var r in roles)
-                                          {
-                                              if (cnt++ % 2 == 0)
-                                              {
-                                                @:</tr><tr>
-                                              }
-                                              @:<td>
-                                                    <input type="checkbox"
-                                                    name="selectedRoles"
-                                                    value="@r.RoleID"
-                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                    @r.RoleName
-                                             @:</td>
-                                          }
-                                     @:</tr>
-                                        }
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                                <div class="col-md-4">
-                                    <label class="control-label">Selected Files</label>
-                                    @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
-                                </div>
-                                <div id="selectButtons" class="form-group col-md-4 text-center">
-                                    <div class="select-button text-center">
-                                        <button type="button" id="btnFileRight" class="btn btn-warning">
-                                            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                        </button>
-                                    </div>
-                                    <div class="select-button">
-                                        <button type="button" id="btnFileLeft" class="btn btn-success">
-                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="control-label">Availible Files</label>
-                                    @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
-                                </div>
-                            </div>                        
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" id="btnSubmit" name="CreateMeeting" class="btn btn-primary" />
-                                @Html.ActionLink("Cancel", "Index")
-                            </div>
+                <div class="form-horizontal">
+                    <h4>MeetingOrEvent</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EventTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EventTitle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EventTitle, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                }
-            </div>            
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EventDiscription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EventDiscription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EventDiscription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EventLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EventLocation, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EventLocation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EventStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EventStart, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EventStart, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EventEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EventEnd, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EventEnd, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EventRequirments, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EventRequirments, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EventRequirments, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EventLinks, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EventLinks, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EventLinks, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">User Roles</label>
+                        <div class="col-md-offset-2 col-md-10">
+                            <table>
+                                <tr>
+                                    @{
+                                        int cnt = 0;
+                                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                        foreach(var r in roles)
+                                        {
+                                            if (cnt++ % 2 == 0)
+                                            {
+                                            @:</tr><tr>
+                                            }
+                                            @:<td>
+                                                <input type="checkbox"
+                                                name="selectedRoles"
+                                                value="@r.RoleID"
+                                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                @r.RoleName
+                                            @:</td>
+                                        }
+                                    @:</tr>
+                                    }
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="control-label">Selected Files</label>
+                                @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
+                            </div>
+                            <div id="selectButtons" class="form-group col-md-4 text-center">
+                                <div class="select-button text-center">
+                                    <button type="button" id="btnFileRight" class="btn btn-warning">
+                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="select-button">
+                                    <button type="button" id="btnFileLeft" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">Availible Files</label>
+                                @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
+                            </div>
+                        </div>                        
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" id="btnSubmit" name="CreateMeeting" class="btn btn-primary" />
+                            @Html.ActionLink("Cancel", "Index")
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

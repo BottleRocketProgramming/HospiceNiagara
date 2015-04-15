@@ -4,69 +4,97 @@
     ViewBag.Title = "Index";
 }
 
-<div class="col-md-8">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <span id="ContactsTitle">Contacts</span>
-            <span id="newContactTitle" hidden>New Contact</span>
-            @if (User.IsInRole("Administrator"))
-            {
-            <div id="glyphAddContact" class="glyphicon glyphicon-plus pull-right"></div>
-            }
-        </div>
-        <div class="panel-body" id="ContactPanel">
-            <table class="table table-striped table-bordered" style="width:100%;">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContPartnerName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContPosition)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BoardContWorkPhone)
-                    </th>
-                    <th>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <span id="ContactsTitle">Board Contacts</span>
+        <span id="newContactTitle" hidden>New Board Contact</span>
+        @if (User.IsInRole("Administrator"))
+        {
+        <div id="glyphAddContact" class="glyphicon glyphicon-plus pull-right"></div>
+        }
+    </div>
+    <div class="panel-body" id="ContactPanel">
+        <table class="table table-striped table-bordered" style="width:100%;">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AppUser.UserFullName)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.AppUser.UserLName)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.BoardContPosition)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AppUser.PhoneNumber)
+                </th>
+                @if(User.IsInRole("Administrator"))
+                {    
+                <th>
                         
-                    </th>
-                    
-                </tr>
-
-                @foreach (var item in (IEnumerable<HospiceNiagara.Models.BoardContact>)ViewData["Contact"])
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContPartnerName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContPosition)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BoardContWorkPhone)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Job Description", "Index", new { id = item.ID }) 
-                            @if(User.IsInRole("Administrator"))
-                            {       
-                            <span>&#124;</span>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID })    <span>&#124;</span>
-                            @Html.ActionLink("Details", "Details", new { id = item.ID })    <span>&#124;</span>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                            }
-                        </td>
-                    </tr>
+                </th>
                 }
-            </table>
-        </div>
+            </tr>
 
-        @* New Contact Body *@
-        <div class="panel-body" id="NewContact" hidden>
-            @using (Html.BeginForm())
+            @foreach (var item in (IEnumerable<HospiceNiagara.Models.BoardContact>)ViewData["Contact"])
             {
-                @Html.AntiForgeryToken()
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AppUser.UserFullName)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.AppUser.UserLName)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BoardContPosition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AppUser.PhoneNumber)
+                    </td>
+                    @if(User.IsInRole("Administrator"))
+                    {  
+                    <td>
+                        @*@Html.ActionLink("Job Description", "Index", new { id = item.ID })*@ 
+                        <span>&#124;</span>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })    <span>&#124;</span>
+                        @Html.ActionLink("Details", "Details", new { id = item.ID })    <span>&#124;</span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
 
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @* New Contact Body *@
+    <div class="panel-body" id="NewContact" hidden>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Select User</label>
+                <div class="col-md-10">
+                    <select class="form-control" name="selectedUsers">
+                        @{
+
+                        List<HospiceNiagara.ViewModels.UserVM> use = ViewBag.User;
+                        foreach (var t in use)
+                        {
+                        <option value=@t.UserID>@t.UserFullName</option>
+                        }
+                        @:
+                        }
+                        </select>
+
+                </div>                    
+            </div>
+                
+                    
+                       
                     <div class="form-group">
                         @Html.LabelFor(model => model.BoardContPosition, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -74,14 +102,15 @@
                             @Html.ValidationMessageFor(model => model.BoardContPosition, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         @Html.LabelFor(model => model.BoardContHomeAddy, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.BoardContHomeAddy, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.BoardContHomeAddy, "", new { @class = "text-danger" })
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.BoardContWorkAddy, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -91,13 +120,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         @Html.LabelFor(model => model.BoardContHomePhone, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.BoardContHomePhone, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.BoardContHomePhone, "", new { @class = "text-danger" })
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.BoardContWorkPhone, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -131,47 +160,47 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Job Descriptions</label>
-                        <div>
-                            <table>
-                                <tr>
-                                    <th>
-                                        Job Name
-                                    </th>
-                                    <th>
-                                        Job Description
-                                    </th>
-                                    <th>
-                                        Select
-                                    </th>
-                                </tr>
-                                <tr>
-                                    @{
-                                        int count = 0;
-                                        List<HospiceNiagara.ViewModels.JobDescVM> jobs = ViewBag.JobDescriptions;
-                                        foreach (var j in jobs)
-                                        {
-                                            if (count++ % 1 == 0)
-                                              {
-                                                @:</tr><tr>
-                                              }
-                                             @:<td>
-                                                    @j.JobName
-                                             @:</td>
-                                             @:<td>
-                                                    @j.JobDesc
-                                             @:</td>
-                                              @:<td>
-                                                    <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
-                                             @:</td>
-
-                                        }
-                                    @:</tr>
+                    @*<div class="form-group">
+            <label class="control-label col-md-2">Job Descriptions</label>
+            <div>
+                <table>
+                    <tr>
+                        <th>
+                            Job Name
+                        </th>
+                        <th>
+                            Job Description
+                        </th>
+                        <th>
+                            Select
+                        </th>
+                    </tr>
+                    <tr>
+                        @{
+                            int count = 0;
+                            List<HospiceNiagara.ViewModels.JobDescVM> jobs = ViewBag.JobDescriptions;
+                            foreach (var j in jobs)
+                            {
+                                if (count++ % 1 == 0)
+                                    {
+                                    @:</tr><tr>
                                     }
-                            </table>
-                        </div>
-                    </div>
+                                    @:<td>
+                                        @j.JobName
+                                    @:</td>
+                                    @:<td>
+                                        @j.JobDesc
+                                    @:</td>
+                                    @:<td>
+                                        <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
+                                    @:</td>
+
+                            }
+                        @:</tr>
+                        }
+                </table>
+            </div>
+        </div>*@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
@@ -180,12 +209,75 @@
                         </div>
                     </div>
                 </div>
+        }
+    </div>
+</div>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <span id="ContactsTitle">Staff Contacts</span>
+    </div>
+    <div class="panel-body" id="ContactPanel">
+        <table class="table table-striped table-bordered" style="width:100%;">
+            <tr>
+                <th>
+                    Full Name
+                </th>
+                <th>
+                    Job Description
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Ext.
+                </th>
+                <th>
+                    Work Cell
+                </th>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <th></th>
+                }
+            </tr>
+
+            @foreach (var item in (IEnumerable<HospiceNiagara.Models.StaffContact>)ViewData["StaffContact"])
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.ContUser.UserFullName)
+                    </td>
+                    <td>
+                        @foreach (var jd in item.JobDescriptions)
+                        {
+
+                            @Html.DisplayFor(model => jd.JobTitle) <br />
+
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.ContUser.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.ContExten)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.ContWorkCell)
+                    </td>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "../StaffContact/Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "../StaffContact/Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "../StaffContact/Delete", new { id = item.ID })
+                        </td>
+                    }
+                </tr>
             }
-        </div>
+        </table>
     </div>
 </div>
 
-@{
+@*@{
 List<HospiceNiagara.ViewModels.JobDescVM> jobbs = ViewBag.JobDescriptions;
 
 bool assigned = false;
@@ -215,7 +307,7 @@ bool assigned = false;
             @:</div>
         @:</div>
         }
-    }
+    }*@
 
     
 

@@ -94,8 +94,18 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            PopulateAssignedFiles(announcement);
-            return View(announcement);
+
+            var AnnouncementUserRoles = announcement.RolesLists;
+
+            foreach (var ur in AnnouncementUserRoles)
+            {
+                if (User.IsInRole(ur.RoleName))
+                {
+                    PopulateAssignedFiles(announcement);
+                    return View(announcement);
+                }
+            }
+            return RedirectToAction("Index");
         }
 
 

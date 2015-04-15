@@ -87,8 +87,18 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            PopulateAssignedFiles(meeting);
-            return View(meeting);
+
+            var EventUserRoles = meeting.RolesLists;
+
+            foreach (var ur in EventUserRoles)
+            {
+                if (User.IsInRole(ur.RoleName))
+                {
+                    PopulateAssignedFiles(meeting);
+                    return View(meeting);
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         // POST: Meeting/Create

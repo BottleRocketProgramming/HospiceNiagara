@@ -7,6 +7,7 @@ using System;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Collections.Generic;
 using System.Web.Security;
+using System.ComponentModel.DataAnnotations;
 
 //Paul Boyko Feb 2015
 
@@ -22,16 +23,47 @@ namespace HospiceNiagara.Models
             // Add custom user claims here
             return userIdentity;
         }
+        [Display(Name = "First Name")]
         public string UserFName { get; set; }
+
+        [Display(Name = "Middle Name")]
         public string UserMName { get; set; }
+
+        [Display(Name = "Last Name")]
         public string UserLName { get; set; }
-        public DateTime? UserDOB { get; set; }
+
+        [Display(Name="Name")]
+        public string UserFullName
+        {
+            get
+            {
+                return this.UserFName + (string.IsNullOrEmpty(this.UserMName) ? " " : (" " + (char?)this.UserMName[0] + ". ").ToUpper()) + this.UserLName;
+            }
+        }
+
+        [Display(Name = "Date of Birth")]
+        public DateTime UserDOB { get; set; }
+
+        [Display(Name = "Date of Birth")]
+        public string UserDOBString
+        {
+            get
+            {
+
+                return this.UserDOB.ToLongDateString();
+
+            }
+        }
+
+        [Display(Name = "Address")]
         public string UserAddress { get; set; }
-        public virtual ICollection<JobDescription> JobDescriptions { get; set; }
-        public virtual ICollection<Announcement> UserAnnouncements { get; set; }
-        public virtual ICollection<RoleList> RoleLists { get; set; }
+        //public virtual ICollection<JobDescription> JobDescriptions { get; set; }
+        //public virtual ICollection<Announcement> UserAnnouncements { get; set; }
+        //public virtual ICollection<RoleList> RoleLists { get; set; }
         public virtual ICollection<BoardContact> BoardContacts { get; set; }
         public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }
+
+        public virtual ICollection<StaffContact> StaffContacts { get; set; }
 
 
     }
@@ -77,6 +109,10 @@ namespace HospiceNiagara.Models
         public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.MeetingUserRSVP> MeetingUserRSVPs { get; set; }
+
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.StaffContact> StaffContacts { get; set; }
+
+        //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> ApplicationUsers { get; set; }
 
       
 

@@ -8,6 +8,15 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+        
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.AppUser.UserFullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AppUser.UserFullName)
+        </dd>
+       
         <dt>
             @Html.DisplayNameFor(model => model.BoardContPosition)
         </dt>
@@ -17,11 +26,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BoardContHomeAddy)
+            @Html.DisplayNameFor(model => model.AppUser.UserAddress)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BoardContHomeAddy)
+            @Html.DisplayFor(model => model.AppUser.UserAddress)
         </dd>
 
         <dt>
@@ -33,11 +42,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BoardContHomePhone)
+            @Html.DisplayNameFor(model => model.AppUser.PhoneNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BoardContHomePhone)
+            @Html.DisplayFor(model => model.AppUser.PhoneNumber)
         </dd>
 
         <dt>

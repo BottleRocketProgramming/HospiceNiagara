@@ -35,7 +35,7 @@
             <label class="control-label col-md-2">Schedule Types</label>
             <div class="col-md-10">
                 <select class="form-control" name="selectedSchedType">
-                @{
+                 @{
 
     List<HospiceNiagara.ViewModels.SchedTypeVM> types = ViewBag.SchedTypes;
     foreach (var t in types)
@@ -53,6 +53,34 @@
                 <input type="submit" value="Save" class="btn btn-primary" /> |
                 @Html.ActionLink("Back to List", "Index")
             </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-2">User Roles</label>
+        <div class="col-md-offset-2 col-md-10">
+            <table>
+                <tr>
+                    @{
+                        int cnt = 0;
+                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                        foreach(var r in roles)
+                        {
+                            if (cnt++ % 2 == 0)
+                            {
+                            @:</tr><tr>
+                            }
+                            @:<td>
+                                <input type="checkbox"
+                                name="selectedRoles"
+                                value="@r.RoleID"
+                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                @r.RoleName
+                            @:</td>
+                        }
+                    @:</tr>
+                    }
+            </table>
         </div>
     </div>
 }

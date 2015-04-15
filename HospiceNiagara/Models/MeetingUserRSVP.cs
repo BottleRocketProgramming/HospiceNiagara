@@ -10,9 +10,9 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
-        [Required]
+        
         [Display(Name="Will be attending")]
-        public bool ComingYorN { get; set; }
+        public bool? ComingYorN { get; set; }
 
         [Display(Name="RSVP Notes")]
         [StringLength(250, ErrorMessage = "Announcement can not exceed 250 characters")]

@@ -72,9 +72,10 @@
                    
                    @using (Html.BeginForm())
                    { 
-                     @Html.TextBox("searchString", null, new { @class = "form-control" }) 
+                    
+                       @Html.TextBox("searchString", null, new { @class = "form-control" }) 
                     <input type="submit" value="Search" class="btn btn-default" />  
-                     @Html.ActionLink("Clear", "Index", new  { id = 0 });
+                     @Html.ActionLink("Clear", "Index", new  { id = 0 });                      
                     }
                 </div>
 
@@ -88,7 +89,7 @@
                             @Html.DisplayNameFor(model => model.FileName)
                         </th>
                         <th>
-                        @Html.DisplayNameFor(model => model.FileUploadDate)
+                        @Html.DisplayNameFor(model => model.FileUploadDateString)
                         </th>
 
                         <th></th>
@@ -105,7 +106,7 @@
                                 @Html.DisplayFor(modelItem => item.FileName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FileUploadDate)
+                                @Html.DisplayFor(modelItem => item.FileUploadDateString)
                             </td>
 
                             <td>
@@ -134,6 +135,7 @@
                     {
                         @Html.AntiForgeryToken()
                          <div class="form-horizontal">
+                             
                         
                         </div>
                         <div class="form-group">

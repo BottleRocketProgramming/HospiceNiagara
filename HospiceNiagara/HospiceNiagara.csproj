@@ -178,6 +178,7 @@
     <Compile Include="Controllers\RoleListsController.cs" />
     <Compile Include="Controllers\SchedTypesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\StaffcontactController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
     <Compile Include="Extentions\Extentions.cs" />
     <Compile Include="Global.asax.cs">
@@ -186,6 +187,42 @@
     <Compile Include="Migrations\201504060408168_RSVP.cs" />
     <Compile Include="Migrations\201504060408168_RSVP.Designer.cs">
       <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504091951375_Sync.cs" />
+    <Compile Include="Migrations\201504091951375_Sync.Designer.cs">
+      <DependentUpon>201504091951375_Sync.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504091958554_RequiredSchType.cs" />
+    <Compile Include="Migrations\201504091958554_RequiredSchType.Designer.cs">
+      <DependentUpon>201504091958554_RequiredSchType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504120242452_FixDateFormats.cs" />
+    <Compile Include="Migrations\201504120242452_FixDateFormats.Designer.cs">
+      <DependentUpon>201504120242452_FixDateFormats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504120334019_Fixes.cs" />
+    <Compile Include="Migrations\201504120334019_Fixes.Designer.cs">
+      <DependentUpon>201504120334019_Fixes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504121759255_requireDOBonReg.cs" />
+    <Compile Include="Migrations\201504121759255_requireDOBonReg.Designer.cs">
+      <DependentUpon>201504121759255_requireDOBonReg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504121939449_RSVPnullable.cs" />
+    <Compile Include="Migrations\201504121939449_RSVPnullable.Designer.cs">
+      <DependentUpon>201504121939449_RSVPnullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504131619339_RemovebadTablesAddNewTables.cs" />
+    <Compile Include="Migrations\201504131619339_RemovebadTablesAddNewTables.Designer.cs">
+      <DependentUpon>201504131619339_RemovebadTablesAddNewTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504131752565_AddContactWorkCell.cs" />
+    <Compile Include="Migrations\201504131752565_AddContactWorkCell.Designer.cs">
+      <DependentUpon>201504131752565_AddContactWorkCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504141623205_JoinBoardContWithAppUser.cs" />
+    <Compile Include="Migrations\201504141623205_JoinBoardContWithAppUser.Designer.cs">
+      <DependentUpon>201504141623205_JoinBoardContWithAppUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -203,6 +240,7 @@
     <Compile Include="Models\RoleList.cs" />
     <Compile Include="Models\SchedType.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\StaffContact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FileCatVM.cs" />
@@ -350,6 +388,12 @@
     <Content Include="Views\Schedule\AdminList.cshtml" />
     <Content Include="Views\Meeting\adminCreate.cshtml" />
     <Content Include="Views\Meeting\AdminList.cshtml" />
+    <Content Include="Views\Staffcontact\Create.cshtml" />
+    <Content Include="Views\Staffcontact\Delete.cshtml" />
+    <Content Include="Views\Staffcontact\Details.cshtml" />
+    <Content Include="Views\Staffcontact\Edit.cshtml" />
+    <Content Include="Views\Staffcontact\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -368,6 +412,33 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504060408168_RSVP.resx">
       <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504091951375_Sync.resx">
+      <DependentUpon>201504091951375_Sync.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504091958554_RequiredSchType.resx">
+      <DependentUpon>201504091958554_RequiredSchType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504120242452_FixDateFormats.resx">
+      <DependentUpon>201504120242452_FixDateFormats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504120334019_Fixes.resx">
+      <DependentUpon>201504120334019_Fixes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504121759255_requireDOBonReg.resx">
+      <DependentUpon>201504121759255_requireDOBonReg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504121939449_RSVPnullable.resx">
+      <DependentUpon>201504121939449_RSVPnullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504131619339_RemovebadTablesAddNewTables.resx">
+      <DependentUpon>201504131619339_RemovebadTablesAddNewTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504131752565_AddContactWorkCell.resx">
+      <DependentUpon>201504131752565_AddContactWorkCell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504141623205_JoinBoardContWithAppUser.resx">
+      <DependentUpon>201504141623205_JoinBoardContWithAppUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

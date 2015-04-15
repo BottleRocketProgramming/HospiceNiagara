@@ -143,7 +143,8 @@ namespace HospiceNiagara.Migrations
             var administratoruser = new ApplicationUser
             {
                 UserName = "administrator1@outlook.com",
-                Email = "administrator1@outlook.com"
+                Email = "administrator1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "administrator1@outlook.com"))
             {
@@ -154,7 +155,8 @@ namespace HospiceNiagara.Migrations
             var staffuser = new ApplicationUser
             {
                 UserName = "staff1@outlook.com",
-                Email = "staff1@outlook.com"
+                Email = "staff1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "staff1@outlook.com"))
             {
@@ -165,7 +167,8 @@ namespace HospiceNiagara.Migrations
             var leadershipuser = new ApplicationUser
             {
                 UserName = "leadership1@outlook.com",
-                Email = "leadership1@outlook.com"
+                Email = "leadership1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "leadership1@outlook.com"))
             {
@@ -176,7 +179,8 @@ namespace HospiceNiagara.Migrations
             var adminuser = new ApplicationUser
             {
                 UserName = "admin1@outlook.com",
-                Email = "admin1@outlook.com"
+                Email = "admin1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "admin1@outlook.com"))
             {
@@ -187,7 +191,8 @@ namespace HospiceNiagara.Migrations
             var communityuser = new ApplicationUser
             {
                 UserName = "community1@outlook.com",
-                Email = "community1@outlook.com"
+                Email = "community1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "community1@outlook.com"))
             {
@@ -198,7 +203,8 @@ namespace HospiceNiagara.Migrations
             var outreachuser = new ApplicationUser
             {
                 UserName = "outreach1@outlook.com",
-                Email = "outreach1@outlook.com"
+                Email = "outreach1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "outreach1@outlook.com"))
             {
@@ -209,7 +215,8 @@ namespace HospiceNiagara.Migrations
             var residentialuser = new ApplicationUser
             {
                 UserName = "residential1@outlook.com",
-                Email = "residential1@outlook.com"
+                Email = "residential1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "residential1@outlook.com"))
             {
@@ -220,7 +227,8 @@ namespace HospiceNiagara.Migrations
             var newstaffuser = new ApplicationUser
             {
                 UserName = "newstaffuser1@outlook.com",
-                Email = "newstaffuser1@outlook.com"
+                Email = "newstaffuser1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "newstaffuser1@outlook.com"))
             {
@@ -231,7 +239,8 @@ namespace HospiceNiagara.Migrations
             var welcomedeskuser = new ApplicationUser
             {
                 UserName = "welcomedesk1@outlook.com",
-                Email = "welcomedesk1@outlook.com"
+                Email = "welcomedesk1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "welcomedesk1@outlook.com"))
             {
@@ -242,7 +251,8 @@ namespace HospiceNiagara.Migrations
             var boarduser = new ApplicationUser
             {
                 UserName = "board1@outlook.com",
-                Email = "board1@outlook.com"
+                Email = "board1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "board1@outlook.com"))
             {
@@ -253,7 +263,8 @@ namespace HospiceNiagara.Migrations
             var auditfinanceuser = new ApplicationUser
             {
                 UserName = "auditfinance1@outlook.com",
-                Email = "auditfinance1@outlook.com"
+                Email = "auditfinance1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "auditfinance1@outlook.com"))
             {
@@ -264,7 +275,8 @@ namespace HospiceNiagara.Migrations
             var communityrelationsuser = new ApplicationUser
             {
                 UserName = "communityrelations1@outlook.com",
-                Email = "communityrelations1@outlook.com"
+                Email = "communityrelations1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "communityrelations1@outlook.com"))
             {
@@ -275,7 +287,8 @@ namespace HospiceNiagara.Migrations
             var operationsqualityuser = new ApplicationUser
             {
                 UserName = "operationsquality1@outlook.com",
-                Email = "operationsquality1@outlook.com"
+                Email = "operationsquality1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "operationsquality1@outlook.com"))
             {
@@ -286,7 +299,8 @@ namespace HospiceNiagara.Migrations
             var newboardmemberuser = new ApplicationUser
             {
                 UserName = "newboardmember1@outlook.com",
-                Email = "newboardmember1@outlook.com"
+                Email = "newboardmember1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "newboardmember1@outlook.com"))
             {
@@ -297,7 +311,8 @@ namespace HospiceNiagara.Migrations
             var volunteeruser = new ApplicationUser
             {
                 UserName = "volunteer1@outlook.com",
-                Email = "volunteer1@outlook.com"
+                Email = "volunteer1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "volunteer1@outlook.com"))
             {
@@ -308,7 +323,8 @@ namespace HospiceNiagara.Migrations
             var bereavementuser = new ApplicationUser
             {
                 UserName = "bereavement1@outlook.com",
-                Email = "bereavement1@outlook.com"
+                Email = "bereavement1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "bereavement1@outlook.com"))
             {
@@ -319,7 +335,8 @@ namespace HospiceNiagara.Migrations
             var dayhospiceuser = new ApplicationUser
             {
                 UserName = "dayhospice1@outlook.com",
-                Email = "dayhospice1@outlook.com"
+                Email = "dayhospice1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "dayhospice1@outlook.com"))
             {
@@ -330,7 +347,8 @@ namespace HospiceNiagara.Migrations
             var nonclientuser = new ApplicationUser
             {
                 UserName = "nonclient1@outlook.com",
-                Email = "nonclient1@outlook.com"
+                Email = "nonclient1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "nonclient1@outlook.com"))
             {
@@ -341,7 +359,8 @@ namespace HospiceNiagara.Migrations
             var nonadminuser = new ApplicationUser
             {
                 UserName = "nonadmin1@outlook.com",
-                Email = "nonadmin1@outlook.com"
+                Email = "nonadmin1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "nonadmin1@outlook.com"))
             {
@@ -352,7 +371,8 @@ namespace HospiceNiagara.Migrations
             var newvolunteeruser = new ApplicationUser
             {
                 UserName = "newvolunteer1@outlook.com",
-                Email = "newvolunteer1@outlook.com"
+                Email = "newvolunteer1@outlook.com",
+                UserDOB = DateTime.Today
             };
             if (!context.Users.Any(u => u.UserName == "newvolunteer1@outlook.com"))
             {

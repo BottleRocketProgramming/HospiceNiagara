@@ -24,7 +24,6 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(string searchString, int? id)
         {
-            var c = 0;
             var uRole = db.RoleLists;
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();
@@ -140,7 +139,16 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            return View(fileStorage);
+            var FileUserRoles =  fileStorage.FileStoreUserRoles;
+
+            foreach (var ur in FileUserRoles)
+            {
+                if (User.IsInRole(ur.RoleName))
+                {
+                    return View(fileStorage);
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: FileStorages/Edit/5

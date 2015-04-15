@@ -65,25 +65,37 @@ namespace HospiceNiagara.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage="Email address is required")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "First name is required")]
         [Display(Name="First Name")]
         public string UserFName { get; set; }
 
         [Display(Name = "Middle Name")]
         public string UserMName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "last name is required")]
         [Display(Name = "Last Name")]
         public string UserLName { get; set; }
 
         [Display(Name="Date of Birth")]
+        [Required(ErrorMessage="User Date of Birth is required")]
         [DataType(DataType.DateTime)]
-        public DateTime? UserDOB { get; set; }
+        public DateTime UserDOB { get; set; }
+
+        [Display(Name = "Date of Birth")]
+        public string UserDOBString
+        {
+            get
+            {
+               
+                    return this.UserDOB.ToLongDateString();
+               
+            }
+        }
 
         [Display(Name = "Address")]
         public string UserAddress { get; set; }
@@ -91,7 +103,7 @@ namespace HospiceNiagara.Models
         [Display(Name = "Home Phone")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Password is required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
