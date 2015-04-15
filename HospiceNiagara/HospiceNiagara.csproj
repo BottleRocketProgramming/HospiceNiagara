@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201504141623205_JoinBoardContWithAppUser.Designer.cs">
       <DependentUpon>201504141623205_JoinBoardContWithAppUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504151632425_forcePaswordReset.cs" />
+    <Compile Include="Migrations\201504151632425_forcePaswordReset.Designer.cs">
+      <DependentUpon>201504151632425_forcePaswordReset.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -440,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504141623205_JoinBoardContWithAppUser.resx">
       <DependentUpon>201504141623205_JoinBoardContWithAppUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504151632425_forcePaswordReset.resx">
+      <DependentUpon>201504151632425_forcePaswordReset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -24,6 +24,7 @@ namespace HospiceNiagara
             // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
+                ExpireTimeSpan = TimeSpan.FromMinutes(20),
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider

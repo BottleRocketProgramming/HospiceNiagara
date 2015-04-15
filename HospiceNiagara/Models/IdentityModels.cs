@@ -60,6 +60,9 @@ namespace HospiceNiagara.Models
         //public virtual ICollection<JobDescription> JobDescriptions { get; set; }
         //public virtual ICollection<Announcement> UserAnnouncements { get; set; }
         //public virtual ICollection<RoleList> RoleLists { get; set; }
+
+        public bool PasswordChanged { get; set; }
+
         public virtual ICollection<BoardContact> BoardContacts { get; set; }
         public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }
 
