@@ -91,7 +91,15 @@ namespace HospiceNiagara.Controllers
                     switch (result)
                     {
                         case SignInStatus.Success:
-                            return RedirectToLocal(returnUrl);
+                            if(appUserEmailConf.PasswordChanged)
+                            {
+                                return RedirectToLocal(returnUrl);
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Manage/ChangePassword");
+                            }
+                            
                         case SignInStatus.LockedOut:
                             return View("Lockout");
                         case SignInStatus.RequiresVerification:
@@ -182,6 +190,7 @@ namespace HospiceNiagara.Controllers
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));                
                 ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber  };
                 user.EmailConfirmed = false;
+                user.PasswordChanged = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
