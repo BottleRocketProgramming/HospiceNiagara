@@ -393,6 +393,7 @@
     <Content Include="Views\Staffcontact\Details.cshtml" />
     <Content Include="Views\Staffcontact\Edit.cshtml" />
     <Content Include="Views\Staffcontact\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
