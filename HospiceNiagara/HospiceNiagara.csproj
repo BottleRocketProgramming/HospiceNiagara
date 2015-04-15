@@ -180,6 +180,7 @@
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\StaffcontactController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
+    <Compile Include="Extentions\Err.cs" />
     <Compile Include="Extentions\Extentions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
