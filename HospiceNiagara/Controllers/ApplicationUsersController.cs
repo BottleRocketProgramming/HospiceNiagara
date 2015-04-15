@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
 using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 //Paul Boyko April 2015
 
@@ -16,6 +18,7 @@ namespace HospiceNiagara.Controllers
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext context = new ApplicationDbContext();
 
         // GET: ApplicationUsers
         [Authorize(Roles = "Administrator")]
@@ -101,16 +104,25 @@ namespace HospiceNiagara.Controllers
         // POST: FileCats/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost, ActionName("Edit")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult EditPost([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")] string Id)
+        public ActionResult Edit([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")]ApplicationUser user, string Id)
         {
-            var user = db.Users.Find(Id);
-            var has = user.PasswordHash;
+           
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser aUser = manager.FindById(user.Id);
+            aUser.UserFName = user.UserFName;
+            aUser.UserMName = user.UserMName;
+            aUser.UserLName = user.UserLName;
+            aUser.UserAddress = user.UserAddress;
+            aUser.PhoneNumber = user.PhoneNumber;
+            //ApplicationUser user = manager.FindById(Id);
+            
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                var result = manager.Update(aUser);
+                //db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
