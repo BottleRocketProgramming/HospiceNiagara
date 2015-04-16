@@ -143,8 +143,8 @@
 </div>
 
 @* Death Notice Poem *@
-<div style="text-align: center;">
-    <h2 class="handwriting">
+<div style="margin-left: auto;margin-right: auto;">
+    <p class="handwriting">
         @{
             HospiceNiagara.ViewModels.DnPoemVM poem = ViewBag.DnPoem;
             if (poem != null)
@@ -152,8 +152,10 @@
                 @Html.Raw(poem.DnPoem);
             }
         }
-    </h2>
+    </p>
 </div>
+
+
 
 
 
