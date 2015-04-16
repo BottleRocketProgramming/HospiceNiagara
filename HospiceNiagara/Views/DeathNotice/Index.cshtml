@@ -70,6 +70,7 @@
 
             </table>
         </div>
+       
 
         @* Panel for Create Death Notice *@
         <div id="newDeathNotice" class="panel-body" hidden>
@@ -140,6 +141,21 @@
         </div>
     </div>
 </div>
+
+@* Death Notice Poem *@
+<div style="text-align: center;">
+    <h2 class="handwriting">
+        @{
+            HospiceNiagara.ViewModels.DnPoemVM poem = ViewBag.DnPoem;
+            if (poem != null)
+            {
+                @Html.Raw(poem.DnPoem);
+            }
+        }
+    </h2>
+</div>
+
+
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")

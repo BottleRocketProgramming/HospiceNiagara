@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
 
 //Andreas King March 2015
 
@@ -20,6 +21,29 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator, Staff, Board, Volunteers, Leadership, Admin, Community, Outreach, Residential, New Staff, Audit, Audit & Finance Committee, Community Relations Committee, Operations & Quality Improvement Committee, New Board Members, Bereavement, Day Hospice, Residential, Welcome Desk, New Volunteers")]
         public ActionResult Index(int? id)
         {
+
+            PopulatePoems();
+            
+                //var dnPoems = db.DeathNoticePoems;
+
+                //var viewModel = new List<DnPoemVM>();
+                //int c = 0;
+                //Random rand = new Random();
+                //foreach (var p in dnPoems)
+                //{
+                //    viewModel.Add(new DnPoemVM
+                //    {
+                //        ID = p.ID,
+                //        DnPoem = p.DnPoem,
+
+                //    });
+                //    c++;
+                //}
+                //int randIndex = rand.Next(c);
+
+                //ViewBag.DnPoem = viewModel[randIndex];
+           
+
             ViewData["DeathNoticeList"] = db.DeathNotices.ToList();
 
             ViewData["DeathNoticeID"] = id;
@@ -154,6 +178,29 @@ namespace HospiceNiagara.Controllers
             db.DeathNotices.Remove(deathNotice);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void PopulatePoems()
+        {
+            var dnPoems = db.DeathNoticePoems;
+
+            var viewModel = new List<DnPoemVM>();
+            int c = 0;
+            Random rand = new Random();
+            foreach (var p in dnPoems)
+            {
+                viewModel.Add(new DnPoemVM
+                {
+                    ID = p.ID,
+                    DnPoem = p.DnPoem,
+
+                });
+                c++;
+            }
+            int randIndex = rand.Next(c);
+
+            ViewBag.DnPoem = viewModel[randIndex];
+
         }
 
         protected override void Dispose(bool disposing)
