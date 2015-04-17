@@ -303,11 +303,19 @@ namespace HospiceNiagara.Controllers
             ViewBag.Cat = viewModelCats;
         }
 
-        protected void OnFileException(Exception filterContext)
+        protected override void OnException(ExceptionContext filterContext)
         {
-            var model = new HandleErrorInfo(filterContext, "Controller", "Action");
+            Exception ex = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
 
-                RedirectToAction("Error", new ViewDataDictionary(model));
+            var model = new HandleErrorInfo(filterContext.Exception, "Controller", "Action");
+
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(model)
+            };
+
         }
 
         private void UpdateFileStorageRoles(string[] selectedRoles, FileStorage FileToUpdate)
