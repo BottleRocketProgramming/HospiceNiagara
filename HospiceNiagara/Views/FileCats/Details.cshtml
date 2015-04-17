@@ -4,22 +4,26 @@
     ViewBag.Title = "Details";
 }
 
-<h2>File Category Details</h2>
-
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FileCatName)
-        </dt>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            File Category Details
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.FileCatName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FileCatName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.FileCatName)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>

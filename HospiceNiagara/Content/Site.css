@@ -193,6 +193,7 @@ textarea {
     padding-top:40px;
 }
 
+/*Font Size and Alignment of Recently Passed Poems*/
 .handwritingPoem{
       font-family: 'Rochester', cursive;
       font-size:20px;
@@ -201,6 +202,7 @@ textarea {
       text-align:center;
 }
 
+/*Increases the size of the panel heading font*/
 .panel-heading{
     font-size:20px;
 }

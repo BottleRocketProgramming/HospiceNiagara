@@ -4,62 +4,65 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Contact Details</h2>
-
 <div>
-    <h4>Staff Contact</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ContUser.UserFullName)
-        </dt>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Staff Contact Details
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContUser.UserFullName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContUser.UserFullName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ContUser.UserFullName)
+                </dd>
 
-        @*<dt>
-            @Html.DisplayNameFor(model => model.ContUser.UserLName)
-        </dt>
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.ContUser.UserLName)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContUser.UserLName)
-        </dd>*@
+                    <dd>
+                        @Html.DisplayFor(model => model.ContUser.UserLName)
+                    </dd>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ContUser.Email)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContUser.Email)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContUser.Email)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ContUser.Email)
+                </dd>
 
-        @*<dt>
-            @Html.DisplayNameFor(model => model.JobDescriptions)
-        </dt>
-        <dd>            
-             @Html.DisplayFor(model => model.JobDescriptions)                 
-        </dd>*@
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.JobDescriptions)
+                    </dt>
+                    <dd>
+                         @Html.DisplayFor(model => model.JobDescriptions)
+                    </dd>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ContExten)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContExten)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContExten)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ContExten)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ContWorkCell)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContWorkCell)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContWorkCell)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ContWorkCell)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
