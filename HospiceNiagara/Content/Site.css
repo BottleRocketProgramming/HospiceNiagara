@@ -200,3 +200,7 @@ textarea {
       text-shadow:none;
       text-align:center;
 }
+
+.panel-heading{
+    font-size:20px;
+}
