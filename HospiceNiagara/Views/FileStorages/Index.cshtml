@@ -32,15 +32,15 @@
                     
                      if(url.EndsWith("FileStorages/Index"))
                      {
-                        <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName) </a> </li>
+                        <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
                      }
                      else if(url.EndsWith("FileStorages"))
                      {
-                        <li><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName) </a> </li>
+                        <li><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
                      }
                      else
                      {
-                        <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName) </a> </li>
+                        <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
                      }
                  }
 
@@ -149,6 +149,7 @@
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-2">
                                 <input type="file" name="FileUpload" class="" />
+                                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">

@@ -411,6 +411,7 @@
     <Content Include="Views\DeathNoticePoems\Details.cshtml" />
     <Content Include="Views\DeathNoticePoems\Edit.cshtml" />
     <Content Include="Views\DeathNoticePoems\Index.cshtml" />
+    <Content Include="Views\FileStorages\FileError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

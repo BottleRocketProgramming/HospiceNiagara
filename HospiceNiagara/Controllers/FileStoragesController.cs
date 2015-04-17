@@ -120,15 +120,16 @@ namespace HospiceNiagara.Controllers
                 }
                     else
                     {
-                        throw new System.ArgumentException("File cannot be null", "original");
+                        return View("FileError");
                     }
+                    
                 }
                     
-                catch(Exception ex)
+                catch
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    
                 }
-                return RedirectToAction("Index");
+                return View("Index");
         }
 
         // GET: FileStorages/Details/5
