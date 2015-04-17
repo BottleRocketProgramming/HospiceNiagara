@@ -1,0 +1,115 @@
+﻿@model HospiceNiagara.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ApplicationUser</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserFName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserFName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserMName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserMName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserLName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserLName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+        <dd>
+            @{
+                HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
+                foreach (var r in Model.Roles)
+                {
+
+                    var ur = db.Roles.Where(a => a.Id == r.RoleId).Single();
+                    @Html.DisplayFor(modelItem => ur.Name)
+                    @:<br />
+                }
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserDOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PasswordChanged)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PasswordChanged)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailConfirmed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

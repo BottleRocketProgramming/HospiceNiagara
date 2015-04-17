@@ -26,7 +26,23 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index()
         {
             return View(db.Users.ToList());
-        } 
+        }
+
+        // GET: ApplicationUsers/Details/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(applicationUser);
+        }
       
 
         // GET: ApplicationUsers/Delete/5
