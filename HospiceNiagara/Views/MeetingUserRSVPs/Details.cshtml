@@ -4,63 +4,67 @@
     ViewBag.Title = "Details";
 }
 
-<h2>RSVP Details</h2>
-
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MeetingRSVP.EventTitle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MeetingRSVP.EventTitle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MeetingRSVP.DescriptionTrimmed)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model=> model.MeetingRSVP.DescriptionTrimmed)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MeetingRSVP.EventStart)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MeetingRSVP.EventStart)
-        </dd>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            RSVP Details
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.MeetingRSVP.EventTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MeetingRSVP.EventTitle)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MeetingRSVP.DescriptionTrimmed)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MeetingRSVP.DescriptionTrimmed)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MeetingRSVP.EventStart)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MeetingRSVP.EventStart)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MeetingRSVP.EventEnd)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MeetingRSVP.EventEnd)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MeetingRSVP.EventEnd)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MeetingRSVP.EventEnd)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MeetingRSVP.EventLocation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MeetingRSVP.EventLocation)
-        </dd>
-                
-        <dt>
-            @Html.DisplayNameFor(model => model.ComingYorN)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MeetingRSVP.EventLocation)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MeetingRSVP.EventLocation)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ComingYorN)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ComingYorN)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RSVPNotes)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ComingYorN)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RSVPNotes)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.RSVPNotes)
+                </dt>
 
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.RSVPNotes)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <p>
+
+            @Html.ActionLink("Back to List", "Index")
+        </p>

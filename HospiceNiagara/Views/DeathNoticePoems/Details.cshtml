@@ -4,22 +4,30 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Poem Details</h2>
+@*<h2>Poem Details</h2>*@
 
 <div>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DnPoem)
-        </dt>
+	@*<hr />*@
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Poem Details
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                @*<dt>
+                    @Html.DisplayNameFor(model => model.DnPoem)
+                </dt>*@
 
-        <dd>
-            @Html.DisplayFor(model => model.DnPoem)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.DnPoem)
+                </dd>
+            </dl>
+        </div>
+    </div>
 
-    </dl>
+</dl>
 </div>
-<p>
+<p class="text-center">
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
