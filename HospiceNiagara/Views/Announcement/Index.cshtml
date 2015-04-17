@@ -46,7 +46,7 @@
                                 var url = Request.Url.PathAndQuery;
                                 if(url.EndsWith("Announcement/Index"))
                                 {                              
-                                    <a href=Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceText)</a>
+                                    <a href=Details/@item.ID>@Html.Raw(item.AnnounceText.Replace("\r\n", "<br />"))</a>
                                 }
                                 else
                                 {

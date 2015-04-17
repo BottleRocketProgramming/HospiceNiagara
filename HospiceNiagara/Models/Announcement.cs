@@ -18,6 +18,7 @@ namespace HospiceNiagara.Models
         [Display(Name= "Announcement")]
         [Required(ErrorMessage = "Announcement can not be left blank")]
         [StringLength(1020, ErrorMessage = "Announcement can not exceed 1020 characters")]
+        [DataType(DataType.MultilineText)]
         public string AnnounceText { get; set; }
 
         [Display(Name= "End Date")]
