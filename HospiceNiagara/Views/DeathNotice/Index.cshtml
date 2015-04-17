@@ -5,7 +5,7 @@
 }
 <link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
 @* Div for Deathnotice List and CRUD *@
-<div class="col-md-9">
+<div class="col-md-12">
     <div class="panel panel-success">
         <div class="panel-heading handwriting-title">
             <span id="deathNoticeTitle">Recently Passed</span>
@@ -146,16 +146,18 @@
 
 
 @* Death Notice Poem *@
-<div class="col-md-3" id="deathnoticePoem">
-    <p class="handwriting">
-        @{
-            HospiceNiagara.ViewModels.DnPoemVM poem = ViewBag.DnPoem;
-            if (poem != null)
-            {
-                @Html.Raw(poem.DnPoem);
+<div class="col-md-offset-5">
+    <div class="col-md-6" id="deathnoticePoem">
+        <p class="handwritingPoem">
+            @{
+                HospiceNiagara.ViewModels.DnPoemVM poem = ViewBag.DnPoem;
+                if (poem != null)
+                {
+                    @Html.Raw(poem.DnPoem);
+                }
             }
-        }
-    </p>
+        </p>
+    </div>
 </div>
 
 
