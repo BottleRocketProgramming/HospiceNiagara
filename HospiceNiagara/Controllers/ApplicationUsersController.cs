@@ -10,6 +10,7 @@ using HospiceNiagara.Models;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using HospiceNiagara.ViewModels;
 
 //Paul Boyko April 2015
 
@@ -110,6 +111,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            PopulateAssignedRoles(user);
             return View(user);
         }
 
@@ -119,17 +121,33 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")]ApplicationUser user, string Id)
+        public ActionResult Edit([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")]ApplicationUser user, string Id, string[] selectedRoles)
         {
            
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             ApplicationUser aUser = manager.FindById(user.Id);
+            var r = db.IdentUserRoles.Where(u => u.UserId == aUser.Id);
             aUser.UserFName = user.UserFName;
             aUser.UserMName = user.UserMName;
             aUser.UserLName = user.UserLName;
             aUser.UserAddress = user.UserAddress;
             aUser.PhoneNumber = user.PhoneNumber;
             //ApplicationUser user = manager.FindById(Id);
+            //PopulateAssignedRoles(aUser);
+            foreach(var ur in r)
+            {
+                db.IdentUserRoles.Remove(ur);
+            }
+            if (selectedRoles != null)
+            {
+                foreach (var aur in selectedRoles)
+                {
+                    var newRole = db.Roles.Where(a => a.Id == aur).Single();
+                    var result = manager.AddToRole(aUser.Id, newRole.Name);
+
+                }
+            }
+
             
             if (ModelState.IsValid)
             {
@@ -154,6 +172,24 @@ namespace HospiceNiagara.Controllers
                 ViewData = new ViewDataDictionary(model)
             };
 
+        }
+
+        public void PopulateAssignedRoles(ApplicationUser applicationUser)
+        {
+            var allRole = db.Roles.OrderBy(r => r.Name);
+            var aRoles = new HashSet<string>(applicationUser.Roles.Select(r => r.RoleId));
+            var viewModel = new List<NetRollVM>();
+            foreach (var roll in allRole)
+            {
+                viewModel.Add(new NetRollVM
+                {
+                    RoleID = roll.Id,
+                    RoleName = roll.Name,                    
+                    RoleAssigned = aRoles.Contains(roll.Id)
+                });
+            }
+
+            ViewBag.RolesLists = viewModel;
         }
 
         protected override void Dispose(bool disposing)
