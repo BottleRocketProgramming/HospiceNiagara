@@ -1,4 +1,5 @@
-﻿@*Andreas King April 2015*@
+﻿@using HospiceNiagara.Models
+@*Andreas King April 2015*@
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,18 @@
                     
                         @Html.ActionLink("Hospice Niagara Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand brandName", @style = "color:white;" })
                 </div>
-                @if (User.Identity.IsAuthenticated)
+                @{
+                    HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
+                var cU = User.Identity.Name;
+                ApplicationUser u = new ApplicationUser(); 
+                if(cU != null  && cU != "")
+                { 
+                    u = db.Users.Where(i=>i.UserName == cU).Single();
+                }
+                
+                                       
+               
+                if (User.Identity.IsAuthenticated && u.PasswordChanged)
                 {
                     <div class="navbar-collapse collapse nav-text">
                         <ul class="nav navbar-nav navbar-down-right navbar-right nav-text">
@@ -41,6 +53,7 @@
                             }
                         </ul>
                     </div>
+                }
                 }
                 <div class="nav navbar-nav navbar-fixed-top">
                     @Html.Partial("_LoginPartial")

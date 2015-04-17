@@ -10,20 +10,23 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </th>   
+        @*<th>
             @Html.DisplayNameFor(model => model.Email)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.EmailConfirmed)
         </th>       
+        
         <th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>      
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserFullName)
-        </th>
+       
+        
         @*<th>
             @Html.DisplayNameFor(model => model.UserMName)
         </th>
@@ -42,20 +45,22 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>        
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>       
-        <td>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserFullName)
         </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+        </td>  
+          
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>       
+        
         @*<td>
             @Html.DisplayFor(modelItem => item.UserMName)
         </td>

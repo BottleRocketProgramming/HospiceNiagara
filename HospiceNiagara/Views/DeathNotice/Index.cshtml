@@ -3,21 +3,22 @@
 @{
     ViewBag.Title = "Index";
 }
-<link href="http://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
 @* Div for Deathnotice List and CRUD *@
-<div class="panel panel-success">
-    <div class="panel-heading handwriting-title">
-        <span id="deathNoticeTitle" >Recently Passed</span>
-        <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
-        @if (User.IsInRole("Administrator"))
-        {
-            <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
-        }
-    </div>
-    <div id="panelDeathNoticeContent">
-        @* Div for death notice List view *@
-        <div id="deathNoticeContent" class="panel-body">
-            <table class="table ">
+<div class="col-md-9">
+    <div class="panel panel-success">
+        <div class="panel-heading handwriting-title">
+            <span id="deathNoticeTitle">Recently Passed</span>
+            <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
+            @if (User.IsInRole("Administrator"))
+            {
+                <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
+            }
+        </div>
+        <div id="panelDeathNoticeContent">
+            @* Div for death notice List view *@
+            <div id="deathNoticeContent" class="panel-body">
+                <table class="table ">
                     <tr>
                         <th class="handwriting">
                             @Html.DisplayNameFor(model => model.DnFullName)
@@ -25,62 +26,63 @@
                         <th class="handwriting">
                             @Html.DisplayNameFor(model => model.DnDate)
                         </th>
-                       
+
                         <th class="handwriting">
                             @Html.DisplayNameFor(model => model.DnLocation)
                         </th>
                         <th class="handwriting">
                             @Html.DisplayNameFor(model => model.DnNotes)
                         </th>
-                        @if(User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Administrator"))
                         {
-                        <th></th>
+                            <th></th>
                         }
                     </tr>
 
-                @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
+                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
+                    {
+
+                        <tr>
+                            <td class="handwriting">
+                                @Html.DisplayFor(modelItem => item.DnFullName)
+                            </td>
+                            <td class="handwriting">
+                                @Html.DisplayFor(modelItem => item.DnDateString)
+                            </td>
+
+                            <td class="handwriting">
+                                @Html.DisplayFor(modelItem => item.DnLocation)
+                            </td>
+                            <td class="handwriting">
+                                @Html.DisplayFor(modelItem => item.DnNotes)
+                            </td>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                </td>
+                            }
+                        </tr>
+                    }
+
+
+
+                </table>
+            </div>
+
+
+            @* Panel for Create Death Notice *@
+            <div id="newDeathNotice" class="panel-body" hidden>
+
+                @using (Html.BeginForm())
                 {
+                    @Html.AntiForgeryToken()
 
-                    <tr>
-                        <td class="handwriting">
-                            @Html.DisplayFor(modelItem => item.DnFullName)
-                        </td>
-                        <td class="handwriting">
-                            @Html.DisplayFor(modelItem => item.DnDateString)
-                        </td>
-               
-                        <td class="handwriting">
-                            @Html.DisplayFor(modelItem => item.DnLocation)
-                        </td>
-                        <td class="handwriting">
-                            @Html.DisplayFor(modelItem => item.DnNotes)
-                        </td>
-                        @if(User.IsInRole("Administrator"))
-                        {
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                        </td>
-                        }
-                    </tr>
-                }
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
-
-            </table>
-        </div>
-
-        @* Panel for Create Death Notice *@
-        <div id="newDeathNotice" class="panel-body" hidden>
-
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    
                         <div class="form-group">
 
                             @Html.LabelFor(model => model.DnFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -106,13 +108,13 @@
                             </div>
                         </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.DnDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.DnDate, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DnDate, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DnDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DnDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DnDate, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.DnLocation, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -129,17 +131,36 @@
                                 @Html.ValidationMessageFor(model => model.DnNotes, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" name="CreateDeathNotice" class="btn btn-primary"> |
-                            @Html.ActionLink("Back to List", "Index")
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" name="CreateDeathNotice" class="btn btn-primary"> |
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
 </div>
+
+
+@* Death Notice Poem *@
+<div class="col-md-3" id="deathnoticePoem">
+    <p class="handwriting">
+        @{
+            HospiceNiagara.ViewModels.DnPoemVM poem = ViewBag.DnPoem;
+            if (poem != null)
+            {
+                @Html.Raw(poem.DnPoem);
+            }
+        }
+    </p>
+</div>
+
+
+
+
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")

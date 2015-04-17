@@ -52,36 +52,38 @@ namespace HospiceNiagara.Controllers
             {
                 allFileForList = allFileForList.Where(f => f.FileDescription.ToUpper().Contains(searchString.ToUpper()) || f.FileName.ToUpper().Contains(searchString.ToUpper()));
             }
-            var fs = allFileForList.ToList().Distinct();
-            var viewModel = new List<FileStorageVM>();
-            foreach (var f in fs)
-            {
-                viewModel.Add(new FileStorageVM
-                            {
-                                ID = f.ID,
-                                FileName = f.FileName,
-                                MimeType = f.MimeType,
-                                FileDescription = f.FileDescription,
-                                FileUploadDate = f.FileUploadDate
-                            });
-            }
+            //var fs = allFileForList.ToList().Distinct();
+            //var viewModel = new List<FileStorageVM>();
+            //foreach (var f in fs)
+            //{
+            //    viewModel.Add(new FileStorageVM
+            //                {
+            //                    ID = f.ID,
+            //                    FileName = f.FileName,
+            //                    MimeType = f.MimeType,
+            //                    FileDescription = f.FileDescription,
+            //                    FileUploadDate = f.FileUploadDate
+            //                });
+            //}
+            ViewData["Files"] = allFileForList.ToList().Distinct();
                       
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
         [OnAction(ButtonName = "UploadFile")]
         [Authorize(Roles = "Administrator")]
+        [HandleError()]
         public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
-            try
-            {
                 DateTime uploadDate = DateTime.Now;
                 string mimeType = Request.Files[0].ContentType;
                 string fileName = Path.GetFileName(Request.Files[0].FileName);
                 int fileLenght = Request.Files[0].ContentLength;
-                if (!(fileName == "" || fileLenght == 0))
+                try
                 {
+                    if (!(fileName == "" || fileLenght == 0))
+                    {
                     Stream fileStream = Request.Files[0].InputStream;
                     byte[] fileData = new byte[fileLenght];
                     fileStream.Read(fileData, 0, fileLenght);
@@ -116,14 +118,18 @@ namespace HospiceNiagara.Controllers
                     db.FileStorages.Add(newFile);
                     db.SaveChanges();
                 }
-            }
-            catch (DataException)
-            {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
-            
-
-            return RedirectToAction("Index");
+                    else
+                    {
+                        return View("FileError");
+                    }
+                    
+                }
+                    
+                catch
+                {
+                    
+                }
+                return View("Index");
         }
 
         // GET: FileStorages/Details/5
@@ -297,6 +303,21 @@ namespace HospiceNiagara.Controllers
             ViewBag.Cat = viewModelCats;
         }
 
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception ex = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
+
+            var model = new HandleErrorInfo(filterContext.Exception, "Controller", "Action");
+
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(model)
+            };
+
+        }
+
         private void UpdateFileStorageRoles(string[] selectedRoles, FileStorage FileToUpdate)
         {
             if (selectedRoles == null)
@@ -326,6 +347,7 @@ namespace HospiceNiagara.Controllers
                 }
             }
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

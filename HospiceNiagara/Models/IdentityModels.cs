@@ -115,6 +115,8 @@ namespace HospiceNiagara.Models
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.StaffContact> StaffContacts { get; set; }
 
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.DeathNoticePoems> DeathNoticePoems { get; set; }
+
         //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> ApplicationUsers { get; set; }
 
       

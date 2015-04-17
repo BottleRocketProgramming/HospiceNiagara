@@ -54,6 +54,8 @@ namespace HospiceNiagara.Controllers
             //{
                 ApplicationUser applicationUser = db.Users.Find(id);
                 List<MeetingUserRSVP> uMeet = applicationUser.MeetingUserRSVPs.ToList();
+                List<BoardContact> bCont = applicationUser.BoardContacts.ToList();
+                List<StaffContact> sCont = applicationUser.StaffContacts.ToList();
                 var uRole = applicationUser.Roles.ToList();
                 foreach(var m in uMeet)
                 {
@@ -72,6 +74,16 @@ namespace HospiceNiagara.Controllers
                         db.IdentUserRoles.Remove(rr);
                     }
                     
+                }
+                foreach(var b in bCont)
+                {
+                    var userBContToRemove = db.BoardContacts.Where(u => u.AppUser.Id == b.AppUser.Id).Single();
+                    db.BoardContacts.Remove(userBContToRemove);
+                }
+                foreach(var s in sCont)
+                {
+                    var userSContToRemove = db.StaffContacts.Where(u => u.ContUser.Id == s.ContUser.Id).Single();
+                    db.StaffContacts.Remove(userSContToRemove);
                 }
                 db.Users.Remove(applicationUser);
                 db.SaveChanges();
@@ -127,6 +139,21 @@ namespace HospiceNiagara.Controllers
                 return RedirectToAction("Index");
             }
             return View(user);
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception ex = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
+
+            var model = new HandleErrorInfo(filterContext.Exception, "Controller", "Action");
+
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(model)
+            };
+
         }
 
         protected override void Dispose(bool disposing)
