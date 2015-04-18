@@ -85,6 +85,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            PopulateAssignedCat(fileSubCat);
             return View(fileSubCat);
         }
 
@@ -94,10 +95,11 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,FileSubCatName,FileCatFK")] FileSubCat fileSubCat, string selectedCats)
+        public ActionResult Edit([Bind(Include = "ID,FileSubCatName,FileCatFK")] FileSubCat fileSubCat, int selectedCats)
         {
             if (ModelState.IsValid)
             {
+                fileSubCat.FileCatFK = selectedCats;
                 db.Entry(fileSubCat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

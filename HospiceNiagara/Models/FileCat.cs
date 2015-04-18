@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,8 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
+        [Display(Name="File Catigory Name")]
+        [Required(ErrorMessage="File Catigory Name")]
         public string FileCatName { get; set; }
 
         public virtual ICollection<FileSubCat> FileSubCats { get; set; }

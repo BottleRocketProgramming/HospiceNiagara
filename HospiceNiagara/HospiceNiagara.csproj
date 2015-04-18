@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201504160037099_DnPoems.Designer.cs">
       <DependentUpon>201504160037099_DnPoems.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504181608463_syncUp.cs" />
+    <Compile Include="Migrations\201504181608463_syncUp.Designer.cs">
+      <DependentUpon>201504181608463_syncUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -465,6 +469,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504160037099_DnPoems.resx">
       <DependentUpon>201504160037099_DnPoems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504181608463_syncUp.resx">
+      <DependentUpon>201504181608463_syncUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

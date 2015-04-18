@@ -26,7 +26,12 @@
             @Html.DisplayFor(modelItem => item.FileSubCatName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FileCatFK)
+            @{
+                HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
+                var i = db.FileCats.Where(a => a.ID == item.FileCatFK).Single();
+                @Html.DisplayFor(modelItem => i.FileCatName)
+             }
+           
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
