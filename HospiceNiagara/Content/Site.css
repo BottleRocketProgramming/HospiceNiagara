@@ -53,7 +53,6 @@ textarea {
 /*pushs navbar navigations down and right*/
 .navbar-down-right {
     padding-top:57px;
-    
 }
 
 .navbar-nav {
@@ -205,4 +204,52 @@ textarea {
 /*Increases the size of the panel heading font*/
 .panel-heading{
     font-size:20px;
+}
+
+#navbarButton{
+    margin-top:30px;
+}
+
+#LogInPartial{
+        margin-right:5px;
+    }
+
+@media (max-width: 1350px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-fixed-top {
+		top: 0;
+		border-width: 0 0 1px;
+	}
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+		margin-top: 7.5px;
+	}
+	.navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+  		display:block !important;
+	}
+    .navbar-down-right {
+        padding-top:0px;
+    }
+    #LogInPartial{
+        margin-left:128px;
+        margin-top:60px;
+    }
 }
