@@ -21,6 +21,7 @@ namespace HospiceNiagara.Models
         [Display(Name="Description")]
         [Required(ErrorMessage = "Event's description can not be left blank")]
         [StringLength(510, ErrorMessage = "Event's discription can not exceed 510 characters")]
+        [DataType(DataType.MultilineText)]
         public string EventDiscription { get; set; }
 
         private int DescriptionLimit = 100;

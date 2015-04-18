@@ -63,7 +63,7 @@
                                 
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DescriptionTrimmed)
+                            @Html.Raw(item.DescriptionTrimmed.Replace("\n", "<br />")))
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EventLocation)

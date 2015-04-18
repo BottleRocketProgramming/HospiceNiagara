@@ -30,7 +30,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.AnnounceText)
+                    @Html.Raw(Html.Encode(Model.AnnounceText).Replace("\n", "<br />"))
                 </dd>
 
                 <dt>

@@ -28,7 +28,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.EventDiscription)
+                    @Html.Raw(Html.Encode(Model.EventDiscription).Replace("\n", "<br />"))
                 </dd>
 
                 <dt>
