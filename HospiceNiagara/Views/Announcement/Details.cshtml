@@ -9,8 +9,8 @@
         <div class="panel-heading">
             Announcement Details
         </div>
-        <div>
-            <div id="storageimage">
+        <div class="panel-body">
+            <div class="text-center">
                 @{
                     foreach (var f in Model.FileStorages)
                     {
@@ -23,7 +23,6 @@
                     }
                 }
             </div>
-        <div class="panel-body">
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.AnnounceText)
@@ -42,7 +41,6 @@
                 </dd>
 
             </dl>
-        </div>
             <p class="text-center">
                 @if (User.IsInRole("Administrator"))
                 {

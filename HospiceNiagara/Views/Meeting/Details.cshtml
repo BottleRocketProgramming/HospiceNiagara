@@ -9,7 +9,7 @@
            @Html.DisplayFor(model => model.EventTitle)
         </div>
         <div class="panel-body">
-            <div id="storageimage">
+            <div class="text-center">
                 @{
                     foreach (var f in Model.FileStores)
                     {
@@ -22,7 +22,7 @@
                     }
                 }
             </div>
-            <dl class="dl-horizontal col-md-11">
+            <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.EventDiscription)
                 </dt>
