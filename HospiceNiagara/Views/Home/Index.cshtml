@@ -107,7 +107,10 @@
                 <span id="welcomeTitle">Welcome</span>
             </div>
             <div id="welcomeContent" class="panel-body text-center">
-                Welcome to the Hospice Niagara Portal!
+                @{
+                    HospiceNiagara.ViewModels.WelcomeNoticeVM wN = ViewBag.WelcomeNotice;
+                    @Html.DisplayFor(model=>wN.WelocomeNotice)
+                 }
             </div>
         </div>
 
