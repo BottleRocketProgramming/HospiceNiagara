@@ -25,7 +25,9 @@
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
                     {
-                             @:<tr>
+                        if(item.AnnounceEndDate > DateTime.Today)
+                        {
+                            @:<tr>
                                 @:<td>
                                 var url = Request.Url.PathAndQuery;
                                 if(url.EndsWith("Home/Index"))
@@ -48,7 +50,7 @@
                                 </td>
                                 }
                     @:</tr>
-                        
+                        }
                     }
 
 
