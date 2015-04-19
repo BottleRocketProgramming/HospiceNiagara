@@ -90,7 +90,7 @@ Hospice Portal README
 <--Limitations that require a web developer-->
 	
 	-Creating or modifying panels other than File Categories and Schedule types
-	-Links and contact information on the contact page
+	-Links and contact information on the home page
 
 
 
