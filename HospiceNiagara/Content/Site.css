@@ -254,6 +254,17 @@ textarea {
     }
 }
 
+@media (max-width: 400px){
+    #brandName{
+        display:none;
+    }
+    #LogInPartial{
+        margin-left:108px;
+        margin-top:25px;
+        width: 50%;
+    }
+}
+
 .glyphicon-plus{
     font-size:18px;
 }
