@@ -196,10 +196,10 @@ namespace HospiceNiagara.Controllers
         public void PopulateAssignedUsers(MeetingUserRSVP meetings)
         {
             var allUsers = db.Users;
-            var veiwModel = new List<UserVM>();
+            var viewModel = new List<UserVM>();
             foreach (var m in allUsers)
             {
-                veiwModel.Add(new UserVM
+                viewModel.Add(new UserVM
                 {
                     UserID = m.Id,
                     UserFName = m.UserFName,
@@ -209,8 +209,43 @@ namespace HospiceNiagara.Controllers
                 });
             }
 
-            ViewBag.User = veiwModel;
+            ViewBag.User = viewModel;
         }
+
+        //public void PopulateAssignedUsers(MeetingUserRSVP meetings)
+        //{
+        //    var allUsers = db.Users;
+        //    var aUsers = new HashSet<string>(meetings.);
+        //    var viewModelAvailible = new List<FileStorageVM>();
+        //    var viewModelSelected = new List<FileStorageVM>();
+        //    foreach (var file in allFile)
+        //    {
+        //        if (aUsers.Contains(file.ID))
+        //        {
+        //            viewModelSelected.Add(new FileStorageVM
+        //            {
+        //                ID = file.ID,
+        //                FileName = file.FileName,
+        //                FileDescription = file.FileDescription,
+        //                FileUploadDate = file.FileUploadDate
+        //            });
+        //        }
+        //        else
+        //        {
+        //            viewModelAvailible.Add(new FileStorageVM
+        //            {
+        //                ID = file.ID,
+        //                FileName = file.FileName,
+        //                FileDescription = file.FileDescription,
+        //                FileUploadDate = file.FileUploadDate
+        //            });
+        //        }
+
+        //    }
+        //    ViewBag.FileStorages = viewModelSelected;
+        //    ViewBag.selFiles = new MultiSelectList(viewModelSelected, "ID", "FileName");
+        //    ViewBag.avlFiles = new MultiSelectList(viewModelAvailible, "ID", "FileName");
+        //}
 
         protected override void OnException(ExceptionContext filterContext)
         {
