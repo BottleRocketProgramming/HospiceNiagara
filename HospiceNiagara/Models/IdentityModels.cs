@@ -117,6 +117,8 @@ namespace HospiceNiagara.Models
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.DeathNoticePoems> DeathNoticePoems { get; set; }
 
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.WelcomeNotice> WelcomeNotices { get; set; }
+
         //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> ApplicationUsers { get; set; }
 
         //public System.Data.Entity.DbSet<HospiceNiagara.Models.ApplicationUser> ApplicationUsers { get; set; }

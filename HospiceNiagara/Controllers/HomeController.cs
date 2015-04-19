@@ -41,6 +41,14 @@ namespace HospiceNiagara.Controllers
                 }
             }
 
+            var welcomeNotice = db.WelcomeNotices.Single();
+            var viewModel = new WelcomeNoticeVM();
+            viewModel.ID = welcomeNotice.ID;
+            viewModel.WelocomeNotice = welcomeNotice.WelocomeNotice;         
+
+            ViewBag.WelcomeNotice = viewModel;
+        
+
             ViewData["AnnouncementOrEvent"] = annForLst.ToList().Distinct();
             ViewData["Meeting"] = meetForList.ToList().Distinct();
             ViewData["Schedule"] = db.Schedules.ToList();

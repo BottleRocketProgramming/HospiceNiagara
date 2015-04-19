@@ -65,7 +65,18 @@
                 {
                 <div id="glyphNewFile" class="glyphicon glyphicon-plus pull-right"></div>
                 }
-                Search
+                @{
+                    HospiceNiagara.ViewModels.SearchDisplayVM dsply = ViewBag.SearchCat;
+                    if(dsply != null)
+                    {
+                        @Html.Raw("Search: " + dsply.SeachCatName + " - " + dsply.SearchSubCatName)
+                    }
+                    else
+                    {
+                         @:Search
+                    }                    
+                }
+                
             </div>
             <div id="fileContent" class="panel-body">
                 <div class="panel-body-toolbar form-inline">

@@ -180,6 +180,7 @@
     <Compile Include="Controllers\SchedTypesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\StaffcontactController.cs" />
+    <Compile Include="Controllers\WelcomeNoticeController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
     <Compile Include="Extentions\Err.cs" />
     <Compile Include="Extentions\Extentions.cs" />
@@ -238,6 +239,10 @@
     <Compile Include="Migrations\201504181608463_syncUp.Designer.cs">
       <DependentUpon>201504181608463_syncUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504190019274_EditableWelcomeNotice.cs" />
+    <Compile Include="Migrations\201504190019274_EditableWelcomeNotice.Designer.cs">
+      <DependentUpon>201504190019274_EditableWelcomeNotice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -256,6 +261,7 @@
     <Compile Include="Models\SchedType.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\StaffContact.cs" />
+    <Compile Include="Models\WelcomeNotice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DnPoemVM.cs" />
@@ -268,7 +274,9 @@
     <Compile Include="ViewModels\RoleVM.cs" />
     <Compile Include="ViewModels\SchdVM.cs" />
     <Compile Include="ViewModels\SchedTypeVM.cs" />
+    <Compile Include="ViewModels\SearchDisplayVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
+    <Compile Include="ViewModels\WelcomeNoticeVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -418,6 +426,11 @@
     <Content Include="Views\DeathNoticePoems\Index.cshtml" />
     <Content Include="Views\FileStorages\FileError.cshtml" />
     <Content Include="Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Views\WelcomeNotice\Create.cshtml" />
+    <Content Include="Views\WelcomeNotice\Delete.cshtml" />
+    <Content Include="Views\WelcomeNotice\Details.cshtml" />
+    <Content Include="Views\WelcomeNotice\Edit.cshtml" />
+    <Content Include="Views\WelcomeNotice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -472,6 +485,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504181608463_syncUp.resx">
       <DependentUpon>201504181608463_syncUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504190019274_EditableWelcomeNotice.resx">
+      <DependentUpon>201504190019274_EditableWelcomeNotice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
