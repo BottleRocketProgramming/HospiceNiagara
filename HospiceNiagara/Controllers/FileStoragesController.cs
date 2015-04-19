@@ -45,12 +45,24 @@ namespace HospiceNiagara.Controllers
            
             if(id != null && id != 0)
             {
-                allFileForList =allFileForList.Where(f => f.FileSubCats.Any(sc => sc.ID == id));
+                allFileForList =allFileForList.Where(f => f.FileSubCats.Any(sc => sc.ID == id));                
+                var searchSubCat = db.FileSubCats.Where(a=>a.ID == id).Single();
+                var searchCat = db.FileCats.Where(b => b.ID == searchSubCat.FileCatFK).Single();
+                var viewModel = new SearchDisplayVM();
+                viewModel.SearchSubCatName = searchSubCat.FileSubCatName;
+                viewModel.SeachCatName = searchCat.FileCatName;
+
+                ViewBag.SearchCat = viewModel;
             }
     
             if(!String.IsNullOrEmpty(searchString))
             {
                 allFileForList = allFileForList.Where(f => f.FileDescription.ToUpper().Contains(searchString.ToUpper()) || f.FileName.ToUpper().Contains(searchString.ToUpper()));
+                var viewModel = new SearchDisplayVM();
+                viewModel.SeachCatName = "User Searched";
+                viewModel.SearchSubCatName = searchString;
+
+                ViewBag.SearchCat = viewModel;
             }
             //var fs = allFileForList.ToList().Distinct();
             //var viewModel = new List<FileStorageVM>();

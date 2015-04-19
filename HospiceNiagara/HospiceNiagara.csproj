@@ -274,6 +274,7 @@
     <Compile Include="ViewModels\RoleVM.cs" />
     <Compile Include="ViewModels\SchdVM.cs" />
     <Compile Include="ViewModels\SchedTypeVM.cs" />
+    <Compile Include="ViewModels\SearchDisplayVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
     <Compile Include="ViewModels\WelcomeNoticeVM.cs" />
   </ItemGroup>
