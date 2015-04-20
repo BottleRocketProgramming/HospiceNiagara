@@ -186,7 +186,8 @@ namespace HospiceNiagara.Controllers
                 veiwModel.Add(new MettingVM
                 {
                     MeetingId = m.ID,
-                    MeetingName = m.DescriptionTrimmed,
+                    MeetingName = m.EventTitle,
+                    MeetingDesc = m.DescriptionTrimmed
                 });
             }
 

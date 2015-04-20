@@ -9,6 +9,6 @@ namespace HospiceNiagara.ViewModels
     {
         public int MeetingId { get; set; }
         public string MeetingName { get; set; }
-        
+        public string MeetingDesc { get; set; }
     }
 }
