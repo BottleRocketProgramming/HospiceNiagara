@@ -29,27 +29,21 @@
                                 @:id="scheduleBody"
                             }} class="panel-body">
                         <table class="table">
-                            @foreach (var s in schd)
+                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedules"])
                             {
-                                if (st.ID == s.SchedType.ID)
+                                if (st.ID == item.SchedType.ID)
                                 {
-                                    
-                                        @*<tr>                                        
-                                        @if (User.IsInRole("Administrator"))
-                                        {
-                                            <th></th>
-                                        }
-                                        </tr>*@                   
+                                                     
                                         <tr>
                                         <td>
-                                               <a target="_blank" href="@s.SchedLink">@Html.DisplayFor(modelItem => s.SchedName) </a>
+                                               <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                        </td>
                                         @if (User.IsInRole("Administrator"))
                                         {
                                               <td>
-                                                 @Html.ActionLink("Edit", "Edit", new { id = s.ID }) |
-                                                 @Html.ActionLink("Details", "Details", new { id = s.ID }) |
-                                                 @Html.ActionLink("Delete", "Delete", new { id = s.ID })
+                                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                                </td>
                                          }
                                          </tr>                                  
