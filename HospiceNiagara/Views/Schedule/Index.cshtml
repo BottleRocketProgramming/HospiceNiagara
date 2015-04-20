@@ -22,9 +22,6 @@
                             <div id="glyphNewSchedule" class="glyphicon glyphicon-plus pull-right"></div>
                         }
                     </div>
-                    @*<div class="panel-heading">
-                        @Html.DisplayFor(modelItem => st.SchedTypeName)
-                    </div>*@
                     <div @{ if(firstPanel==false){
                                 @:id="scheduleBody"
                             }} class="panel-body">
@@ -33,7 +30,6 @@
                             {
                                 if (st.ID == item.SchedType.ID)
                                 {
-                                                     
                                         <tr>
                                         <td>
                                                <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
