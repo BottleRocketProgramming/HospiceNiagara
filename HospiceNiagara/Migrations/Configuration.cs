@@ -148,7 +148,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "administrator1@outlook.com"))
             {
-                manager.Create(administratoruser, "password");
+                manager.Create(administratoruser, "Password1");
                 manager.AddToRole(administratoruser.Id, "Administrator");
             }
 
@@ -160,7 +160,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "staff1@outlook.com"))
             {
-                manager.Create(staffuser, "password");
+                manager.Create(staffuser, "Password1");
                 manager.AddToRole(staffuser.Id, "Staff");
             }
 
@@ -172,7 +172,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "leadership1@outlook.com"))
             {
-                manager.Create(leadershipuser, "password");
+                manager.Create(leadershipuser, "Password1");
                 manager.AddToRole(leadershipuser.Id, "Leadership");
             }
 
@@ -184,7 +184,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "admin1@outlook.com"))
             {
-                manager.Create(adminuser, "password");
+                manager.Create(adminuser, "Password1");
                 manager.AddToRole(adminuser.Id, "Admin");
             }
 
@@ -196,7 +196,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "community1@outlook.com"))
             {
-                manager.Create(communityuser, "password");
+                manager.Create(communityuser, "Password1");
                 manager.AddToRole(communityuser.Id, "Community");
             }
 
@@ -208,7 +208,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "outreach1@outlook.com"))
             {
-                manager.Create(outreachuser, "password");
+                manager.Create(outreachuser, "Password1");
                 manager.AddToRole(outreachuser.Id, "Outreach");
             }
 
@@ -220,7 +220,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "residential1@outlook.com"))
             {
-                manager.Create(residentialuser, "password");
+                manager.Create(residentialuser, "Password1");
                 manager.AddToRole(residentialuser.Id, "Residential");
             }
 
@@ -232,7 +232,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "newstaffuser1@outlook.com"))
             {
-                manager.Create(newstaffuser, "password");
+                manager.Create(newstaffuser, "Password1");
                 manager.AddToRole(newstaffuser.Id, "New Staff");
             }
 
@@ -244,7 +244,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "welcomedesk1@outlook.com"))
             {
-                manager.Create(welcomedeskuser, "password");
+                manager.Create(welcomedeskuser, "Password1");
                 manager.AddToRole(welcomedeskuser.Id, "Welcome Desk");
             }
 
@@ -256,7 +256,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "board1@outlook.com"))
             {
-                manager.Create(boarduser, "password");
+                manager.Create(boarduser, "Password1");
                 manager.AddToRole(boarduser.Id, "Board");
             }
 
@@ -268,7 +268,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "auditfinance1@outlook.com"))
             {
-                manager.Create(auditfinanceuser, "password");
+                manager.Create(auditfinanceuser, "Password1");
                 manager.AddToRole(auditfinanceuser.Id, "Audit & Finance Committee");
             }
 
@@ -280,7 +280,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "communityrelations1@outlook.com"))
             {
-                manager.Create(communityrelationsuser, "password");
+                manager.Create(communityrelationsuser, "Password1");
                 manager.AddToRole(communityrelationsuser.Id, "Community Relations Committee");
             }
 
@@ -292,7 +292,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "operationsquality1@outlook.com"))
             {
-                manager.Create(operationsqualityuser, "password");
+                manager.Create(operationsqualityuser, "Password1");
                 manager.AddToRole(operationsqualityuser.Id, "Operations & Quality Improvement Committee");
             }
 
@@ -304,7 +304,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "newboardmember1@outlook.com"))
             {
-                manager.Create(newboardmemberuser, "password");
+                manager.Create(newboardmemberuser, "Password1");
                 manager.AddToRole(newboardmemberuser.Id, "New Board Members");
             }
 
@@ -316,7 +316,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "volunteer1@outlook.com"))
             {
-                manager.Create(volunteeruser, "password");
+                manager.Create(volunteeruser, "Password1");
                 manager.AddToRole(volunteeruser.Id, "Volunteers");
             }
 
@@ -328,7 +328,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "bereavement1@outlook.com"))
             {
-                manager.Create(bereavementuser, "password");
+                manager.Create(bereavementuser, "Password1");
                 manager.AddToRole(bereavementuser.Id, "Bereavement");
             }
 
@@ -340,7 +340,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "dayhospice1@outlook.com"))
             {
-                manager.Create(dayhospiceuser, "password");
+                manager.Create(dayhospiceuser, "Password1");
                 manager.AddToRole(dayhospiceuser.Id, "Day Hospice");
             }
 
@@ -352,7 +352,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "nonclient1@outlook.com"))
             {
-                manager.Create(nonclientuser, "password");
+                manager.Create(nonclientuser, "Password1");
                 manager.AddToRole(nonclientuser.Id, "Non-Client Event");
             }
 
@@ -364,7 +364,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "nonadmin1@outlook.com"))
             {
-                manager.Create(nonadminuser, "password");
+                manager.Create(nonadminuser, "Password1");
                 manager.AddToRole(nonadminuser.Id, "Non-Client Admin");
             }
 
@@ -376,7 +376,7 @@ namespace HospiceNiagara.Migrations
             };
             if (!context.Users.Any(u => u.UserName == "newvolunteer1@outlook.com"))
             {
-                manager.Create(newvolunteeruser, "password");
+                manager.Create(newvolunteeruser, "Password1");
                 manager.AddToRole(newvolunteeruser.Id, "New Volunteers");
             }
 
