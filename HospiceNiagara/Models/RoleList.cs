@@ -23,6 +23,8 @@ namespace HospiceNiagara.Models
 
         public virtual ICollection<Schedule> Schedules { get; set; }
 
+        public virtual ICollection<SchedType> ScheduleTypes { get; set; }
+
         public virtual ICollection<Meeting> Meetings { get; set; }
 
         //public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }

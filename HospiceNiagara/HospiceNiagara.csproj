@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201504190019274_EditableWelcomeNotice.Designer.cs">
       <DependentUpon>201504190019274_EditableWelcomeNotice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504200704579_SchdTypeRole.cs" />
+    <Compile Include="Migrations\201504200704579_SchdTypeRole.Designer.cs">
+      <DependentUpon>201504200704579_SchdTypeRole.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -489,6 +493,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504190019274_EditableWelcomeNotice.resx">
       <DependentUpon>201504190019274_EditableWelcomeNotice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504200704579_SchdTypeRole.resx">
+      <DependentUpon>201504200704579_SchdTypeRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,5 +17,7 @@ namespace HospiceNiagara.Models
         public string SchedTypeName { get; set; }
 
         public virtual ICollection<Schedule> Schedules { get; set; }
+
+        public virtual ICollection<RoleList> RoleLists { get; set; }
     }
 }

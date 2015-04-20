@@ -31,14 +31,18 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedRoles(sched);
 
             var schedForList = db.Schedules.Where(a => a.ID == 0);
+            var schedTypeForList = db.SchedTypes.Where(i => i.ID == 0);
 
             foreach (var r in cUserRole)
             {
                 if (User.IsInRole(r.RoleName))
                 {
                     var schd = db.Schedules.Include(a => a.ScheduleRoles);
+                    var schdTyp = db.SchedTypes.Include(b => b.RoleLists);
+                    schdTyp = schdTyp.Where(a => a.RoleLists.Any(aur => aur.ID == r.ID));
                     schd = schd.Where(a => a.ScheduleRoles.Any(aur => aur.ID == r.ID));
                     schedForList = schedForList.Concat(schd);
+                    schedTypeForList = schedTypeForList.Concat(schdTyp);
                 }
             }
 
@@ -53,6 +57,7 @@ namespace HospiceNiagara.Controllers
             }
 
             ViewData["Schedules"] = schedForList.ToList().Distinct();
+            ViewData["ScheduleTypes"] = schedTypeForList.ToList().Distinct();
 
             return View();
         }
@@ -61,6 +66,11 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AdminList()
         {
+            var sched = new Schedule();
+            sched.SchedType = new SchedType();
+            sched.ScheduleRoles = new List<RoleList>();
+            PopulateScheduleTypes(sched);
+            PopulateAssignedRoles(sched);
             return View(db.Schedules.ToList());
         }
 
@@ -101,7 +111,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateSchedule")]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,SchedName,SchedLink,SchedStartDate,SchedEndDate")] Schedule schedule, int selectedSchedType)
+        public ActionResult Create([Bind(Include = "ID,SchedName,SchedLink")] Schedule schedule, int selectedSchedType, string[] selectedRoles)
         {
             try
             {
@@ -109,6 +119,17 @@ namespace HospiceNiagara.Controllers
                     var typeToAdd = db.SchedTypes.Find(selectedSchedType);
 
                     schedule.SchedType = typeToAdd;
+
+                    if (selectedRoles != null)
+                    {
+                        schedule.ScheduleRoles = new List<RoleList>();
+                        foreach (var role in selectedRoles)
+                        {
+                            var roleToAdd = db.RoleLists.Find(int.Parse(role));
+                            schedule.ScheduleRoles.Add(roleToAdd);
+                            PopulateAssignedRoles(schedule);
+                        }
+                    }
                 
                 if (ModelState.IsValid)
                 {
@@ -162,7 +183,7 @@ namespace HospiceNiagara.Controllers
 
             var scheduleToUpdate = db.Schedules.Include(a => a.ScheduleRoles).Where(i => i.ID == id).Single();
 
-            if (TryUpdateModel(scheduleToUpdate, "", new string[] { "ID" , "SchedName" , "SchedLink" , "SchedStartDate" , "SchedEndDate" }))
+            if (TryUpdateModel(scheduleToUpdate, "", new string[] { "ID" , "SchedName" , "SchedLink" }))
             {
                 try
                 {

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
+using HospiceNiagara.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 
 
@@ -20,6 +22,9 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
+            SchedType schdTyp = new SchedType();
+            schdTyp.RoleLists = new List<RoleList>();
+            PopulateAssignedRoles(schdTyp);
             return View(db.SchedTypes.ToList());
         }
 
@@ -43,6 +48,9 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
+            SchedType schdTyp = new SchedType();
+            schdTyp.RoleLists = new List<RoleList>();
+            PopulateAssignedRoles(schdTyp);
             return View();
         }
 
@@ -52,14 +60,32 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,SchedTypeName")] SchedType schedType)
+        public ActionResult Create([Bind(Include = "ID,SchedTypeName")] string[] selectedRoles, SchedType schedType)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SchedTypes.Add(schedType);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (selectedRoles != null)
+                {
+                    schedType.RoleLists = new List<RoleList>();
+                    foreach (var role in selectedRoles)
+                    {
+                        var roleToAdd = db.RoleLists.Find(int.Parse(role));
+                        schedType.RoleLists.Add(roleToAdd);
+                        PopulateAssignedRoles(schedType);
+                    }
+                }
+                if (ModelState.IsValid)
+                {
+                    db.SchedTypes.Add(schedType);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+         
 
             return View(schedType);
         }
@@ -77,6 +103,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            PopulateAssignedRoles(schedType);
             return View(schedType);
         }
 
@@ -86,16 +113,50 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,SchedTypeName")] SchedType schedType)
+        public ActionResult Edit(int? id, string[] selectedRoles)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(schedType).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(schedType);
+
+            var scheduleTypeToUpdate = db.SchedTypes.Include(a => a.RoleLists).Where(i => i.ID == id).Single();
+
+            if (TryUpdateModel(scheduleTypeToUpdate, "", new string[] { "ID", "SchedTypeName" }))
+            {
+                try
+                {
+
+                    UpdateScheduleRoles(selectedRoles, scheduleTypeToUpdate);
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(scheduleTypeToUpdate).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
+                }
+            }
+
+            PopulateAssignedRoles(scheduleTypeToUpdate);
+            return View(scheduleTypeToUpdate);
         }
+            
+            
+            
+        //    [Bind(Include = "ID,SchedTypeName")] SchedType schedType)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(schedType).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(schedType);
+        //}
 
         // GET: SchedTypes/Delete/5
         [Authorize(Roles = "Administrator")]
@@ -138,6 +199,53 @@ namespace HospiceNiagara.Controllers
                 ViewData = new ViewDataDictionary(model)
             };
 
+        }
+
+        public void PopulateAssignedRoles(SchedType schedule)
+        {
+            var allRole = db.RoleLists;
+            var aRoles = new HashSet<int>(schedule.RoleLists.Select(r => r.ID));
+            var viewModel = new List<RoleVM>();
+            foreach (var roll in allRole)
+            {
+                viewModel.Add(new RoleVM
+                {
+                    RoleID = roll.ID,
+                    RoleName = roll.RoleName,
+                    RoleAssigned = aRoles.Contains(roll.ID)
+                });
+            }
+
+            ViewBag.RolesLists = viewModel;
+        }
+
+        private void UpdateScheduleRoles(string[] selectedRoles, SchedType ScheduleToUpdate)
+        {
+            if (selectedRoles == null)
+            {
+                ScheduleToUpdate.RoleLists = new List<RoleList>();
+                return;
+            }
+
+            var selectedRolesHS = new HashSet<string>(selectedRoles);
+            var scheduleRoles = new HashSet<int>(ScheduleToUpdate.RoleLists.Select(c => c.ID));
+            foreach (var rls in db.RoleLists)
+            {
+                if (selectedRolesHS.Contains(rls.ID.ToString()))
+                {
+                    if (!scheduleRoles.Contains(rls.ID))
+                    {
+                        ScheduleToUpdate.RoleLists.Add(rls);
+                    }
+                }
+                else
+                {
+                    if (scheduleRoles.Contains(rls.ID))
+                    {
+                        ScheduleToUpdate.RoleLists.Remove(rls);
+                    }
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)
