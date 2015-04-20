@@ -34,13 +34,13 @@ namespace HospiceNiagara.Controllers
                 {
                     var ann = db.Announcements.Include(a => a.RolesLists);
                     var meet = db.Meetings.Include(a => a.RolesLists);
-                    var schd = db.Schedules.Include(s => s.ScheduleRoles);
+                    var sched = db.Schedules.Include(a => a.ScheduleRoles);
                     meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                     meetForList = meetForList.Concat(meet);
+                    sched = sched.Where(a => a.ScheduleRoles.Any(aur => aur.ID == ur.ID));
+                    schedForList = schedForList.Concat(sched);
                     ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                     annForLst = annForLst.Concat(ann);
-                    schd = schd.Where(s => s.ScheduleRoles.Any(aur => aur.ID == ur.ID));
-                    schedForList = schedForList.Concat(schd);
                     
                 }
             }

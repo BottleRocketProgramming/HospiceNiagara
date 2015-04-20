@@ -1,5 +1,8 @@
 Hospice Portal README
 
+<--Link to Annotated Video Walkthrough-->
+https://www.youtube.com/watch?v=-KR1_qwm-Hw
+
 <--Setup-->
 	<System Requirements>
 	-An up to date web browser (recent versions of IE, Firefox, and Chrome have all been found to work without issue
