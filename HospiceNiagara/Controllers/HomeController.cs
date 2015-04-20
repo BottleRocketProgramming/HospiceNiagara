@@ -26,6 +26,7 @@ namespace HospiceNiagara.Controllers
             var cUserRoles = db.RoleLists;
             var meetForList = db.Meetings.Where(m => m.ID == 0);
             var annForLst = db.Announcements.Where(a => a.ID == 0);
+            var schedForList = db.Schedules.Where(s => s.ID == 0);
 
             foreach (var ur in cUserRoles)
             {
@@ -33,10 +34,13 @@ namespace HospiceNiagara.Controllers
                 {
                     var ann = db.Announcements.Include(a => a.RolesLists);
                     var meet = db.Meetings.Include(a => a.RolesLists);
+                    var schd = db.Schedules.Include(s => s.ScheduleRoles);
                     meet = meet.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                     meetForList = meetForList.Concat(meet);
                     ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                     annForLst = annForLst.Concat(ann);
+                    schd = schd.Where(s => s.ScheduleRoles.Any(aur => aur.ID == ur.ID));
+                    schedForList = schedForList.Concat(schd);
                     
                 }
             }
@@ -51,7 +55,7 @@ namespace HospiceNiagara.Controllers
 
             ViewData["AnnouncementOrEvent"] = annForLst.ToList().Distinct();
             ViewData["Meeting"] = meetForList.ToList().Distinct();
-            ViewData["Schedule"] = db.Schedules.ToList();
+            ViewData["Schedule"] = schedForList.ToList().Distinct();
             return View();
 
         }
