@@ -238,6 +238,15 @@ namespace HospiceNiagara.Controllers
         {
             Meeting meeting = db.Meetings.Find(id);
             db.Meetings.Remove(meeting);
+            var meetingRsvpToRemove = db.MeetingUserRSVPs.Where(a => a.MeetingRSVP.ID == id);
+            if(meetingRsvpToRemove != null)
+            {
+                foreach(var m in meetingRsvpToRemove)
+                {
+                    db.MeetingUserRSVPs.Remove(m);
+                }
+            }
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
