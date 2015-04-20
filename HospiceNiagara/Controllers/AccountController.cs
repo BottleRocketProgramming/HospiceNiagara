@@ -198,7 +198,7 @@ namespace HospiceNiagara.Controllers
                         new System.Net.Mail.MailAddress(user.Email));
 
                         m.Subject = "Hospice Niagara Registration Cofirmation";
-                        m.Body = String.Format("Dear " + user.UserFName + " " + user.UserLName + ", <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
+                        m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
                         m.IsBodyHtml = true;
 
                     System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
@@ -302,7 +302,7 @@ namespace HospiceNiagara.Controllers
                         new System.Net.Mail.MailAddress(user.Email));
 
                         m.Subject = "Hospice Niagara Password Reset";
-                        m.Body = String.Format("Dear {0}, <br/> You have requested a password reset for the Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to reset your password. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Click this link so you can reset your Password</a>", user.UserName, Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme));
+                        m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have requested a password reset for the Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to reset your password. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Click this link so you can reset your Password</a>", user.UserName, Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme));
                         m.IsBodyHtml = true;
 
                     System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
@@ -359,13 +359,13 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
-        
-        //// GET: /Account/ResetPasswordConfirmation
-        //[AllowAnonymous]
-        //public ActionResult ResetPasswordConfirmation()
-        //{
-        //    return View();
-        //}
+
+        // GET: /Account/ResetPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
 
         
         //// POST: /Account/ExternalLogin
