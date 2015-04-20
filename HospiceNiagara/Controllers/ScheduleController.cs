@@ -30,12 +30,15 @@ namespace HospiceNiagara.Controllers
             PopulateSchdType();
             PopulateAssignedRoles(sched);
 
+            var schedForList = db.Schedules.Where(a => a.ID == 0);
+
             foreach (var r in cUserRole)
             {
                 if (User.IsInRole(r.RoleName))
                 {
                     var schd = db.Schedules.Include(a => a.ScheduleRoles);
                     schd = schd.Where(a => a.ScheduleRoles.Any(aur => aur.ID == r.ID));
+                    schedForList = schedForList.Concat(schd);
                 }
             }
 
@@ -49,8 +52,9 @@ namespace HospiceNiagara.Controllers
                 PopulateScheduleTypes(sched);
             }
 
-            Schedule schedules = db.Schedules.Find(id);
-            return View(schedules);
+            ViewData["Schedules"] = schedForList.ToList().Distinct();
+
+            return View();
         }
 
         //Admin List
