@@ -15,43 +15,6 @@
         List<HospiceNiagara.ViewModels.FileSubCatVM> subCat = ViewBag.FileSubCat;
 
         var url = Request.Url.PathAndQuery;
-        
-        foreach(var cats in cat)
-        {        
-                <div class="col-sm-4">
-                    <div class="panel panel-success">
-            <div class="panel-heading">
-                @Html.DisplayFor(modelItem => cats.FileCatName)
-            </div>
-            <div id="staffContent" class="panel-body">
-                <ul class="Staff-Index">
-            @foreach (var subCats in subCat)
-            {
-                 if(cats.ID == subCats.FileCatFK)
-                 { 
-                    
-                     if(url.EndsWith("FileStorages/Index"))
-                     {
-                        <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                     }
-                     else if(url.EndsWith("FileStorages"))
-                     {
-                        <li><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                     }
-                     else
-                     {
-                        <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                     }
-                 }
-
-
-            }
-                </ul>
-            </div>
-        </div>
-        </div>
-            
-        }
      }
 
  @* File Table with search *@       
@@ -228,6 +191,41 @@
 
         </div>
     </div>
+    <div class="col-sm-4">
+            @foreach(var cats in cat)
+            {
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        @Html.DisplayFor(modelItem => cats.FileCatName)
+                    </div>
+                    <div id="staffContent" class="panel-body">
+                        <ul class="Staff-Index">
+                            @foreach (var subCats in subCat)
+                            {
+                                if (cats.ID == subCats.FileCatFK)
+                                {
+
+                                    if (url.EndsWith("FileStorages/Index"))
+                                    {
+                                        <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                    }
+                                    else if (url.EndsWith("FileStorages"))
+                                    {
+                                        <li><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                    }
+                                }
+
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
 </div>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
