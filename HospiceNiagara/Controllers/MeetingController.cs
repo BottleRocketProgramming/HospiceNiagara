@@ -260,21 +260,16 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateAllRSVPs(Meeting meeting)
         {
-            var allRSVP = db.MeetingUserRSVPs;
-            var aRSVP = new HashSet<int>(meeting.MeetingUserRSVPs.Select(r => r.ID));
+            var allRSVP = db.MeetingUserRSVPs.Where(r => r.MeetingRSVP.ID == meeting.ID);
             var meetingRSVPs = new List<MeetingUserRSVP>();
             foreach (var rsvp in allRSVP)
             {
-                if (aRSVP.Contains(rsvp.ID))
+                meetingRSVPs.Add(new MeetingUserRSVP
                 {
-                    meetingRSVPs.Add(new MeetingUserRSVP
-                    {
-                        ID = rsvp.ID,
-                        ComingYorN = rsvp.ComingYorN,
-                        RSVPNotes = rsvp.RSVPNotes
-                    });
-                }
-
+                    ID = rsvp.ID,
+                    ComingYorN = rsvp.ComingYorN,
+                    RSVPNotes = rsvp.RSVPNotes
+                });
             }
 
             ViewBag.meetingRSVPs = meetingRSVPs;
