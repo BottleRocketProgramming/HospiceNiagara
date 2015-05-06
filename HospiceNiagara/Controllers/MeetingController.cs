@@ -46,7 +46,7 @@ namespace HospiceNiagara.Controllers
                     mttForList = mttForList.Concat(mtt);                    
                 }
             }
-            
+
             ViewData["Meeting"] = mttForList.ToList().Distinct();
             ViewData["MeetingID"] = id;
             Meeting meeting = db.Meetings.Find(id);
@@ -87,6 +87,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            
 
             var EventUserRoles = meeting.RolesLists;
 
@@ -95,6 +96,12 @@ namespace HospiceNiagara.Controllers
                 if (User.IsInRole(ur.RoleName))
                 {
                     PopulateAssignedFiles(meeting);
+                    PopulateAssignedRSVP(meeting);
+                    if (User.IsInRole("Administrator"))
+                    {
+                        PopulateAllRSVPs(meeting);
+                    }
+
                     return View(meeting);
                 }
             }
@@ -249,6 +256,50 @@ namespace HospiceNiagara.Controllers
 
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void PopulateAllRSVPs(Meeting meeting)
+        {
+            var allRSVP = db.MeetingUserRSVPs;
+            var aRSVP = new HashSet<int>(meeting.MeetingUserRSVPs.Select(r => r.ID));
+            var meetingRSVPs = new List<MeetingUserRSVP>();
+            foreach (var rsvp in allRSVP)
+            {
+                if (aRSVP.Contains(rsvp.ID))
+                {
+                    meetingRSVPs.Add(new MeetingUserRSVP
+                    {
+                        ID = rsvp.ID,
+                        ComingYorN = rsvp.ComingYorN,
+                        RSVPNotes = rsvp.RSVPNotes
+                    });
+                }
+
+            }
+
+            ViewBag.meetingRSVPs = meetingRSVPs;
+        }
+
+        public void PopulateAssignedRSVP(Meeting meeting)
+        {
+            var allRSVP = db.MeetingUserRSVPs.Where(r => r.AppUser.UserName == User.Identity.Name);
+            var aRSVP = new HashSet<int>(meeting.MeetingUserRSVPs.Select(r => r.ID));
+            var meetingRSVP = new List<MeetingUserRSVP>();
+            foreach (var rsvp in allRSVP)
+            {
+                if (aRSVP.Contains(rsvp.ID))
+                {
+                    meetingRSVP.Add(new MeetingUserRSVP
+                    {
+                        ID = rsvp.ID,
+                        ComingYorN = rsvp.ComingYorN,
+                        RSVPNotes = rsvp.RSVPNotes
+                    });
+                }
+
+            }
+
+            ViewBag.meetingRSVP = meetingRSVP;
         }
 
 //Empty Roles for Create

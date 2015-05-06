@@ -108,4 +108,92 @@
                 </table>
             </div>
         </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                RSVP
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    @{
+                        List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
+                        foreach (var r in rsvp)
+                        {
+                            <tr>
+                                <td>
+                                    @if (r.ComingYorN == true)
+                                    {
+                                        @:Yes
+                                    }
+                                    else if (r.ComingYorN == false)
+                                    {
+                                        @:No
+                                    }
+                                    else
+                                    {
+                                        @:No Response
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => r.RSVPNotes)
+                                </td>
+                                <td>
+                                    @if (r.ComingYorN.HasValue)
+                                    {
+                                        @Html.ActionLink("Changed your Mind?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Are you Attending?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+                
+            </div>
+        </div>
+        
+        @if(User.IsInRole("Administrator"))
+        {
+           <div class="panel panel-success">
+            <div class="panel-heading">
+                All RSVPs
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    @{
+                        List<HospiceNiagara.Models.MeetingUserRSVP> rsvps = ViewBag.meetingRSVPs;
+                        foreach (var rs in rsvps)
+                        {
+                            <tr>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    @if (rs.ComingYorN == true)
+                                    {
+                                        @:Yes
+                                    }
+                                    else if (rs.ComingYorN == false)
+                                    {
+                                        @:No
+                                    }
+                                    else
+                                    {
+                                        @:No Response
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => rs.RSVPNotes)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div> 
+        }
+        
     </div>

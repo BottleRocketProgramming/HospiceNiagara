@@ -20,8 +20,6 @@ namespace HospiceNiagara.Controllers
     public class AnnouncementController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
-        
 
         // GET: Announcement
         [Authorize]
@@ -50,7 +48,7 @@ namespace HospiceNiagara.Controllers
                         annForList = annForList.Concat(ann);
                     }
                 }
-                annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
+            annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
 
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct();
             ViewData["AnnOrEvntId"] = id;
