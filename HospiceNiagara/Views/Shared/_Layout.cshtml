@@ -1,15 +1,25 @@
 ﻿@using HospiceNiagara.Models
+@using HospiceNiagara.Extentions
+
+
+
+@RenderSection("styles", required: false)
 @*Andreas King April 2015*@
 <!DOCTYPE html>
 <html>
 <head>
-    @using HospiceNiagara.Extentions
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Hospice Niagara Portal</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'></head>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link rel="Stylesheet" type="text/css" href="~/Content/jHtmlArea/jHtmlArea.css" />
+    <script type="text/javascript" src="~/Scripts/jHtmlArea-0.8.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    @RenderSection("scripts", required: false)
+</head>
 <body>
     <div id="navbar" class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
@@ -88,9 +98,12 @@
             </div>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
+
+@section scripts{
+    <script>
+        
+    </script>
+}
+

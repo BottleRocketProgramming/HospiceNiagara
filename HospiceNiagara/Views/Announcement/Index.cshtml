@@ -1,13 +1,12 @@
 ﻿@*@model IEnumerable<HospiceNiagara.Models.Announcement>*@
 @model HospiceNiagara.Models.Announcement
 
-@*@{
-    ViewBag.Title = "Index";
-}*@
+@{
+    ViewBag.Title = "Announcements";
+}
 
 @* Div for entire page *@
 <div class="container">
-    <textarea></textarea>
 @*Div holding Announment List view and CRUD *@
     <div class="col-md-8">
         <div class="panel panel-success ">
@@ -88,7 +87,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextAreaFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control", @id = "jHTML"} })
+                                @Html.TextAreaFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control"} })
                                 @Html.ValidationMessageFor(model => model.AnnounceText, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -199,8 +198,7 @@
                                     @Html.DisplayFor(modelItem => item.EventStart.DayOfWeek)
                                 @:</td>
                             @:</tr>  
-                        }
-                             
+                        } 
                     }
 
             </table>
@@ -212,10 +210,6 @@
 @section scripts{
     @Scripts.Render("~/bundles/MultiSelectlist")
     @Scripts.Render("~/bundles/jqueryval")
-
-    <link rel="Stylesheet" type="text/css" href="~/Content/jHtmlArea/jHtmlArea.css" />
-    <script type="text/javascript" src="~/Scripts/jHtmlArea-0.8.js"></script>
-
     <script>
         $(document).ready(function () {
             $('#glyphNewAnnouncment').on('click', function () {
@@ -227,6 +221,16 @@
             });
 
             $('textarea').htmlarea();
+
+            resizeHtmlEditor();
+            $(window).resize(resizeHtmlEditor);
+
+            function resizeHtmlEditor() {
+                $('div.jHtmlArea').find('div.ToolBar').css('width', '100%');
+                $('div.jHtmlArea iframe').css('width', '100%');
+                $('div.jHtmlArea').find('div.ToolBar').css('height', '50%');
+                $('div.jHtmlArea iframe').css('height', '50%');
+            }
         });
     </script>
 }

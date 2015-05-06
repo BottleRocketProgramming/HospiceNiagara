@@ -268,3 +268,8 @@ textarea {
 .glyphicon-plus{
     font-size:18px;
 }
+
+div.jHtmlArea {
+    width: 100% !important;
+    height: 50% !important;
+}

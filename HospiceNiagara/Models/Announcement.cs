@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Security;
 
 //Paul Boyko Feb 2015
@@ -19,6 +20,7 @@ namespace HospiceNiagara.Models
         [Required(ErrorMessage = "Announcement can not be left blank")]
         [StringLength(1020, ErrorMessage = "Announcement can not exceed 1020 characters")]
         [DataType(DataType.MultilineText)]
+        [AllowHtml]
         public string AnnounceText { get; set; }
 
         [Display(Name= "End Date")]
