@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
 <div id="homepage-body" class="container">
@@ -25,32 +25,29 @@
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
                     {
-                        if(item.AnnounceEndDate > DateTime.Today)
-                        {
-                            @:<tr>
-                                @:<td>
-                                var url = Request.Url.PathAndQuery;
-                                if(url.EndsWith("Home/Index"))
-                                {                              
-                                    <a href=../Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText.Replace("\n", "<br />"))</a>
-                                }
-                                else if (url.EndsWith("Home"))
-                                {
-                                    <a href=../Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText.Replace("\n", "<br />"))</a>
-                                }
-                                else
-                                {
-                                    <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText.Replace("\n", "<br />"))</a>
-                                }
-                                @:</td>
-                                if (User.IsInRole("Administrator"))
-                                {
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AnnounceEndDateString)
-                                </td>
-                                }
-                    @:</tr>
-                        }
+                        @:<tr>
+                            @:<td>
+                            var url = Request.Url.PathAndQuery;
+                            if(url.EndsWith("Home/Index"))
+                            {                              
+                                <a href=../Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                            }
+                            else if (url.EndsWith("Home"))
+                            {
+                                <a href=../Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                            }
+                            else
+                            {
+                                <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                            }
+                            @:</td>
+                            if (User.IsInRole("Administrator"))
+                            {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnnounceEndDateString)
+                            </td>
+                            }
+                        @:</tr>
                     }
 
 

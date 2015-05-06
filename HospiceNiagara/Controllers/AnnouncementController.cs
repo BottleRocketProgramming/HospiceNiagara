@@ -50,7 +50,7 @@ namespace HospiceNiagara.Controllers
                         annForList = annForList.Concat(ann);
                     }
                 }
-                
+                annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
 
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct();
             ViewData["AnnOrEvntId"] = id;
