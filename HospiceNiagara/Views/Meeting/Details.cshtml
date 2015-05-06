@@ -1,7 +1,7 @@
 ﻿@model HospiceNiagara.Models.Meeting
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Html.DisplayFor(model => model.EventTitle);
 }
 <div class="col-sm-8">
     <div class="panel panel-success ">
@@ -83,7 +83,53 @@
             
     </div>
 </div>
+
 <div class="col-sm-4">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            RSVP
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                @{
+                    List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
+                    foreach (var r in rsvp)
+                    {
+                        <tr>
+                            <td>
+                                @if (r.ComingYorN == true)
+                                {
+                                    @:Yes
+                                }
+                                else if (r.ComingYorN == false)
+                                {
+                                    @:No
+                                }
+                                else
+                                {
+                                    @:No Response
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => r.RSVPNotes)
+                            </td>
+                            <td>
+                                @if (r.ComingYorN.HasValue)
+                                {
+                                    @Html.ActionLink("Changed your Mind?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Are you Attending?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
     <div class="panel panel-success">
         <div class="panel-heading">
             Related Files
@@ -106,52 +152,6 @@
                         @:</tr>
                     }
                 </table>
-            </div>
-        </div>
-
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                RSVP
-            </div>
-            <div class="panel-body">
-                <table class="table">
-                    @{
-                        List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
-                        foreach (var r in rsvp)
-                        {
-                            <tr>
-                                <td>
-                                    @if (r.ComingYorN == true)
-                                    {
-                                        @:Yes
-                                    }
-                                    else if (r.ComingYorN == false)
-                                    {
-                                        @:No
-                                    }
-                                    else
-                                    {
-                                        @:No Response
-                                    }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => r.RSVPNotes)
-                                </td>
-                                <td>
-                                    @if (r.ComingYorN.HasValue)
-                                    {
-                                        @Html.ActionLink("Changed your Mind?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
-                                    }
-                                    else
-                                    {
-                                        @Html.ActionLink("Are you Attending?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    }
-                </table>
-                
             </div>
         </div>
         

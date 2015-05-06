@@ -9,7 +9,6 @@ namespace HospiceNiagara.Models
     public class MeetingUserRSVP
     {
         public int ID { get; set; }
-
         
         [Display(Name="Will be attending")]
         public bool? ComingYorN { get; set; }
