@@ -202,7 +202,7 @@
             <table class="table">
                 <tr>
                     @{
-                        List<HospiceNiagara.ViewModels.FileStorageVM> files = ViewBag.FileStorages;
+                        List<HospiceNiagara.Models.FileStorage> files = ViewBag.FileStorages;
                         foreach (var f in files)
                         {
                             @:</tr><tr>
@@ -226,6 +226,14 @@
                 All RSVPs
             </div>
             <div class="panel-body">
+                Amount of Invitations Sent:
+                @ViewBag.amtRSVPs
+                <br />Attending:
+                @ViewBag.amtRSVPYes
+                <br />Confirmed Not Attending:
+                @ViewBag.amtRSVPNo
+                <br />
+                <br />
                 <table class="table">
                     @{
                         List<HospiceNiagara.Models.MeetingUserRSVP> rsvps = ViewBag.meetingRSVPs;
@@ -233,7 +241,7 @@
                         {
                             <tr>
                                 <td>
-                                    
+                                    @rs.AppUser.UserFullName
                                 </td>
                                 <td>
                                     @if (rs.ComingYorN == true)

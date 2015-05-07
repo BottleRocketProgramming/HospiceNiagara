@@ -260,19 +260,16 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateAllRSVPs(Meeting meeting)
         {
-            var allRSVP = db.MeetingUserRSVPs.Where(r => r.MeetingRSVP.ID == meeting.ID);
-            var meetingRSVPs = new List<MeetingUserRSVP>();
-            foreach (var rsvp in allRSVP)
-            {
-                meetingRSVPs.Add(new MeetingUserRSVP
-                {
-                    ID = rsvp.ID,
-                    ComingYorN = rsvp.ComingYorN,
-                    RSVPNotes = rsvp.RSVPNotes
-                });
-            }
-
-            ViewBag.meetingRSVPs = meetingRSVPs;
+            var allRSVP = db.MeetingUserRSVPs.Where(r => r.MeetingRSVP.ID == meeting.ID).Include(r => r.AppUser).ToList();
+            int amtRSVP = allRSVP.Count();
+            int amtRSVPYes = 0;
+            int amtRSVPNo = 0;
+            foreach (var rsvp in allRSVP) { if (rsvp.ComingYorN.Equals(true)) { amtRSVPYes++; } }
+            foreach (var rsvp in allRSVP) { if (rsvp.ComingYorN.Equals(false)) { amtRSVPNo++; } }
+            ViewBag.amtRSVPNo = amtRSVPNo;
+            ViewBag.amtRSVPYes = amtRSVPYes;
+            ViewBag.amtRSVPs = amtRSVP;
+            ViewBag.meetingRSVPs = allRSVP;
         }
 
         public void PopulateAssignedRSVP(Meeting meeting)
@@ -350,7 +347,7 @@ namespace HospiceNiagara.Controllers
 //Empty Files for Create
         public void PopulateAssignedFiles(Meeting meeting)
         {
-            var allFile = db.FileStorages.OrderBy(r => r.FileDescription);
+            var allFile = db.FileStorages.Where(r => r.Meetings.Any(m => m.ID == meeting.ID)).OrderBy(r => r.FileDescription).ToList();
             var afiles = new HashSet<int>(meeting.FileStores.Select(r => r.ID));
             var viewModelAvailible = new List<FileStorageVM>();
             var viewModelSelected = new List<FileStorageVM>();
@@ -379,7 +376,7 @@ namespace HospiceNiagara.Controllers
 
             }
 
-            ViewBag.FileStorages = viewModelSelected;
+            ViewBag.FileStorages = allFile;
             ViewBag.selFiles = new MultiSelectList(viewModelSelected, "ID", "FileName");
             ViewBag.avlFiles = new MultiSelectList(viewModelAvailible, "ID", "FileName");
         }
