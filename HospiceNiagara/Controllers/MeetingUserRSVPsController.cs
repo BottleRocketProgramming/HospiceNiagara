@@ -23,8 +23,7 @@ namespace HospiceNiagara.Controllers
         {
             var meetingUserRSVP = db.MeetingUserRSVPs.Include(u => u.AppUser).Include(m => m.MeetingRSVP);
             meetingUserRSVP = meetingUserRSVP.Where(u => u.AppUser.UserName == User.Identity.Name);
-
-
+            
             return View(meetingUserRSVP);
         }
 
@@ -54,13 +53,33 @@ namespace HospiceNiagara.Controllers
 
         // GET: MeetingUserRSVPs/Create
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create()
+        public ActionResult Create(int? id, string roles)
         {
+            var meeting = db.Meetings.Where(m => m.ID == id).ToList();
             var meetRSVP = new MeetingUserRSVP();
-            PopulateAssignedMeetings(meetRSVP);
-            PopulateAssignedUsers(meetRSVP);
+            var allUsers = db.Users.Include(u => u.Roles);
+            var uRoles = db.Roles;
+
+            if (!string.IsNullOrEmpty(roles))
+            {
+                allUsers = allUsers.Where(u => u.Roles.Any(r => r.RoleId == roles));
+            }
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in uRoles)
+            {
+                list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
+            }
+
+            var users = allUsers.ToList();
+
+            ViewBag.Roles = list;
+            ViewBag.User = users;
+            ViewBag.Meeting = meeting;
+            ViewBag.MeetingID = id;
             return View();
         }
+
 
         // POST: MeetingUserRSVPs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -100,17 +119,6 @@ namespace HospiceNiagara.Controllers
                     }
                     
                 }
-            }
-
-            
-            
-            if (ModelState.IsValid)
-            {
-                
-                
-                //PopulateAssignedMeetings(meetingUserRSVP);
-                //PopulateAssignedUsers(meetingUserRSVP);
-                return RedirectToAction("AdminList");
             }
             PopulateAssignedMeetings(meetingUserRSVP);
             PopulateAssignedUsers(meetingUserRSVP);
@@ -180,18 +188,18 @@ namespace HospiceNiagara.Controllers
         public void PopulateAssignedMeetings(MeetingUserRSVP meetings)
         {
             var allMeetings = db.Meetings;            
-            var veiwModel = new List<MettingVM>();
+            var viewmodel = new List<Meeting>();
             foreach(var m in allMeetings)
             {
-                veiwModel.Add(new MettingVM
+                viewmodel.Add(new Meeting
                 {
-                    MeetingId = m.ID,
-                    MeetingName = m.EventTitle,
-                    MeetingDesc = m.DescriptionTrimmed
+                    ID = m.ID,
+                    EventTitle = m.EventTitle,
+                    EventDiscription = m.DescriptionTrimmed
                 });
             }
 
-            ViewBag.Meeting = veiwModel;
+            ViewBag.Meeting = viewmodel;
         }
 
         public void PopulateAssignedUsers(MeetingUserRSVP meetings)
@@ -205,8 +213,7 @@ namespace HospiceNiagara.Controllers
                     UserID = m.Id,
                     UserFName = m.UserFName,
                     UserLName = m.UserLName,
-                    UserFullName = m.UserFName + " " + m.UserLName + ", " + m.UserName 
-                    
+                    UserFullName = m.UserFName + " " + m.UserLName + ", " + m.UserName
                 });
             }
 

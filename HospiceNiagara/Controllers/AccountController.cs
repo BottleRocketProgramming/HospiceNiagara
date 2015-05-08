@@ -111,9 +111,16 @@ namespace HospiceNiagara.Controllers
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                ModelState.AddModelError("", "Problem accessing database, if problem presists contact system Administrator");
+                if (ex.InnerException==null)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                else
+                {
+                    ModelState.AddModelError("", ex.InnerException);
+                }
                 return View(model);
             }
                 ModelState.AddModelError("", "Please confirm email.");

@@ -156,51 +156,6 @@
             </div>
         </div>
     </div>
-
-@* Div for Events list view and CRUD *@
-    <div class="col-sm-4">
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                <span id="eventsTitle">Upcoming Events</span>
-            </div>
-
-@* Div for Event list view *@
-            <div id="eventContent" class="panel-body">
-                <table class="table">
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Location
-                        </th>
-                        <th>
-                            Day
-                        </th>
-                    </tr>
-
-                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
-                    {
-                        DateTime infivedays = DateTime.Today.AddDays(5);
-                        if (item.EventStart < infivedays && item.EventEnd > DateTime.Today)
-                        {
-                              @:<tr><td>
-                                    <a href=../Meeting/Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
-                                @:</td>
-                                @:<td>
-                                    @Html.DisplayFor(modelItem => item.EventLocation)
-                                @:</td>
-                                @:<td>
-                                    @Html.DisplayFor(modelItem => item.EventStart.DayOfWeek)
-                                @:</td>
-                            @:</tr>  
-                        } 
-                    }
-
-            </table>
-            </div>         
-        </div>
-    </div>
 </div>
 
 @section scripts{

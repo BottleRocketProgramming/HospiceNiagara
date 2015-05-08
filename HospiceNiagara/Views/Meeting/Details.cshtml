@@ -226,6 +226,7 @@
                 All RSVPs
             </div>
             <div class="panel-body">
+                @Html.ActionLink("+ Invite New Users", "../MeetingUserRSVPs/Create", new { id = Model.ID })<br />
                 Amount of Invitations Sent:
                 @ViewBag.amtRSVPs
                 <br />Attending:
