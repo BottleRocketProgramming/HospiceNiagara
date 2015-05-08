@@ -120,8 +120,15 @@ namespace HospiceNiagara.Controllers
                     
                 }
             }
+            var uRoles = db.Roles;
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in uRoles)
+            {
+                list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
+            }
             PopulateAssignedMeetings(meetingUserRSVP);
             PopulateAssignedUsers(meetingUserRSVP);
+            ViewBag.Roles = list;
             return View(meetingUserRSVP);
         }
 
@@ -205,15 +212,14 @@ namespace HospiceNiagara.Controllers
         public void PopulateAssignedUsers(MeetingUserRSVP meetings)
         {
             var allUsers = db.Users;
-            var viewModel = new List<UserVM>();
+            var viewModel = new List<ApplicationUser>();
             foreach (var m in allUsers)
             {
-                viewModel.Add(new UserVM
+                viewModel.Add(new ApplicationUser
                 {
-                    UserID = m.Id,
+                    Id = m.Id,
                     UserFName = m.UserFName,
-                    UserLName = m.UserLName,
-                    UserFullName = m.UserFName + " " + m.UserLName + ", " + m.UserName
+                    UserLName = m.UserLName
                 });
             }
 
