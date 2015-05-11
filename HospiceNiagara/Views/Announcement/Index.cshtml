@@ -7,8 +7,49 @@
 
 @* Div for entire page *@
 <div class="container">
-@*Div holding Announment List view and CRUD *@
-    <div class="col-md-8">
+    <div class="col-md-12">
+        @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
+        {
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Mock title
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                @foreach (var f in item.FileStorages)
+                                {
+                                    if (f.FileContent != null && f.MimeType.Contains("image"))
+                                    {
+                                        string image64 = Convert.ToBase64String(f.FileContent);
+                                        string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                        <img src="@imageSrc" width="100%" />
+                                    }
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                var url = Request.Url.PathAndQuery;
+                                if (url.EndsWith("Announcement/Index"))
+                                {
+                                    <a href=Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                                }
+                                else
+                                {
+                                    <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                                }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    @*<div class="col-md-12" hidden>
         <div class="panel panel-success ">
             <div class="panel-heading">
                 <span id="announcmentsTitle">Announcments</span>
@@ -18,12 +59,14 @@
                 <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
                 }
             </div>
-@* Announcement list view panel *@
             <div id="announcmentContent" class="panel-body">
                 <table class="table">
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.AnnounceText)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FileStorages)
                         </th>
                         @if(User.IsInRole("Administrator"))
                         {
@@ -40,17 +83,31 @@
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
                     {
-                        @:<tr><td>
-                        var url = Request.Url.PathAndQuery;
-                        if(url.EndsWith("Announcement/Index"))
-                        {                              
-                            <a href=Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
-                        }
-                        else
-                        {
-                            <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
-                        }
-                        
+                        @:<tr>
+                            <td>
+                                @{
+                                    var url = Request.Url.PathAndQuery;
+                                    if(url.EndsWith("Announcement/Index"))
+                                    {                              
+                                        <a href=Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                                    }
+                                    else
+                                    {
+                                        <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                                    }
+                                }
+                        </td>
+                        <td>
+                            @foreach (var f in item.FileStorages)
+                            {
+                                if (f.FileContent != null && f.MimeType.Contains("image"))
+                                {
+                                    string image64 = Convert.ToBase64String(f.FileContent);
+                                    string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                    <img src="@imageSrc" width="100%" />
+                                }
+                            }
+                        </td>
                         if (User.IsInRole("Administrator"))
                         {
                             <td>
@@ -69,7 +126,7 @@
                     }
                 </table>
             </div>
-@* Create announcement panel *@
+
             <div id="newAnnouncmentContent" class="panel-body" hidden>
                
                   @using (Html.BeginForm())
@@ -154,7 +211,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 @section scripts{
     @Scripts.Render("~/bundles/MultiSelectlist")

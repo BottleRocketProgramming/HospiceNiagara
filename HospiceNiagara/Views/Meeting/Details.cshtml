@@ -55,8 +55,8 @@
                                 {
                                     <div class="item active">
                                         @{
-                                    string image64 = Convert.ToBase64String(f.FileContent);
-                                    string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
                                         }
                                         <img src="@imageSrc" />
                                     </div>
@@ -65,8 +65,8 @@
                                 {
                                     <div class="item">
                                         @{
-                                    string image64 = Convert.ToBase64String(f.FileContent);
-                                    string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
                                         }
                                         <img src="@imageSrc" />
                                     </div>
