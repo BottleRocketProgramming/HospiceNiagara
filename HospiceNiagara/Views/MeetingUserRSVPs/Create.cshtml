@@ -44,6 +44,7 @@
                             <label class="control-label col-md-2">Select Users</label>
                             <div class="col-md-offset-2 col-md-10">
                                 <div>
+                                    <input type="button" value="Select All" id="btnCheckAllUsers" />
                                     @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, new { @id = "ddlRoles" })
                                     @Html.ActionLink("Clear", "Create", new { id = ViewBag.MeetingID })
                                 </div>
@@ -61,6 +62,7 @@
                                                 }
                                                 @:<td>
                                                     <input type="checkbox"
+                                                    class="chkUsers"
                                                     name="selectedUsers"
                                                     value="@r.Id"
                                                          />
@@ -100,6 +102,10 @@
                     success: function (data) { $('#ParentBody').html(data); },
                     error: function () { alert('something bad happened'); }
                 });
+            });
+
+            $("#btnCheckAllUsers").click(function () {
+                $(".chkUsers").attr('checked', true);
             });
         });
     </script>
