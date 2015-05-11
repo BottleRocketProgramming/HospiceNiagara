@@ -45,7 +45,7 @@
                             <div class="col-md-offset-2 col-md-10">
                                 <div>
                                     <input type="button" value="Select All" id="btnCheckAllUsers" />
-                                    @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, new { @id = "ddlRoles" })
+                                    @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, "All Roles", new { @id = "ddlRoles" })
                                     @Html.ActionLink("Clear", "Create", new { id = ViewBag.MeetingID })
                                 </div>
 
@@ -100,7 +100,7 @@
                     type: 'GET',
                     datatype: 'html',
                     success: function (data) { $('#ParentBody').html(data); },
-                    error: function () { alert('something bad happened'); }
+                    error: function () { alert('Error Filtering Roles'); }
                 });
             });
 

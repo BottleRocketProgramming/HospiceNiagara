@@ -30,15 +30,15 @@
                             var url = Request.Url.PathAndQuery;
                             if(url.EndsWith("Home/Index"))
                             {                              
-                                <a href=../Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                                <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
                             }
                             else if (url.EndsWith("Home"))
                             {
-                                <a href=../Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                                <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
                             }
                             else
                             {
-                                <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
+                                <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
                             }
                             @:</td>
                             if (User.IsInRole("Administrator"))
