@@ -2,18 +2,19 @@
 
 @{
     ViewBag.Title = "Create";
+    var meetingID = ViewBag.MeetingID;
 }
+<div id="theNewView">
+    <h2>Invite Users</h2>
 
-<h2>Invite Users</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
          <div class="form-group" hidden>
                             <label class="control-label col-md-2">Select Event</label>
@@ -39,19 +40,20 @@
                                 </div>
                             </div>
 
-         <div class="form-group">
+                         <div class="form-group">
                             <label class="control-label col-md-2">Select Users</label>
                             <div class="col-md-offset-2 col-md-10">
                                 <div>
-                                        @Html.DropDownList("Roles", "select a role")
+                                    @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, new { @id = "ddlRoles" })
+                                    @Html.ActionLink("Clear", "Create", new { id = ViewBag.MeetingID })
                                 </div>
-                                
+
                                 <table class="table">
                                     <tr>
                                         @{
                                             int ct = 0;
-                                            List<HospiceNiagara.Models.ApplicationUser> use = ViewBag.User;
-                                            foreach(var r in use)
+                                            List<HospiceNiagara.Models.ApplicationUser> users = ViewBag.User;
+                                            foreach (var r in users)
                                             {
                                                 if (ct++ % 2 == 0)
                                                 {
@@ -79,9 +81,26 @@
         </div>
     </div>
 }
+</div>
+
 
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#ddlRoles').change(function () {
+                var selectedValue = $('#ddlRoles').val();
+                $.ajax({
+                    url: window.location.href,
+                    data: {roles : selectedValue}, //parameters go here in object literal form
+                    type: 'GET',
+                    datatype: 'html',
+                    success: function (data) { $('#ParentBody').html(data); },
+                    error: function () { alert('something bad happened'); }
+                });
+            });
+        });
+    </script>
 }
