@@ -13,7 +13,7 @@
             <div class="col-md-6">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        Mock title
+                        <h3 class="panel-title">@item.AnnounceTitle</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -29,27 +29,35 @@
                                 }
                             </div>
                             <div class="col-md-6">
+                                @Html.Raw(item.AnnounceText)
                                 @{
-                                var url = Request.Url.PathAndQuery;
-                                if (url.EndsWith("Announcement/Index"))
-                                {
-                                    <a href=Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
-                                }
-                                else
-                                {
-                                    <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
-                                }
+                                    var url = Request.Url.PathAndQuery;
+                                    if (url.EndsWith("Announcement/Index"))
+                                    {
+                                        <a href=Details/@item.ID>(Read More)</a>
+                                    }
+                                    else
+                                    {
+                                        <a href=Announcement/Details/@item.ID>(Read More)</a>
+                                    }
                                 }
                             </div>
                         </div>
                     </div>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <div class="panel-footer text-center">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </div>
+                    }
                 </div>
             </div>
         }
     </div>
 
 
-    @*<div class="col-md-12" hidden>
+    @*<div class="col-md-12">
         <div class="panel panel-success ">
             <div class="panel-heading">
                 <span id="announcmentsTitle">Announcments</span>

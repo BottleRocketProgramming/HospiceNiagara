@@ -16,10 +16,14 @@ namespace HospiceNiagara.Models
         [Required]
         public int ID { get; set; }
 
+        [Display(Name = "Announcement Title")]
+        [Required(ErrorMessage = "Announcement's title can not be left blank")]
+        [StringLength(100, ErrorMessage = "Announcement's title can not exceed 100 characters")]
+        public string AnnounceTitle { get; set; }
+
         [Display(Name= "Announcement")]
         [Required(ErrorMessage = "Announcement can not be left blank")]
         [StringLength(1020, ErrorMessage = "Announcement can not exceed 1020 characters")]
-        [DataType(DataType.MultilineText)]
         [AllowHtml]
         public string AnnounceText { get; set; }
 
