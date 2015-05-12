@@ -123,7 +123,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">Select Roles</label>
+                                            <label class="control-label col-md-3">Visible to</label>
                                             <div class="col-md-offset-3 col-md-9">
                                                 <table class="table">
                                                     <tr>
@@ -137,11 +137,11 @@
                                                                 @:</tr><tr>
                                                                 }
                                                                 @:<td>
-                                                    <input type="checkbox"
-                                                           name="selectedRoles"
-                                                           data-size="small"
-                                                           value="@r.RoleID"
-                                                           @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                <input type="checkbox"
+                                                                   name="selectedRoles"
+                                                                   data-size="small"
+                                                                   value="@r.RoleID"
+                                                                   @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
                                                                     <br />
                                                                     <div class="text-left">
                                                                         @Html.DisplayFor(modelItem => r.RoleName)
@@ -197,7 +197,7 @@
                     </div>
                 </div>
             }
-        }   
+}   
     </div>
 </div>
 
