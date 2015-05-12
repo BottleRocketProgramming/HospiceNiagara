@@ -17,63 +17,63 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
          <div class="form-group" hidden>
-                            <label class="control-label col-md-2">Select Event</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <table class="table">
-                                    <tr>
-                                        @{
-                                            int c = 0;
-                                            List<HospiceNiagara.Models.Meeting> meet = ViewBag.Meeting;
-                                            foreach(var r in meet)
-                                            {
-                                                if (c++ % 2 == 0)
-                                                {
-                                                @:</tr><tr>
-                                                }
-                                                @:<td>
-                                                    <input type="checkbox" name="selectedMeetings" value="@r.ID" checked/>@r.EventTitle;
-                                                @:</td>
-                                            }
-                                        @:</tr>
-                                        }
-                                    </table>
-                                </div>
-                            </div>
+            <label class="control-label col-md-2">Select Event</label>
+            <div class="col-md-offset-2 col-md-10">
+                <table class="table">
+                    <tr>
+                        @{
+                            int c = 0;
+                            List<HospiceNiagara.Models.Meeting> meet = ViewBag.Meeting;
+                            foreach(var r in meet)
+                            {
+                                if (c++ % 2 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox" name="selectedMeetings" value="@r.ID" checked/>@r.EventTitle;
+                                @:</td>
+                            }
+                        @:</tr>
+                        }
+                    </table>
+                </div>
+            </div>
 
-                         <div class="form-group">
-                            <label class="control-label col-md-2">Select Users</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <div>
-                                    <input type="button" value="Select All" id="btnCheckAllUsers" />
-                                    @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, "All Roles", new { @id = "ddlRoles" })
-                                    @Html.ActionLink("Clear", "Create", new { id = ViewBag.MeetingID })
-                                </div>
+            <div class="form-group">
+            <label class="control-label col-md-2">Select Users</label>
+            <div class="col-md-offset-2 col-md-10">
+                <div>
+                    <input type="button" value="Select All" id="btnCheckAllUsers" />
+                    @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, "All Roles", new { @id = "ddlRoles" })
+                    @Html.ActionLink("Clear", "Create", new { id = ViewBag.MeetingID })
+                </div>
 
-                                <table class="table">
-                                    <tr>
-                                        @{
-                                            int ct = 0;
-                                            List<HospiceNiagara.Models.ApplicationUser> users = ViewBag.User;
-                                            foreach (var r in users)
-                                            {
-                                                if (ct++ % 2 == 0)
-                                                {
-                                                @:</tr><tr>
-                                                }
-                                                @:<td>
-                                                    <input type="checkbox"
-                                                    class="chkUsers"
-                                                    name="selectedUsers"
-                                                    value="@r.Id"
-                                                         />
-                                                    @r.UserFullName
-                                                @:</td>
-                                            }
-                                        @:</tr>
-                                        }
-                                    </table>
-                                </div>
-                            </div>
+                <table class="table">
+                    <tr>
+                        @{
+                            int ct = 0;
+                            List<HospiceNiagara.Models.ApplicationUser> users = ViewBag.User;
+                            foreach (var r in users)
+                            {
+                                if (ct++ % 2 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox"
+                                    class="chkUsers"
+                                    name="selectedUsers"
+                                    value="@r.Id"
+                                            />
+                                    @r.UserFullName
+                                @:</td>
+                            }
+                        @:</tr>
+                        }
+                    </table>
+                </div>
+            </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

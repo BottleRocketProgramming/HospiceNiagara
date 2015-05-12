@@ -187,6 +187,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HTMLhelper.cs" />
     <Compile Include="Migrations\201504060408168_RSVP.cs" />
     <Compile Include="Migrations\201504060408168_RSVP.Designer.cs">
       <DependentUpon>201504060408168_RSVP.cs</DependentUpon>
@@ -287,6 +288,8 @@
     <Compile Include="ViewModels\WelcomeNoticeVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
@@ -300,6 +303,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="README.txt" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jHtmlArea-0.8.min.js.map" />

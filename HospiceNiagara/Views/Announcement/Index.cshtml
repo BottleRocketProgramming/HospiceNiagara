@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<HospiceNiagara.Models.Announcement>*@
-@model HospiceNiagara.Models.Announcement
+﻿@model HospiceNiagara.Models.Announcement
 
 @{
     ViewBag.Title = "Announcements";
@@ -8,218 +7,199 @@
 @* Div for entire page *@
 <div class="container">
     <div class="col-md-12">
-        @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
-        {
-            <div class="col-md-6">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">@item.AnnounceTitle</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                @foreach (var f in item.FileStorages)
-                                {
-                                    if (f.FileContent != null && f.MimeType.Contains("image"))
-                                    {
-                                        string image64 = Convert.ToBase64String(f.FileContent);
-                                        string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                        <img src="@imageSrc" width="100%" />
-                                    }
-                                }
-                            </div>
-                            <div class="col-md-6">
-                                @Html.Raw(item.AnnounceText)
-                                @{
-                                    var url = Request.Url.PathAndQuery;
-                                    if (url.EndsWith("Announcement/Index"))
-                                    {
-                                        <a href=Details/@item.ID>(Read More)</a>
-                                    }
-                                    else
-                                    {
-                                        <a href=Announcement/Details/@item.ID>(Read More)</a>
-                                    }
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <div class="panel-footer text-center">
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-    </div>
-
-
-    @*<div class="col-md-12">
-        <div class="panel panel-success ">
-            <div class="panel-heading">
-                <span id="announcmentsTitle">Announcments</span>
-                <span id="newAnnouncmentTitle" hidden>New Announcment</span>
-                @if(User.IsInRole("Administrator"))
-                { 
-                <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
-                }
-            </div>
-            <div id="announcmentContent" class="panel-body">
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.AnnounceText)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FileStorages)
-                        </th>
-                        @if(User.IsInRole("Administrator"))
-                        {
-                        <th>
-                            @Html.DisplayNameFor(model => model.AnnounceEndDate)
-                        </th>
-                        }
-                        
-                        @if(User.IsInRole("Administrator"))
-                        {
-                        <th></th>
-                        }
-                    </tr>
-
-                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
-                    {
-                        @:<tr>
-                            <td>
-                                @{
-                                    var url = Request.Url.PathAndQuery;
-                                    if(url.EndsWith("Announcement/Index"))
-                                    {                              
-                                        <a href=Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
-                                    }
-                                    else
-                                    {
-                                        <a href=Announcement/Details/@item.ID>@Html.Raw(item.AnnounceText)</a>
-                                    }
-                                }
-                        </td>
-                        <td>
-                            @foreach (var f in item.FileStorages)
+        @{
+            bool firstPanel = false;
+            foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
+            {
+                <div class="col-sm-6 col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            @if (User.IsInRole("Administrator") && firstPanel == false)
                             {
-                                if (f.FileContent != null && f.MimeType.Contains("image"))
-                                {
-                                    string image64 = Convert.ToBase64String(f.FileContent);
-                                    string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                    <img src="@imageSrc" width="100%" />
-                                }
+                                <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
                             }
-                        </td>
-                        if (User.IsInRole("Administrator"))
-                        {
-                            <td>
-                            @Html.DisplayFor(modelItem => item.AnnounceEndDateString)
-                            </td>
-                        }
-                                
-                        if(User.IsInRole("Administrator"))
-                        {
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                        </td>
-                        @:</tr>   
-                        }
-                    }
-                </table>
-            </div>
-
-            <div id="newAnnouncmentContent" class="panel-body" hidden>
-               
-                  @using (Html.BeginForm())
-                  {
-                    @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.TextAreaFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control"} })
-                                @Html.ValidationMessageFor(model => model.AnnounceText, "", new { @class = "text-danger" })
-                            </div>
+                            <h3 id="announcmentsTitle" class="panel-title">@item.AnnounceTitle</h3>
+                            <h3 id="newAnnouncmentTitle" class="panel-title" hidden>New Announcement</h3>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Select Roles</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <table class="table">
-                                    <tr>
-                                        @{
-                                            int cnt = 0;
-                                            List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                            foreach(var r in roles)
-                                            {
-                                                if (cnt++ % 2 == 0)
+                        <div @{ if(firstPanel==false){
+                                @:id="announcmentContent"
+                            }} class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div id="myCarousel-@item.ID" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner" role="listbox">
+                                            @{
+                                                var count = 0;
+                                                foreach (var f in item.FileStorages)
                                                 {
-                                                @:</tr><tr>
+                                                    if (f.FileContent != null && f.MimeType.Contains("image"))
+                                                    {
+                                                        if (count == 0)
+                                                        {
+                                                            <div class="item active annIMG">
+                                                                @{
+                                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                                }
+                                                                <img src="@imageSrc" />
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="item annIMG">
+                                                                @{
+                                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                                }
+                                                                <img src="@imageSrc" />
+                                                            </div>
+                                                        }
+                                                        count++;
+                                                    }
                                                 }
-                                                @:<td>
-                                                    <input type="checkbox"
-                                                    name="selectedRoles"
-                                                    value="@r.RoleID"
-                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                    @r.RoleName
-                                                @:</td>
                                             }
-                                        @:</tr>
-                                        }
-                                    </table>
-                                </div>
-                            </div>
+                                        </div>
 
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <label class="control-label">Selected Files</label>
-                                    @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
-                                </div>
-                                <div id="selectButtons" class="form-group col-md-4 text-center">
-                                    <div class="select-button text-center">
-                                        <button type="button" id="btnFileRight" class="btn btn-warning">
-                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                        </button>
-                                    </div>
-                                    <div class="select-button">
-                                        <button type="button" id="btnFileLeft" class="btn btn-success">
+                                        <a class="left carousel-control" href="#myCarousel-@item.ID" role="button" data-slide="prev">
                                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                        </button>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#myCarousel-@item.ID" role="button" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="control-label">Availible Files</label>
-                                    @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
+                                <div class="col-md-6">
+                                    <div>
+                                        @Html.Raw(item.AnnouncementTextTrimmed)
+                                    </div>
+                                    @{
+                                        var url = Request.Url.PathAndQuery;
+                                        if (url.EndsWith("Announcement/Index"))
+                                        {
+                                            <a href=Details/@item.ID>(Read More)</a>
+                                        }
+                                        else
+                                        {
+                                            <a href=Announcement/Details/@item.ID>(Read More)</a>
+                                        }
+                                    }
                                 </div>
                             </div>
-
-                            <div class="btn-group">
-                                <input type="submit" value="Create" id="btnSubmit" name="CreateAnnouncement" class="btn btn-primary">
                         </div>
-                        @Html.ActionLink("Cancel", "Index")
+                        @{
+                            if (firstPanel == false)
+                            {
+                                <div id="newAnnouncmentContent" class="panel-body" hidden>
+                                  @using (Html.BeginForm())
+                                  {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AnnounceTitle, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.AnnounceTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.AnnounceTitle, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.TextAreaFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control"} })
+                                                @Html.ValidationMessageFor(model => model.AnnounceText, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Select Roles</label>
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <table class="table">
+                                                    <tr>
+                                                        @{
+                                                            int cnt = 0;
+                                                            List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                                            foreach(var r in roles)
+                                                            {
+                                                                if (cnt++ % 2 == 0)
+                                                                {
+                                                                @:</tr><tr>
+                                                                }
+                                                                @:<td>
+                                                    <input type="checkbox"
+                                                           name="selectedRoles"
+                                                           data-size="small"
+                                                           value="@r.RoleID"
+                                                           @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                    <br />
+                                                                    <div class="text-left">
+                                                                        @Html.DisplayFor(modelItem => r.RoleName)
+                                                                    </div>
+                                                                @:</td>
+                                                            }
+                                                        @:</tr>
+                                                        }
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Selected Files</label>
+                                                    @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
+                                                </div>
+                                                <div id="selectButtons" class="form-group col-md-4 text-center">
+                                                    <div class="select-button text-center">
+                                                        <button type="button" id="btnFileRight" class="btn btn-warning">
+                                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="select-button">
+                                                        <button type="button" id="btnFileLeft" class="btn btn-success">
+                                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Availible Files</label>
+                                                    @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="btn-group">
+                                                <input type="submit" value="Create" id="btnSubmit" name="CreateAnnouncement" class="btn btn-primary">
+                                        </div>
+                                        @Html.ActionLink("Cancel", "Index")
+                                    </div>
+                                  }       
+                            </div>
+                            firstPanel = true;
+                            }
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <div class="panel-footer text-center">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </div>
+                        }
                     </div>
-                  }       
-            </div>
-        </div>
+                </div>
+            }
+        }   
     </div>
-</div>*@
+</div>
 
 @section scripts{
     @Scripts.Render("~/bundles/MultiSelectlist")
@@ -231,6 +211,7 @@
                 $('#announcmentContent').slideToggle();
                 $('#newAnnouncmentContent').slideToggle();
                 $('#newAnnouncmentTitle').slideToggle();
+                $('.panel-footer').slideToggle();
                 $('#glyphNewAnnouncment').fadeToggle();
             });
 
@@ -238,6 +219,8 @@
 
             resizeHtmlEditor();
             $(window).resize(resizeHtmlEditor);
+
+            $("[name='selectedRoles']").bootstrapSwitch();
 
             function resizeHtmlEditor() {
                 $('div.jHtmlArea').find('div.ToolBar').css('width', '100%');

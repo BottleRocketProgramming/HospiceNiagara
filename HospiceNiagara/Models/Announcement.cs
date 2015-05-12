@@ -42,9 +42,18 @@ namespace HospiceNiagara.Models
             }
         }
 
-        public virtual ICollection<RoleList> RolesLists { get; set; }
+        private int AnnouncementTextLimit = 125;
+        private string annTxt;
+        public string AnnouncementTextTrimmed
+        {
+            get
+            {
+                annTxt = Helpers.HTMLhelper.TruncateHtml(this.AnnounceText, AnnouncementTextLimit, "...");
+                return annTxt;
+            }
+        }
 
-        //public virtual ICollection<ApplicationUser> UserAnnouncements { get; set; }
+        public virtual ICollection<RoleList> RolesLists { get; set; }
 
         public virtual ICollection<FileStorage> FileStorages { get; set; }
 

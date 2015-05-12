@@ -58,29 +58,29 @@
         </div>
         
         <div class="form-group">
-        <label class="control-label col-md-2">User Roles</label>
-        <div class="col-md-offset-2 col-md-10">
-            <table class="table">
-                <tr>
-                    @{
-    int cnt = 0;
-    List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-    foreach (var r in roles)
-    {
-        if (cnt++ % 2 == 0)
-        {
-                            @:</tr><tr>
-                          }
-                          @:<td>
-                                <input type="checkbox"
-                                name="selectedRoles"
-                                value="@r.RoleID"
-                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                @r.RoleName
-                         @:</td>
-                      }
-                 @:</tr>
-                    }
+            <label class="control-label col-md-2">User Roles</label>
+            <div class="col-md-offset-2 col-md-10">
+                <table class="table">
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                            foreach (var r in roles)
+                            {
+                                if (cnt++ % 2 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox"
+                                    name="selectedRoles"
+                                    value="@r.RoleID"
+                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                    @r.RoleName
+                                @:</td>
+                            }
+                        }
+                    </tr>
                 </table>
             </div>
         </div>
@@ -103,6 +103,8 @@
 
             resizeHtmlEditor();
             $(window).resize(resizeHtmlEditor);
+
+            $("[name='selectedRoles']").bootstrapSwitch();
 
             function resizeHtmlEditor() {
                 $('div.jHtmlArea').find('div.ToolBar').css('width', '100%');

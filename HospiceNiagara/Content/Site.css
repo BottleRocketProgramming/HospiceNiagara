@@ -4,7 +4,6 @@
     font-size:14px;
     font-family: 'Lato', sans-serif;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -197,10 +196,7 @@ textarea {
       text-align:center;
 }
 
-/*Increases the size of the panel heading font*/
-.panel-heading{
-    font-size:20px;
-}
+
 
 #navbarButton{
     margin-top:30px;
@@ -261,6 +257,16 @@ textarea {
     }
 }
 
+.carousel-control .glyphicon-chevron-left, 
+.carousel-control .glyphicon-chevron-right {
+   position: absolute;
+   top: 50%;
+   z-index: 5;
+   display: inline-block;
+   margin-right: -15px;
+   margin-left: -10px;
+}
+
 .glyphicon-plus{
     font-size:18px;
 }
@@ -268,4 +274,14 @@ textarea {
 div.jHtmlArea {
     width: 100% !important;
     height: 100% !important;
+}
+
+.annIMG{
+    background-color:black;
+}
+
+.annIMG img{
+    max-height: 150px;
+    margin-left:auto;
+    margin-right:auto;
 }
