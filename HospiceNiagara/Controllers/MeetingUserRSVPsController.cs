@@ -89,10 +89,9 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ComingYorN,RSVPNotes")] MeetingUserRSVP meetingUserRSVP, string[] selectedMeetings, string[] selectedUsers)
+        public ActionResult Create([Bind(Include = "ID,ComingYorN,RSVPNotes,AdminRequirements,UserRequirements")] MeetingUserRSVP meetingUserRSVP, string[] selectedMeetings, string[] selectedUsers)
         {
-
-           
+            int meetingID = 0;
             if(selectedMeetings != null)
             {
                 foreach(var m in selectedMeetings)
@@ -119,7 +118,7 @@ namespace HospiceNiagara.Controllers
                             }
                         }
                     }
-                    
+                    meetingID = int.Parse(m);
                 }
             }
             var uRoles = db.Roles;
@@ -130,6 +129,7 @@ namespace HospiceNiagara.Controllers
             }
             PopulateAssignedMeetings(meetingUserRSVP);
             PopulateAssignedUsers(meetingUserRSVP);
+            ViewBag.MeetingID = meetingID;
             ViewBag.Roles = list;
             return View(meetingUserRSVP);
         }
@@ -157,7 +157,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ComingYorN,RSVPNotes")] MeetingUserRSVP meetingUserRSVP)
+        public ActionResult Edit([Bind(Include = "ID,ComingYorN,RSVPNotes,UserRequirements,AdminRequirements")] MeetingUserRSVP meetingUserRSVP)
         {
             if (ModelState.IsValid)
             {

@@ -14,8 +14,16 @@ namespace HospiceNiagara.Models
         public bool? ComingYorN { get; set; }
 
         [Display(Name="RSVP Notes")]
-        [StringLength(250, ErrorMessage = "Announcement can not exceed 250 characters")]
+        [StringLength(250, ErrorMessage = "Note can not exceed 250 characters")]
         public string RSVPNotes { get; set; }
+
+        [Display(Name = "Requirements")]
+        [StringLength(250, ErrorMessage = "Requirements can not exceed 250 characters")]
+        public string AdminRequirements { get; set; }
+
+        [Display(Name = "User Requirements")]
+        [StringLength(250, ErrorMessage = "Requirements can not exceed 250 characters")]
+        public string UserRequirements { get; set; }
 
         public virtual ApplicationUser AppUser { get; set; }
 
