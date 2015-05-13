@@ -25,19 +25,16 @@ namespace HospiceNiagara.Models
         [AllowHtml]
         public string EventDiscription { get; set; }
 
-        private int DescriptionLimit = 100;
+        private int DescriptionLimit = 125;
+        private string evtText;
 
-        //You probably need this if you want to use .LabelFor() 
-        //and let this property mimic the "full" one  
         [Display(Name = "Description Short")]
         public string DescriptionTrimmed
         {
             get
             {
-                if (this.EventDiscription.Length > this.DescriptionLimit)
-                    return this.EventDiscription.Substring(0, this.DescriptionLimit) + "...";
-                else
-                    return this.EventDiscription;
+                evtText = Helpers.HTMLhelper.TruncateHtml(this.EventDiscription, DescriptionLimit, "...");
+                return evtText;
             }
         }
 

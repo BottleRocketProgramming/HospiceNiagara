@@ -295,3 +295,9 @@ div.jHtmlArea {
     margin-left:auto;
     margin-right:auto;
 }
+
+.listPanel {
+    overflow-y:auto; 
+    min-height: 190px;
+    max-height: 190px;
+}
