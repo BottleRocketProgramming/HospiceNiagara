@@ -190,8 +190,8 @@
                         @if (User.IsInRole("Administrator"))
                         {
                             <div class="panel-footer text-center">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-default" }) 
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
                             </div>
                         }
                     </div>

@@ -18,7 +18,19 @@
                             {
                                 <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
                             }
-                            <h3 id="EventsTitle" class="panel-title">@item.EventTitle</h3>
+                            <h3 id="EventsTitle" class="panel-title">
+                                @{
+                                    var url = Request.Url.PathAndQuery;
+                                    if (url.EndsWith("Meeting/Index"))
+                                    {
+                                        <a href="Details/@item.ID" style="color: inherit; text-decoration: none;">@item.EventTitle</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="Meeting/Details/@item.ID" style="color: inherit; text-decoration: none;">@item.EventTitle</a>
+                                    }
+                                }
+                            </h3>
                             <h3 id="newMeetingEventTitle" class="panel-title" hidden>New Event/Meeting</h3>
                         </div>
                         <div @{ if(firstPanel==false){
@@ -75,7 +87,6 @@
                                         @Html.Raw(item.DescriptionTrimmed)
                                     </div>
                                     @{
-                                        var url = Request.Url.PathAndQuery;
                                         if (url.EndsWith("Meeting/Index"))
                                         {
                                             <a href=Details/@item.ID>(Read More)</a>
@@ -85,7 +96,7 @@
                                             <a href=Meeting/Details/@item.ID>(Read More)</a>
                                         }
                                     }
-                                    <table class="table">
+                                    <table class="table" style="margin-top:5px">
                                         <tr>
                                             <td>
                                                 On
@@ -234,8 +245,8 @@
                         @if (User.IsInRole("Administrator"))
                         {
                             <div class="panel-footer text-center">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-default" }) 
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
                             </div>
                         }
                     </div>

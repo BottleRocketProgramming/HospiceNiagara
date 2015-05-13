@@ -3,27 +3,15 @@
 @{
     ViewBag.Title = @Html.DisplayFor(model => model.EventTitle);
 }
-<div class="col-sm-8">
-    <div class="panel panel-success ">
+
+<div class="col-md-12">
+    <div class="panel panel-success">
         <div class="panel-heading">
-           @Html.DisplayFor(model => model.EventTitle)
+            <h3 class="panel-title">@Model.EventTitle</h3>
         </div>
         <div class="panel-body">
-            @*<div class="text-center">
-                @{
-                    foreach (var f in Model.FileStores)
-                    {
-                        if (f.FileContent != null && f.MimeType.Contains("image"))
-                        {
-                            string image64 = Convert.ToBase64String(f.FileContent);
-                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                            <img src="@imageSrc" width="85%" />
-                            
-                        }
-                    }
-                }
-            </div>*@
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="col-md-6">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     @{
                         int count = 0;
@@ -86,120 +74,84 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.EventDiscription)
-                </dt>
-
-                <dd>
-                    @Html.Raw(Html.Encode(Model.EventDiscription).Replace("\n", "<br />"))
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EventLocation)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.EventLocation)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EventStartString)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.EventStartString)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EventEndString)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.EventEndString)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EventRequirments)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.EventRequirments)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EventLinks)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.EventLinks)
-                </dd>
-
-            </dl>
-            <p class="text-center">
-                @if (User.IsInRole("Administrator"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) <span>|</span>
-                }
-                @Html.ActionLink("Back to List", "Index")
-            </p>
-        </div>
-            
-    </div>
-</div>
-
-<div class="col-sm-4">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            RSVP
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                @{
-                    List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
-                    foreach (var r in rsvp)
-                    {
-                        <tr>
-                            <td>
-                                @if (r.ComingYorN == true)
-                                {
-                                    @:Yes
-                                }
-                                else if (r.ComingYorN == false)
-                                {
-                                    @:No
-                                }
-                                else
-                                {
-                                    @:No Response
-                                }
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => r.RSVPNotes)
-                            </td>
-                            <td>
-                                @if (r.ComingYorN.HasValue)
-                                {
-                                    @Html.ActionLink("Changed your Mind?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
-                                }
-                                else
-                                {
-                                    @Html.ActionLink("Are you Attending?", "../MeetingUserRSVPs/Edit", new { id = r.ID })
-                                }
-                            </td>
-                        </tr>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    @Html.Raw(Model.EventDiscription)
+                </div>
+                <table class="table text-center" style="margin-top:10px">
+                    <tr>
+                        <td style="font-weight:bold">
+                            @Html.DisplayNameFor(model => model.EventLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.EventLocation)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">
+                            @Html.DisplayNameFor(model => model.EventStartString)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.EventStartString)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">
+                            @Html.DisplayNameFor(model => model.EventEndString)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.EventEndString)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">
+                            @Html.DisplayFor(model => model.EventRequirments)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.EventLocation)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-2">
+                <h4 class="text-center">RSVP</h4>
+                <table class="table text-center">
+                    @{
+                        List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
+                        foreach (var r in rsvp)
+                        {
+                            <tr>
+                                <td>
+                                    @if (r.ComingYorN == true)
+                                    {
+                                        @:<p style="margin-top:7px">Yes</p>
+                                    }
+                                    else if (r.ComingYorN == false)
+                                    {
+                                        @:<p>No</p>
+                                    }
+                                    else
+                                    {
+                                        @:<p>No Response</p>
+                                    }
+                                </td>
+                                <td>
+                                    @if (r.ComingYorN.HasValue)
+                                    {
+                                        @Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("RSVP", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
+                                    }
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </table>
-        </div>
-    </div>
-
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            Related Files
-        </div>
-        <div class="panel-body">
-            <table class="table">
+                </table>
+                <h4 class="text-center">Related Files</h4>
+                <table class="table text-center">
                 <tr>
                     @{
                         List<HospiceNiagara.Models.FileStorage> files = ViewBag.FileStorages;
@@ -207,18 +159,25 @@
                         {
                             @:</tr><tr>
                             @:<td>
-                                <a href=../../FileStorages/Download/@f.ID>@f.FileName</a>
-                                @:</td>
-                            @:<td>
-                                @f.FileDescription
-                                @:</td>
+                                <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
+                            @:</td>
                         }
                         @:</tr>
                     }
                 </table>
             </div>
         </div>
-        
+        @if(User.IsInRole("Administrator"))
+        {
+            <div class="panel-footer text-center">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" })
+            </div>
+        }
+    </div>
+</div>
+
+<div class="col-sm-6">
         @if(User.IsInRole("Administrator"))
         {
            <div class="panel panel-success">
@@ -233,39 +192,37 @@
                 @ViewBag.amtRSVPYes
                 <br />Confirmed Not Attending:
                 @ViewBag.amtRSVPNo
-                <br />
-                <br />
-                <table class="table">
-                    @{
-                        List<HospiceNiagara.Models.MeetingUserRSVP> rsvps = ViewBag.meetingRSVPs;
-                        foreach (var rs in rsvps)
-                        {
-                            <tr>
-                                <td>
-                                    @rs.AppUser.UserFullName
-                                </td>
-                                <td>
-                                    @if (rs.ComingYorN == true)
-                                    {
-                                        @:Yes
-                                    }
-                                    else if (rs.ComingYorN == false)
-                                    {
-                                        @:No
-                                    }
-                                    else
-                                    {
-                                        @:No Response
-                                    }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => rs.RSVPNotes)
-                                </td>
-                            </tr>
-                        }
-                    }
-                </table>
             </div>
+            <table class="table">
+                @{
+                    List<HospiceNiagara.Models.MeetingUserRSVP> rsvps = ViewBag.meetingRSVPs;
+                    foreach (var rs in rsvps)
+                    {
+                        <tr>
+                            <td>
+                                @rs.AppUser.UserFullName
+                            </td>
+                            <td>
+                                @if (rs.ComingYorN == true)
+                                {
+                                    @:Yes
+                                }
+                                else if (rs.ComingYorN == false)
+                                {
+                                    @:No
+                                }
+                                else
+                                {
+                                    @:No Response
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rs.RSVPNotes)
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
         </div> 
         }
         
