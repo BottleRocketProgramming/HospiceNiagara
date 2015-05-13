@@ -36,7 +36,7 @@
                                                     {
                                                         if (count == 0)
                                                         {
-                                                            <div class="item active annIMG">
+                                                            <div class="item active listIMG">
                                                                 @{
                                                             string image64 = Convert.ToBase64String(f.FileContent);
                                                             string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
@@ -46,7 +46,7 @@
                                                         }
                                                         else
                                                         {
-                                                            <div class="item annIMG">
+                                                            <div class="item listIMG">
                                                                 @{
                                                             string image64 = Convert.ToBase64String(f.FileContent);
                                                             string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
@@ -57,7 +57,7 @@
                                                         count++;
                                                     }
                                                 }
-                                            }
+}
                                         </div>
 
                                         <a class="left carousel-control" href="#myCarousel-@item.ID" role="button" data-slide="prev">

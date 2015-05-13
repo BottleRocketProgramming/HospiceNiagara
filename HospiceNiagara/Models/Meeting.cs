@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 //Paul Boyko Feb 2015
 
@@ -20,8 +21,8 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Description")]
         [Required(ErrorMessage = "Event's description can not be left blank")]
-        [StringLength(510, ErrorMessage = "Event's discription can not exceed 510 characters")]
-        [DataType(DataType.MultilineText)]
+        [StringLength(2000, ErrorMessage = "Event's discription can not exceed 2000 characters")]
+        [AllowHtml]
         public string EventDiscription { get; set; }
 
         private int DescriptionLimit = 100;

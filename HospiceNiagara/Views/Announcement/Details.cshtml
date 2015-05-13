@@ -1,10 +1,111 @@
 ﻿@model HospiceNiagara.Models.Announcement
 
 @{
-    ViewBag.Title = "Announcement Details";
+    ViewBag.Title = Model.AnnounceTitle;
 }
 
-<div class="col-sm-8">
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Model.AnnounceTitle</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-6" id="colPicture">
+                @{
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            @{
+                                var count = 0;
+                                foreach (var f in Model.FileStorages)
+                                {
+                                    if (f.FileContent != null && f.MimeType.Contains("image"))
+                                    {
+                                        if (count == 0)
+                                        {
+                                            <div class="item active detailsIMG">
+                                                @{
+                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                }
+                                                <img src="@imageSrc" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item detailsIMG">
+                                                @{
+                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                }
+                                                <img src="@imageSrc" />
+                                            </div>
+                                        }
+                                        count++;
+                                    }
+                                }
+}
+                        </div>
+
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="col-md-4" id="colContent">
+                <div>
+                    @Html.Raw(Model.AnnounceText)
+                </div>
+            </div>
+            <div class="col-md-2" id="colInfo">
+                <h4 class="text-center">Related Files</h4>
+                <table class="table text-center">
+                    <tr>
+                        @{
+                          List<HospiceNiagara.ViewModels.FileStorageVM> files = ViewBag.FileStorages;
+                          foreach (var f in files)
+                          {
+                                  @:</tr><tr>
+                              @:<td>
+                                    <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
+                             @:</td>
+                          }
+                     @:</tr>
+                        }
+                </table>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <h4 class="text-center">Admin Info</h4>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.AnnounceEndDate)
+                            </td>
+                            <td>
+                                @Model.AnnounceEndDate.ToShortDateString()
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+                            </td>
+                            <td class="text-center">
+                                @Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="col-md-12">
     <div class="panel panel-success ">
         <div class="panel-heading">
             <h3 class="panel-title">@Model.AnnounceTitle</h3>
@@ -107,5 +208,5 @@
                 </table>
         </div>
     </div>
-</div>
+</div>*@
     

@@ -252,6 +252,10 @@
     <Compile Include="Migrations\201505111726331_Announcement_Title.Designer.cs">
       <DependentUpon>201505111726331_Announcement_Title.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505131446285_eventsDesc.cs" />
+    <Compile Include="Migrations\201505131446285_eventsDesc.Designer.cs">
+      <DependentUpon>201505131446285_eventsDesc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -522,6 +526,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505111726331_Announcement_Title.resx">
       <DependentUpon>201505111726331_Announcement_Title.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505131446285_eventsDesc.resx">
+      <DependentUpon>201505131446285_eventsDesc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

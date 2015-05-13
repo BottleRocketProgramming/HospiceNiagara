@@ -276,12 +276,22 @@ div.jHtmlArea {
     height: 100% !important;
 }
 
-.annIMG{
+.listIMG{
     background-color:black;
 }
 
-.annIMG img{
+.listIMG img{
     max-height: 149px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.detailsIMG{
+    background-color:black;
+}
+
+.detailsIMG img{
+    max-height: 340px;
     margin-left:auto;
     margin-right:auto;
 }

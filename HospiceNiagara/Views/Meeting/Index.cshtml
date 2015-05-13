@@ -3,8 +3,84 @@
 @*Andreas King March 2015*@
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Meetings and Events";
 }
+@*<div class="container">
+    <div class="col-md-12">
+        @{
+            bool firstPanel = false;
+            foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
+            {
+                <div class="col-sm-6 col-md-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            @if (User.IsInRole("Administrator") && firstPanel == false)
+                            {
+                                <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
+                            }
+                            <h3 id="EventsTitle" class="panel-title">@item.EventTitle</h3>
+                            <h3 id="newMeetingEventTitle" class="panel-title" hidden>New Event/Meeting</h3>
+                        </div>
+                        <div @{ if(firstPanel==false){
+                                @:id="EventPanel"
+                            }} class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div id="myCarousel-@item.ID" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner" role="listbox">
+                                            @{
+                                                var count = 0;
+                                                foreach (var f in item.FileStores)
+                                                {
+                                                    if (f.FileContent != null && f.MimeType.Contains("image"))
+                                                    {
+                                                        if (count == 0)
+                                                        {
+                                                            <div class="item active listIMG">
+                                                                @{
+                                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                                }
+                                                                <img src="@imageSrc" />
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="item listIMG">
+                                                                @{
+                                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                                }
+                                                                <img src="@imageSrc" />
+                                                            </div>
+                                                        }
+                                                        count++;
+                                                    }
+                                                }
+                                        </div>
+
+                                        <a class="left carousel-control" href="#myCarousel-@item.ID" role="button" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#myCarousel-@item.ID" role="button" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>*@
+
 @* Makes content span the whole page *@
 <div class="col-sm-12">
     @* Meeting Panel *@
@@ -112,7 +188,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.EventDiscription, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.EventDiscription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.TextAreaFor(model => model.EventDiscription, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.EventDiscription, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -233,39 +309,33 @@
     </div>
 </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/MultiSelectlist")
-@Scripts.Render("~/bundles/jqueryval")
+@section scripts{
+    @Scripts.Render("~/bundles/MultiSelectlist")
+    @Scripts.Render("~/bundles/jqueryval")
 
-<script>
-    $(document).ready(function () {
-        $('#glyphAddEvent').on('click', function () {
-            $('#EventsTitle').slideToggle();
-            $('#EventPanel').slideToggle();
-            $('#NewEvent').slideToggle();
-            $('#newMeetingEventTitle').slideToggle();
-            $('#glyphAddEvent').fadeToggle();
-        });
-
-        $('#btnAddNewEvent').on('click', function () {
-            $('#EventsTitle').slideToggle();
-            $('#EventPanel').slideToggle();
-            $('#NewEvent').slideToggle();
-            $('#newMeetingEventTitle').slideToggle();
-            $('#glyphAddEvent').fadeToggle();
-        });
-
-        $('#btnCancelNewEvent').on('click', function () {
-            $('#EventsTitle').slideToggle();
-            $('#EventPanel').slideToggle();
-            $('#NewEvent').slideToggle();
-            $('#newMeetingEventTitle').slideToggle();
-            $('#glyphAddEvent').fadeToggle();
-        });
+    <script>
         $(document).ready(function () {
-            $('#glyphEventDesc').on('click', function () {
-                $('#panelEventDesc').slideToggle();
+            $('#glyphAddEvent').on('click', function () {
+                $('#EventsTitle').slideToggle();
+                $('#EventPanel').slideToggle();
+                $('#NewEvent').slideToggle();
+                $('#newMeetingEventTitle').slideToggle();
+                $('#glyphAddEvent').fadeToggle();
             });
+
+            $('textarea').htmlarea();
+
+            resizeHtmlEditor();
+            $(window).resize(resizeHtmlEditor);
+
+            $("[name='selectedRoles']").bootstrapSwitch();
+
+            function resizeHtmlEditor() {
+                $('div.jHtmlArea').find('div.ToolBar').css('width', '100%');
+                $('div.jHtmlArea iframe').css('width', '100%');
+                $('div.jHtmlArea iframe').css('height', '100%');
+                $('div.jHtmlArea iframe').parent().css('width', '100%');
+            }
         });
-    });
-</script>
+    </script>
+}

@@ -108,7 +108,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateAnnouncement")]
         [Authorize(Roles="Administrator")]
-        public ActionResult Create([Bind(Include = "ID,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement, string[] selectedRoles, string[] selectedFiles)
+        public ActionResult Create([Bind(Include = "ID,AnnounceTitle,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement, string[] selectedRoles, string[] selectedFiles)
         {
             try
             {
@@ -134,7 +134,6 @@ namespace HospiceNiagara.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    //announcement.IsEvent = false;
                     db.Announcements.Add(announcement);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -183,7 +182,7 @@ namespace HospiceNiagara.Controllers
 
             var announcementToUpdate = db.Announcements.Include(a => a.RolesLists).Where(i => i.ID == id).Single();
 
-            if (TryUpdateModel(announcementToUpdate, "", new string[] { "ID", "AnnounceText", "AnnounceEndDate", "IsEvent" }))
+            if (TryUpdateModel(announcementToUpdate, "", new string[] { "ID","AnnounceTitle", "AnnounceText", "AnnounceEndDate", "IsEvent" }))
             {
                 try
                 {
