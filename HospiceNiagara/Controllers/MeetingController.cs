@@ -11,6 +11,9 @@ using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
 using System.Web.Security;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
 
 
 //Andreas King March 2015
@@ -258,6 +261,38 @@ namespace HospiceNiagara.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ExportData(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Meeting meeting = db.Meetings.Find(id);
+            if (meeting == null)
+            {
+                return HttpNotFound();
+            }
+            var RSVPlist = PopulateAssignedRSVPList(meeting);
+            var RSVPforExcel = RSVPsforExport(RSVPlist);
+
+            GridView gv = new GridView();
+            gv.DataSource = RSVPforExcel;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=RSVPList.xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return View(meeting);
+        }
+
         public void PopulateAllRSVPs(Meeting meeting)
         {
             var allRSVP = db.MeetingUserRSVPs.Where(r => r.MeetingRSVP.ID == meeting.ID).Include(r => r.AppUser).ToList();
@@ -292,6 +327,53 @@ namespace HospiceNiagara.Controllers
             }
 
             ViewBag.meetingRSVP = meetingRSVP;
+        }
+
+        public List<MeetingUserRSVP> PopulateAssignedRSVPList(Meeting meeting)
+        {
+            var allRSVP = db.MeetingUserRSVPs.Where(r => r.MeetingRSVP.ID == meeting.ID).Include(r => r.AppUser).ToList();
+            var meetingRSVP = new List<MeetingUserRSVP>();
+            foreach (var rsvp in allRSVP)
+            {
+                meetingRSVP.Add(new MeetingUserRSVP
+                {
+                    ID = rsvp.ID,
+                    ComingYorN = rsvp.ComingYorN,
+                    RSVPNotes = rsvp.RSVPNotes
+                });
+            }
+            return meetingRSVP;
+        }
+
+        public List<RSVPforExport> RSVPsforExport(List<MeetingUserRSVP> meetingRSVP)
+        {
+            var RSVPsForExport = new List<RSVPforExport>();
+            foreach(var rsvp in meetingRSVP)
+            {
+                var isAttending = "";
+                if(rsvp.ComingYorN == true)
+                {
+                    isAttending = "Yes";
+                }
+                else if(rsvp.ComingYorN == false)
+                {
+                    isAttending = "No";
+                }
+                else
+                {
+                    isAttending = "No Response";
+                }
+
+                RSVPsForExport.Add(new RSVPforExport
+                {
+                    Name = rsvp.AppUser.UserFullName,
+                    Attending = isAttending,
+                    Notes = rsvp.RSVPNotes,
+                    UserRequirements = rsvp.UserRequirements
+                });
+            }
+
+            return RSVPsForExport;
         }
 
 //Empty Roles for Create

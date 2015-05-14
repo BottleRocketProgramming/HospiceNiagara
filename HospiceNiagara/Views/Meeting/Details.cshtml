@@ -104,14 +104,6 @@
                             @Html.DisplayFor(model => model.EventEndString)
                         </td>
                     </tr>
-                    <tr>
-                        <td style="font-weight:bold">
-                            @Html.DisplayFor(model => model.EventRequirments)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.EventLocation)
-                        </td>
-                    </tr>
                 </table>
             </div>
             <div class="col-md-2">
@@ -194,6 +186,20 @@
                 @ViewBag.amtRSVPNo
             </div>
             <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Attending
+                    </th>
+                    <th>
+                        User Requirements
+                    </th>
+                    <th>
+                        Notes
+                    </th>
+                </tr>
                 @{
                     List<HospiceNiagara.Models.MeetingUserRSVP> rsvps = ViewBag.meetingRSVPs;
                     foreach (var rs in rsvps)
@@ -217,12 +223,16 @@
                                 }
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => rs.UserRequirements)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => rs.RSVPNotes)
                             </td>
                         </tr>
                     }
                 }
             </table>
+               @Html.ActionLink("ExportData", "ExportData", new { id = Model.ID }, new { @class = "btn btn-default" })
         </div> 
         }
         

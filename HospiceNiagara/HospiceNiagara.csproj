@@ -289,6 +289,7 @@
     <Compile Include="ViewModels\MettingVM.cs" />
     <Compile Include="ViewModels\NetRollVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
+    <Compile Include="ViewModels\RSVPforExport.cs" />
     <Compile Include="ViewModels\SchdVM.cs" />
     <Compile Include="ViewModels\SchedTypeVM.cs" />
     <Compile Include="ViewModels\SearchDisplayVM.cs" />
@@ -331,6 +332,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Jsonex.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MultiSelectlist.js" />
     <Content Include="Scripts\respond.js" />
