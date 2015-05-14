@@ -337,6 +337,7 @@
     <Content Include="Scripts\MultiSelectlist.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\searchScript.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -469,6 +470,7 @@
     <Content Include="Views\WelcomeNotice\Details.cshtml" />
     <Content Include="Views\WelcomeNotice\Edit.cshtml" />
     <Content Include="Views\WelcomeNotice\Index.cshtml" />
+    <Content Include="Views\FileStorages\_SearchList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
