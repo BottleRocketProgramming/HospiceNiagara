@@ -307,3 +307,8 @@ div.jHtmlArea {
 #btnRemoveFile{
     max-width: 280px;
 }
+
+#searchResults{
+    max-width:280px; 
+    position:absolute
+}

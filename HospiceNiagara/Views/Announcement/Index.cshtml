@@ -99,32 +99,32 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.AnnounceTitle, htmlAttributes: new { @class = "control-label col-md-3" })
-                                            <div class="col-md-9">
+                                            @Html.LabelFor(model => model.AnnounceTitle, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
                                                 @Html.EditorFor(model => model.AnnounceTitle, new { htmlAttributes = new { @class = "form-control" } })
                                                 @Html.ValidationMessageFor(model => model.AnnounceTitle, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "control-label col-md-3" })
-                                            <div class="col-md-9">
-                                                @Html.TextAreaFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control"} })
+                                            @Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.TextAreaFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control" } })
                                                 @Html.ValidationMessageFor(model => model.AnnounceText, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "control-label col-md-3" })
-                                            <div class="col-md-9">
+                                            @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
                                                 @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control" } })
                                                 @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">Visible to</label>
-                                            <div class="col-md-offset-3 col-md-9">
+                                            <label class="control-label" style="padding-left:15px">Visible to</label>
+                                            <div class="col-md-12">
                                                 <table class="table">
                                                     <tr>
                                                         @{
@@ -155,25 +155,21 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <div class="col-md-4">
+                                                <div class="col-md-10 col-md-offset-2">
+                                                    <label class="control-label">Find and Add Files:</label>
+                                                    <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                                                    <div id="searchResults" style="z-index:1000">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-10 col-md-offset-2">
                                                     <label class="control-label">Selected Files</label>
                                                     @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
-                                                </div>
-                                                <div id="selectButtons" class="form-group col-md-4 text-center">
-                                                    <div class="select-button text-center">
-                                                        <button type="button" id="btnFileRight" class="btn btn-warning">
-                                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                    <div>
+                                                        <button type="button" id="btnRemoveFile" class="btn btn-danger form-control">
+                                                            <span class="glyphicon glyphicon-remove"></span>&nbsp;Remove Selected
                                                         </button>
                                                     </div>
-                                                    <div class="select-button">
-                                                        <button type="button" id="btnFileLeft" class="btn btn-success">
-                                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="control-label">Availible Files</label>
-                                                    @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
                                                 </div>
                                             </div>
 
@@ -204,6 +200,8 @@
 @section scripts{
     @Scripts.Render("~/bundles/MultiSelectlist")
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/searchScript.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $('#glyphNewAnnouncment').on('click', function () {

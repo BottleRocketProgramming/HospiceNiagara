@@ -20,6 +20,7 @@ $(function () {
         // (Note: the $ prefix on the variable name is a convention to remind us that the object contains a jquery object)
         $this = $(this);
         $searchResults = $("#searchResults");
+        $searchResults.show();
 
         if ($this.val().length == 0) {
             // If the search field is empty, we'll return no results.
@@ -40,7 +41,7 @@ $(function () {
                     success: function (data) {
                         $searchResults.html(data);
                         $(".search-result-item").on("click", function () {
-
+                            $searchResults.hide();
                             // You could just as easily put the jquery below directly into the .append() call,
                             // but I broke them out into variables to make it easier to read.
                             var itemId = $(this).attr("data-file-id");
