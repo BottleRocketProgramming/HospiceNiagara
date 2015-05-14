@@ -75,8 +75,15 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="control-label">Available Files</label>
-                                @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
+                                <label class="control-label">Find and Add Files:</label>
+                                <input id="fileFinder" name="s" placeholder="Find a file" />
+                                <div id="searchResults">
+
+                                </div>
+                                @*
+                                    <label class="control-label">Available Files</label>
+                                    @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
+                                *@
                             </div>
                         </div>
 
@@ -89,4 +96,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/searchScript.js" type="text/javascript"></script>
 }

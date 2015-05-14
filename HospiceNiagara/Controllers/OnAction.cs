@@ -13,7 +13,7 @@ namespace HospiceNiagara.Controllers
     {
         public String ButtonName { get; set; }
 
-        public override bool IsValidForRequest(ControllerContext controllerContext,MethodInfo methodInfo)
+        public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
         {
             var req = controllerContext.RequestContext.HttpContext.Request;
             return !string.IsNullOrEmpty(req.Form[this.ButtonName]);
