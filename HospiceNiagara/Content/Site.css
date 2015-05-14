@@ -156,14 +156,6 @@ textarea {
     margin-left: 80px;
 }
 
-#selectButtons {
-    margin-top: 30px;
-}
-
-.select-button {
-    padding-bottom:5px;
-}
-
 .handwriting{
       font-family: 'Rochester', cursive;
       font-size:18px;
@@ -267,4 +259,13 @@ textarea {
 
 .glyphicon-plus{
     font-size:18px;
+}
+
+.search-result-item:hover{
+    background-color: #F5F0F0;
+    cursor: default;
+}
+
+#btnRemoveFile{
+    max-width: 280px;
 }

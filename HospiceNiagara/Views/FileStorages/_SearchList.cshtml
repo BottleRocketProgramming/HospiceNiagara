@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<HospiceNiagara.Models.FileStorage>
 
-<li class="search-result-list">
+<ul class="search-result-list list-group">
     @foreach (var item in Model)
     {
-        <ul class="search-result-item" data-file-id="@item.ID">@Html.DisplayFor(modelItem => item.FileName) (@Html.DisplayFor(modelItem => item.FileUploadDate))</ul>
+        <li class="search-result-item list-group-item" data-file-id="@item.ID">@Html.DisplayFor(modelItem => item.FileDescription) (@Html.DisplayFor(modelItem => item.FileUploadDate))</li>
     }
-</li>
+</ul>
 
 @*
     The below is another possible (more detailed) way to show your results.

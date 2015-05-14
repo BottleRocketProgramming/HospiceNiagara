@@ -29,7 +29,7 @@ $(function () {
             // (Read more about $.ajax at http://api.jquery.com/jquery.ajax/) 
             $.ajax(
                 // First parameter is the URL we're sending the ajax call to
-                "/FileStorage/GetList?s=" + encodeURIComponent($this.val()),
+                "/FileStorages/GetList?s=" + encodeURIComponent($this.val()),
                 // Second parameter is a javascript object that tells jquery how to execute the call and 
                 // how to respond. There are many more customizable parameters you can use, but these are 
                 // usually all you need.

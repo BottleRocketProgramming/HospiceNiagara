@@ -82,7 +82,7 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         // This is for testing purposes, if the user is logged in as an admin, their ajax request can be validated as usual
         [AllowAnonymous] 
         public ActionResult GetList(string s)
@@ -94,14 +94,14 @@ namespace HospiceNiagara.Controllers
             {
                 // Find files that have the search string in either the FileName or FileDescription fields and return only the 10 first results.
                 var results = db.FileStorages.Where(x => x.FileName.Contains(s) || x.FileDescription.Contains(s)).Take(10).OrderBy(x => x.FileName);
-                return PartialView("FileStorages/_SearchList.cshtml", results);
+                return PartialView("_SearchList", results);
                 
                 // If you want to handle presentation of the data on the client side:
                 // you can, return a Json Object instead
                 // return Json(results, JsonRequestBehavior.AllowGet)
                 
             }
-            // if it's not an ajax call, we'll tell the browser we didn't find anything. (404 error)
+             //if it's not an ajax call, we'll tell the browser we didn't find anything. (404 error)
             return new HttpNotFoundResult();
         }
 
