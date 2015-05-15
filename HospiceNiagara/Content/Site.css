@@ -310,5 +310,16 @@ div.jHtmlArea {
 
 #searchResults{
     max-width:280px; 
-    position:absolute
+    position:absolute;
+}
+
+@media (max-width: 992px){
+    .listPanel { 
+    max-height: 380px;
+    }
+
+    #EventPanel{
+    min-height: 189px;
+    max-height: 380px;
+    }
 }

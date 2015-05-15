@@ -14,6 +14,7 @@
 
 */
 $(function () {
+    
     $("#fileFinder").on("keyup", function () {
 
         // Store the jquery objects in reusable variables since we call them more than once. 
@@ -69,3 +70,4 @@ $(function () {
         }
     });
 })
+

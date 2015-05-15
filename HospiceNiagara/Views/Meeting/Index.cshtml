@@ -120,115 +120,111 @@
                                         <div class="form-horizontal">
                                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
+                                                @Html.LabelFor(model => model.EventTitle, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                <div class="col-md-12">
                                                     @Html.EditorFor(model => model.EventTitle, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventTitle, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventDiscription, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
+                                                @Html.LabelFor(model => model.EventDiscription, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                <div class="col-md-12">
                                                     @Html.TextAreaFor(model => model.EventDiscription, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventDiscription, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
+                                                @Html.LabelFor(model => model.EventLocation, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                <div class="col-md-12">
                                                     @Html.EditorFor(model => model.EventLocation, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventLocation, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventStart, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
+                                                @Html.LabelFor(model => model.EventStart, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                <div class="col-md-12">
                                                     @Html.EditorFor(model => model.EventStart, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventStart, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
+                                                @Html.LabelFor(model => model.EventEnd, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                <div class="col-md-12">
                                                     @Html.EditorFor(model => model.EventEnd, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventEnd, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventRequirments, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
+                                                @Html.LabelFor(model => model.EventRequirments, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                <div class="col-md-12">
                                                     @Html.EditorFor(model => model.EventRequirments, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventRequirments, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventLinks, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
+                                                @Html.LabelFor(model => model.EventLinks, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                <div class="col-md-12">
                                                     @Html.EditorFor(model => model.EventLinks, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventLinks, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Visible to</label>
-                                                <div class="col-md-offset-3 col-md-9">
-                                                    <table>
-                                                        <tr>
-                                                            @{
-                                                                int cnt = 0;
-                                                                List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                                                foreach(var r in roles)
+                                            <label class="control-label" style="padding-left:15px">Visible to</label>
+                                            <div class="col-md-12">
+                                                <table class="table">
+                                                    <tr>
+                                                        @{
+                                                            int cnt = 0;
+                                                            List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                                            foreach(var r in roles)
+                                                            {
+                                                                if (cnt++ % 2 == 0)
                                                                 {
-                                                                    if (cnt++ % 2 == 0)
-                                                                    {
-                                                                    @:</tr><tr>
-                                                                    }
-                                                                    @:<td>
-                                                                        <input type="checkbox"
-                                                                        name="selectedRoles"
-                                                                        data-size="small"
-                                                                        value="@r.RoleID"
-                                                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                                        <br />
-                                                                        <div class="text-left">
-                                                                            @Html.DisplayFor(modelItem => r.RoleName)
-                                                                        </div>
-                                                                    @:</td>
+                                                                @:</tr><tr>
                                                                 }
-                                                            @:</tr>
+                                                                @:<td>
+                                                                <input type="checkbox"
+                                                                   name="selectedRoles"
+                                                                   data-size="small"
+                                                                   value="@r.RoleID"
+                                                                   @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                    <br />
+                                                                    <div class="text-left">
+                                                                        @Html.DisplayFor(modelItem => r.RoleName)
+                                                                    </div>
+                                                                @:</td>
                                                             }
+                                                        @:</tr>
+                                                        }
                                                     </table>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                    <div class="col-md-4">
-                                                        <label class="control-label">Selected Files</label>
-                                                        @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
+                                                <div class="col-md-10 col-md-offset-2">
+                                                    <label class="control-label">Find and Add Files:</label>
+                                                    <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                                                    <div id="searchResults" style="z-index:1000">
+
                                                     </div>
-                                                    <div id="selectButtons" class="form-group col-md-4 text-center">
-                                                        <div class="select-button text-center">
-                                                            <button type="button" id="btnFileRight" class="btn btn-warning">
-                                                                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="select-button">
-                                                            <button type="button" id="btnFileLeft" class="btn btn-success">
-                                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                                                            </button>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-10 col-md-offset-2">
+                                                    <label class="control-label">Selected Files</label>
+                                                    @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
+                                                    <div>
+                                                        <button type="button" id="btnRemoveFile" class="btn btn-danger form-control">
+                                                            <span class="glyphicon glyphicon-remove"></span>&nbsp;Remove Selected
+                                                        </button>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label class="control-label">Availible Files</label>
-                                                        @Html.ListBox("availibleFiles", (MultiSelectList)ViewBag.avlFiles, new { @class = "form-control" })
-                                                    </div>
-                                                </div>                        
+                                                </div>
+                                            </div>                        
 
                                             <div class="form-group">
                                                 <div class="col-md-offset-2 col-md-10">
@@ -260,7 +256,7 @@
 @section scripts{
     @Scripts.Render("~/bundles/MultiSelectlist")
     @Scripts.Render("~/bundles/jqueryval")
-
+    <script src="~/Scripts/searchScript.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $('#glyphAddEvent').on('click', function () {

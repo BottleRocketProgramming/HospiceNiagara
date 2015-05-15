@@ -260,37 +260,9 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateAssignedFiles(Announcement announcement)
         {
-            var allFile = db.FileStorages.OrderBy(r => r.FileDescription);
-            var afiles = new HashSet<int>(announcement.FileStorages.Select(r => r.ID));
-            var viewModelAvailible = new List<FileStorageVM>();
-            var viewModelSelected = new List<FileStorageVM>();
-            foreach (var file in allFile)
-            {
-                if (afiles.Contains(file.ID))
-                {
-                    viewModelSelected.Add(new FileStorageVM
-                    {
-                        ID = file.ID,
-                        FileName = file.FileName,
-                        FileDescription = file.FileDescription,
-                        FileUploadDate = file.FileUploadDate
-                    });
-                }
-                else
-                {
-                    viewModelAvailible.Add(new FileStorageVM
-                    {
-                        ID = file.ID,
-                        FileName = file.FileName,
-                        FileDescription = file.FileDescription,
-                        FileUploadDate = file.FileUploadDate
-                    });
-                }
-                
-            }
-            ViewBag.FileStorages = viewModelSelected;
-            ViewBag.selFiles = new MultiSelectList(viewModelSelected, "ID", "FileName");
-            ViewBag.avlFiles = new MultiSelectList(viewModelAvailible, "ID", "FileName");
+            var allFile = db.FileStorages.Where(r => r.Announcements.Any(m => m.ID == announcement.ID)).OrderBy(r => r.FileDescription).ToList();
+            ViewBag.FileStorages = allFile;
+            ViewBag.selFiles = new MultiSelectList(allFile, "ID", "FileName");
         }
         
         //Roles for edit with already selected Roles
