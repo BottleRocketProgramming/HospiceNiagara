@@ -21,7 +21,6 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Description")]
         [Required(ErrorMessage = "Event's description can not be left blank")]
-        [StringLength(2000, ErrorMessage = "Event's discription can not exceed 2000 characters")]
         [AllowHtml]
         public string EventDiscription { get; set; }
 

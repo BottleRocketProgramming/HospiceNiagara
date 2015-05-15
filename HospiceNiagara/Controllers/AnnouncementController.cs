@@ -119,8 +119,8 @@ namespace HospiceNiagara.Controllers
                     {
                         var roleToAdd = db.RoleLists.Find(int.Parse(role));
                         announcement.RolesLists.Add(roleToAdd);
-                        PopulateAssignedRoles(announcement);
                     }
+                    PopulateAssignedRoles(announcement);
                 }
                 if (selectedFiles != null)
                 {
@@ -129,8 +129,8 @@ namespace HospiceNiagara.Controllers
                     {
                         var fileToAdd = db.FileStorages.Find(int.Parse(file));
                         announcement.FileStorages.Add(fileToAdd);
-                        PopulateAssignedFiles(announcement);
                     }
+                    PopulateAssignedFiles(announcement);
                 }
                 if (ModelState.IsValid)
                 {
@@ -144,8 +144,8 @@ namespace HospiceNiagara.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
-            
-            return View(announcement);
+
+            return RedirectToAction("Index");
         }
 
        

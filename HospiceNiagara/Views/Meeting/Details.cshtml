@@ -170,70 +170,71 @@
 </div>
 
 <div class="col-sm-6">
-        @if(User.IsInRole("Administrator"))
-        {
-           <div class="panel panel-success">
-            <div class="panel-heading">
-                All RSVPs
-            </div>
-            <div class="panel-body">
-                @Html.ActionLink("+ Invite New Users", "../MeetingUserRSVPs/Create", new { id = Model.ID })<br />
-                Amount of Invitations Sent:
-                @ViewBag.amtRSVPs
-                <br />Attending:
-                @ViewBag.amtRSVPYes
-                <br />Confirmed Not Attending:
-                @ViewBag.amtRSVPNo
-            </div>
-            <table class="table">
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Attending
-                    </th>
-                    <th>
-                        User Requirements
-                    </th>
-                    <th>
-                        Notes
-                    </th>
-                </tr>
-                @{
-                    List<HospiceNiagara.Models.MeetingUserRSVP> rsvps = ViewBag.meetingRSVPs;
-                    foreach (var rs in rsvps)
-                    {
-                        <tr>
-                            <td>
-                                @rs.AppUser.UserFullName
-                            </td>
-                            <td>
-                                @if (rs.ComingYorN == true)
-                                {
-                                    @:Yes
-                                }
-                                else if (rs.ComingYorN == false)
-                                {
-                                    @:No
-                                }
-                                else
-                                {
-                                    @:No Response
-                                }
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rs.UserRequirements)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => rs.RSVPNotes)
-                            </td>
-                        </tr>
-                    }
+    @if(User.IsInRole("Administrator"))
+    {
+        <div class="panel panel-success">
+        <div class="panel-heading">
+            All RSVPs
+        </div>
+        <div class="panel-body">
+            @Html.ActionLink("+ Invite New Users", "../MeetingUserRSVPs/Create", new { id = Model.ID })<br />
+            Amount of Invitations Sent:
+            @ViewBag.amtRSVPs
+            <br />Attending:
+            @ViewBag.amtRSVPYes
+            <br />Confirmed Not Attending:
+            @ViewBag.amtRSVPNo
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Attending
+                </th>
+                <th>
+                    User Requirements
+                </th>
+                <th>
+                    Notes
+                </th>
+            </tr>
+            @{
+                List<HospiceNiagara.Models.MeetingUserRSVP> rsvps = ViewBag.meetingRSVPs;
+                foreach (var rs in rsvps)
+                {
+                    <tr>
+                        <td>
+                            @rs.AppUser.UserFullName
+                        </td>
+                        <td>
+                            @if (rs.ComingYorN == true)
+                            {
+                                @:Yes
+                            }
+                            else if (rs.ComingYorN == false)
+                            {
+                                @:No
+                            }
+                            else
+                            {
+                                @:No Response
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => rs.UserRequirements)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => rs.RSVPNotes)
+                        </td>
+                    </tr>
                 }
-            </table>
-               @Html.ActionLink("ExportData", "ExportData", new { id = Model.ID }, new { @class = "btn btn-default" })
-        </div> 
-        }
-        
-    </div>
+            }
+        </table>
+        <div class="panel-footer text-center">
+            @Html.ActionLink("Export Data", "ExportData", new { id = Model.ID }, new { @class = "btn btn-default" })
+        </div>
+    </div> 
+    }
+</div>

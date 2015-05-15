@@ -23,7 +23,6 @@ namespace HospiceNiagara.Models
 
         [Display(Name= "Announcement")]
         [Required(ErrorMessage = "Announcement can not be left blank")]
-        [StringLength(2000, ErrorMessage = "Announcement can not exceed 2000 characters")]
         [AllowHtml]
         public string AnnounceText { get; set; }
 
