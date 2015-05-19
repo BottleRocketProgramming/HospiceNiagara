@@ -281,7 +281,7 @@ namespace HospiceNiagara.Controllers
             Response.ClearContent();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", "attachment; filename="+meeting.EventTitle+"_RSVPList.xls");
-            Response.ContentType = "application/ms-excel";
+            Response.ContentType = "application/vnd.ms-excel";
             Response.Charset = "";
             StringWriter sw = new StringWriter();
             HtmlTextWriter htw = new HtmlTextWriter(sw);
@@ -290,7 +290,7 @@ namespace HospiceNiagara.Controllers
             Response.Flush();
             Response.End();
 
-            return Content(sw.ToString(), "application/ms-excel");
+            return Content(sw.ToString(), "application/vnd.ms-excel");
         }
 
         public void PopulateAllRSVPs(Meeting meeting)

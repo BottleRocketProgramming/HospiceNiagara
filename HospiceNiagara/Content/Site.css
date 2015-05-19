@@ -5,6 +5,26 @@
     font-family: 'Lato', sans-serif;
 }
 
+#link-images{
+    margin-top:25px;
+    text-align:center;
+}
+
+#link-images a img{
+    height:30px;
+    padding-left:3px;
+    padding-right:3px;
+}
+
+footer{
+    background: none repeat scroll 0 0 #dedede;
+    box-shadow: -3px 0px 10px -6px #000000, 3px 0px 10px -6px
+}
+
+#footerRow{
+    padding-top:10px;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -74,8 +94,6 @@ textarea {
     width: 100%;*/
 }
 
-
-
 /*Gets rid of bullet points on contact information*/
  ul {
  list-style-type: none;
@@ -83,7 +101,7 @@ textarea {
 
  /*pushes copy right down*/
  .copyright {
-     padding-top: 140px;
+     margin-top:50px;
  }
 
 
@@ -129,7 +147,7 @@ textarea {
     background-color: rgba(255,255,255,0.0);
 }
 
-  .center-block {
+ .center-block {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -188,8 +206,6 @@ textarea {
       text-shadow:none;
       text-align:center;
 }
-
-
 
 #navbarButton{
     margin-top:30px;

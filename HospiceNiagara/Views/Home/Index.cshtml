@@ -65,21 +65,16 @@
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
                     {
-                        DateTime infivedays = DateTime.Today.AddDays(5);
-                        if (item.EventStart < infivedays && item.EventEnd > DateTime.Today)
-                        {
-                              @:<tr><td>
-                                    <a href=../Meeting/Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
-                                @:</td>
-                                @:<td>
-                                    @Html.DisplayFor(modelItem => item.EventLocation)
-                                @:</td>
-                                @:<td>
-                                    @Html.DisplayFor(modelItem => item.EventStart.DayOfWeek)
-                                @:</td>
-                            @:</tr>  
-                        }
-                             
+                        @:<tr><td>
+                            <a href=../Meeting/Details/@item.ID>@Html.DisplayFor(modelItem => item.EventTitle)</a>
+                        @:</td>
+                        @:<td>
+                            @Html.DisplayFor(modelItem => item.EventLocation)
+                        @:</td>
+                        @:<td>
+                            @Html.DisplayFor(modelItem => item.EventStart.DayOfWeek)
+                        @:</td>
+                        @:</tr>  
                     }
 
             </table>
@@ -102,17 +97,29 @@
 
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h3 class ="panel-title">Links</h3>
+                <h3 class ="panel-title">Hospice Niagara Sites</h3>
             </div>
             <div class="panel-body">
                 <ul class="list media-list">
-                    <li><a href="http://www.hospiceniagara.ca" target="_blank">Hospice Niagara Website</a></li>
                     <li><a href="http://www.hospiceniagara.ca/resources/default/index/" target="_blank">Hospice Niagara Newsletter</a></li>
                     <li><a href="http://www.hpceducation.ca" target="_blank">HPC Education Website</a></li>
-                    <li><a href="https://www.hospiceniagara.ca/donations/donate.php" target="_blank">Hospice Niagara Online Donation Website</a></li>
-                    <li><a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts" target="_blank">Facebook</a></li>
-                    <li><a href="https://twitter.com/HospiceNiagara" target="_blank">Twitter</a></li>
+                    <li><a href="https://www.hospiceniagara.ca/donations/donate.php" target="_blank">Hospice Niagara Online Donations</a></li>
+                    <li><a href="http://www.5cardraw.ca" target="_blank">Five Car Draw</a></li>
                     <li><a href="http://www.hikeforhospiceniagara.ca" target="_blank">Hike for Hospice Niagara Website</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Community Partner Sites</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list media-list">
+                    <li><a href="http://www.hpco.ca" target="_blank">Hospice Palliative Care Ontario</a></li>
+                    <li><a href="http://www.hnhblhin.on.ca/home.aspx" target="_blank">HNHB LHIN</a></li>
+                    <li><a href="http://www.health.gov.on.ca/en/" target="_blank">MOHLTC</a></li>
+                    <li><a href="http://healthcareathome.ca/hnhb/en" target="_blank">HNHB CCAC</a></li>
                 </ul>
             </div>
         </div>
@@ -137,25 +144,54 @@
             </div>
         </div>
         
+        @if (User.IsInRole("Staff"))
+        {
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Sites</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list media-list">
+                        <li><a href="https://css.hr.ccim.on.ca/HospiceNiagara" target="_blank">Pay Statements - QHR Net</a></li>
+                        <li><a href="https://portal.microsoftonline.com" target="_blank">Hospice Niagara Email Login</a></li>
+                        <li><a href="https://onlineservices.greenshield.ca/planmember/AccessMgmt/Public/SignOn.aspx" target="_blank">Group Plan Benefits - Green Shield</a></li>
+                        <li><a href="https://grsmembers.manulife.com/wps/myportal/grsmembers/HomeEN" target="_blank">Group RRSP - Manulife</a></li>
+                        <li><a href="http://sumac.com/training/" target="_blank">Sumac Training</a></li>
+                        <li><a href="http://www.infoanywhere.com" target="_blank">InfoAnywhere</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
 
-<footer class="footer ">
+<footer class="footer">
     <div class="container">
-        <div class="col-sm-6">
-            <ul class="Contact-Information">
-                <li><br /></li>
-                <li>Hospice Niagara - The Staple Centre</li>
-                <li>403 Ontario Street, Unit 2</li>
-                <li>Tel: 905-984-8766</li>
-                <li>Fax: 905-984-8242</li>
-                <li>Web: <a href="www.hospiceniagara.ca">www.hospiceniagara.ca</a> </li>
-            </ul>
-        </div>
-        <div class="copyright">
-            <div class="pull-right">
-                <p>&copy; @DateTime.Now.Year - Bottle Rocket Programming</p>
+        <div id="footerRow" class="row">
+            <div class="text-left col-md-4">
+                <ul>
+                    <li>Hospice Niagara - The Stabler Centre</li>
+                    <li>403 Ontario Street, Unit 2</li>
+                    <li>Tel: 905-984-8766</li>
+                    <li>Fax: 905-984-8242</li>
+                </ul>
+            </div>
+            <div id="link-images" class="col-md-4">
+                <a href="https://hospiceniagara.ca/">
+                    <img alt="Home" src="~/Resources/homeicon.png" />
+                </a>
+                <a href="https://twitter.com/HospiceNiagara">
+                    <img alt="Home" src="~/Resources/twitter.png" />
+                </a>
+                <a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts">
+                    <img alt="Home" src="~/Resources/facebook.png" />
+                </a>
+            </div>
+            <div class="text-right col-md-4 copyright">
+                <div>
+                    <p>&copy; @DateTime.Now.Year - Bottle Rocket Programming</p>
+                </div>
             </div>
         </div>
     </div>

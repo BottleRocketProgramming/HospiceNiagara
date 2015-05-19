@@ -58,10 +58,8 @@ namespace HospiceNiagara.Models
 
         [Display(Name="End")]
         [Required(ErrorMessage = "Event needs an end time")]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime EventEnd { get; set; }
-
 
         [Display(Name = "End")]
         public string EventEndString
@@ -85,10 +83,5 @@ namespace HospiceNiagara.Models
         public virtual ICollection<FileStorage> FileStores { get; set; }
 
         public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }
-
-
-
-
-
     }
 }

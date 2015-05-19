@@ -64,27 +64,12 @@ namespace HospiceNiagara.Controllers
 
                 ViewBag.SearchCat = viewModel;
             }
-            //var fs = allFileForList.ToList().Distinct();
-            //var viewModel = new List<FileStorageVM>();
-            //foreach (var f in fs)
-            //{
-            //    viewModel.Add(new FileStorageVM
-            //                {
-            //                    ID = f.ID,
-            //                    FileName = f.FileName,
-            //                    MimeType = f.MimeType,
-            //                    FileDescription = f.FileDescription,
-            //                    FileUploadDate = f.FileUploadDate
-            //                });
-            //}
             ViewData["Files"] = allFileForList.ToList().Distinct();
                       
             return View();
         }
 
         [HttpGet]
-        // This is for testing purposes, if the user is logged in as an admin, their ajax request can be validated as usual
-        [AllowAnonymous] 
         public ActionResult GetList(string s)
         {
             // Using a short varable name like "s" allows us to keep the ajax call simple.
@@ -164,7 +149,7 @@ namespace HospiceNiagara.Controllers
                 {
                     
                 }
-                return View("Index");
+                return RedirectToAction("Index");
         }
 
         // GET: FileStorages/Details/5
