@@ -44,8 +44,7 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Start")]
         [Required(ErrorMessage = "Event needs a start time")]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime EventStart { get; set; }
 
         [Display(Name = "Start")]

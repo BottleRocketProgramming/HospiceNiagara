@@ -18,7 +18,19 @@
                             {
                                 <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
                             }
-                            <h3 id="announcmentsTitle" class="panel-title">@item.AnnounceTitle</h3>
+                            <h3 id="announcmentsTitle" class="panel-title">
+                            @{
+                            var url = Request.Url.PathAndQuery;
+                            if (url.EndsWith("Announcement/Index"))
+                            {
+                                <a href=Details/@item.ID style="color: inherit; text-decoration: none;">@item.AnnounceTitle</a>
+                            }
+                            else
+                            {
+                                <a href=Announcement/Details/@item.ID style="color: inherit; text-decoration: none;">@item.AnnounceTitle</a>
+                            }
+}
+                            </h3>
                             <h3 id="newAnnouncmentTitle" class="panel-title" hidden>New Announcement</h3>
                         </div>
                         <div @{ if(firstPanel==false){
@@ -75,7 +87,7 @@
                                         @Html.Raw(item.AnnouncementTextTrimmed)
                                     </div>
                                     @{
-                                        var url = Request.Url.PathAndQuery;
+                                        url = Request.Url.PathAndQuery;
                                         if (url.EndsWith("Announcement/Index"))
                                         {
                                             <a href=Details/@item.ID>(Read More)</a>
@@ -124,6 +136,9 @@
 
                                         <div class="form-group">
                                             <label class="control-label" style="padding-left:15px">Visible to</label>
+                                            <div class="make-switch switch-mini" id="rowSelectAll">
+                                                <input type="button" value="Select All" id="btnCheckAllRoles" />
+                                            </div>
                                             <div class="col-md-12">
                                                 <table class="table">
                                                     <tr>
@@ -137,11 +152,12 @@
                                                                 @:</tr><tr>
                                                                 }
                                                                 @:<td>
-                                                                <input type="checkbox"
-                                                                   name="selectedRoles"
-                                                                   data-size="small"
-                                                                   value="@r.RoleID"
-                                                                   @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                    <input type="checkbox"
+                                                                    class="chkRoles"
+                                                                    name="selectedRoles"
+                                                                    data-size="small"
+                                                                    value="@r.RoleID"
+                                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
                                                                     <br />
                                                                     <div class="text-left">
                                                                         @Html.DisplayFor(modelItem => r.RoleName)
@@ -218,11 +234,11 @@
                     ["increasefontsize", "decreasefontsize", "bold", "italic", "underline", "strikethrough"],
                     ["indent", "outdent", "justifyleft", "justifycenter", "justifyright"],
                     ["orderedList", "unorderedList"],
-                    ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
+                    ["p", "h1", "h2", "h3", "h4", "h5", "h6", "horizontalrule"],
                     ["image", "link", "unlink", "html"]
                 ]
             });
-
+            
             resizeHtmlEditor();
             $(window).resize(resizeHtmlEditor);
 

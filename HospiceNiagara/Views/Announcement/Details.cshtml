@@ -63,7 +63,11 @@
                 </div>
             </div>
             <div class="col-md-2" id="colInfo">
-                <h4 class="text-center">Related Files</h4>
+                @{var fileIsNull = ViewBag.FileStorages;}
+                @if(fileIsNull.Count != 0)
+                {
+                    <h4 class="text-center">Related Files</h4>
+                }
                 <table class="table text-center">
                     <tr>
                         @{

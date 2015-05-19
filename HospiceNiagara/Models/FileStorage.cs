@@ -34,7 +34,6 @@ namespace HospiceNiagara.Models
         [Required]
         [Display(Name="Upload Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime FileUploadDate { get; set; }
 
 

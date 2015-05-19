@@ -28,8 +28,7 @@ namespace HospiceNiagara.Models
 
         [Display(Name= "End Date")]
         [Required(ErrorMessage = "Announcement end date is required")]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime AnnounceEndDate { get; set; }
 
         [Display(Name="End Date")]
