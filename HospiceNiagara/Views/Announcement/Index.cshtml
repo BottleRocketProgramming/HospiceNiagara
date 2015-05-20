@@ -129,7 +129,7 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
                                             <div class="col-md-12">
-                                                @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control datecontrol" } })
                                                 @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
                                             </div>
                                         </div>

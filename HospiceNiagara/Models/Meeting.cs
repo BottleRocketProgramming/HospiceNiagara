@@ -44,7 +44,6 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Start")]
         [Required(ErrorMessage = "Event needs a start time")]
-        [DataType(DataType.Date)]
         public DateTime EventStart { get; set; }
 
         [Display(Name = "Start")]
@@ -58,7 +57,6 @@ namespace HospiceNiagara.Models
 
         [Display(Name="End")]
         [Required(ErrorMessage = "Event needs an end time")]
-        [DataType(DataType.Date)]
         public DateTime EventEnd { get; set; }
 
         [Display(Name = "End")]
@@ -71,7 +69,6 @@ namespace HospiceNiagara.Models
         }
 
         [Display(Name = "Upload Date")]
-        [DataType(DataType.Date)]
         public DateTime UploadDate { get; set; }
 
         [Display(Name = "Uploaded By")]

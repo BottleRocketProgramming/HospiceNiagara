@@ -83,7 +83,6 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Date of Birth")]
         [Required(ErrorMessage="User Date of Birth is required")]
-        [DataType(DataType.DateTime)]
         public DateTime UserDOB { get; set; }
 
         [Display(Name = "Date of Birth")]

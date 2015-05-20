@@ -14,10 +14,10 @@ namespace HospiceNiagara.Models
         public int ID { get; set; }
 
         [Required]
-        [Display(Name="File Sub-Catigory Name")]
+        [Display(Name="File Sub-Category Name")]
         public string FileSubCatName { get; set; }
 
-        [Display(Name="Related File Catigory")]
+        [Display(Name="Related File Category")]
         public int FileCatFK { get; set; }
 
         public virtual FileCat FlCat { get; set; }

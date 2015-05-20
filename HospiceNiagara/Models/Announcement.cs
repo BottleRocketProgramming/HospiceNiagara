@@ -28,11 +28,9 @@ namespace HospiceNiagara.Models
 
         [Display(Name= "End Date")]
         [Required(ErrorMessage = "Announcement end date is required")]
-        [DataType(DataType.Date)]
         public DateTime AnnounceEndDate { get; set; }
 
         [Display(Name = "Upload Date")]
-        [DataType(DataType.Date)]
         public DateTime UploadDate { get; set; }
 
         [Display(Name = "Uploaded By")]

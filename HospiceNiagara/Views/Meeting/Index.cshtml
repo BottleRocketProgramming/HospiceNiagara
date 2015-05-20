@@ -146,7 +146,7 @@
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.EventStart, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
                                                 <div class="col-md-12">
-                                                    @Html.EditorFor(model => model.EventStart, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.EventStart, new { htmlAttributes = new { @class = "form-control datecontrol" } })
                                                     @Html.ValidationMessageFor(model => model.EventStart, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -154,7 +154,7 @@
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.EventEnd, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
                                                 <div class="col-md-12">
-                                                    @Html.EditorFor(model => model.EventEnd, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.EventEnd, new { htmlAttributes = new { @class = "form-control datecontrol" } })
                                                     @Html.ValidationMessageFor(model => model.EventEnd, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>

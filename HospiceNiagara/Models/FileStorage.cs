@@ -33,7 +33,6 @@ namespace HospiceNiagara.Models
 
         [Required]
         [Display(Name="Upload Date")]
-        [DataType(DataType.Date)]
         public DateTime FileUploadDate { get; set; }
 
         [Display(Name = "Uploaded By")]

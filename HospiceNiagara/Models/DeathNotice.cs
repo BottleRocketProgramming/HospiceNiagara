@@ -38,7 +38,6 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Date")]
         [Required(ErrorMessage = "Date is required for death notice")]
-        [DataType(DataType.Date)]
         public DateTime DnDate { get; set; }
 
         [Display(Name ="Date")]
