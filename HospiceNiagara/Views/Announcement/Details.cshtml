@@ -94,6 +94,22 @@
                                 @Model.AnnounceEndDate.ToShortDateString()
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.UploadDate)
+                            </td>
+                            <td>
+                                @Model.UploadDate.ToShortDateString()
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.UploadedBy)
+                            </td>
+                            <td>
+                                @Model.UploadedBy
+                            </td>
+                        </tr>
                     </table>
                 }
             </div>

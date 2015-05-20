@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201505151940382_remove_limits.Designer.cs">
       <DependentUpon>201505151940382_remove_limits.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505201338471_auditing_fields.cs" />
+    <Compile Include="Migrations\201505201338471_auditing_fields.Designer.cs">
+      <DependentUpon>201505201338471_auditing_fields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -547,6 +551,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505151940382_remove_limits.resx">
       <DependentUpon>201505151940382_remove_limits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505201338471_auditing_fields.resx">
+      <DependentUpon>201505201338471_auditing_fields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

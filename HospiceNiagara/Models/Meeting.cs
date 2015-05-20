@@ -70,13 +70,12 @@ namespace HospiceNiagara.Models
             }
         }
 
-        [Display(Name="Event Requirements")]
-        [StringLength(510, ErrorMessage = "Event requirements can not exceed 510 characters")]
-        public string EventRequirments { get; set; }
+        [Display(Name = "Upload Date")]
+        [DataType(DataType.Date)]
+        public DateTime UploadDate { get; set; }
 
-        [Display(Name="Links")]
-        [StringLength(510, ErrorMessage = "Event links can not exceed 510 characters")]
-        public string EventLinks { get; set; }
+        [Display(Name = "Uploaded By")]
+        public string UploadedBy { get; set; }
 
         public virtual ICollection<RoleList> RolesLists { get; set; }
 

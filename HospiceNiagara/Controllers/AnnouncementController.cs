@@ -134,6 +134,12 @@ namespace HospiceNiagara.Controllers
                 }
                 if (ModelState.IsValid)
                 {
+                    DateTime uploadDate = DateTime.Now;
+                    string uploadedBy = User.Identity.Name;
+
+                    announcement.UploadDate = uploadDate;
+                    announcement.UploadedBy = uploadedBy;
+
                     db.Announcements.Add(announcement);
                     db.SaveChanges();
                     return RedirectToAction("Index");

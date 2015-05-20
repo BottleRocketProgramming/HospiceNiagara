@@ -147,6 +147,11 @@ namespace HospiceNiagara.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    DateTime uploadDate = DateTime.Now;
+                    string uploadedBy = User.Identity.Name;
+
+                    meeting.UploadDate = uploadDate;
+                    meeting.UploadedBy = uploadedBy;
                     db.Meetings.Add(meeting);
                     db.SaveChanges();                   
                 }

@@ -104,6 +104,25 @@
                             @Html.DisplayFor(model => model.EventEndString)
                         </td>
                     </tr>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <tr>
+                            <td style="font-weight:bold">
+                                @Html.DisplayNameFor(model => model.UploadDate)
+                            </td>
+                            <td>
+                                @Model.UploadDate.ToShortDateString()
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                @Html.DisplayNameFor(model => model.UploadedBy)
+                            </td>
+                            <td>
+                                @Model.UploadedBy
+                            </td>
+                        </tr>
+                    }
                 </table>
             </div>
             <div class="col-md-2">

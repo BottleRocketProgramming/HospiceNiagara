@@ -31,6 +31,13 @@ namespace HospiceNiagara.Models
         [DataType(DataType.Date)]
         public DateTime AnnounceEndDate { get; set; }
 
+        [Display(Name = "Upload Date")]
+        [DataType(DataType.Date)]
+        public DateTime UploadDate { get; set; }
+
+        [Display(Name = "Uploaded By")]
+        public string UploadedBy { get; set; }
+
         [Display(Name="End Date")]
         public string AnnounceEndDateString
         {

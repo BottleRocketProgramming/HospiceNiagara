@@ -97,6 +97,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
                 DateTime uploadDate = DateTime.Now;
+                string uploadedBy = User.Identity.Name;
                 string mimeType = Request.Files[0].ContentType;
                 string fileName = Path.GetFileName(Request.Files[0].FileName);
                 int fileLenght = Request.Files[0].ContentLength;
@@ -114,7 +115,8 @@ namespace HospiceNiagara.Controllers
                         MimeType = mimeType,
                         FileName = fileName,
                         FileDescription = fileDescription,
-                        FileUploadDate = uploadDate
+                        FileUploadDate = uploadDate,
+                        UploadedBy = uploadedBy
                     };
                     if (selectedRoles != null)
                     {
