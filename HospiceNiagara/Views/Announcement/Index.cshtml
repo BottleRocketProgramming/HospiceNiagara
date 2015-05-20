@@ -4,15 +4,18 @@
     ViewBag.Title = "News";
 }
 
-@* Div for entire page *@
 <div class="container">
     <div class="col-md-12">
         @{
             bool firstPanel = false;
             foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
             {
-                <div class="col-sm-6 col-md-6">
+                
+                @*Half page column for each announcement*@
+                <div class="col-sm-6">
                     <div class="panel panel-success">
+                        
+                        @*Panel Heading*@
                         <div class="panel-heading">
                             @if (User.IsInRole("Administrator") && firstPanel == false)
                             {
@@ -20,23 +23,27 @@
                             }
                             <h3 id="announcmentsTitle" class="panel-title">
                             @{
-                            var url = Request.Url.PathAndQuery;
-                            if (url.EndsWith("Announcement/Index"))
-                            {
-                                <a href=Details/@item.ID style="color: inherit; text-decoration: none;">@item.AnnounceTitle</a>
+                                var url = Request.Url.PathAndQuery;
+                                if (url.EndsWith("Announcement/Index"))
+                                {
+                                    <a href=Details/@item.ID style="color: inherit; text-decoration: none;">@item.AnnounceTitle</a>
+                                }
+                                else
+                                {
+                                    <a href=Announcement/Details/@item.ID style="color: inherit; text-decoration: none;">@item.AnnounceTitle</a>
+                                }
                             }
-                            else
-                            {
-                                <a href=Announcement/Details/@item.ID style="color: inherit; text-decoration: none;">@item.AnnounceTitle</a>
-                            }
-}
                             </h3>
                             <h3 id="newAnnouncmentTitle" class="panel-title" hidden>New Announcement</h3>
                         </div>
+                        
+                        @*Panel Body*@
                         <div @{ if(firstPanel==false){
                                 @:id="announcmentContent"
                             }} class="panel-body listPanel">
                             <div class="row">
+                                
+                                @*Half for Images*@
                                 <div class="col-md-6">
                                     <div id="myCarousel-@item.ID" class="carousel slide" data-ride="carousel">
                                         <div class="carousel-inner" role="listbox">
@@ -82,6 +89,7 @@
                                         </a>
                                     </div>
                                 </div>
+                                @*Half for Content*@
                                 <div class="col-md-6">
                                     <div>
                                         @Html.Raw(item.AnnouncementTextTrimmed)
@@ -100,6 +108,8 @@
                                 </div>
                             </div>
                         </div>
+                                
+                        @*New Announcement Panel Body*@
                         @{
                             if (firstPanel == false)
                             {
@@ -196,6 +206,8 @@
                             firstPanel = true;
                             }
                         }
+                        
+                        @*Panel Footer*@
                         @if (User.IsInRole("Administrator"))
                         {
                             <div class="panel-footer text-center">

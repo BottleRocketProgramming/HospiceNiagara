@@ -159,48 +159,6 @@
                         </div>
                     </div>
 
-                    @*<div class="form-group">
-            <label class="control-label col-md-2">Job Descriptions</label>
-            <div>
-                <table>
-                    <tr>
-                        <th>
-                            Job Name
-                        </th>
-                        <th>
-                            Job Description
-                        </th>
-                        <th>
-                            Select
-                        </th>
-                    </tr>
-                    <tr>
-                        @{
-                            int count = 0;
-                            List<HospiceNiagara.ViewModels.JobDescVM> jobs = ViewBag.JobDescriptions;
-                            foreach (var j in jobs)
-                            {
-                                if (count++ % 1 == 0)
-                                    {
-                                    @:</tr><tr>
-                                    }
-                                    @:<td>
-                                        @j.JobName
-                                    @:</td>
-                                    @:<td>
-                                        @j.JobDesc
-                                    @:</td>
-                                    @:<td>
-                                        <input type="checkbox" name="selectedJobs" value="@j.JobID" @(Html.Raw(j.JobAssigned ? "checked=\"checked\"" : "")) />
-                                    @:</td>
-
-                            }
-                        @:</tr>
-                        }
-                </table>
-            </div>
-        </div>*@
-
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" value="Create" name="CreateContact" class="btn btn-primary" />

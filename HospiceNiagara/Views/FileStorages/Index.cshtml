@@ -6,21 +6,22 @@
 
 @* Paul Boyko March 2015 *@
 
-@* All the Categories and Sub Categories *@
 
 <div class="container">
 
+    @*Initialize filters and gets current url*@
     @{
         List<HospiceNiagara.ViewModels.FileCatVM> cat = ViewBag.Cat;
         List<HospiceNiagara.ViewModels.FileSubCatVM> subCat = ViewBag.FileSubCat;
 
         var url = Request.Url.PathAndQuery;
      }
-
- @* File Table with search *@       
-
+     
+    @*Column for the File Window*@
     <div class="col-sm-8">
         <div class="panel panel-info ">
+
+            @*Panel Header*@
             <div class="panel-heading">
                 <span id="fileListTitle">Files</span>
                 <span id="newFileListTitle" hidden>Upload Files</span>
@@ -39,8 +40,9 @@
                          @:Search
                     }                    
                 }
-                
             </div>
+
+            @*Panel Body for Main Content*@
             <div id="fileContent" class="panel-body">
                 <div class="panel-body-toolbar form-inline">
                    
@@ -65,10 +67,12 @@
                         <th>
                             @Html.DisplayNameFor(model => model.FileUploadDateString)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UploadedBy)
-                        </th>
-
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <th>
+                                @Html.DisplayNameFor(model => model.UploadedBy)
+                            </th>
+                        }
                         <th></th>
                     </tr>
 
@@ -85,10 +89,12 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.FileUploadDateString)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UploadedBy)
-                            </td>
-
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UploadedBy)
+                                </td>
+                            }
                             <td>
                                 @Html.ActionLink("Download", "Download", new { id = item.ID })
                                 @if (User.IsInRole("Administrator"))
@@ -101,15 +107,11 @@
                             </td>
                         </tr>
                     }
-
                 </table>
-
-@* New File is same Panel *@
-
             </div>
 
+            @*Panel Body for Uploading a New File*@
             <div id="newFileContent" class="panel-body" hidden>
-
                 <div class="col-md-10">
                     @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
@@ -197,59 +199,65 @@
 
         </div>
     </div>
+
+    @*Column for the File Filters*@
     <div class="col-sm-4">
-            @foreach(var cats in cat)
-            {
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        @Html.DisplayFor(modelItem => cats.FileCatName)
-                    </div>
-                    <div id="staffContent" class="panel-body">
-                        <ul class="Staff-Index">
-                            @foreach (var subCats in subCat)
-                            {
-                                if (cats.ID == subCats.FileCatFK)
-                                {
-
-                                    if (url.EndsWith("FileStorages/Index"))
-                                    {
-                                        <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                                    }
-                                    else if (url.EndsWith("FileStorages"))
-                                    {
-                                        <li><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                                    }
-                                    else
-                                    {
-                                        <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                                    }
-                                }
-
-
-                            }
-                        </ul>
-                    </div>
+        @foreach(var cats in cat)
+        {
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    @Html.DisplayFor(modelItem => cats.FileCatName)
                 </div>
-            }
-        </div>
+                <div id="staffContent" class="panel-body">
+                    <ul class="Staff-Index">
+                        @foreach (var subCats in subCat)
+                        {
+                            if (cats.ID == subCats.FileCatFK)
+                            {
+
+                                if (url.EndsWith("FileStorages/Index"))
+                                {
+                                    <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                }
+                                else if (url.EndsWith("FileStorages"))
+                                {
+                                    <li><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                }
+                                else
+                                {
+                                    <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                }
+                            }
+
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
 
-<script>
+@section scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
 
-    $(document).ready(function () {
-        
+    <script>
 
-    $('#glyphNewFile').on('click', function () {
-        $('#fileListTitle').slideToggle();
-        $('#fileContent').slideToggle();
-        $('#newFileContent').slideToggle();
-        $('#newFileListTitle').slideToggle();
-        $('#glyphNewFile').fadeToggle();
-    })
+        $(document).ready(function () {
 
-    });
-</script>
+
+            $('#glyphNewFile').on('click', function () {
+                $('#fileListTitle').slideToggle();
+                $('#fileContent').slideToggle();
+                $('#newFileContent').slideToggle();
+                $('#newFileListTitle').slideToggle();
+                $('#glyphNewFile').fadeToggle();
+            })
+
+        });
+    </script>
+    }
+
                                        
  
