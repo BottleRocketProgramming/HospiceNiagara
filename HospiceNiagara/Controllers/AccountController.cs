@@ -515,8 +515,8 @@ namespace HospiceNiagara.Controllers
                 viewModel.Add(new RoleVM
                 {
                     RoleID = roll.ID,
-                    RoleName = roll.RoleName
-                    
+                    RoleName = roll.RoleName,
+                    IsPerm = roll.IsPerm
                 });
             }
 

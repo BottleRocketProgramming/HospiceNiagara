@@ -79,22 +79,26 @@
                             <table class="table">
                                 <tr>
                                     @{
-                                      int cnt = 0;
-                                      List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                      foreach(var r in roles)
-                                      {
-                                          if (cnt++ % 2 == 0)
-                                          {
-                                            @:</tr><tr>
-                                          }
-                                          @:<td>
-                                                <input type="checkbox"
-                                                name="selectedRoles"
-                                                value="@r.RoleID"
-                                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                @r.RoleName
-                                         @:</td>
-                                      }
+                                        int cnt = 0;
+                                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                        foreach(var r in roles)
+                                        {
+                                            if(r.IsPerm == false)
+                                            {
+                                                if (cnt++ % 2 == 0)
+                                                {
+                                                @:</tr><tr>
+                                                }
+                                                @:<td>
+                                                    <input type="checkbox"
+                                                    name="selectedRoles"
+                                                    value="@r.RoleID"
+                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                    @r.RoleName
+                                                @:</td>
+                                            }
+                                          
+                                        }
                                  @:</tr>
                                     }
                                 </table>
