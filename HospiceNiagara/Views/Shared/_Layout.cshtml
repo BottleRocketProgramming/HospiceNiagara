@@ -37,36 +37,42 @@
                 
                 @{
                     HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
-                var cU = User.Identity.Name;
-                ApplicationUser u = new ApplicationUser(); 
-                if(cU != null  && cU != "")
-                { 
-                    u = db.Users.Where(i=>i.UserName == cU).Single();
-                }
-                
-                                       
-               
-                if (User.Identity.IsAuthenticated && u.PasswordChanged)
-                {
-                    <div class="navbar-collapse navbar-down-right navbar-right collapse nav-text">
-                        <ul class="nav navbar-nav nav-text">
-                            <li class='@Html.IsActive("Home", "Index")'>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
-                            <li class='@Html.IsActive("Announcement", "Index")'>@Html.ActionLink("News", "Index", "Announcement", null, new { style = "color:white" })</li>
+                    var cU = User.Identity.Name;
+                    ApplicationUser u = new ApplicationUser();
+                    if (cU != null && cU != "")
+                    {
+                        u = db.Users.Where(i => i.UserName == cU).Single();
+                    }
+
+
+
+                    if (User.Identity.IsAuthenticated && u.PasswordChanged)
+                    {
+                        <div class="navbar-collapse navbar-down-right navbar-right collapse nav-text">
+                            <ul class="nav navbar-nav nav-text">
+                                <li class='@Html.IsActive("Home", "Index")'>@Html.ActionLink("Home", "Index", "Home", null, new { style = "color:white" })</li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle @Html.IsActive("Announcement", "Index")  @Html.IsActive("DeathNotice", "Index")" style="color:white;" data-toggle="dropdown" role="button" aria-expanded="false">News <span class="caret"></span></a>
+                                    <ul class="dropdown-menu navbar-default" role="menu">
+                                        <li class='@Html.IsActive("Announcement", "Index")'>@Html.ActionLink("Announcements", "Index", "Announcement", null, new { style = "color:white" })</li>
+                                        <li class='@Html.IsActive("DeathNotice", "Index")'>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
+                                    </ul>
+                                </li>
                             <li class='@Html.IsActive("FileStorages", "Index")'>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
                             <li class='@Html.IsActive("Meeting", "Index")'>@Html.ActionLink("Meetings/Events", "Index", "Meeting", null, new { style = "color:white" })</li>
                             <li class='@Html.IsActive("Schedule", "Index")'>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
                             <li class='@Html.IsActive("Contact", "Index")'>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
-                            <li class='@Html.IsActive("DeathNotice", "Index")'>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
+                            
                             @if (User.IsInRole("Administrator"))
                             {
                                 <li class='@Html.IsActive("Admin", "Index")'>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
                             }
                         </ul>
-                    </div>
+                        </div>
 
-    
+
+                    }
                 }
-}
                 <div id="LogInPartial" class="nav navbar-nav navbar-fixed-top">
                     @Html.Partial("_LoginPartial")
                 </div>

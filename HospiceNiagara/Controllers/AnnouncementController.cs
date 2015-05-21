@@ -255,7 +255,8 @@ namespace HospiceNiagara.Controllers
                 {
                     RoleID = roll.ID,
                     RoleName = roll.RoleName,
-                    RoleAssigned = aRoles.Contains(roll.ID)
+                    RoleAssigned = aRoles.Contains(roll.ID),
+                    IsPerm = roll.IsPerm
                 });
             }
 

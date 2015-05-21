@@ -56,6 +56,7 @@ namespace HospiceNiagara.Models
             }
         }
 
+
         public virtual ICollection<RoleList> RolesLists { get; set; }
 
         public virtual ICollection<FileStorage> FileStorages { get; set; }

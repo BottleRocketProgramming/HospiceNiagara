@@ -194,6 +194,7 @@ namespace HospiceNiagara.Controllers
         {
             var allRole = db.Roles.OrderBy(r => r.Name);
             var aRoles = new HashSet<string>(applicationUser.Roles.Select(r => r.RoleId));
+            var perms = new HashSet<string>(db.RoleLists.Where(r => r.IsPerm == true).Select(r => r.RoleName));
             var viewModel = new List<NetRollVM>();
             foreach (var roll in allRole)
             {
@@ -201,7 +202,8 @@ namespace HospiceNiagara.Controllers
                 {
                     RoleID = roll.Id,
                     RoleName = roll.Name,                    
-                    RoleAssigned = aRoles.Contains(roll.Id)
+                    RoleAssigned = aRoles.Contains(roll.Id),
+                    IsPerm = perms.Contains(roll.Name)
                 });
             }
 

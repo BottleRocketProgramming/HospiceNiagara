@@ -268,6 +268,10 @@
     <Compile Include="Migrations\201505201338471_auditing_fields.Designer.cs">
       <DependentUpon>201505201338471_auditing_fields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505211746315_withPerms.cs" />
+    <Compile Include="Migrations\201505211746315_withPerms.Designer.cs">
+      <DependentUpon>201505211746315_withPerms.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -627,6 +631,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505201338471_auditing_fields.resx">
       <DependentUpon>201505201338471_auditing_fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505211746315_withPerms.resx">
+      <DependentUpon>201505211746315_withPerms.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

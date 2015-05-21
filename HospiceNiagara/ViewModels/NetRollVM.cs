@@ -10,5 +10,6 @@ namespace HospiceNiagara.ViewModels
         public string RoleID { get; set; }
         public string RoleName { get; set; }
         public bool RoleAssigned { get; set; }
+        public bool IsPerm { get; set; }
     }
 }

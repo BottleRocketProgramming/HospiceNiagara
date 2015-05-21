@@ -16,6 +16,8 @@ namespace HospiceNiagara.Models
         [Required(ErrorMessage="Role name is required")]
         [StringLength(50, ErrorMessage = "Role name can not exceed 50 characters")]
         public string RoleName { get; set; }
+
+        public bool IsPerm { get; set; }
         
         public virtual ICollection<Announcement> Announcements { get; set; }
 

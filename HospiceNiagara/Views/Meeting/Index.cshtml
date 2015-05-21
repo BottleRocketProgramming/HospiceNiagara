@@ -11,8 +11,15 @@
             bool firstPanel = false;
             foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
             {
-                <div class="col-sm-6 col-md-6">
+                @*Check if item has Images*@
+                var count = 0;
+                foreach (var file in item.FileStores) { if (file.FileContent != null && file.MimeType.Contains("image")) { count++; } }
+            
+                @*Half Page column for each Meeting*@
+                <div class="col-sm-6">
                     <div class="panel panel-success">
+                        
+                        @*Panel Heading*@
                         <div class="panel-heading">
                             @if (User.IsInRole("Administrator") && firstPanel == false)
                             {
@@ -33,7 +40,43 @@
                             </h3>
                             <h3 id="newMeetingEventTitle" class="panel-title" hidden>New Event/Meeting</h3>
                         </div>
-                        <div @{ if(firstPanel==false){
+
+                        @if(count == 0)
+                        {
+                            <div @{ if(firstPanel==false){
+                                @:id="EventPanel"
+                            }} class="panel-body listPanel">
+                                <div class="col-md-12">
+                                    <div>
+                                        @Html.Raw(item.DescriptionTrimmed)
+                                    </div>
+                                    @{
+                                        if (url.EndsWith("Meeting/Index"))
+                                        {
+                                            <a href=Details/@item.ID>(Read More)</a>
+                                        }
+                                        else
+                                        {
+                                            <a href=Meeting/Details/@item.ID>(Read More)</a>
+                                        }
+                                    }
+                                    <table class="table" style="margin-top:5px">
+                                        <tr>
+                                            <td>
+                                                On
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventStartString)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                        
+                        else
+                        {
+                           <div @{ if(firstPanel==false){
                                 @:id="EventPanel"
                             }} class="panel-body listPanel">
                             <div class="row">
@@ -41,7 +84,7 @@
                                     <div id="myCarousel-@item.ID" class="carousel slide" data-ride="carousel">
                                         <div class="carousel-inner" role="listbox">
                                             @{
-                                                var count = 0;
+                                                count = 0;
                                                 foreach (var f in item.FileStores)
                                                 {
                                                     if (f.FileContent != null && f.MimeType.Contains("image"))
@@ -108,7 +151,10 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
+                        }
+
+                        
                         @{
                             if (firstPanel == false)
                             {

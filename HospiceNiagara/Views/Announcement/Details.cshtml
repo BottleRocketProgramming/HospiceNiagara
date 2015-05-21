@@ -10,58 +10,76 @@
             <h3 class="panel-title">@Model.AnnounceTitle</h3>
         </div>
         <div class="panel-body">
-            <div class="col-md-6" id="colPicture">
-                @{
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner" role="listbox">
-                            @{
-                                var count = 0;
-                                foreach (var f in Model.FileStorages)
-                                {
-                                    if (f.FileContent != null && f.MimeType.Contains("image"))
+            @{
+                var count = 0;
+                foreach (var file in Model.FileStorages) { if (file.FileContent != null && file.MimeType.Contains("image")) { count++; } }
+            }
+            
+            @if (count == 0)
+            {
+                <div class="col-md-10" id="colContent">
+                    <div>
+                        @Html.Raw(Model.AnnounceText)
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6" id="colPicture">
+                    @{
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                @{
+                                    count = 0;
+                                    foreach (var f in Model.FileStorages)
                                     {
-                                        if (count == 0)
+                                        if (f.FileContent != null && f.MimeType.Contains("image"))
                                         {
-                                            <div class="item active detailsIMG">
-                                                @{
-                                            string image64 = Convert.ToBase64String(f.FileContent);
-                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                                }
-                                                <img src="@imageSrc" />
-                                            </div>
+                                            if (count == 0)
+                                            {
+                                                <div class="item active detailsIMG">
+                                                    @{
+                                                string image64 = Convert.ToBase64String(f.FileContent);
+                                                string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                    }
+                                                    <img src="@imageSrc" />
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="item detailsIMG">
+                                                    @{
+                                                string image64 = Convert.ToBase64String(f.FileContent);
+                                                string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                    }
+                                                    <img src="@imageSrc" />
+                                                </div>
+                                            }
+                                            count++;
                                         }
-                                        else
-                                        {
-                                            <div class="item detailsIMG">
-                                                @{
-                                            string image64 = Convert.ToBase64String(f.FileContent);
-                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                                }
-                                                <img src="@imageSrc" />
-                                            </div>
-                                        }
-                                        count++;
                                     }
                                 }
-}
-                        </div>
+                            </div>
 
-                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                }
-            </div>
-            <div class="col-md-4" id="colContent">
-                <div>
-                    @Html.Raw(Model.AnnounceText)
+                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    }
                 </div>
-            </div>
+                <div class="col-md-4" id="colContent">
+                    <div>
+                        @Html.Raw(Model.AnnounceText)
+                    </div>
+                </div>
+            }
+
+            
             <div class="col-md-2" id="colInfo">
                 @{var fileIsNull = ViewBag.FileStorages;}
                 @if(fileIsNull.Count != 0)

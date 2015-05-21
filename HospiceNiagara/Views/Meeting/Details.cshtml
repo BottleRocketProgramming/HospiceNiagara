@@ -10,157 +10,193 @@
             <h3 class="panel-title">@Model.EventTitle</h3>
         </div>
         <div class="panel-body">
-            <div class="col-md-6">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    @{
-                        int count = 0;
-                        foreach (var f in Model.FileStores)
-                        {
-                            if (f.FileContent != null && f.MimeType.Contains("image"))
-                            {
-                                if (count == 0)
-                                {
-                                    <li data-target="#myCarousel" data-slide-to=@count class="active"></li>
-                                }
-                                else
-                                {
-                                    <li data-target="#myCarousel" data-slide-to=@count></li>
-                                }
-                                count++;
-                            }
-                        }
-                    }
-                </ol>
-                <div class="carousel-inner" role="listbox">
-                    @{
-                        count = 0;
-                        foreach (var f in Model.FileStores)
-                        {
-                            if (f.FileContent != null && f.MimeType.Contains("image"))
-                            {
-                                if (count == 0)
-                                {
-                                    <div class="item active">
-                                        @{
-                                            string image64 = Convert.ToBase64String(f.FileContent);
-                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                        }
-                                        <img src="@imageSrc" />
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="item">
-                                        @{
-                                            string image64 = Convert.ToBase64String(f.FileContent);
-                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                        }
-                                        <img src="@imageSrc" />
-                                    </div>
-                                }
-                                count++;
-                            }
-                        }
-                    }
+            @{
+                var count = 0;
+                foreach (var file in Model.FileStores) { if (file.FileContent != null && file.MimeType.Contains("image")) { count++; } }
+            }
+            @if (count == 0)
+            {
+                <div class="col-md-6">
+                    <div>
+                        @Html.Raw(Model.EventDiscription)
+                    </div>
                 </div>
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div>
-                    @Html.Raw(Model.EventDiscription)
-                </div>
-                <table class="table text-center" style="margin-top:10px">
-                    <tr>
-                        <td style="font-weight:bold">
-                            @Html.DisplayNameFor(model => model.EventLocation)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.EventLocation)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight:bold">
-                            @Html.DisplayNameFor(model => model.EventStartString)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.EventStartString)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight:bold">
-                            @Html.DisplayNameFor(model => model.EventEndString)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.EventEndString)
-                        </td>
-                    </tr>
-                    @if (User.IsInRole("Administrator"))
-                    {
+                <div class="col-md-4">
+                    <table class="table text-center" style="margin-top:10px">
                         <tr>
                             <td style="font-weight:bold">
-                                @Html.DisplayNameFor(model => model.UploadDate)
+                                @Html.DisplayNameFor(model => model.EventLocation)
                             </td>
                             <td>
-                                @Model.UploadDate.ToShortDateString()
+                                @Html.DisplayFor(model => model.EventLocation)
                             </td>
                         </tr>
                         <tr>
                             <td style="font-weight:bold">
-                                @Html.DisplayNameFor(model => model.UploadedBy)
+                                @Html.DisplayNameFor(model => model.EventStartString)
                             </td>
                             <td>
-                                @Model.UploadedBy
+                                @Html.DisplayFor(model => model.EventStartString)
                             </td>
                         </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-md-2">
-                <h4 class="text-center">RSVP</h4>
-                <table class="table text-center">
-                    @{
-                        List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
-                        foreach (var r in rsvp)
+                        <tr>
+                            <td style="font-weight:bold">
+                                @Html.DisplayNameFor(model => model.EventEndString)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.EventEndString)
+                            </td>
+                        </tr>
+                        @if (User.IsInRole("Administrator"))
                         {
                             <tr>
-                                <td>
-                                    @if (r.ComingYorN == true)
-                                    {
-                                        @:<p style="margin-top:7px">Yes</p>
-                                    }
-                                    else if (r.ComingYorN == false)
-                                    {
-                                        @:<p>No</p>
-                                    }
-                                    else
-                                    {
-                                        @:<p>No Response</p>
-                                    }
+                                <td style="font-weight:bold">
+                                    @Html.DisplayNameFor(model => model.UploadDate)
                                 </td>
                                 <td>
-                                    @if (r.ComingYorN.HasValue)
-                                    {
-                                        @Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
-                                    }
-                                    else
-                                    {
-                                        @Html.ActionLink("RSVP", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
-                                    }
+                                    @Model.UploadDate.ToShortDateString()
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold">
+                                    @Html.DisplayNameFor(model => model.UploadedBy)
+                                </td>
+                                <td>
+                                    @Model.UploadedBy
                                 </td>
                             </tr>
                         }
-                    }
-                </table>
+                    </table>
+                </div>
+            }
+
+            else
+            {
+                <div class="col-md-6">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            @{
+                                count = 0;
+                                foreach (var f in Model.FileStores)
+                                {
+                                    if (f.FileContent != null && f.MimeType.Contains("image"))
+                                    {
+                                        if (count == 0)
+                                        {
+                                            <li data-target="#myCarousel" data-slide-to=@count class="active"></li>
+                                        }
+                                        else
+                                        {
+                                            <li data-target="#myCarousel" data-slide-to=@count></li>
+                                        }
+                                        count++;
+                                    }
+                                }
+                            }
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            @{
+                                count = 0;
+                                foreach (var f in Model.FileStores)
+                                {
+                                    if (f.FileContent != null && f.MimeType.Contains("image"))
+                                    {
+                                        if (count == 0)
+                                        {
+                                            <div class="item active">
+                                                @{
+                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                }
+                                                <img src="@imageSrc" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item">
+                                                @{
+                                            string image64 = Convert.ToBase64String(f.FileContent);
+                                            string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
+                                                }
+                                                <img src="@imageSrc" />
+                                            </div>
+                                        }
+                                        count++;
+                                    }
+                                }
+                            }
+                        </div>
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        @Html.Raw(Model.EventDiscription)
+                    </div>
+                    <table class="table text-center" style="margin-top:10px">
+                        <tr>
+                            <td style="font-weight:bold">
+                                @Html.DisplayNameFor(model => model.EventLocation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.EventLocation)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                @Html.DisplayNameFor(model => model.EventStartString)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.EventStartString)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold">
+                                @Html.DisplayNameFor(model => model.EventEndString)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.EventEndString)
+                            </td>
+                        </tr>
+                        @{
+                            List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
+                            foreach (var r in rsvp)
+                            {
+                                <tr>
+                                    <td style="font-weight:bold; padding-top:15px;">
+                                        RSVP
+                                    </td>
+                                    <td>
+                                        @if (r.ComingYorN == true)
+                                        {
+                                            @:<p>Yes   @Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
+                                        }
+                                        @*else if (r.ComingYorN == false)
+                                        {
+                                            @Html.ActionLink("No", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("No Response", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
+                                        }*@
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        
+                    </table>
+                </div>
+            }
+
+            <div class="col-md-2">
                 <h4 class="text-center">Related Files</h4>
                 <table class="table text-center">
                 <tr>
@@ -176,6 +212,29 @@
                         @:</tr>
                     }
                 </table>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <h4 class="text-center">Admin Info</h4>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.UploadDate)
+                            </td>
+                            <td>
+                                @Model.UploadDate.ToShortDateString()
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.UploadedBy)
+                            </td>
+                            <td>
+                                @Model.UploadedBy
+                            </td>
+                        </tr>
+                    </table>
+                }
+
             </div>
         </div>
         @if(User.IsInRole("Administrator"))

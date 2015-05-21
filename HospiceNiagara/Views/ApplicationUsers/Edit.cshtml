@@ -74,7 +74,9 @@
                             List<HospiceNiagara.ViewModels.NetRollVM> roles = ViewBag.RolesLists;
                             foreach (var r in roles)
                             {
-                                if (cnt++ % 2 == 0)
+                                if(r.IsPerm == false)
+                                {
+                                    if (cnt++ % 2 == 0)
                                 {
                                     @:</tr><tr>
                                 }
@@ -86,15 +88,43 @@
                                            @r.RoleName
                                     @:</td>
                                 }
-                                    @:</tr>
-                          }
-                    </table>
-                </div>
+                            }
+                        }
+                    </tr>
+                </table>
             </div>
+        </div>
 
-
-   
-
+        <div class="form-group">
+            <label class="control-label col-md-2">Permissions</label>
+            <div class="col-md-offset-2 col-md-10">
+                <table class="table">
+                    <tr>
+                        @{
+                            cnt = 0;
+                            List<HospiceNiagara.ViewModels.NetRollVM> perms = ViewBag.RolesLists;
+                            foreach (var r in perms)
+                            {
+                                if(r.IsPerm == true)
+                                {
+                                    if (cnt++ % 2 == 0)
+                                {
+                                    @:</tr><tr>
+                                }
+                                    @:<td>
+                                          <input type="checkbox"
+                                           name="selectedRoles"
+                                           value="@r.RoleID"
+                                           @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                           @r.RoleName
+                                    @:</td>
+                                }
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
