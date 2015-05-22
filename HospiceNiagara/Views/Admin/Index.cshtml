@@ -2,129 +2,118 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<div class="col-sm-3">
-    <div class="panel panel-success ">
-        <div class="panel-heading">
-            Data Maintenance
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>
-                        <a href=../DeathNotice/AdminList>View all Death Notices</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Announcement/AdminList>View all Announcements</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Meeting/AdminList>View all Events</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Schedule/AdminList>View all Schedules</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Contact/AdminList>View all Contacts</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Staffcontact/Index>View all Staff Contacts</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="col-sm-3">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            Manage Users
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>
-                        <a href=../Account/Register>Register New Users</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../RoleLists/Index>Manage Roles</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../ApplicationUsers/Index>Manage Users</a>
-                    </td>
-                </tr>
-            </table>
+@if (User.IsInRole("Administrator"))
+{
+    <div class="col-sm-3">
+        <div class="panel panel-success ">
+            <div class="panel-heading">
+                Data Maintenance
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <a href=../DeathNotice/AdminList>View all Death Notices</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../Announcement/AdminList>View all Announcements</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../Meeting/AdminList>View all Events</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../Schedule/AdminList>View all Schedules</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../Contact/AdminList>View all Contacts</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../Staffcontact/Index>View all Staff Contacts</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="col-sm-3">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-           Site Maintenance
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>
-                        <a href=../FileCats/Index>View all File Categories</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../FileSubcats/Index>View all File Subcategories</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../SchedTypes/Index>View all Schedule Types</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../DeathNoticePoems/Index>View all Death Notice Poems</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../WelcomeNotice/Edit/1>Edit Welcome Notice</a>
-                    </td>
-                </tr>
-            </table>
+}
+@if (User.IsInRole("Manage Users") || User.IsInRole("Administrator"))
+{
+    <div class="col-sm-3">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Manage Users
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <a href=../Account/Register>Register New Users</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../ApplicationUsers/Index>Manage Users</a>
+                        </td>
+                    </tr>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <tr>
+                            <td>
+                                <a href=../RoleLists/Index>Manage Roles</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-sm-3">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            RSVP Managment
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>
-                        <a href=../MeetingUserRSVPs/Create>Create a New RSVP</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../MeetingUserRSVPs/AdminList>View all RSVP's</a>
-                    </td>
-                </tr>
-            </table>
+}
+@if (User.IsInRole("Administrator"))
+{
+    <div class="col-sm-3">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Site Maintenance
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <a href=../FileCats/Index>View all File Categories</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../FileSubcats/Index>View all File Subcategories</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../SchedTypes/Index>View all Schedule Types</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../DeathNoticePoems/Index>View all Death Notice Poems</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href=../WelcomeNotice/Edit/1>Edit Welcome Notice</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+}

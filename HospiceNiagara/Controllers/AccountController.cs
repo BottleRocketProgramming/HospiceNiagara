@@ -176,7 +176,7 @@ namespace HospiceNiagara.Controllers
 
         
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Register()
         {
             ApplicationUser user = new ApplicationUser();
@@ -187,7 +187,7 @@ namespace HospiceNiagara.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator, Manage Users")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model, string[] selectedRoles) //, ApplicationUser user)
         {

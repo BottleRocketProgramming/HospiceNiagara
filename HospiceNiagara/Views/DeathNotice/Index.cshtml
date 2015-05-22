@@ -10,7 +10,7 @@
         <div class="panel-heading">
             <span id="deathNoticeTitle">Recently Passed</span>
             <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
-            @if (User.IsInRole("Administrator"))
+            @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
             {
                 <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
             }
@@ -33,7 +33,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.DnNotes)
                         </th>
-                        @if (User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                         {
                             <th></th>
                         }
@@ -56,11 +56,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnNotes)
                             </td>
-                            @if (User.IsInRole("Administrator"))
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                             {
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                    @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                 </td>
                             }
@@ -159,11 +158,6 @@
     </div>
 </div>
 
-
-
-
-
-@Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>

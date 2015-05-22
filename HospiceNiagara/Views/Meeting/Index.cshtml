@@ -21,7 +21,7 @@
                         
                         @*Panel Heading*@
                         <div class="panel-heading">
-                            @if (User.IsInRole("Administrator") && firstPanel == false)
+                            @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Meetings or Events") && firstPanel == false)
                             {
                                 <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
                             }
@@ -215,21 +215,26 @@
                                                             List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
                                                             foreach(var r in roles)
                                                             {
-                                                                if (cnt++ % 2 == 0)
+                                                                if(r.IsPerm == false)
                                                                 {
-                                                                @:</tr><tr>
+                                                                    if (cnt++ % 2 == 0)
+                                                                    {
+                                                                        @:</tr><tr>
+                                                                    }
+                                                                    @:<td>
+                                                                        <input type="checkbox"
+                                                                        class="chkRoles"
+                                                                        name="selectedRoles"
+                                                                        data-size="small"
+                                                                        value="@r.RoleID"
+                                                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                        <br />
+                                                                        <div class="text-left">
+                                                                            @Html.DisplayFor(modelItem => r.RoleName)
+                                                                        </div>
+                                                                    @:</td>
                                                                 }
-                                                                @:<td>
-                                                                <input type="checkbox"
-                                                                   name="selectedRoles"
-                                                                   data-size="small"
-                                                                   value="@r.RoleID"
-                                                                   @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                                    <br />
-                                                                    <div class="text-left">
-                                                                        @Html.DisplayFor(modelItem => r.RoleName)
-                                                                    </div>
-                                                                @:</td>
+                                                                
                                                             }
                                                         @:</tr>
                                                         }
@@ -268,7 +273,7 @@
                                 firstPanel = true;
                             }
                         }
-                        @if (User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Meetings or Events") || User.IsInRole("Remove Records"))
                         {
                             <div class="panel-footer text-center">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-default" }) 

@@ -6,9 +6,6 @@
 
 <div class="container">
     @{
-        //List<HospiceNiagara.ViewModels.SchedTypeVM> schdTyp = ViewBag.SchTyp;
-        //List<HospiceNiagara.ViewModels.SchdVM> schd = ViewBag.Schd;
-       
         bool firstPanel = false;
         foreach (var st in (IEnumerable<HospiceNiagara.Models.SchedType>)ViewData["ScheduleTypes"])
         {
@@ -17,7 +14,7 @@
                     <div class="panel-heading">
                         <span id="schedulesTitle">@Html.DisplayFor(modelItem => st.SchedTypeName)</span>
                         <span id="newschedulesTitle" hidden>New Schedule</span>
-                        @if (User.IsInRole("Administrator") && firstPanel==false)
+                        @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Schedules") && firstPanel == false)
                         {
                             <div id="glyphNewSchedule" class="glyphicon glyphicon-plus pull-right"></div>
                         }
@@ -34,11 +31,10 @@
                                         <td>
                                                <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                        </td>
-                                        @if (User.IsInRole("Administrator"))
+                                        @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Schedules") || User.IsInRole("Remove Records"))
                                         {
                                               <td>
                                                  @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                                                  @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                                </td>
                                          }
@@ -54,77 +50,80 @@
                                 @using (Html.BeginForm())
                                 {
                                     @Html.AntiForgeryToken()
-
-                                    <div class="form-group">
-                                        <div class="form-horizontal">
-                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.SchedName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.SchedName, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.SchedName, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.SchedLink, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.SchedLink, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.SchedLink, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">Schedule Types</label>
-                                                <div class="col-md-10">
-                                                    <select class="form-control" name="selectedSchedType">
-                                                        @{
-
-                                    List<HospiceNiagara.ViewModels.SchedTypeVM> types = ViewBag.SchedTypes;
-                                    foreach (var t in types)
-                                    {
-                                        <option value=@t.ID>@t.SchedTypeName</option>
-                                    }
-                                    }
-                                                    </select>
-                                                </div>
-
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SchedName, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.SchedName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SchedName, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">User Roles</label>
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <table>
-                                                <tr>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SchedLink, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.SchedLink, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SchedLink, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label" style="padding-left:15px">Schedule Types</label>
+                                            <div class="col-md-12">
+                                                <select class="form-control" name="selectedSchedType">
                                                     @{
-                                                      int cnt = 0;
-                                                      List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                                      foreach(var r in roles)
-                                                      {
-                                                          if (cnt++ % 2 == 0)
-                                                          {
-                                                            @:</tr><tr>
-                                                          }
-                                                          @:<td>
-                                                                <input type="checkbox"
-                                                                name="selectedRoles"
-                                                                value="@r.RoleID"
-                                                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                                @r.RoleName
-                                                         @:</td>
-                                                      }
-                                                 @:</tr>
+                                                        List<HospiceNiagara.ViewModels.SchedTypeVM> types = ViewBag.SchedTypes;
+                                                        foreach (var t in types)
+                                                        {
+                                                            <option value=@t.ID>@t.SchedTypeName</option>
+                                                        }
                                                     }
-                                            </table>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label" style="padding-left:15px">Visible to</label>
+                                            <div class="col-md-12">
+                                                <table class="table">
+                                                    <tr>
+                                                        @{
+                                                            int cnt = 0;
+                                                            List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                                            foreach(var r in roles)
+                                                            {
+                                                                if(r.IsPerm == false)
+                                                                {
+                                                                    if (cnt++ % 2 == 0)
+                                                                    {
+                                                                        @:</tr><tr>
+                                                                    }
+                                                                    @:<td>
+                                                                        <input type="checkbox"
+                                                                        class="chkRoles"
+                                                                        name="selectedRoles"
+                                                                        data-size="small"
+                                                                        value="@r.RoleID"
+                                                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                        <br />
+                                                                        <div class="text-left">
+                                                                            @Html.DisplayFor(modelItem => r.RoleName)
+                                                                        </div>
+                                                                    @:</td>
+                                                                } 
+                                                            }
+                                                        }
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Create" name="CreateSchedule" class="btn btn-primary" />
-                                            @Html.ActionLink("Cancel", "Index")
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <input type="submit" value="Create" name="CreateSchedule" class="btn btn-primary" />
+                                                @Html.ActionLink("Cancel", "Index")
+                                            </div>
                                         </div>
                                     </div>
                                 }
@@ -132,289 +131,12 @@
                         firstPanel = true;
                         }
                     }
-                    
                 </div>
             </div>
-
         }
    }
-   
-
-    @*<div class="container">
-        <div class="col-sm-12">
-            <div class="panel panel-success ">
-                <div class="panel-heading">
-                    <span id="schedulesTitle">Schedules</span>
-                    <span id="newschedulesTitle" hidden>New Schedule</span>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <div id="glyphNewSchedule" class="glyphicon glyphicon-plus pull-right"></div>
-                    }
-                </div>
-                <div id="scheduleContent">
-                    <div id="scheduleLists" class="panel-body">
-                        <div class="col-md-6">
-                            <h4>Welcome Desk</h4>
-                            <table class="table">
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.SchedName)
-                                </th>
-                                @if (User.IsInRole("Administrator"))
-                                {
-                                <th></th>
-                                }
-                            </tr>
-                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
-                            {
-                                if (item.SchedType.ID.Equals(1))
-                                {
-                                    <tr>
-                                        <td>
-                                            <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                        </td>
-                                        @if (User.IsInRole("Administrator"))
-                                        {
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                        </td>
-                                        }
-                                    </tr>
-                                }
-                            }
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Residential</h4>
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.SchedName)
-                                    </th>
-                                    @if (User.IsInRole("Administrator"))
-                                    {
-                                        <th></th>
-                                    }
-                                </tr>
-                                @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
-                                {
-                                    if (item.SchedType.ID.Equals(2))
-                                    {
-                                        <tr>
-                                            <td>
-                                                <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                            </td>
-                                            @if (User.IsInRole("Administrator"))
-                                            {
-                                            <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                            </td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Pet Therapy</h4>
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.SchedName)
-                                    </th>
-                                    @if (User.IsInRole("Administrator"))
-                                    {
-                                        <th></th>
-                                    }
-                                </tr>
-                                @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
-                                {
-                                    if (item.SchedType.ID.Equals(3))
-                                    {
-                                        <tr>
-                                            <td>
-                                                <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                            </td>
-                                            @if (User.IsInRole("Administrator"))
-                                            {
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>St. Catharines Day Hospice</h4>
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.SchedName)
-                                    </th>
-                                    @if (User.IsInRole("Administrator"))
-                                    {
-                                        <th></th>
-                                    }
-                                </tr>
-                                @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
-                                {
-                                    if (item.SchedType.ID.Equals(4))
-                                    {
-                                        <tr>
-                                            <td>
-                                                <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                            </td>
-                                            @if (User.IsInRole("Administrator"))
-                                            {
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Welland Day Hospice</h4>
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.SchedName)
-                                    </th>
-                                    @if (User.IsInRole("Administrator"))
-                                    {
-                                        <th></th>
-                                    }
-                                </tr>
-                                @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
-                                {
-                                    if (item.SchedType.ID.Equals(5))
-                                    {
-                                        <tr>
-                                            <td>
-                                                <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                            </td>
-                                            @if (User.IsInRole("Administrator"))
-                                            {
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Event</h4>
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.SchedName)
-                                    </th>
-                                    @if (User.IsInRole("Administrator"))
-                                    {
-                                        <th></th>
-                                    }
-                                </tr>
-                                @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
-                                {
-                                    if (item.SchedType.ID.Equals(6))
-                                    {
-                                        <tr>
-                                            <td>
-                                                <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                            </td>
-                                            @if (User.IsInRole("Administrator"))
-                                            {
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </table>
-                        </div>*@
-
 </div>
-                @*<div id="newSchedule" class="panel-body" hidden>
-                    @using (Html.BeginForm())
-                        {
-                             @Html.AntiForgeryToken()
-
-                            <div class="form-group">
-                                <div class="form-horizontal">
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.SchedName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.SchedName, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.SchedName, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.SchedLink, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.SchedLink, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.SchedLink, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">Schedule Types</label>
-                                        <div class="col-md-10">
-                                            <select class="form-control" name="selectedSchedType">
-                                            @{
-
-                                            List<HospiceNiagara.ViewModels.SchedTypeVM> types = ViewBag.SchedTypes;
-                                            foreach (var t in types)
-                                            {
-                                                <option value=@t.ID>@t.SchedTypeName</option>
-                                            }
-                                                @:
-                                            }
-                                        </select>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-
-                                
-
-                                
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create" name="CreateSchedule" class="btn btn-primary" />
-                                    @Html.ActionLink("Cancel", "Index")
-                                </div>
-                            </div>
-                        }
-                </div>*@
-            @*</div>
-        </div>
-    </div>
-
-</div>*@
-
-@Scripts.Render("~/bundles/jquery")
+                
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>
@@ -427,12 +149,6 @@
             $('#glyphNewSchedule').fadeToggle();
         });
 
-        $('#btnAddnewSchedule').on('click', function () {
-            $('#schedulesTitle').slideToggle();
-            $('#scheduleBody').slideToggle();
-            $('#newSchedule').slideToggle();
-            $('#newschedulesTitle').slideToggle();
-            $('#glyphNewSchedule').fadeToggle();
-        });
+        $("[name='selectedRoles']").bootstrapSwitch();
     });
 </script>

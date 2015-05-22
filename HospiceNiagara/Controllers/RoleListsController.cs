@@ -23,7 +23,7 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
-            return View(db.RoleLists.ToList());
+            return View(db.RoleLists.Where(r=>r.IsPerm==false).ToList());
         }
 
         // GET: RoleLists/Create

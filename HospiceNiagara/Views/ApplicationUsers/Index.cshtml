@@ -18,9 +18,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Roles)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.EmailConfirmed)
         </th>
@@ -28,14 +25,6 @@
         <th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
-
-
-        @*<th>
-                @Html.DisplayNameFor(model => model.UserMName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserLName)
-            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.UserDOB)
         </th>
@@ -56,26 +45,23 @@
             </td>
             <td>
                 @{
-        HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
-        int c = 0;
+                    HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
+                    int c = 0;
 
-        foreach (var r in item.Roles)
-        {
-            var ur = db.Roles.Where(a => a.Id == r.RoleId).Single();
-            @Html.DisplayFor(modelItem => ur.Name)
-                    @:<br />
-                    c++;
-                    if (c == 3)
+                    foreach (var r in item.Roles)
                     {
-                        @Html.Raw("...")
-                        break;
+                        var ur = db.Roles.Where(a => a.Id == r.RoleId).Single();
+                        @Html.DisplayFor(modelItem => ur.Name)
+                        @:<br />
+                        c++;
+                        if (c == 2)
+                        {
+                            @Html.Raw("...")
+                            break;
+                        }
                     }
-        }
                 }
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.EmailConfirmed)
             </td>
@@ -83,13 +69,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
-
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.UserMName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserLName)
-                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.UserDOBString)
             </td>

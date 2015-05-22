@@ -100,7 +100,7 @@
                      @:</tr>
                         }
                 </table>
-                @if (User.IsInRole("Administrator"))
+                @if (User.IsInRole("Administrator") || User.IsInRole("View Admin Info"))
                 {
                     <h4 class="text-center">Admin Info</h4>
                     <table class="table">
@@ -132,7 +132,7 @@
                 }
             </div>
         </div>
-        @if(User.IsInRole("Administrator"))
+        @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Announcements") || User.IsInRole("Remove Records"))
         {
             <div class="panel-footer text-center">
                 @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })

@@ -11,7 +11,7 @@ namespace HospiceNiagara.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Index()
         {
             return View();

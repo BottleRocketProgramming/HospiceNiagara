@@ -52,7 +52,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: MeetingUserRSVPs/Create
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Invitations")]
         public ActionResult Create(int? id, string roles)
         {
             var meeting = db.Meetings.Where(m => m.ID == id).ToList();
@@ -87,7 +87,7 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Invitations")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ComingYorN,RSVPNotes,AdminRequirements,UserRequirements")] MeetingUserRSVP meetingUserRSVP, string[] selectedMeetings, string[] selectedUsers)
         {

@@ -74,44 +74,84 @@
     </div>
     
     <div class="form-group">
-                        <label class="control-label col-md-2">Select Roles</label>
-                        <div class="col-md-offset-2 col-md-10">
-                            <table class="table">
-                                <tr>
-                                    @{
-                                        int cnt = 0;
-                                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                        foreach(var r in roles)
-                                        {
-                                            if(r.IsPerm == false)
-                                            {
-                                                if (cnt++ % 2 == 0)
-                                                {
-                                                @:</tr><tr>
-                                                }
-                                                @:<td>
-                                                    <input type="checkbox"
-                                                    name="selectedRoles"
-                                                    value="@r.RoleID"
-                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                    @r.RoleName
-                                                @:</td>
-                                            }
+    <label class="control-label col-md-2">Select Roles</label>
+    <div class="col-md-offset-2 col-md-10">
+        <table class="table">
+            <tr>
+                @{
+                    int cnt = 0;
+                    List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                    foreach(var r in roles)
+                    {
+                        if(r.IsPerm == false)
+                        {
+                            if (cnt++ % 2 == 0)
+                            {
+                            @:</tr><tr>
+                            }
+                            @:<td>
+                                <input type="checkbox"
+                                name="selectedRoles"
+                                value="@r.RoleID"
+                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                @r.RoleName
+                            @:</td>
+                        }
                                           
-                                        }
-                                 @:</tr>
-                                    }
-                                </table>
-                            </div>
-                        </div>
+                    }
+                @:</tr>
+                }
+            </table>
+        </div>
+    </div>
+    
+    if(User.IsInRole("Administrator") || User.IsInRole("Assign User Permissions"))
+    {
+        <div class="form-group">
+            <label class="control-label col-md-2">Permissions</label>
+            <div class="col-md-offset-2 col-md-10">
+                <table class="table">
+                    <tr>
+                        @{
+                            cnt = 0;
+                            foreach (var r in roles)
+                            {
+                                if(r.IsPerm == true)
+                                {
+                                    if (cnt++ % 2 == 0)
+                                {
+                                    @:</tr><tr>
+                                }
+                                    @:<td>
+                                            <input type="checkbox"
+                                            name="selectedRoles"
+                                            value="@r.RoleID"
+                                            @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                            @r.RoleName
+                                    @:</td>
+                                }
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+    
     
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-primary" value="Register" />
+            @Html.ActionLink("Cancel", "../Admin")
         </div>
     </div>
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("[name='selectedRoles']").bootstrapSwitch();
+        });
+    </script>
 }

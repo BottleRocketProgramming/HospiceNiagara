@@ -100,7 +100,7 @@ namespace HospiceNiagara.Controllers
                 {
                     PopulateAssignedFiles(meeting);
                     PopulateAssignedRSVP(meeting);
-                    if (User.IsInRole("Administrator"))
+                    if (User.IsInRole("Administrator") || User.IsInRole("Manage Invitations"))
                     {
                         PopulateAllRSVPs(meeting);
                     }
@@ -118,7 +118,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Create/Modify Meetings or Events")]
         public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
         {
             try
@@ -171,7 +171,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Meeting/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Create/Modify Meetings or Events")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -193,7 +193,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Create/Modify Meetings or Events")]
         public ActionResult Edit(int? id, string[] selectedRoles, string[] selectedFiles)
         {
             if (id == null)
@@ -230,7 +230,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Meeting/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Remove Records")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -248,7 +248,7 @@ namespace HospiceNiagara.Controllers
         // POST: Meeting/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Remove Records")]
         public ActionResult DeleteConfirmed(int id)
         {
             Meeting meeting = db.Meetings.Find(id);
@@ -279,13 +279,14 @@ namespace HospiceNiagara.Controllers
             }
             var RSVPlist = PopulateAssignedRSVPList(meeting);
             var RSVPforExcel = RSVPsforExport(RSVPlist);
+            var filename = meeting.EventTitle + "_RSVPList.xls";
 
             GridView gv = new GridView();
             gv.DataSource = RSVPforExcel;
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename="+meeting.EventTitle+"_RSVPList.xls");
+            Response.AddHeader("content-disposition", "attachment; filename=" + HttpUtility.UrlEncode(filename));
             Response.ContentType = "application/vnd.ms-excel";
             Response.Charset = "";
             StringWriter sw = new StringWriter();
@@ -396,7 +397,8 @@ namespace HospiceNiagara.Controllers
                 {
                     RoleID = roll.ID,
                     RoleName = roll.RoleName,
-                    RoleAssigned = aRoles.Contains(roll.ID)
+                    RoleAssigned = aRoles.Contains(roll.ID),
+                    IsPerm = roll.IsPerm
                 });
             }
 

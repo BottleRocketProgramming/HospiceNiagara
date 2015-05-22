@@ -25,63 +25,67 @@
             </div>
         </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.MimeType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.MimeType)
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MimeType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.MimeType)
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.FileName)
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.FileName)
             </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">Select Roles</label>
-                <div class="col-md-offset-2 col-md-10">
-                    <table>
-                        <tr>
-                        @{
-                        int cnt = 0;
-                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                        foreach (var r in roles)
-                        {
-                            if (cnt++ % 2 == 0)
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Select Roles</label>
+            <div class="col-md-offset-2 col-md-10">
+                <table class="table">
+                    <tr>
+                    @{
+                    int cnt = 0;
+                    List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                    foreach(var r in roles)
                             {
-                                @:</tr><tr>
+                                if(r.IsPerm == false)
+                                {
+                                    if (cnt++ % 2 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                        class="chkRoles"
+                                        name="selectedRoles"
+                                        value="@r.RoleID"
+                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                            @Html.DisplayFor(modelItem => r.RoleName)
+                                    @:</td>
+                                }                             
                             }
-                            @:<td>
-                                    <input type="checkbox"
-                                           name="selectedRoles"
-                                           value="@r.RoleID"
-                                           @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                           @r.RoleName
-                            @:</td>
-                        }
-                        @:</tr>
-                        }
-                     </table>
-                </div>
-           </div>
+                    @:</tr>
+                    }
+                    </table>
+            </div>
+        </div>
 
-
-
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-primary" /> |
-                        @Html.ActionLink("Back to List", "Index")
-                    </div>
-
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                @Html.ActionLink("Back to List", "Index")
             </div>
 
+        </div>
+    </div>
+
+}  
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("[name='selectedRoles']").bootstrapSwitch();
+        });
+</script>
 }
-
-            
-
-            @section Scripts {
-                @Scripts.Render("~/bundles/jqueryval")
-            }

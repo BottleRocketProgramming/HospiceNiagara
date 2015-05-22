@@ -63,7 +63,7 @@
                             <li class='@Html.IsActive("Schedule", "Index")'>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
                             <li class='@Html.IsActive("Contact", "Index")'>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
                             
-                            @if (User.IsInRole("Administrator"))
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Manage Users"))
                             {
                                 <li class='@Html.IsActive("Admin", "Index")'>@Html.ActionLink("Admin ", "Index", "Admin", null, new { style = "color:white" })</li>
                             }
@@ -105,4 +105,3 @@
     </div>
 </body>
 </html>
-

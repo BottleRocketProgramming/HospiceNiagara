@@ -20,7 +20,7 @@
 
                         @*Panel Heading*@
                         <div class="panel-heading">
-                            @if (User.IsInRole("Administrator") && firstPanel == false)
+                            @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Announcements") && firstPanel == false)
                             {
                                 <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
                             }
@@ -244,7 +244,7 @@
                         }
                         
                         @*Panel Footer*@
-                        @if (User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Announcements") || User.IsInRole("Remove Records"))
                         {
                             <div class="panel-footer text-center">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-default" }) 

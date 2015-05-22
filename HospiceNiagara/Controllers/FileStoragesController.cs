@@ -92,7 +92,7 @@ namespace HospiceNiagara.Controllers
 
         [HttpPost]
         [OnAction(ButtonName = "UploadFile")]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Upload Resources")]
         [HandleError()]
         public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
@@ -236,7 +236,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileStorages/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Remove Records")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -254,7 +254,7 @@ namespace HospiceNiagara.Controllers
         // POST: FileStorages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Remove Records")]
         public ActionResult DeleteConfirmed(int id)
         {
             FileStorage fileStorage = db.FileStorages.Find(id);
@@ -283,7 +283,8 @@ namespace HospiceNiagara.Controllers
                 {
                     RoleID = roll.ID,
                     RoleName = roll.RoleName,
-                    RoleAssigned = aRoles.Contains(roll.ID)
+                    RoleAssigned = aRoles.Contains(roll.ID),
+                    IsPerm = roll.IsPerm
                 });
             }
 

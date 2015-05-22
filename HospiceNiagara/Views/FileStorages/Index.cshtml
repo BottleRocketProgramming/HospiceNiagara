@@ -8,7 +8,6 @@
 
 
 <div class="container">
-
     @*Initialize filters and gets current url*@
     @{
         List<HospiceNiagara.ViewModels.FileCatVM> cat = ViewBag.Cat;
@@ -19,13 +18,13 @@
      
     @*Column for the File Window*@
     <div class="col-sm-8">
-        <div class="panel panel-info ">
+        <div class="panel panel-info">
 
             @*Panel Header*@
             <div class="panel-heading">
                 <span id="fileListTitle">Files</span>
                 <span id="newFileListTitle" hidden>Upload Files</span>
-                @if (User.IsInRole("Administrator"))
+                @if (User.IsInRole("Administrator") || User.IsInRole("Upload Resources"))
                 {
                 <div id="glyphNewFile" class="glyphicon glyphicon-plus pull-right"></div>
                 }
@@ -67,7 +66,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.FileUploadDateString)
                         </th>
-                        @if (User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Administrator") || User.IsInRole("View Admin Info"))
                         {
                             <th>
                                 @Html.DisplayNameFor(model => model.UploadedBy)
@@ -96,13 +95,12 @@
                                 </td>
                             }
                             <td>
-                                @Html.ActionLink("Download", "Download", new { id = item.ID })
+                                @Html.ActionLink("Download", "Download", new { id = item.ID })<br />
                                 @if (User.IsInRole("Administrator"))
                                 {
-                                    <span>&#124;</span>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })    <span>&#124;</span>
-                                    @Html.ActionLink("Details", "Details", new { id = item.ID })    <span>&#124;</span>
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })<br />
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID })<br />
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })<br />
                                 }
                             </td>
                         </tr>
@@ -112,78 +110,85 @@
 
             @*Panel Body for Uploading a New File*@
             <div id="newFileContent" class="panel-body" hidden>
-                <div class="col-md-10">
-                    @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        @Html.AntiForgeryToken()
-                         <div class="form-horizontal">
+                @using (Html.BeginForm("", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                             
-                        
-                        </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2" for="fileDescription">Description</label>
-                            <div class="col-md-10">
+                            <label class="control-label" style="padding-left:15px" for="fileDescription">Description</label>
+                            <div class="col-md-12">
                                 @Html.EditorFor(model => model.FileDescription, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.FileDescription, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <div class="col-md-10 col-md-offset-2">
+                            <div class="col-md-12">
                                 <input type="file" name="FileUpload" class="" />
                                 @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label class="control-label col-md-2">Select Roles</label>
-                                <table class="table col-md-offset-3">
+                            <label class="control-label" style="padding-left:15px">Visible to</label>
+                            <div class="col-md-12">
+                                <table class="table">
                                     <tr>
-                                        @{
-                        int cnt = 0;
-                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                        foreach (var r in roles)
-                        {
-                            if (cnt++ % 2 == 0)
-                            {
-                                @:</tr><tr>
-                            }
-                            @:<td>
-                                <input type="checkbox"
-                                       name="selectedRoles"
-                                       value="@r.RoleID"
-                                       @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                            @r.RoleName
-                        @:</td>
-                           }
-                        @:</tr>
+                                    @{
+                                        int cnt = 0;
+                                        List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                        foreach(var r in roles)
+                                        {
+                                            if(r.IsPerm == false)
+                                            {
+                                                if (cnt++ % 2 == 0)
+                                                {
+                                                    @:</tr><tr>
+                                                }
+                                                @:<td>
+                                                    <input type="checkbox"
+                                                    class="chkRoles"
+                                                    name="selectedRoles"
+                                                    data-size="small"
+                                                    value="@r.RoleID"
+                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                    <br />
+                                                    <div class="text-left">
+                                                        @Html.DisplayFor(modelItem => r.RoleName)
+                                                    </div>
+                                                @:</td>
+                                            }            
                                         }
-                                    </table>
+                                        @:</tr>
+                                    }
+                            </table>
                             </div>
-                        <br />
-                        <label class="control-label col-md-2">Select Categories</label>
-                        foreach (var cats in cat)
+                        </div>
+                        <h4>Categories</h4>
+                        @foreach (var cats in cat)
                         {
                             @:<div class="form-group col-md-offset-3">
-                                <label class="control-label">@Html.DisplayFor(modelItem => cats.FileCatName)</label>
+                                <label class="control-label" style="padding-left:15px">@Html.DisplayFor(modelItem => cats.FileCatName)</label>
                                 <table class="table">
                                     @foreach (var sc in subCat)
                                     {
                                         if (cats.ID == sc.FileCatFK)
                                         {
                                             <tr>
-                                                <td>
+                                                <td style="padding-left:15px">
                                                     @sc.FileSubCatName
                                                 </td>
                                                 <td>
                                                     <input type="checkbox"
-                                                           name="selectedSubCats"
-                                                           value="@sc.ID"
-                                                           @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
+                                                            name="selectedSubCats"
+                                                            value="@sc.ID"
+                                                            @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
                                                     
                                                 </td>
                                             </tr>
                                             
-                                       }
+                                        }
                                     }
                                 </table>
                             @:</div>
@@ -193,8 +198,9 @@
                             <input type="submit" value="Create" name="UploadFile" class="btn btn-primary" />
                         </div>
                         @Html.ActionLink("Cancel", "Index")
-                    }
-                </div>
+                        </div>
+                    
+                }
             </div>
 
         </div>
@@ -239,25 +245,22 @@
 </div>
 
 @section scripts{
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-
         $(document).ready(function () {
-
-
             $('#glyphNewFile').on('click', function () {
                 $('#fileListTitle').slideToggle();
                 $('#fileContent').slideToggle();
                 $('#newFileContent').slideToggle();
                 $('#newFileListTitle').slideToggle();
                 $('#glyphNewFile').fadeToggle();
-            })
+            });
 
+            $("[name='selectedRoles']").bootstrapSwitch();
         });
     </script>
-    }
+}
 
                                        
  

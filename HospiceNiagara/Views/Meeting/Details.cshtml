@@ -179,14 +179,6 @@
                                         {
                                             @:<p>Yes   @Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
                                         }
-                                        @*else if (r.ComingYorN == false)
-                                        {
-                                            @Html.ActionLink("No", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
-                                        }
-                                        else
-                                        {
-                                            @Html.ActionLink("No Response", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })
-                                        }*@
                                     </td>
                                 </tr>
                             }
@@ -212,7 +204,7 @@
                         @:</tr>
                     }
                 </table>
-                @if (User.IsInRole("Administrator"))
+                @if (User.IsInRole("Administrator") || User.IsInRole("View Admin Info"))
                 {
                     <h4 class="text-center">Admin Info</h4>
                     <table class="table">
@@ -237,7 +229,7 @@
 
             </div>
         </div>
-        @if(User.IsInRole("Administrator"))
+        @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Meetings or Events") || User.IsInRole("Remove Records"))
         {
             <div class="panel-footer text-center">
                 @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
@@ -248,7 +240,7 @@
 </div>
 
 <div class="col-sm-6">
-    @if(User.IsInRole("Administrator"))
+    @if (User.IsInRole("Administrator") || User.IsInRole("Manage Invitations"))
     {
         <div class="panel panel-success">
         <div class="panel-heading">

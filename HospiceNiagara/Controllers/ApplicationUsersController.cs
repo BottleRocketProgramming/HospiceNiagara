@@ -22,14 +22,14 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext context = new ApplicationDbContext();
 
         // GET: ApplicationUsers
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
 
         // GET: ApplicationUsers/Details/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -46,7 +46,7 @@ namespace HospiceNiagara.Controllers
       
 
         // GET: ApplicationUsers/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -115,7 +115,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileCats/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -136,7 +136,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Edit([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")]ApplicationUser user, string Id, string[] selectedRoles)
         {
            
