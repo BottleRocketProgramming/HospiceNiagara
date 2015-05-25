@@ -12,6 +12,10 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.AnnounceTitle)
+        </th>
+
+        <th>
             @Html.DisplayNameFor(model => model.AnnounceText)
         </th>
        
@@ -25,7 +29,11 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AnnounceText)
+            @Html.DisplayFor(modelItem => item.AnnounceTitle)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnouncementTextTrimmed)
         </td>
        
         <td>

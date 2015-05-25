@@ -8,85 +8,125 @@
 
 
 @using (Html.BeginForm())
-                  {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AnnounceText, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnnounceTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnnounceTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnnounceTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnnounceText, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.AnnounceText, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnnounceText, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">User Roles</label>
-                            <div class="col-md-offset-2 col-md-10">
-                                <table>
-                                    <tr>
-                                    @{
-                                      int cnt = 0;
-                                      List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                                      foreach(var r in roles)
-                                      {
-                                          if (cnt++ % 2 == 0)
-                                          {
-                                            @:</tr><tr>
-                                          }
-                                          @:<td>
-                                                <input type="checkbox"
-                                                name="selectedRoles"
-                                                value="@r.RoleID"
-                                                @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                @r.RoleName
-                                         @:</td>
-                                      }
-                                 @:</tr>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnnounceEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnnounceEndDate, new { htmlAttributes = new { @class = "form-control  datecontrol" } })
+                @Html.ValidationMessageFor(model => model.AnnounceEndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Visible To</label>
+            <div class="col-md-offset-2 col-md-10">
+                <table class="table">
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                            foreach(var r in roles)
+                            {
+                                if(r.IsPerm == false)
+                                {
+                                    if (cnt++ % 2 == 0)
+                                    {
+                                        @:</tr><tr>
                                     }
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row col-lg-offset-2">
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <label class="control-label">Selected Files</label>
-                                    @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
-                                    <div>
-                                        <button type="button" id="btnRemoveFile" class="btn btn-danger form-control">
-                                            <span class="glyphicon glyphicon-remove"></span>&nbsp;Remove Selected
-                                        </button>
-                                    </div>
-                                </div>
-                            
-                                <div class="col-md-4">
-                                    <label class="control-label">Find and Add Files:</label>
-                                    <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
-                                    <div id="searchResults" style="z-index:1000">
+                                    @:<td>
+                                        <input type="checkbox"
+                                        class="chkRoles"
+                                        name="selectedRoles"
+                                        value="@r.RoleID"
+                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                            @Html.DisplayFor(modelItem => r.RoleName)
+                                    @:</td>
+                                }
+                                                                
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+        </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="btn-group">
-                            <input type="submit" value="Create" name="CreateAnnouncement" class="btn btn-primary">
-                        </div>
-                        @Html.ActionLink("Cancel", "AdminList")
+        <div class="row col-lg-offset-2">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="control-label">Selected Files</label>
+                    @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
+                    <div>
+                        <button type="button" id="btnRemoveFile" class="btn btn-danger form-control">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp;Remove Selected
+                        </button>
                     </div>
-                  }  
+                </div>
+                            
+                <div class="col-md-4">
+                    <label class="control-label">Find and Add Files:</label>
+                    <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                    <div id="searchResults" style="z-index:1000">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <input type="submit" value="Create" name="CreateAnnouncement" class="btn btn-primary">
+        </div>
+        @Html.ActionLink("Cancel", "AdminList")
+    </div>
+}  
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/MultiSelectlist")
     <script src="~/Scripts/searchScript.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('textarea').htmlarea({
+                toolbar: [
+                    ["increasefontsize", "decreasefontsize", "bold", "italic", "underline", "strikethrough"],
+                    ["indent", "outdent", "justifyleft", "justifycenter", "justifyright"],
+                    ["orderedList", "unorderedList"],
+                    ["p", "h1", "h2", "h3", "h4", "h5", "h6", "horizontalrule"],
+                    ["image", "link", "unlink", "html"]
+                ]
+            });
+
+            resizeHtmlEditor();
+            $(window).resize(resizeHtmlEditor);
+
+            $("[name='selectedRoles']").bootstrapSwitch();
+
+            function resizeHtmlEditor() {
+                $('div.jHtmlArea').find('div.ToolBar').css('width', '100%');
+                $('div.jHtmlArea iframe').css('width', '100%');
+                $('div.jHtmlArea iframe').css('height', '100%');
+                $('div.jHtmlArea iframe').parent().css('width', '100%');
+            }
+        });
+    </script>
 }

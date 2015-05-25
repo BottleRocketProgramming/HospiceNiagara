@@ -26,12 +26,6 @@
         <th>
             @Html.DisplayNameFor(model => model.EventEndString)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventRequirments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventLinks)
-        </th>
         <th></th>
     </tr>
 
@@ -51,12 +45,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EventEndString)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventRequirments)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventLinks)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID })

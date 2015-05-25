@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -32,15 +33,13 @@
             <div class="col-md-10">
                 <select class="form-control" name="selectedSchedType">
                 @{
-
-                List<HospiceNiagara.ViewModels.SchedTypeVM> types = ViewBag.SchedTypes;
-                foreach (var t in types)
-                {
-                    <option value=@t.ID>@t.SchedTypeName</option>
+                    List<HospiceNiagara.ViewModels.SchedTypeVM> types = ViewBag.SchedTypes;
+                    foreach (var t in types)
+                    {
+                        <option value=@t.ID>@t.SchedTypeName</option>
+                    }
                 }
-                    @:
-                }
-            </select>
+                </select>
             </div>                    
         </div>
 
@@ -74,7 +73,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" name="CreateSchedule" class="btn btn-primary" /> |
+                <input type="submit" value="Create" name="CreateSchedule" class="btn btn-primary" /> 
                 @Html.ActionLink("Back to List", "Index")
             </div>
         </div>

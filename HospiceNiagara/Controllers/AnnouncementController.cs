@@ -46,7 +46,7 @@ namespace HospiceNiagara.Controllers
                 }
             annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
 
-            ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct();
+            ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             
             return View();
             
@@ -56,7 +56,7 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AdminList()
         {
-            return View(db.Announcements.ToList());
+            return View(db.Announcements.ToList().OrderByDescending(a => a.UploadDate));
         }
 
         // GET: Announcement/adminCreate
@@ -70,7 +70,55 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedFiles(announce);
 
             return View();
-        }       
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [OnAction(ButtonName = "CreateAnnouncement")]
+        [Authorize(Roles = "Administrator, Create/Modify Announcements")]
+        public ActionResult AdminCreate([Bind(Include = "ID,AnnounceTitle,AnnounceText,AnnounceEndDate,IsEvent")] Announcement announcement, string[] selectedRoles, string[] selectedFiles)
+        {
+            try
+            {
+                if (selectedRoles != null)
+                {
+                    announcement.RolesLists = new List<RoleList>();
+                    foreach (var role in selectedRoles)
+                    {
+                        var roleToAdd = db.RoleLists.Find(int.Parse(role));
+                        announcement.RolesLists.Add(roleToAdd);
+                    }
+                    PopulateAssignedRoles(announcement);
+                }
+                if (selectedFiles != null)
+                {
+                    announcement.FileStorages = new List<FileStorage>();
+                    foreach (var file in selectedFiles)
+                    {
+                        var fileToAdd = db.FileStorages.Find(int.Parse(file));
+                        announcement.FileStorages.Add(fileToAdd);
+                    }
+                    PopulateAssignedFiles(announcement);
+                }
+                if (ModelState.IsValid)
+                {
+                    DateTime uploadDate = DateTime.Now;
+                    string uploadedBy = User.Identity.Name;
+
+                    announcement.UploadDate = uploadDate;
+                    announcement.UploadedBy = uploadedBy;
+
+                    db.Announcements.Add(announcement);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            return RedirectToAction("Index");
+        }
 
         // GET: Announcement/Details/5
         [Authorize]
@@ -149,8 +197,6 @@ namespace HospiceNiagara.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-
-
             return RedirectToAction("Index");
         }
 

@@ -92,7 +92,7 @@ namespace HospiceNiagara.Controllers
 
         // GET: Schedule/Create
         [Authorize(Roles = "Administrator, Create/Modify Schedules")]
-        public ActionResult Create()
+        public ActionResult AdminCreate()
         {
             var sched = new Schedule();
             sched.SchedType = new SchedType();
@@ -102,6 +102,47 @@ namespace HospiceNiagara.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Create/Modify Schedules")]
+        public ActionResult AdminCreate([Bind(Include = "ID,SchedName,SchedLink")] Schedule schedule, int selectedSchedType, string[] selectedRoles)
+        {
+            try
+            {
+                schedule.SchedType = new SchedType();
+                var typeToAdd = db.SchedTypes.Find(selectedSchedType);
+
+                schedule.SchedType = typeToAdd;
+
+                if (selectedRoles != null)
+                {
+                    schedule.ScheduleRoles = new List<RoleList>();
+                    foreach (var role in selectedRoles)
+                    {
+                        var roleToAdd = db.RoleLists.Find(int.Parse(role));
+                        schedule.ScheduleRoles.Add(roleToAdd);
+                        PopulateAssignedRoles(schedule);
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    db.Schedules.Add(schedule);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+
+            PopulateScheduleTypes(schedule);
+            PopulateAssignedRoles(schedule);
+            return View(schedule);
+        }
+
 
         // POST: Schedule/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

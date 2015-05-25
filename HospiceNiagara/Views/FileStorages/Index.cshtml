@@ -44,16 +44,13 @@
             @*Panel Body for Main Content*@
             <div id="fileContent" class="panel-body">
                 <div class="panel-body-toolbar form-inline">
-                   
-                   @using (Html.BeginForm())
-                   { 
-                    
-                       @Html.TextBox("searchString", null, new { @class = "form-control" }) 
-                    <input type="submit" value="Search" class="btn btn-default" />  
-                     @Html.ActionLink("Clear", "Index", new  { id = 0 });                      
+                    @using (Html.BeginForm())
+                    { 
+                        @Html.TextBox("searchString", null, new { @class = "form-control" }) 
+                        <input type="submit" value="Search" class="btn btn-default" />  
+                        @Html.ActionLink("Clear", "Index", new  { id = 0 })                    
                     }
                 </div>
-
                 <table class="table table-striped table-bordered" style="width:100%;">
                     <tr>
                         

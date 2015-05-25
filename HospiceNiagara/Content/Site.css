@@ -5,6 +5,10 @@
     font-family: 'Lato', sans-serif;
 }
 
+#bodyContent{
+    padding-top:75px;
+}
+
 #link-images{
     margin-top:25px;
     text-align:center;
@@ -129,22 +133,19 @@ textarea {
 
 /*Aligning the background image*/
   .LogInPage {
-    border-top: 3px solid #000000;
-    border-bottom: 2px solid #000000;
     position: absolute;
     left: 0;
     right: 0;
-    /*width: 1920px;*/
-    height: 80%;
+    width: 1920px;
+    height: 100%;
     width: 100%;
-    /*height: 810px;*/
+    height: 810px;
   }
  
 /*Log In background image*/
   .LogInPage {
-     background-image: url(../Resources/Exterior-frontdoor-login.jpg);
-     background-repeat: no-repeat;
-     /*align-content: center;*/
+     background-image: url(../Resources/Login.jpg);
+     background-size: cover;
   }
 
   #LogInPanel {
@@ -194,9 +195,8 @@ textarea {
       text-shadow: 4px 4px 3px rgba(0,0,0,0.1);
 }
 
-#glyphNewDeathNotice{
-    font-size:20px;
-    font-family: 'Lato', sans-serif;
+.glyphicon-plus{
+    cursor: default;
 }
 
 .panel-body{

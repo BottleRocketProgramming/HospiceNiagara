@@ -75,7 +75,60 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedFiles(meet);
 
             return View();
-        }       
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [OnAction(ButtonName = "CreateMeeting")]
+        [Authorize(Roles = "Administrator, Create/Modify Meetings or Events")]
+        public ActionResult AdminCreate([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
+        {
+            try
+            {
+                if (selectedRoles != null)
+                {
+                    meeting.RolesLists = new List<RoleList>();
+                    foreach (var role in selectedRoles)
+                    {
+                        var roleToAdd = db.RoleLists.Find(int.Parse(role));
+                        meeting.RolesLists.Add(roleToAdd);
+                        //PopulateAssignedRoles(meeting);                       
+                    }
+                }
+
+                if (selectedFiles != null)
+                {
+                    meeting.FileStores = new List<FileStorage>();
+                    foreach (var file in selectedRoles)
+                    {
+                        var fileToAdd = db.FileStorages.Find(int.Parse(file));
+                        meeting.FileStores.Add(fileToAdd);
+                        //PopulateAssignedFiles(meeting);
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    DateTime uploadDate = DateTime.Now;
+                    string uploadedBy = User.Identity.Name;
+
+                    meeting.UploadDate = uploadDate;
+                    meeting.UploadedBy = uploadedBy;
+                    db.Meetings.Add(meeting);
+                    db.SaveChanges();
+                }
+
+
+                return RedirectToAction("Index");
+            }
+
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            PopulateAssignedRoles(meeting);
+            return View(meeting);
+        }
 
         // GET: Meeting/Details/5
         [Authorize]
