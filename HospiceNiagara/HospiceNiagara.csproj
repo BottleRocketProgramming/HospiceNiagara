@@ -170,7 +170,8 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnnouncementController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\ContactTypesController.cs" />
     <Compile Include="Controllers\DeathNoticeController.cs" />
     <Compile Include="Controllers\DeathNoticePoemsController.cs" />
     <Compile Include="Controllers\FileCatsController.cs" />
@@ -185,7 +186,6 @@
     <Compile Include="Controllers\RoleListsController.cs" />
     <Compile Include="Controllers\SchedTypesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
-    <Compile Include="Controllers\StaffcontactController.cs" />
     <Compile Include="Controllers\WelcomeNoticeController.cs" />
     <Compile Include="DAL\HospiceCFEntities.cs" />
     <Compile Include="Extentions\Err.cs" />
@@ -278,10 +278,19 @@
     <Compile Include="Migrations\201505211746315_withPerms.Designer.cs">
       <DependentUpon>201505211746315_withPerms.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505261440406_noContacts.cs" />
+    <Compile Include="Migrations\201505261440406_noContacts.Designer.cs">
+      <DependentUpon>201505261440406_noContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505261517226_withContacts.cs" />
+    <Compile Include="Migrations\201505261517226_withContacts.Designer.cs">
+      <DependentUpon>201505261517226_withContacts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
-    <Compile Include="Models\BoardContact.cs" />
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContactType.cs" />
     <Compile Include="Models\DeathNotice.cs" />
     <Compile Include="Models\DeathNoticePoems.cs" />
     <Compile Include="Models\FileCat.cs" />
@@ -295,10 +304,10 @@
     <Compile Include="Models\RoleList.cs" />
     <Compile Include="Models\SchedType.cs" />
     <Compile Include="Models\Schedule.cs" />
-    <Compile Include="Models\StaffContact.cs" />
     <Compile Include="Models\WelcomeNotice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ContactTypeVM.cs" />
     <Compile Include="ViewModels\DnPoemVM.cs" />
     <Compile Include="ViewModels\FileCatVM.cs" />
     <Compile Include="ViewModels\FileStorageVM.cs" />
@@ -473,7 +482,6 @@
     <Content Include="Views\Announcement\Index.cshtml" />
     <Content Include="Views\Meeting\Index.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
-    <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Announcement\Delete.cshtml" />
     <Content Include="Views\Announcement\Details.cshtml" />
@@ -490,10 +498,6 @@
     <Content Include="Views\testApplicationUsers\Details.cshtml" />
     <Content Include="Views\testApplicationUsers\Edit.cshtml" />
     <Content Include="Views\testApplicationUsers\Index.cshtml" />
-    <Content Include="Views\Contact\Create.cshtml" />
-    <Content Include="Views\Contact\Edit.cshtml" />
-    <Content Include="Views\Contact\Details.cshtml" />
-    <Content Include="Views\Contact\Delete.cshtml" />
     <Content Include="Views\DeathNotice\Index.cshtml" />
     <Content Include="Views\DeathNotice\Details.cshtml" />
     <Content Include="Views\DeathNotice\Edit.cshtml" />
@@ -505,8 +509,6 @@
     <Content Include="Views\Schedule\Delete.cshtml" />
     <Content Include="Views\Announcement\AdminList.cshtml" />
     <Content Include="Views\Announcement\adminCreate.cshtml" />
-    <Content Include="Views\Contact\AdminList.cshtml" />
-    <Content Include="Views\Contact\AdminCreate.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
     <Content Include="Views\RoleLists\Create.cshtml" />
     <Content Include="Views\RoleLists\Delete.cshtml" />
@@ -543,11 +545,6 @@
     <Content Include="Views\Schedule\AdminList.cshtml" />
     <Content Include="Views\Meeting\adminCreate.cshtml" />
     <Content Include="Views\Meeting\AdminList.cshtml" />
-    <Content Include="Views\Staffcontact\Create.cshtml" />
-    <Content Include="Views\Staffcontact\Delete.cshtml" />
-    <Content Include="Views\Staffcontact\Details.cshtml" />
-    <Content Include="Views\Staffcontact\Edit.cshtml" />
-    <Content Include="Views\Staffcontact\Index.cshtml" />
     <Content Include="Views\ApplicationUsers\Edit.cshtml" />
     <Content Include="Views\DeathNoticePoems\Create.cshtml" />
     <Content Include="Views\DeathNoticePoems\Delete.cshtml" />
@@ -563,6 +560,17 @@
     <Content Include="Views\WelcomeNotice\Index.cshtml" />
     <Content Include="Views\FileStorages\_SearchList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\fun.cshtml" />
+    <Content Include="Views\ContactTypes\Create.cshtml" />
+    <Content Include="Views\ContactTypes\Delete.cshtml" />
+    <Content Include="Views\ContactTypes\Details.cshtml" />
+    <Content Include="Views\ContactTypes\Edit.cshtml" />
+    <Content Include="Views\ContactTypes\Index.cshtml" />
+    <Content Include="Views\Contacts\Create.cshtml" />
+    <Content Include="Views\Contacts\Delete.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Contacts\Edit.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\MeetingUserRSVPs\GetCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -641,6 +649,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505211746315_withPerms.resx">
       <DependentUpon>201505211746315_withPerms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505261440406_noContacts.resx">
+      <DependentUpon>201505261440406_noContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505261517226_withContacts.resx">
+      <DependentUpon>201505261517226_withContacts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

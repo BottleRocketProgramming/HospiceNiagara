@@ -47,25 +47,32 @@
                                 @Html.DisplayFor(model => model.EventEndString)
                             </td>
                         </tr>
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <tr>
-                                <td style="font-weight:bold">
-                                    @Html.DisplayNameFor(model => model.UploadDate)
-                                </td>
-                                <td>
-                                    @Model.UploadDate.ToShortDateString()
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight:bold">
-                                    @Html.DisplayNameFor(model => model.UploadedBy)
-                                </td>
-                                <td>
-                                    @Model.UploadedBy
-                                </td>
-                            </tr>
+                        @{
+                            List<HospiceNiagara.Models.MeetingUserRSVP> rsvp = ViewBag.meetingRSVP;
+                            foreach (var r in rsvp)
+                            {
+                                <tr>
+                                    <td style="font-weight:bold; padding-top:15px;">
+                                        RSVP
+                                    </td>
+                                    <td>
+                                        @if (r.ComingYorN == true)
+                                        {
+                                            @:<p>Yes @Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
+                                        }
+                                        else if(r.ComingYorN == false)
+                                        {
+                                            @:<p>No @Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
+                                        }
+                                        else
+                                        {
+                                            @:<p>@Html.ActionLink("RSVP", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
+                        
                     </table>
                 </div>
             }
@@ -177,7 +184,15 @@
                                     <td>
                                         @if (r.ComingYorN == true)
                                         {
-                                            @:<p>Yes   @Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
+                                            @:<p>Yes &nbsp;@Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
+                                        }
+                                        else if (r.ComingYorN == false)
+                                        {
+                                            @:<p>No &nbsp;@Html.ActionLink("Change", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
+                                        }
+                                        else
+                                        {
+                                            @:<p>@Html.ActionLink("RSVP", "../MeetingUserRSVPs/Edit", new { id = r.ID }, new { @class = "btn btn-default" })</p>
                                         }
                                     </td>
                                 </tr>

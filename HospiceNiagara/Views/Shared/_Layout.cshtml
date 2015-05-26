@@ -55,10 +55,16 @@
                                         <li class='@Html.IsActive("DeathNotice", "Index")'>@Html.ActionLink("Recently Passed", "Index", "DeathNotice", null, new { style = "color:white" })</li>
                                     </ul>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle @Html.IsActive("Meeting", "Index")  @Html.IsActive("MeetingUserRSVPs", "Index")" style="color:white;" data-toggle="dropdown" role="button" aria-expanded="false">Meetings/Events<span class="caret"></span></a>
+                                    <ul class="dropdown-menu navbar-default" role="menu">
+                                        <li class='@Html.IsActive("Meeting", "Index")'>@Html.ActionLink("Meetings/Events", "Index", "Meeting", null, new { style = "color:white" })</li>
+                                        <li class='@Html.IsActive("MeetingUserRSVPs", "Index")'>@Html.Action("GetCount", "MeetingUserRSVPs")</li>
+                                    </ul>
+                                </li>
                             <li class='@Html.IsActive("FileStorages", "Index")'>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
-                            <li class='@Html.IsActive("Meeting", "Index")'>@Html.ActionLink("Meetings/Events", "Index", "Meeting", null, new { style = "color:white" })</li>
                             <li class='@Html.IsActive("Schedule", "Index")'>@Html.ActionLink("Schedules", "Index", "Schedule", null, new { style = "color:white" })</li>
-                            <li class='@Html.IsActive("Contact", "Index")'>@Html.ActionLink("Contacts", "Index", "Contact", null, new { style = "color:white" })</li>
+                            <li class='@Html.IsActive("Contacts", "Index")'>@Html.ActionLink("Contacts", "Index", "Contacts", null, new { style = "color:white" })</li>
                             
                             @if (User.IsInRole("Administrator") || User.IsInRole("Manage Users"))
                             {
@@ -79,11 +85,10 @@
             <div class="container">
                 <div class="col-sm-6">
                     <ul class="Contact-Information">
-                        <li>Hospice Niagara - The Staple Centre</li>
+                        <li>Hospice Niagara - The Stabler Centre</li>
                         <li>403 Ontario Street, Unit 2</li>
                         <li>Tel: 905-984-8766</li>
                         <li>Fax: 905-984-8242</li>
-                        <li>Web: <a href="www.hospiceniagara.ca">www.hospiceniagara.ca</a> </li>
                     </ul>
                 </div>
                 <div class="copyright">

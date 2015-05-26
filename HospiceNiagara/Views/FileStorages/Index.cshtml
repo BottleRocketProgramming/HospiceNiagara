@@ -17,7 +17,7 @@
      }
      
     @*Column for the File Window*@
-    <div class="col-sm-8">
+    <div class="col-md-10">
         <div class="panel panel-info">
 
             @*Panel Header*@
@@ -204,38 +204,34 @@
     </div>
 
     @*Column for the File Filters*@
-    <div class="col-sm-4">
+    <div class="col-md-2">
         @foreach(var cats in cat)
         {
             <div class="panel panel-success">
                 <div class="panel-heading">
                     @Html.DisplayFor(modelItem => cats.FileCatName)
                 </div>
-                <div id="staffContent" class="panel-body">
-                    <ul class="Staff-Index">
-                        @foreach (var subCats in subCat)
+                <ul class="list-group">
+                    @foreach (var subCats in subCat)
+                    {
+                        if (cats.ID == subCats.FileCatFK)
                         {
-                            if (cats.ID == subCats.FileCatFK)
+
+                            if (url.EndsWith("FileStorages/Index"))
                             {
-
-                                if (url.EndsWith("FileStorages/Index"))
-                                {
-                                    <li><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                                }
-                                else if (url.EndsWith("FileStorages"))
-                                {
-                                    <li><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                                }
-                                else
-                                {
-                                    <li><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
-                                }
+                                <li class="list-group-item"><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
                             }
-
-
+                            else if (url.EndsWith("FileStorages"))
+                            {
+                                <li class="list-group-item"><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                            }
+                            else
+                            {
+                                <li class="list-group-item"><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                            }
                         }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
         }
     </div>

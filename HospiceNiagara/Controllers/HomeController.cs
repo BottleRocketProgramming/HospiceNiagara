@@ -47,7 +47,7 @@ namespace HospiceNiagara.Controllers
             var welcomeNotice = db.WelcomeNotices.Single();
             var viewModel = new WelcomeNoticeVM();
             viewModel.ID = welcomeNotice.ID;
-            viewModel.WelocomeNotice = welcomeNotice.WelocomeNotice;         
+            viewModel.WelocomeNotice = welcomeNotice.WelocomeNotice;
 
             ViewBag.WelcomeNotice = viewModel;
             annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
@@ -55,8 +55,8 @@ namespace HospiceNiagara.Controllers
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             ViewData["Meeting"] = meetForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             ViewData["Schedule"] = schedForList.ToList().Distinct();
-            return View();
 
+            return View();
         }
 
         [Authorize]

@@ -8,7 +8,7 @@
 <div class="col-lg-12">
     <div class="panel panel-success ">
         <div class="panel-heading">
-            <span id="RSVPTitle">RSVP</span>            
+            <span id="RSVPTitle">Invitiations</span>            
         </div>
         @* Announcement list view panel *@
         <div id="RSVPContent" class="panel-body">
@@ -51,13 +51,13 @@
                         </td>
                         <td>
                             @Html.ActionLink("Select to RSVP", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID })
+                            @Html.ActionLink("Details", "../Meeting/Details/", new { id = item.MeetingRSVP.ID })
                         </td>
                     </tr>
                 }
 
             </table>
-            @Html.ActionLink("Back to meetings", "../Meeting/Index")
+            @Html.ActionLink("Back to Meetings and Events", "../Meeting/Index")
         
          </div>
      </div>

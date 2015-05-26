@@ -64,7 +64,7 @@ namespace HospiceNiagara.Controllers
 
                 ViewBag.SearchCat = viewModel;
             }
-            ViewData["Files"] = allFileForList.ToList().Distinct();
+            ViewData["Files"] = allFileForList.OrderByDescending(f => f.FileUploadDate).ToList().Distinct().Take(10);
                       
             return View();
         }

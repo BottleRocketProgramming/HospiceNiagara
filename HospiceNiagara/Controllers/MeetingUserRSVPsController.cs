@@ -35,6 +35,13 @@ namespace HospiceNiagara.Controllers
             return View(orderedMeetRSVP);
         }
 
+        public ActionResult GetCount()
+        {
+            var count = db.MeetingUserRSVPs.Count(p => p.AppUser.UserName == User.Identity.Name && p.ComingYorN == null);
+
+            return PartialView(count);
+        }
+
         // GET: MeetingUserRSVPs/Details/5
         [Authorize]
         public ActionResult Details(int? id)

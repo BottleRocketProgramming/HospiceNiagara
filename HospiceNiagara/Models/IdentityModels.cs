@@ -63,10 +63,7 @@ namespace HospiceNiagara.Models
 
         public bool PasswordChanged { get; set; }
 
-        public virtual ICollection<BoardContact> BoardContacts { get; set; }
         public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }
-
-        public virtual ICollection<StaffContact> StaffContacts { get; set; }
 
 
     }
@@ -83,8 +80,7 @@ namespace HospiceNiagara.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Announcement> Announcements { get; set; }     
-        public DbSet<BoardContact> BoardContacts { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }  
         public DbSet<DeathNotice> DeathNotices { get; set; }
         public DbSet<FileStorage> FileStorages { get; set; }       
         public DbSet<JobDescription> JobDescriptions { get; set; }
@@ -93,6 +89,8 @@ namespace HospiceNiagara.Models
         public DbSet<FileCat> FileCats { get; set; }
         public DbSet<FileSubCat> FileSubCats { get; set; }
         public DbSet<SchedType> SchedTypes { get; set; }
+        public DbSet<ContactType> ContactTypes { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         public DbSet<IdentityUserRole> IdentUserRoles { get; set; }
         
@@ -113,7 +111,6 @@ namespace HospiceNiagara.Models
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.MeetingUserRSVP> MeetingUserRSVPs { get; set; }
 
-        public System.Data.Entity.DbSet<HospiceNiagara.Models.StaffContact> StaffContacts { get; set; }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.DeathNoticePoems> DeathNoticePoems { get; set; }
 

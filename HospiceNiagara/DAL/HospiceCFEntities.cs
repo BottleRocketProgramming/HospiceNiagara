@@ -13,7 +13,6 @@ namespace HospiceNiagara.DAL
     //    public DbSet<FileSortType> FileSortTypes { get; set; }
     //    public DbSet<FileStorage> FileStorages { get; set; }
     //    public DbSet<Announcement> Announcements { get; set; }
-    //    public DbSet<BoardContact> BoardContacts { get; set; }
     //    public DbSet<DeathNotice> DeathNotices { get; set; }
     //    public DbSet<JobDescription> JobDescriptions { get; set; }
     //    public DbSet<MeetingOrEvent> MeetingOrEvents { get; set; }

@@ -1,0 +1,64 @@
+﻿@model HospiceNiagara.Models.Contact
+
+@{
+    ViewBag.Title = "Contacts";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="container">
+    @foreach (var type in (IEnumerable<HospiceNiagara.Models.ContactType>)ViewData["ContactTypes"])
+    {
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.DisplayFor(modelItem => type.ContactTypeName)</h3>
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Position)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Extention)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CellNumber)
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var contact in (IEnumerable<HospiceNiagara.Models.Contact>)ViewData["Contacts"])
+                    {
+                        if (contact.ContactType.ID == type.ID)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => contact.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => contact.Position)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => contact.Extention)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => contact.CellNumber)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = contact.ID }) 
+                                    @Html.ActionLink("Details", "Details", new { id = contact.ID }) 
+                                    @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</div>

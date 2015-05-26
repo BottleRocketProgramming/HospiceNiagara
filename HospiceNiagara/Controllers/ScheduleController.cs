@@ -27,7 +27,6 @@ namespace HospiceNiagara.Controllers
             var sched = new Schedule();
             sched.SchedType = new SchedType();
             sched.ScheduleRoles = new List<RoleList>();
-            PopulateSchdType();
             PopulateAssignedRoles(sched);
 
             var schedForList = db.Schedules.Where(a => a.ID == 0);
@@ -45,16 +44,9 @@ namespace HospiceNiagara.Controllers
                     schedTypeForList = schedTypeForList.Concat(schdTyp);
                 }
             }
-
-            if (id != null)
-            {
-                Schedule schedule = db.Schedules.Include(j => j.SchedType).Where(i => i.ID == id).Single();
-                PopulateScheduleTypes(schedule);
-            }
-            else
-            {
-                PopulateScheduleTypes(sched);
-            }
+            
+            PopulateScheduleTypes(sched);
+            
 
             ViewData["Schedules"] = schedForList.ToList().Distinct();
             ViewData["ScheduleTypes"] = schedTypeForList.ToList().Distinct();
@@ -199,7 +191,7 @@ namespace HospiceNiagara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Schedule schedule = db.Schedules.Include(r => r.ScheduleRoles).Where(i => i.ID == id).Single();
+            Schedule schedule = db.Schedules.Find(id);
             if (schedule == null)
             {
                 return HttpNotFound();
@@ -222,7 +214,7 @@ namespace HospiceNiagara.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var scheduleToUpdate = db.Schedules.Include(a => a.ScheduleRoles).Where(i => i.ID == id).Single();
+            var scheduleToUpdate = db.Schedules.Find(id);
 
             if (TryUpdateModel(scheduleToUpdate, "", new string[] { "ID" , "SchedName" , "SchedLink" }))
             {
@@ -334,7 +326,7 @@ namespace HospiceNiagara.Controllers
                 {
                     ID = type.ID,
                     SchedTypeName = type.SchedTypeName,
-                    SchedTypeSelected = selected.Equals(type.ID)
+                    SchedTypeSelected = selected.Equals(type)
                 });
             }
             ViewBag.SchedTypes = viewModel;
@@ -342,52 +334,7 @@ namespace HospiceNiagara.Controllers
 
         private void UpdateScheduleType(int? selectedSchedType, Schedule ScheduleToUpdate)
         {
-            if (selectedSchedType == null)
-            {
-                ScheduleToUpdate.SchedType = null;
-                return;
-            }
-
-            foreach (var type in db.SchedTypes)
-            {
-                if (selectedSchedType.Equals(type.ID))
-                {
-                    ScheduleToUpdate.SchedType = type;
-                }
-            }
-        }
-
-        public void PopulateSchdType()
-        {
-            var allSchdTyp = db.SchedTypes.Include(sc => sc.Schedules);
-            //var aSchdTyp = new HashSet<int>(allSchdTyp.s .FileSubCats.Select(r => r.ID));
-            var viewModelSchTyp = new List<SchedTypeVM>();
-            foreach (var schdTyp in allSchdTyp)
-            {
-                viewModelSchTyp.Add(new SchedTypeVM
-                {
-                    ID = schdTyp.ID,
-                    SchedTypeName = schdTyp.SchedTypeName,
-                    Schedules = schdTyp.Schedules
-                });
-            }
-
-            var allSchd = db.Schedules;
-            var viewModelSchd = new List<SchdVM>();
-
-            foreach (var schd in allSchd)
-            {
-                viewModelSchd.Add(new SchdVM
-                {
-                    ID = schd.ID,
-                    SchedName = schd.SchedName,
-                    SchedLink = schd.SchedLink,
-                    SchedType = schd.SchedType
-                });
-            }
-
-            ViewBag.SchTyp = viewModelSchTyp;
-            ViewBag.Schd = viewModelSchd;
+            ScheduleToUpdate.SchedType = db.SchedTypes.Find(selectedSchedType);
         }
 
         protected override void OnException(ExceptionContext filterContext)
