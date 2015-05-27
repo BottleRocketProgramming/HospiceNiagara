@@ -194,7 +194,7 @@ namespace HospiceNiagara.Controllers
 
         public List<ContactListForExport> ContactsforExport()
         {
-            List<Contact> contacts = db.Contacts.OrderBy(c => c.ContactType).ToList();
+            List<Contact> contacts = db.Contacts.OrderBy(c => c.ContactType.ContactTypeName).ToList();
             var ContactListForExport = new List<ContactListForExport>();
             foreach (var contact in contacts)
             {

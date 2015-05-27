@@ -162,10 +162,10 @@
                             </table>
                             </div>
                         </div>
-                        <h4>Categories</h4>
+                        @*<h4>Categories</h4>*@
                         @foreach (var cats in cat)
                         {
-                            @:<div class="form-group col-md-offset-3">
+                            @:<div class="form-group">
                                 <label class="control-label" style="padding-left:15px">@Html.DisplayFor(modelItem => cats.FileCatName)</label>
                                 <table class="table">
                                     @foreach (var sc in subCat)
@@ -181,7 +181,6 @@
                                                             name="selectedSubCats"
                                                             value="@sc.ID"
                                                             @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
-                                                    
                                                 </td>
                                             </tr>
                                             
@@ -190,12 +189,14 @@
                                 </table>
                             @:</div>
                         }
-                                           
-                        <div class="btn-group">
-                            <input type="submit" value="Create" name="UploadFile" class="btn btn-primary" />
+                        
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="submit" value="Create" name="UploadFile" class="btn btn-primary" />
+                                @Html.ActionLink("Cancel", "Index")
+                            </div>
                         </div>
-                        @Html.ActionLink("Cancel", "Index")
-                        </div>
+                    </div>
                     
                 }
             </div>

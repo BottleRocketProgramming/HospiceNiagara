@@ -318,7 +318,6 @@ namespace HospiceNiagara.Controllers
                 {
                     ID = cat.ID,
                     FileCatName = cat.FileCatName,
-                    
                 });
             }
 
