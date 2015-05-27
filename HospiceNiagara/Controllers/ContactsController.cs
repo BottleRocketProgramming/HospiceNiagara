@@ -17,11 +17,15 @@ namespace HospiceNiagara.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contacts
+        [Authorize]
         public ActionResult Index()
         {
             var listOfContacts = db.Contacts;
             var listOfContactTypes = db.ContactTypes;
 
+            var contact = new Contact();
+            contact.ContactType = new ContactType();
+            PopulateContactTypes(contact);
             ViewData["Contacts"] = listOfContacts.ToList().Distinct();
             ViewData["ContactTypes"] = listOfContactTypes.ToList().Distinct();
 
@@ -29,6 +33,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contacts/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -54,19 +59,34 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Position,Extention,CellNumber")] Contact contact)
+        [ActionName("Index")]
+        [OnAction(ButtonName = "CreateContact")]
+        [Authorize(Roles = "Administrator, Create/Modify Contacts")]
+        public ActionResult Create([Bind(Include = "ID,Name,Position,Extention,CellNumber")] Contact contact, int selectedContactType)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Contacts.Add(contact);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var typeToAdd = db.ContactTypes.Find(selectedContactType);
+                contact.ContactType = typeToAdd;
+
+                if (ModelState.IsValid)
+                {
+                    db.Contacts.Add(contact);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
             return View(contact);
         }
 
         // GET: Contacts/Edit/5
+        [Authorize(Roles = "Administrator, Create/Modify Contacts")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,6 +107,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Create/Modify Contacts")]
         public ActionResult Edit(int? id, int selectedContactType)
         {
             if (id == null)
@@ -118,6 +139,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contacts/Delete/5
+        [Authorize(Roles = "Administrator, Remove Records")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -135,6 +157,7 @@ namespace HospiceNiagara.Controllers
         // POST: Contacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Remove Records")]
         public ActionResult DeleteConfirmed(int id)
         {
             Contact contact = db.Contacts.Find(id);
@@ -157,7 +180,7 @@ namespace HospiceNiagara.Controllers
                     ContactTypeSelected = selected.Equals(type)
                 });
             }
-            ViewBag.ContactTypes = viewModel;
+            ViewBag.ContTypes = viewModel;
         }
 
         protected override void Dispose(bool disposing)

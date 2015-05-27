@@ -559,7 +559,6 @@
     <Content Include="Views\WelcomeNotice\Edit.cshtml" />
     <Content Include="Views\WelcomeNotice\Index.cshtml" />
     <Content Include="Views\FileStorages\_SearchList.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\fun.cshtml" />
     <Content Include="Views\ContactTypes\Create.cshtml" />
     <Content Include="Views\ContactTypes\Delete.cshtml" />
     <Content Include="Views\ContactTypes\Details.cshtml" />
@@ -582,6 +581,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Resources\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

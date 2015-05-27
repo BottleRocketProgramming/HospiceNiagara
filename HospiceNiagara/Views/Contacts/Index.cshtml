@@ -4,61 +4,161 @@
     ViewBag.Title = "Contacts";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 <div class="container">
-    @foreach (var type in (IEnumerable<HospiceNiagara.Models.ContactType>)ViewData["ContactTypes"])
-    {
-        <div class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">@Html.DisplayFor(modelItem => type.ContactTypeName)</h3>
-                </div>
-                <table class="table table-striped">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Position)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Extention)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CellNumber)
-                        </th>
-                        <th></th>
-                    </tr>
-                    @foreach (var contact in (IEnumerable<HospiceNiagara.Models.Contact>)ViewData["Contacts"])
-                    {
-                        if (contact.ContactType.ID == type.ID)
+    @{
+        bool firstPanel = false;
+        foreach (var type in (IEnumerable<HospiceNiagara.Models.ContactType>)ViewData["ContactTypes"])
+        {
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Contacts") && firstPanel == false)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => contact.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => contact.Position)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => contact.Extention)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => contact.CellNumber)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = contact.ID }) 
-                                    @Html.ActionLink("Details", "Details", new { id = contact.ID }) 
-                                    @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
-                                </td>
-                            </tr>
+                            <span id="glyphNewContact" class="glyphicon glyphicon-plus pull-right"></span>
+                        }
+                        <h3 id="contactTitle" class="panel-title">@Html.DisplayFor(modelItem => type.ContactTypeName)</h3>
+                        <h3 id="newContactTitle" class="panel-title" hidden>New Contact</h3>
+                    </div>
+                    <table @{ if (firstPanel == false) 
+                                { 
+                                  @: id="contactContent"
+                                } 
+                           }
+                           class="table table-striped">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Position)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Extention)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CellNumber)
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var contact in (IEnumerable<HospiceNiagara.Models.Contact>)ViewData["Contacts"])
+                        {
+                            if (contact.ContactType.ID == type.ID)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => contact.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => contact.Position)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => contact.Extention)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => contact.CellNumber)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = contact.ID })
+                                        @Html.ActionLink("Details", "Details", new { id = contact.ID })
+                                        @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+
+
+                    
+                    @{
+                        if(firstPanel == false)
+                        {
+                            <div id="newContactContent" class="panel-body" hidden>
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Extention, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Extention, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Extention, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CellNumber, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.CellNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.CellNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label" style="padding-left:15px">Contact Types</label>
+                                            <div class="col-md-12">
+                                                <select class="form-control" name="selectedContactType">
+                                                 @{
+                                                    List<HospiceNiagara.ViewModels.ContactTypeVM> types = ViewBag.ContTypes;
+                                                    foreach (var t in types)
+                                                    {
+                                                        <option value=@t.ID @(Html.Raw(t.ContactTypeSelected ? "selected=\"selected\"" : ""))>@t.ContactTypeName</option>
+                                                    }
+                                                }
+                                                </select>
+                                            </div>                      
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <input type="submit" value="Create" id="btnSubmit" name="CreateContact" class="btn btn-primary">
+                                                @Html.ActionLink("Cancel", "Index")
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                            firstPanel = true;
                         }
                     }
-                </table>
+
+                </div>
             </div>
-        </div>
+        }
     }
 </div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('#glyphNewContact').on('click', function () {
+                $('#contactTitle').slideToggle();
+                $('#contactContent').slideToggle();
+                $('#newContactContent').slideToggle();
+                $('#newContactTitle').slideToggle();
+                $('#glyphNewContact').fadeToggle();
+            });
+        });
+    </script>
+}
