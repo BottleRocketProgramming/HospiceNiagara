@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
 using System.Data.Entity.Infrastructure;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
 
 namespace HospiceNiagara.Controllers
 {
@@ -164,6 +167,48 @@ namespace HospiceNiagara.Controllers
             db.Contacts.Remove(contact);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ExportContacts()
+        {
+            var ContactsForExcel = ContactsforExport();
+            var filename = "HospiceNiagara_ContactList.xls";
+
+            GridView gv = new GridView();
+            gv.DataSource = ContactsForExcel;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=" + HttpUtility.UrlEncode(filename));
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return Content(sw.ToString(), "application/vnd.ms-excel");
+        }
+
+        public List<ContactListForExport> ContactsforExport()
+        {
+            List<Contact> contacts = db.Contacts.OrderBy(c => c.ContactType).ToList();
+            var ContactListForExport = new List<ContactListForExport>();
+            foreach (var contact in contacts)
+            {
+                ContactListForExport.Add(new ContactListForExport
+                {
+                    Name = contact.Name,
+                    Position = contact.Position,
+                    Extention = contact.Extention,
+                    CellNumber = contact.CellNumber,
+                    ContactType = contact.ContactType.ContactTypeName
+                });
+            }
+
+            return ContactListForExport;
         }
 
         public void PopulateContactTypes(Contact contact)

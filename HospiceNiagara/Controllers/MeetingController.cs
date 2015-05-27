@@ -208,8 +208,6 @@ namespace HospiceNiagara.Controllers
                     db.Meetings.Add(meeting);
                     db.SaveChanges();                   
                 }
-                                        
-                    
                     return RedirectToAction("Index");
             }
             
@@ -321,10 +319,6 @@ namespace HospiceNiagara.Controllers
 
         public ActionResult ExportData(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Meeting meeting = db.Meetings.Find(id);
             if (meeting == null)
             {
