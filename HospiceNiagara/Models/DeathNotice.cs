@@ -38,6 +38,7 @@ namespace HospiceNiagara.Models
 
         [Display(Name="Date")]
         [Required(ErrorMessage = "Date is required for death notice")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DnDate { get; set; }
 
         [Display(Name ="Date")]
@@ -52,6 +53,10 @@ namespace HospiceNiagara.Models
         [Display(Name="Location")]
         [StringLength(150, ErrorMessage = "Location can not exceed 150 characters")]
         public string DnLocation { get; set; }
+
+        [Display(Name = "Obituary")]
+        [StringLength(150, ErrorMessage = "Obituary Link can not exceed 150 characters")]
+        public string DnLink { get; set; }
 
         [Display(Name="Notes")]
         [StringLength(510, ErrorMessage = "Notes can not exceed 510 characters")]

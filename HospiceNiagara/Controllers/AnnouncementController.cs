@@ -31,25 +31,24 @@ namespace HospiceNiagara.Controllers
             announce.FileStorages = new List<FileStorage>();
             PopulateAssignedRoles(announce);
             PopulateAssignedFiles(announce);            
-           
+            
             var annForList = db.Announcements.Where(a => a.ID == 0);
 
-           
-                foreach (var ur in cUserRoles)
+            foreach (var ur in cUserRoles)
+            {
+                if (User.IsInRole(ur.RoleName))
                 {
-                    if (User.IsInRole(ur.RoleName))
-                    {
-                        var ann = db.Announcements.Include(a => a.RolesLists).Include(a=>a.FileStorages);
-                        ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
-                        annForList = annForList.Concat(ann);
-                    }
+                    var ann = db.Announcements.Include(a => a.RolesLists).Include(a=>a.FileStorages);
+                    ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                    annForList = annForList.Concat(ann);
                 }
+            }
+
             annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
 
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             
             return View();
-            
         }
 
         //Admin List

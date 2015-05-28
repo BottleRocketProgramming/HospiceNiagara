@@ -66,9 +66,11 @@
                                                 On
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.EventStartString)
+                                                @Html.DisplayFor(modelItem => item.EventDateString)
                                             </td>
-                                        </tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EventTime)
+                                            </td>
                                     </table>
                                 </div>
                             </div>
@@ -144,8 +146,8 @@
                                             <td>
                                                 On
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EventStartString)
+                                            <td class="text-right">
+                                                @Html.DisplayFor(modelItem => item.EventDateString)
                                             </td>
                                         </tr>
                                     </table>
@@ -190,18 +192,18 @@
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventStart, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                @Html.LabelFor(model => model.EventDate, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
                                                 <div class="col-md-12">
-                                                    @Html.EditorFor(model => model.EventStart, new { htmlAttributes = new { @class = "form-control datecontrol" } })
-                                                    @Html.ValidationMessageFor(model => model.EventStart, "", new { @class = "text-danger" })
+                                                    @Html.EditorFor(model => model.EventDate, new { htmlAttributes = new { @class = "form-control datecontrol" } })
+                                                    @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.EventEnd, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                                @Html.LabelFor(model => model.EventTime, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
                                                 <div class="col-md-12">
-                                                    @Html.EditorFor(model => model.EventEnd, new { htmlAttributes = new { @class = "form-control datecontrol" } })
-                                                    @Html.ValidationMessageFor(model => model.EventEnd, "", new { @class = "text-danger" })
+                                                    @Html.EditorFor(model => model.EventTime, new { htmlAttributes = new { @class = "form-control datecontrol" } })
+                                                    @Html.ValidationMessageFor(model => model.EventTime, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 

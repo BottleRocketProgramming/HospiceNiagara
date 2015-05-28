@@ -7,10 +7,10 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+    <h2>Create a Schedule</h2>
+    <hr />
     
     <div class="form-horizontal">
-        <h4>Create Schedule</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.SchedName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -53,17 +53,21 @@
                             List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
                             foreach(var r in roles)
                             {
-                                if (cnt++ % 2 == 0)
+                                if(r.IsPerm == false)
                                 {
-                                @:</tr><tr>
-                                }
-                                @:<td>
-                                    <input type="checkbox"
-                                    name="selectedRoles"
-                                    value="@r.RoleID"
-                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                    @r.RoleName
-                                @:</td>
+                                    if (cnt++ % 2 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                        class="chkRoles"
+                                        name="selectedRoles"
+                                        value="@r.RoleID"
+                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                            @Html.DisplayFor(modelItem => r.RoleName)
+                                    @:</td>
+                                }                          
                             }
                         @:</tr>
                         }
@@ -82,4 +86,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+        $(document).ready(function () {
+            $("[name='selectedRoles']").bootstrapSwitch();
+        });
+</script>
 }

@@ -70,7 +70,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateDeathNotice")]
         [Authorize(Roles = "Administrator, Create/Modify Death Notices")]
-        public ActionResult Create([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes")] DeathNotice deathNotice)
+        public ActionResult Create([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes,DnLink")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult adminCreate([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes")] DeathNotice deathNotice)
+        public ActionResult adminCreate([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes,DnLink")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {
@@ -120,7 +120,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Create/Modify Death Notices")]
-        public ActionResult Edit([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes")] DeathNotice deathNotice)
+        public ActionResult Edit([Bind(Include = "ID,DnFirstName,DnMiddleName,DnLastName,DnDate,DnLocation,DnNotes,DnLink")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {

@@ -21,10 +21,10 @@
             @Html.DisplayNameFor(model => model.EventLocation)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventStartString)
+            @Html.DisplayNameFor(model => model.EventDateString)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventEndString)
+            @Html.DisplayNameFor(model => model.EventTime)
         </th>
         <th></th>
     </tr>
@@ -35,16 +35,16 @@
             @Html.DisplayFor(modelItem => item.EventTitle)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EventDiscription)
+            @Html.Raw(item.DescriptionTrimmed)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EventLocation)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EventStartString)
+            @Html.DisplayFor(modelItem => item.EventDateString)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EventEndString)
+            @Html.DisplayFor(modelItem => item.EventTime)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID })

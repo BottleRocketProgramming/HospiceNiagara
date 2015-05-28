@@ -286,6 +286,18 @@
     <Compile Include="Migrations\201505261517226_withContacts.Designer.cs">
       <DependentUpon>201505261517226_withContacts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505281402010_eventWithTimes.cs" />
+    <Compile Include="Migrations\201505281402010_eventWithTimes.Designer.cs">
+      <DependentUpon>201505281402010_eventWithTimes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505281449320_withObituary.cs" />
+    <Compile Include="Migrations\201505281449320_withObituary.Designer.cs">
+      <DependentUpon>201505281449320_withObituary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505281858465_EventDate.cs" />
+    <Compile Include="Migrations\201505281858465_EventDate.Designer.cs">
+      <DependentUpon>201505281858465_EventDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -565,13 +577,14 @@
     <Content Include="Views\ContactTypes\Details.cshtml" />
     <Content Include="Views\ContactTypes\Edit.cshtml" />
     <Content Include="Views\ContactTypes\Index.cshtml" />
-    <Content Include="Views\Contacts\Create.cshtml" />
+    <Content Include="Views\Contacts\AdminCreate.cshtml" />
     <Content Include="Views\Contacts\Delete.cshtml" />
     <Content Include="Views\Contacts\Details.cshtml" />
     <Content Include="Views\Contacts\Edit.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\MeetingUserRSVPs\GetCount.cshtml" />
     <Content Include="Views\Account\View.cshtml" />
+    <Content Include="Views\Contacts\AdminList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -657,6 +670,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505261517226_withContacts.resx">
       <DependentUpon>201505261517226_withContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505281402010_eventWithTimes.resx">
+      <DependentUpon>201505281402010_eventWithTimes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505281449320_withObituary.resx">
+      <DependentUpon>201505281449320_withObituary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505281858465_EventDate.resx">
+      <DependentUpon>201505281858465_EventDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

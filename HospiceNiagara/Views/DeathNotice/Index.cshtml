@@ -33,6 +33,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.DnNotes)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DnLink)
+                        </th>
                         @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                         {
                             <th></th>
@@ -55,6 +58,12 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnNotes)
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
+                                {<a href="@item.DnLink">Link</a>}
+                                else if (!string.IsNullOrEmpty(item.DnLink))
+                                {<a href="http://@item.DnLink">Link</a> }
                             </td>
                             @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                             {
@@ -130,6 +139,15 @@
                                 @Html.ValidationMessageFor(model => model.DnNotes, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DnLink, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DnLink, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DnLink, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Create" name="CreateDeathNotice" class="btn btn-primary"> |

@@ -305,7 +305,6 @@ namespace HospiceNiagara.Controllers
                     FlCat = subCat.FlCat,
                     FileCatFK = subCat.FileCatFK,
                     FileSubCatAssigned = aSubCats.Contains(subCat.ID)
-
                 });
             }
 

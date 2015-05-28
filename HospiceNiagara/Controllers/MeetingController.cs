@@ -30,7 +30,6 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
-            
             var cUserRoles = db.RoleLists;
             var meet = new Meeting();
             meet.RolesLists = new List<RoleList>();
@@ -45,7 +44,7 @@ namespace HospiceNiagara.Controllers
                 if(User.IsInRole(u.RoleName))
                 {
                     var mtt = db.Meetings.Include(a => a.RolesLists);
-                    mtt = mtt.Where(a => a.RolesLists.Any(aur => aur.ID == u.ID));
+                    mtt = mtt.Where(a => a.RolesLists.Any(aur => aur.ID == u.ID) && a.EventDate >= DateTime.Today);
                     mttForList = mttForList.Concat(mtt);                    
                 }
             }
@@ -81,7 +80,7 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         [OnAction(ButtonName = "CreateMeeting")]
         [Authorize(Roles = "Administrator, Create/Modify Meetings or Events")]
-        public ActionResult AdminCreate([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
+        public ActionResult AdminCreate([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventDate,EventTime,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
         {
             try
             {
@@ -91,8 +90,7 @@ namespace HospiceNiagara.Controllers
                     foreach (var role in selectedRoles)
                     {
                         var roleToAdd = db.RoleLists.Find(int.Parse(role));
-                        meeting.RolesLists.Add(roleToAdd);
-                        //PopulateAssignedRoles(meeting);                       
+                        meeting.RolesLists.Add(roleToAdd);                     
                     }
                 }
 
@@ -103,7 +101,6 @@ namespace HospiceNiagara.Controllers
                     {
                         var fileToAdd = db.FileStorages.Find(int.Parse(file));
                         meeting.FileStores.Add(fileToAdd);
-                        //PopulateAssignedFiles(meeting);
                     }
                 }
 
@@ -118,8 +115,7 @@ namespace HospiceNiagara.Controllers
                     db.SaveChanges();
                 }
 
-
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminList");
             }
 
             catch (DataException)
@@ -172,7 +168,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateMeeting")]
         [Authorize(Roles = "Administrator, Create/Modify Meetings or Events")]
-        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventStart,EventEnd,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
+        public ActionResult Create([Bind(Include = "ID,EventTitle,EventDiscription,EventLocation,EventDate,EventTime,EventRequirments,EventLinks")] Meeting meeting, string[] selectedRoles, string[] selectedFiles)
         {
             try
             {
@@ -254,7 +250,7 @@ namespace HospiceNiagara.Controllers
 
             var meetingToUpdate = db.Meetings.Include(a => a.RolesLists).Where(i => i.ID == id).Single();
 
-            if (TryUpdateModel( meetingToUpdate,  "", new string[] { "ID" , "EventTitle" , "EventDiscription" , "EventLocation" , "EventStart" , "EventEnd" , "EventRequirments" , "EventLinks" }))
+            if (TryUpdateModel(meetingToUpdate, "", new string[] { "ID", "EventTitle", "EventDiscription", "EventLocation", "EventDate", "EventTime", "EventRequirments", "EventLinks" }))
             {
                 try
                 {

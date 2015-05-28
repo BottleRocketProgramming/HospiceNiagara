@@ -42,31 +42,23 @@ namespace HospiceNiagara.Models
         [StringLength(510, ErrorMessage = "Event location can not exceed 510 characters")]
         public string EventLocation { get; set; }
 
-        [Display(Name="Start")]
-        [Required(ErrorMessage = "Event needs a start time")]
-        public DateTime EventStart { get; set; }
+        [Display(Name="Date")]
+        [Required(ErrorMessage = "Event needs a Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime EventDate { get; set; }
 
-        [Display(Name = "Start")]
-        public string EventStartString
+        [Display(Name = "Date")]
+        public string EventDateString
         {
             get
             {
-                return this.EventStart.ToLongDateString();
+                return this.EventDate.ToLongDateString();
             }
         }
 
-        [Display(Name="End")]
-        [Required(ErrorMessage = "Event needs an end time")]
-        public DateTime EventEnd { get; set; }
-
-        [Display(Name = "End")]
-        public string EventEndString
-        {
-            get
-            {
-                return this.EventEnd.ToLongDateString();
-            }
-        }
+        [Display(Name = "Time")]
+        [Required(ErrorMessage = "Event needs an assigned time")]
+        public string EventTime { get; set; }
 
         [Display(Name = "Upload Date")]
         public DateTime UploadDate { get; set; }

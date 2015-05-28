@@ -37,14 +37,14 @@
             <div class="col-md-10">
                 <select class="form-control" name="selectedContactType">
                  @{
-                    List<HospiceNiagara.ViewModels.ContactTypeVM> types = ViewBag.ContactTypes;
+                    List<HospiceNiagara.ViewModels.ContactTypeVM> types = ViewBag.ContTypes;
                     foreach (var t in types)
                     {
                         <option value=@t.ID @(Html.Raw(t.ContactTypeSelected ? "selected=\"selected\"" : ""))>@t.ContactTypeName</option>
                     }
                 }
                 </select>
-            </div>                      
+            </div>
         </div>
 
         <div class="form-group">

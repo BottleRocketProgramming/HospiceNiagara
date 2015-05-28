@@ -58,11 +58,6 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AdminList()
         {
-            var sched = new Schedule();
-            sched.SchedType = new SchedType();
-            sched.ScheduleRoles = new List<RoleList>();
-            PopulateScheduleTypes(sched);
-            PopulateAssignedRoles(sched);
             return View(db.Schedules.ToList());
         }
 

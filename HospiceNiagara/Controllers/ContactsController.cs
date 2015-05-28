@@ -52,9 +52,50 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contacts/Create
-        public ActionResult Create()
+        public ActionResult AdminCreate()
         {
+            var listOfContacts = db.Contacts;
+            var listOfContactTypes = db.ContactTypes;
+
+            var contact = new Contact();
+            contact.ContactType = new ContactType();
+            PopulateContactTypes(contact);
+            ViewData["Contacts"] = listOfContacts.ToList().Distinct();
+            ViewData["ContactTypes"] = listOfContactTypes.ToList().Distinct();
             return View();
+        }
+
+        //Admin List
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminList()
+        {
+            return View(db.Contacts.ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Create/Modify Contacts")]
+        public ActionResult AdminCreate([Bind(Include = "ID,Name,Position,Extention,CellNumber")] Contact contact, int selectedContactType)
+        {
+            try
+            {
+
+                var typeToAdd = db.ContactTypes.Find(selectedContactType);
+                contact.ContactType = typeToAdd;
+
+                if (ModelState.IsValid)
+                {
+                    db.Contacts.Add(contact);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+
+            return View(contact);
         }
 
         // POST: Contacts/Create

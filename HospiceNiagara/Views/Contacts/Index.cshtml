@@ -38,7 +38,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.CellNumber)
                             </th>
-                            <th></th>
+                            @if(User.IsInRole("Administrator") || User.IsInRole("Create/Modify Contacts")){<th></th>}
                         </tr>
                         @foreach (var contact in (IEnumerable<HospiceNiagara.Models.Contact>)ViewData["Contacts"])
                         {
@@ -57,11 +57,14 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => contact.CellNumber)
                                     </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = contact.ID })
-                                        @Html.ActionLink("Details", "Details", new { id = contact.ID })
-                                        @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
-                                    </td>
+                                    @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Contacts"))
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = contact.ID })
+                                            @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
+                                        </td>
+                                    }
+                                    
                                 </tr>
                             }
                         }
@@ -154,7 +157,7 @@
         $(document).ready(function () {
             $('#glyphNewContact').on('click', function () {
                 $('#contactTitle').slideToggle();
-                $('#contactContent').slideToggle();
+                $('#contactContent').fadeToggle();
                 $('#newContactContent').slideToggle();
                 $('#newContactTitle').slideToggle();
                 $('#glyphNewContact').fadeToggle();
