@@ -87,7 +87,7 @@ namespace HospiceNiagara.Controllers
                 {
                     db.Contacts.Add(contact);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("AdminList");
                 }
             }
             catch (DataException)

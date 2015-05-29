@@ -9,35 +9,33 @@
             <div class="panel-heading">
                 Data Maintenance
             </div>
-            <div class="panel-body">
-                <table class="table">
-                    <tr>
-                        <td>
-                            <a href=../DeathNotice/AdminList>View all Death Notices</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../Announcement/AdminList>View all Announcements</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../Meeting/AdminList>View all Events</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../Schedule/AdminList>View all Schedules</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../Contacts/AdminList>View all Contacts</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <table class="table text-center">
+                <tr>
+                    <td>
+                        <a href=../DeathNotice/AdminList>View all Death Notices</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../Announcement/AdminList>View all Announcements</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../Meeting/AdminList>View all Events</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../Schedule/AdminList>View all Schedules</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../Contacts/AdminList>View all Contacts</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 }
@@ -48,28 +46,26 @@
             <div class="panel-heading">
                 Manage Users
             </div>
-            <div class="panel-body">
-                <table class="table">
+            <table class="table text-center">
+                <tr>
+                    <td>
+                        <a href=../Account/Register>Register New Users</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../ApplicationUsers/Index>Manage Users</a>
+                    </td>
+                </tr>
+                @if (User.IsInRole("Administrator"))
+                {
                     <tr>
                         <td>
-                            <a href=../Account/Register>Register New Users</a>
+                            <a href=../RoleLists/Index>Manage Roles</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <a href=../ApplicationUsers/Index>Manage Users</a>
-                        </td>
-                    </tr>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <tr>
-                            <td>
-                                <a href=../RoleLists/Index>Manage Roles</a>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                }
+            </table>
         </div>
     </div>
 }
@@ -80,40 +76,38 @@
             <div class="panel-heading">
                 Site Maintenance
             </div>
-            <div class="panel-body">
-                <table class="table">
-                    <tr>
-                        <td>
-                            <a href=../FileCats/Index>Manage File Categories</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../FileSubcats/Index>Manage File Subcategories</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../SchedTypes/Index>Manage Schedule Types</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../ContactTypes/Index>Manage Contact Types</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../DeathNoticePoems/Index>Manage Death Notice Poems</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=../WelcomeNotice/Edit/1>Edit Welcome Notice</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <table class="table text-center">
+                <tr>
+                    <td>
+                        <a href=../FileCats/Index>Manage File Categories</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../FileSubcats/Index>Manage File Subcategories</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../SchedTypes/Index>Manage Schedule Types</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../ContactTypes/Index>Manage Contact Types</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../DeathNoticePoems/Index>Manage Death Notice Poems</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href=../WelcomeNotice/Edit/1>Edit Welcome Notice</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 }

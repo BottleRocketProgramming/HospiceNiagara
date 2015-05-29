@@ -66,14 +66,11 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                @Html.ActionLink("Cancel", "AdminList")
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "AdminList")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -39,7 +39,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,RoleName")] RoleList roleList)
+        public ActionResult Create([Bind(Include = "ID,RoleName,IsPerm")] RoleList roleList)
         {
             if (ModelState.IsValid)
             {

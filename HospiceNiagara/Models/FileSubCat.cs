@@ -13,8 +13,8 @@ namespace HospiceNiagara.Models
         [Required]
         public int ID { get; set; }
 
-        [Required]
         [Display(Name="File Sub-Category Name")]
+        [Required(ErrorMessage = "File Category Name is Required")]
         public string FileSubCatName { get; set; }
 
         [Display(Name="Related File Category")]

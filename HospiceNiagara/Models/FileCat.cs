@@ -12,8 +12,8 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
-        [Display(Name="File Catigory Name")]
-        [Required(ErrorMessage="File Catigory Name")]
+        [Display(Name="File Category Name")]
+        [Required(ErrorMessage="File Category Name is Required")]
         public string FileCatName { get; set; }
 
         public virtual ICollection<FileSubCat> FileSubCats { get; set; }

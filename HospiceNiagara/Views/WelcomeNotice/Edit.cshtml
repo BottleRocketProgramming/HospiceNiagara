@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WelocomeNotice, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WelocomeNotice)
+                @Html.EditorFor(model => model.WelocomeNotice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.WelocomeNotice)
             </div>
         </div>

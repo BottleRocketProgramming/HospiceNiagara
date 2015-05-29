@@ -27,7 +27,90 @@ namespace HospiceNiagara.Migrations
             if (!context.Roles.Any(r => r.Name == "Administrator"))
             {
                 var roleresult = roleManager.Create(new IdentityRole("Administrator"));
+            }
 
+            //Create Role Staff if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Staff"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Staff"));
+            }
+
+            //Create Role Volunteer if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Volunteer"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Volunteer"));
+            }
+
+            //Create Role Board if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Board"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Board"));
+            }
+
+            //Create Perm Remove Records if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Remove Records"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Remove Records"));
+            }
+
+            //Create Perm Remove Records if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Create/Modify Death Notices"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Create/Modify Death Notices"));
+            }
+            
+            //Create Perm Create/Modify Meetings or Events if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Create/Modify Meetings or Events"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Create/Modify Meetings or Events"));
+            }
+
+            //Create Perm Create/Modify Contacts if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Create/Modify Contacts"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Create/Modify Contacts"));
+            }
+
+            //Create Perm View Admin Info if it does not exist
+            if (!context.Roles.Any(r => r.Name == "View Admin Info"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("View Admin Info"));
+            }
+
+            //Create Perm Manage Users if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Manage Users"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Manage Users"));
+            }
+
+            //Create Perm Create/Modify Announcements if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Create/Modify Announcements"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Create/Modify Announcements"));
+            }
+
+            //Create Perm Upload Resources if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Upload Resources"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Upload Resources"));
+            }
+
+            //Create Perm Create/Modify Schedules if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Create/Modify Schedules"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Create/Modify Schedules"));
+            }
+
+            //Create Perm Manage Invitations if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Manage Invitations"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Manage Invitations"));
+            }
+
+            //Create Assign User Permissions if it does not exist
+            if (!context.Roles.Any(r => r.Name == "Assign User Permissions"))
+            {
+                var roleresult = roleManager.Create(new IdentityRole("Assign User Permissions"));
             }
 
             var manager = new UserManager<ApplicationUser>(

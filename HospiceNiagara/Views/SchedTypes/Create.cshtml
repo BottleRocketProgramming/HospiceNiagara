@@ -20,27 +20,31 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2">User Roles</label>
+            <label class="control-label col-md-2">Visible To</label>
             <div class="col-md-offset-2 col-md-10">
                 <table>
                     <tr>
                          @{
                             int cnt = 0;
                             List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
-                            foreach (var r in roles)
+                            foreach(var r in roles)
                             {
-                                if (cnt++ % 2 == 0)
+                                if(r.IsPerm == false)
                                 {
-                                    @:</tr><tr>
-                                }
-                                    @: <td>
+                                    if (cnt++ % 2 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
                                         <input type="checkbox"
-                                               name="selectedRoles"
-                                               value="@r.RoleID"
-                                         @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                         @r.RoleName
+                                        class="chkRoles"
+                                        name="selectedRoles"
+                                        value="@r.RoleID"
+                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                            @Html.DisplayFor(modelItem => r.RoleName)
                                     @:</td>
-                             }
+                                }                          
+                            }
                                    @:</tr>
                           }
                     </table>
@@ -51,8 +55,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" /> |
-                @Html.ActionLink("Back to List", "Index")
+                <input type="submit" value="Create" class="btn btn-primary" />
+                @Html.ActionLink("Cancel", "Index")
             </div>
         </div>
     </div>
@@ -60,4 +64,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("[name='selectedRoles']").bootstrapSwitch();
+        });
+    </script>
 }

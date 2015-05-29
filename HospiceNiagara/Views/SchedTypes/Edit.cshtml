@@ -25,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2">User Roles</label>
+            <label class="control-label col-md-2">Visible To</label>
             <div class="col-md-offset-2 col-md-10">
                 <table>
                     <tr>
@@ -56,8 +56,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" /> |
-                @Html.ActionLink("Back to List", "Index")
+                <input type="submit" value="Save" class="btn btn-primary" /> 
+                @Html.ActionLink("Cancel", "Index")
             </div>
         </div>
     </div>
@@ -65,4 +65,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("[name='selectedRoles']").bootstrapSwitch();
+        });
+    </script>
 }

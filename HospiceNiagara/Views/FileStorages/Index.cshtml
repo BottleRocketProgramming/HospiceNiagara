@@ -6,7 +6,6 @@
 
 @* Paul Boyko March 2015 *@
 
-
 <div class="container">
     @*Initialize filters and gets current url*@
     @{
@@ -173,7 +172,7 @@
                                         if (cats.ID == sc.FileCatFK)
                                         {
                                             <tr>
-                                                <td style="padding-left:15px">
+                                                <td style="padding-left:15px; width:50%;">
                                                     @sc.FileSubCatName
                                                 </td>
                                                 <td>
@@ -206,9 +205,9 @@
 
     @*Column for the File Filters*@
     <div class="col-md-2">
-        @foreach(var cats in cat)
+        @foreach (var cats in cat)
         {
-            <div class="panel panel-success">
+            <div class="panel panel-success text-center">
                 <div class="panel-heading">
                     @Html.DisplayFor(modelItem => cats.FileCatName)
                 </div>
@@ -252,6 +251,7 @@
             });
 
             $("[name='selectedRoles']").bootstrapSwitch();
+            $("[name='selectedSubCats']").bootstrapSwitch();
         });
     </script>
 }

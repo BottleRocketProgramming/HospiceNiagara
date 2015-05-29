@@ -21,7 +21,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EventDiscription)
+            @Html.Raw(Model.EventDiscription)
         </dd>
 
         <dt>
@@ -38,30 +38,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.EventDateString)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EventEndString)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EventEndString)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EventRequirments)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EventRequirments)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EventLinks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EventLinks)
         </dd>
 
     </dl>

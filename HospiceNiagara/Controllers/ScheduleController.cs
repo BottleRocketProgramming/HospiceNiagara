@@ -117,7 +117,7 @@ namespace HospiceNiagara.Controllers
                 {
                     db.Schedules.Add(schedule);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("AdminList");
                 }
             }
             catch (DataException)

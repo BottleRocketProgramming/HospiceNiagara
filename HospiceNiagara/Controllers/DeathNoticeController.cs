@@ -92,7 +92,7 @@ namespace HospiceNiagara.Controllers
             {
                 db.DeathNotices.Add(deathNotice);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminList");
             }
 
             return View(deathNotice);

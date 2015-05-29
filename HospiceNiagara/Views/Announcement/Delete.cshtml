@@ -9,11 +9,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.AnnounceTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnnounceTitle)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.AnnounceText)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AnnounceText)
+            @Html.Raw(Model.AnnounceText)
         </dd>
 
         <dt>

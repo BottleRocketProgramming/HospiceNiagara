@@ -28,7 +28,7 @@
         </div>*@
 
         <div class="form-group">
-            <label class="control-label col-md-2">Select Catigory</label>
+            <label class="control-label col-md-2">Select Category</label>
             <div class="col-md-10">
                 <select class="form-control" name="selectedCats">
                     @{
@@ -38,19 +38,16 @@
                         {
                              <option value=@c.ID>@c.FileCatName</option>
                         }
-                        @:
                      }
                 </select>
 
             </div>
         </div>
 
-
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" /> |
-                @Html.ActionLink("Back to List", "Index")
+                <input type="submit" value="Create" class="btn btn-primary" /> 
+                @Html.ActionLink("Cancel", "Index")
             </div>
         </div>
     </div>

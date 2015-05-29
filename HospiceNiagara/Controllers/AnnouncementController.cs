@@ -109,14 +109,14 @@ namespace HospiceNiagara.Controllers
 
                     db.Announcements.Add(announcement);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("AdminList");
                 }
             }
             catch (DataException)
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return RedirectToAction("Index");
+            return View(announcement);
         }
 
         // GET: Announcement/Details/5
