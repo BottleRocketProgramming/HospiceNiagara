@@ -116,6 +116,14 @@
                                         </div>
 
                                         <div class="form-group">
+                                            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="control-label" style="padding-left:15px">Contact Types</label>
                                             <div class="col-md-12">
                                                 <select class="form-control" name="selectedContactType">

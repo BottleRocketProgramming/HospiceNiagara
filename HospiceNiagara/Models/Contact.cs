@@ -23,6 +23,10 @@ namespace HospiceNiagara.Models
         [Display(Name = "Cell Number")]
         public string CellNumber { get; set; }
 
+        [Display(Name = "Start Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime StartDate { get; set; }
+
 
         public virtual ContactType ContactType { get; set; }
     }

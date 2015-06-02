@@ -66,6 +66,8 @@ namespace HospiceNiagara.Controllers
             var meetRSVP = new MeetingUserRSVP();
             var allUsers = db.Users.Include(u => u.Roles);
             var uRoles = db.Roles;
+            var perms = db.RoleLists.Where(r => r.IsPerm == false).Select(r=> r.RoleName);
+            var filteredRoles = uRoles.Where(r => perms.Contains(r.Name));
 
             if (!string.IsNullOrEmpty(roles))
             {
@@ -73,7 +75,7 @@ namespace HospiceNiagara.Controllers
             }
 
             List<SelectListItem> list = new List<SelectListItem>();
-            foreach (var role in uRoles)
+            foreach (var role in filteredRoles)
             {
                 list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
             }

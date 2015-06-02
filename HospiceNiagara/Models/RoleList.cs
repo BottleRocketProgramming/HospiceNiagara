@@ -29,8 +29,6 @@ namespace HospiceNiagara.Models
 
         public virtual ICollection<Meeting> Meetings { get; set; }
 
-        //public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
-        
 
         
     }

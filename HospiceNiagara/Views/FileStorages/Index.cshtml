@@ -45,7 +45,7 @@
                 <div class="panel-body-toolbar form-inline">
                     @using (Html.BeginForm())
                     { 
-                        @Html.TextBox("searchString", null, new { @class = "form-control" }) 
+                        @Html.TextBox("searchString", null, new { @class = "form-control", @placeholder ="Search by File Name or Description" }) 
                         <input type="submit" value="Search" class="btn btn-default" />  
                         @Html.ActionLink("Clear", "Index", new  { id = 0 })                    
                     }

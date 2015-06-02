@@ -44,8 +44,8 @@
         <label class="control-label col-md-2">Select Users</label>
         <div class="col-md-offset-2 col-md-10">
             <div>
-                <input type="button" value="Select All" id="btnCheckAllUsers" />
-                @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, "All Roles", new { @id = "ddlRoles" })
+                <input type="button" style="margin-bottom:4px;" class="btn btn-xs btn-default" value="Select All" id="btnCheckAllUsers" />
+                @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, "All Roles", new { @id = "ddlRoles" } )
                 @Html.ActionLink("Clear", "Create", new { id = ViewBag.MeetingID })
             </div>
 

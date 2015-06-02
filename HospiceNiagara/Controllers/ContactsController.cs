@@ -75,7 +75,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Create/Modify Contacts")]
-        public ActionResult AdminCreate([Bind(Include = "ID,Name,Position,Extention,CellNumber")] Contact contact, int selectedContactType)
+        public ActionResult AdminCreate([Bind(Include = "ID,Name,Position,Extention,StartDate,CellNumber")] Contact contact, int selectedContactType)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace HospiceNiagara.Controllers
         [ActionName("Index")]
         [OnAction(ButtonName = "CreateContact")]
         [Authorize(Roles = "Administrator, Create/Modify Contacts")]
-        public ActionResult Create([Bind(Include = "ID,Name,Position,Extention,CellNumber")] Contact contact, int selectedContactType)
+        public ActionResult Create([Bind(Include = "ID,Name,Position,Extention,StartDate,CellNumber")] Contact contact, int selectedContactType)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace HospiceNiagara.Controllers
 
             var contactToUpdate = db.Contacts.Find(id);
 
-            if (TryUpdateModel(contactToUpdate, "", new string[] { "ID","Name","Position","Extention","CellNumber" }))
+            if (TryUpdateModel(contactToUpdate, "", new string[] { "ID", "Name", "Position", "Extention", "CellNumber", "StartDate" }))
             {
                 try
                 {

@@ -1,2 +1,9 @@
 ﻿
-<a href="../../MeetingUserRSVPs/" style="color:white"><span class="badge pull-right" style="margin-top:2px; background-color:green;">@Model</span>Invitations</a>
+
+<a href="../../MeetingUserRSVPs/" style="color:white">
+    @if(Model != 0)
+    {
+        <span class="badge pull-right" style="margin-top:2px; background-color:green;">@Model</span>
+    }
+    Invitations</a>
+

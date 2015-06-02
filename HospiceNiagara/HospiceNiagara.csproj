@@ -298,6 +298,10 @@
     <Compile Include="Migrations\201505281858465_EventDate.Designer.cs">
       <DependentUpon>201505281858465_EventDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506011740538_startDateContact.cs" />
+    <Compile Include="Migrations\201506011740538_startDateContact.Designer.cs">
+      <DependentUpon>201506011740538_startDateContact.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -679,6 +683,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505281858465_EventDate.resx">
       <DependentUpon>201505281858465_EventDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506011740538_startDateContact.resx">
+      <DependentUpon>201506011740538_startDateContact.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
