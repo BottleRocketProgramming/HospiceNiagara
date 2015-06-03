@@ -12,10 +12,6 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
-        [Display(Name="File")]
-        [Required(ErrorMessage = "Please select a file to upload")]
-        public byte[] FileContent { get; set; }
-
         [Required]
         [Display(Name="Mime Type")]
         [StringLength(256)]

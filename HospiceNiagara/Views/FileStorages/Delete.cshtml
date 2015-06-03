@@ -11,11 +11,9 @@
         <div id="storageimage">
 
             @{
-                if (Model.FileContent != null && Model.MimeType.Contains("image"))
+                if (Model.MimeType.Contains("image"))
                 {
-                    string image64 = Convert.ToBase64String(Model.FileContent);
-                    string imageSrc = string.Format("data:" + Model.MimeType + ";base64, {0}", image64);
-                    <img src="@imageSrc" width="300" height="300" />
+                    <img src="~/Uploads/@Model.FileName"/>
                 }
             }
         </div>

@@ -9,18 +9,13 @@
         <div class="panel-heading">
             File Details
         </div>
-        <div>
-            <div id="storageimage">
-
+        <div class="panel-body">
                 @{
-                    if (Model.FileContent != null && Model.MimeType.Contains("image"))
+                    if (Model.MimeType.Contains("image"))
                     {
-                        string image64 = Convert.ToBase64String(Model.FileContent);
-                        string imageSrc = string.Format("data:" + Model.MimeType + ";base64, {0}", image64);
-                        <img src="@imageSrc" width="85%"/>
+                        <img style="width:100%" src="~/Uploads/@Model.FileName"/>
                     }
                 }
-            </div>
             <div id="fileinformation">
                 <dl class="dl-horizontal">
 

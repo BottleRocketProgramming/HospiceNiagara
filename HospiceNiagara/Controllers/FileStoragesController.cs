@@ -96,22 +96,18 @@ namespace HospiceNiagara.Controllers
         [HandleError()]
         public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
         {
-                DateTime uploadDate = DateTime.Now;
-                string uploadedBy = User.Identity.Name;
-                string mimeType = Request.Files[0].ContentType;
-                string fileName = Path.GetFileName(Request.Files[0].FileName);
-                int fileLenght = Request.Files[0].ContentLength;
-                try
-                {
-                    if (!(fileName == "" || fileLenght == 0))
-                    {
-                    Stream fileStream = Request.Files[0].InputStream;
-                    byte[] fileData = new byte[fileLenght];
-                    fileStream.Read(fileData, 0, fileLenght);
+            DateTime uploadDate = DateTime.Now;
+            string uploadedBy = User.Identity.Name;
+            string mimeType = Request.Files[0].ContentType;
+            string fileName = Path.GetFileName(Request.Files[0].FileName);
+            int fileLenght = Request.Files[0].ContentLength;
 
+            try
+            {
+                if (!(fileName == "" || fileLenght == 0))
+                {
                     FileStorage newFile = new FileStorage
                     {
-                        FileContent = fileData,
                         MimeType = mimeType,
                         FileName = fileName,
                         FileDescription = fileDescription,
@@ -137,21 +133,30 @@ namespace HospiceNiagara.Controllers
                             newFile.FileSubCats.Add(subCatToAdd);
                         }
                     }
+                    //Saves File to the Uploads folder
+                    HttpPostedFileBase folderfile = Request.Files[0];
+                    if (folderfile.ContentLength > 0)
+                    {
+                        var folderfileName = Path.GetFileName(folderfile.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                        folderfile.SaveAs(path);
+                    }
+
+                    //Other File information is stored in the DB
                     db.FileStorages.Add(newFile);
                     db.SaveChanges();
                 }
-                    else
-                    {
-                        return View("FileError");
-                    }
-                    
-                }
-                    
-                catch
+                else
                 {
-                    
+                    return View("FileError");
                 }
-                return RedirectToAction("Index");
+                    
+            } 
+            catch
+            {
+                    
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: FileStorages/Details/5
@@ -258,18 +263,24 @@ namespace HospiceNiagara.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             FileStorage fileStorage = db.FileStorages.Find(id);
+            string fullPath = Request.MapPath("~/Uploads/" + fileStorage.FileName);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+
             db.FileStorages.Remove(fileStorage);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
         //Download
         [Authorize]
-        public FileContentResult Download(int id)
+        public FilePathResult Download(int id)
         {
-            
             var downloadFile = db.FileStorages.Where(f => f.ID == id).SingleOrDefault();
-            return File(downloadFile.FileContent, downloadFile.MimeType, downloadFile.FileName);
+            return File("~/Uploads/"+ downloadFile.FileName, downloadFile.MimeType, downloadFile.FileName);
         }
 
         public void PopulateAssignedRoles(FileStorage fileStore)

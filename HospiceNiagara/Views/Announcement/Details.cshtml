@@ -12,7 +12,7 @@
         <div class="panel-body">
             @{
                 var count = 0;
-                foreach (var file in Model.FileStorages) { if (file.FileContent != null && file.MimeType.Contains("image")) { count++; } }
+                foreach (var file in Model.FileStorages) { if (file.MimeType.Contains("image")) { count++; } }
             }
             
             @if (count == 0)
@@ -33,26 +33,18 @@
                                     count = 0;
                                     foreach (var f in Model.FileStorages)
                                     {
-                                        if (f.FileContent != null && f.MimeType.Contains("image"))
+                                        if (f.MimeType.Contains("image"))
                                         {
                                             if (count == 0)
                                             {
                                                 <div class="item active detailsIMG">
-                                                    @{
-                                                string image64 = Convert.ToBase64String(f.FileContent);
-                                                string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                                    }
-                                                    <img src="@imageSrc" />
+                                                    <img src="~/Uploads/@f.FileName" />
                                                 </div>
                                             }
                                             else
                                             {
                                                 <div class="item detailsIMG">
-                                                    @{
-                                                string image64 = Convert.ToBase64String(f.FileContent);
-                                                string imageSrc = string.Format("data:" + f.MimeType + ";base64, {0}", image64);
-                                                    }
-                                                    <img src="@imageSrc" />
+                                                    <img src="~/Uploads/@f.FileName" />
                                                 </div>
                                             }
                                             count++;
