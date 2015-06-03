@@ -3,7 +3,7 @@
 <ul class="search-result-list list-group">
     @foreach (var item in Model)
     {
-        <li class="search-result-item list-group-item" data-file-id="@item.ID">@Html.DisplayFor(modelItem => item.FileDescription) (@Html.DisplayFor(modelItem => item.FileUploadDate))</li>
+        <li class="search-result-item list-group-item" data-file-id="@item.ID">@Html.DisplayFor(modelItem => item.FileDescription) - @item.FileUploadDateString</li>
     }
 </ul>
 

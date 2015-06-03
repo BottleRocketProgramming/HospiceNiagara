@@ -83,7 +83,6 @@ namespace HospiceNiagara.Models
         public DbSet<Announcement> Announcements { get; set; }  
         public DbSet<DeathNotice> DeathNotices { get; set; }
         public DbSet<FileStorage> FileStorages { get; set; }       
-        public DbSet<JobDescription> JobDescriptions { get; set; }
         public DbSet<Meeting> Meetings { get; set; }      
         public DbSet<RoleList> RoleLists { get; set; }
         public DbSet<FileCat> FileCats { get; set; }

@@ -178,7 +178,6 @@
     <Compile Include="Controllers\FileStoragesController.cs" />
     <Compile Include="Controllers\FileSubCatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JobDescriptionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\MeetingUserRSVPsController.cs" />
@@ -317,7 +316,6 @@
     <Compile Include="Models\FileStorage.cs" />
     <Compile Include="Models\FileSubCat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\MeetingUserRSVP.cs" />
@@ -333,15 +331,11 @@
     <Compile Include="ViewModels\FileCatVM.cs" />
     <Compile Include="ViewModels\FileStorageVM.cs" />
     <Compile Include="ViewModels\FileSubCatVM.cs" />
-    <Compile Include="ViewModels\JobDescVM.cs" />
-    <Compile Include="ViewModels\MettingVM.cs" />
     <Compile Include="ViewModels\NetRollVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
     <Compile Include="ViewModels\RSVPforExport.cs" />
-    <Compile Include="ViewModels\SchdVM.cs" />
     <Compile Include="ViewModels\SchedTypeVM.cs" />
     <Compile Include="ViewModels\SearchDisplayVM.cs" />
-    <Compile Include="ViewModels\UserVM.cs" />
     <Compile Include="ViewModels\WelcomeNoticeVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -557,11 +551,6 @@
     <Content Include="Views\MeetingUserRSVPs\Edit.cshtml" />
     <Content Include="Views\MeetingUserRSVPs\Index.cshtml" />
     <Content Include="Views\MeetingUserRSVPs\AdminList.cshtml" />
-    <Content Include="Views\JobDescriptions\Create.cshtml" />
-    <Content Include="Views\JobDescriptions\Delete.cshtml" />
-    <Content Include="Views\JobDescriptions\Details.cshtml" />
-    <Content Include="Views\JobDescriptions\Edit.cshtml" />
-    <Content Include="Views\JobDescriptions\Index.cshtml" />
     <Content Include="Views\Schedule\AdminCreate.cshtml" />
     <Content Include="Views\Schedule\AdminList.cshtml" />
     <Content Include="Views\Meeting\adminCreate.cshtml" />
@@ -619,6 +608,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504091958554_RequiredSchType.resx">
       <DependentUpon>201504091958554_RequiredSchType.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504120242452_FixDateFormats.resx">
       <DependentUpon>201504120242452_FixDateFormats.cs</DependentUpon>
@@ -631,6 +621,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504121939449_RSVPnullable.resx">
       <DependentUpon>201504121939449_RSVPnullable.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504131619339_RemovebadTablesAddNewTables.resx">
       <DependentUpon>201504131619339_RemovebadTablesAddNewTables.cs</DependentUpon>
@@ -646,6 +637,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504160037099_DnPoems.resx">
       <DependentUpon>201504160037099_DnPoems.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504181608463_syncUp.resx">
       <DependentUpon>201504181608463_syncUp.cs</DependentUpon>
@@ -664,6 +656,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505131940292_RSVPrequirements.resx">
       <DependentUpon>201505131940292_RSVPrequirements.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505151940382_remove_limits.resx">
       <DependentUpon>201505151940382_remove_limits.cs</DependentUpon>
@@ -676,12 +669,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505261440406_noContacts.resx">
       <DependentUpon>201505261440406_noContacts.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505261517226_withContacts.resx">
       <DependentUpon>201505261517226_withContacts.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505281402010_eventWithTimes.resx">
       <DependentUpon>201505281402010_eventWithTimes.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505281449320_withObituary.resx">
       <DependentUpon>201505281449320_withObituary.cs</DependentUpon>

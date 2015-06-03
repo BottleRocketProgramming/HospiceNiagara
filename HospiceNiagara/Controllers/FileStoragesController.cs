@@ -42,7 +42,8 @@ namespace HospiceNiagara.Controllers
                      allFileForList = allFileForList.Concat(allFiles);
                  }
             }
-           
+
+            bool hasBeenFiltered = false;
             if(id != null && id != 0)
             {
                 allFileForList =allFileForList.Where(f => f.FileSubCats.Any(sc => sc.ID == id));                
@@ -51,8 +52,8 @@ namespace HospiceNiagara.Controllers
                 var viewModel = new SearchDisplayVM();
                 viewModel.SearchSubCatName = searchSubCat.FileSubCatName;
                 viewModel.SeachCatName = searchCat.FileCatName;
-
                 ViewBag.SearchCat = viewModel;
+                hasBeenFiltered = true;
             }
     
             if(!String.IsNullOrEmpty(searchString))
@@ -61,10 +62,18 @@ namespace HospiceNiagara.Controllers
                 var viewModel = new SearchDisplayVM();
                 viewModel.SeachCatName = "User Searched";
                 viewModel.SearchSubCatName = searchString;
-
                 ViewBag.SearchCat = viewModel;
+                hasBeenFiltered = true;
             }
-            ViewData["Files"] = allFileForList.OrderByDescending(f => f.FileUploadDate).ToList().Distinct().Take(10);
+            if(hasBeenFiltered == true)
+            {
+                ViewData["Files"] = allFileForList.OrderByDescending(f => f.FileUploadDate).ToList().Distinct();
+            }
+            else
+            {
+                ViewData["Files"] = allFileForList.OrderByDescending(f => f.FileUploadDate).ToList().Distinct().Take(20);
+            }
+            
                       
             return View();
         }
