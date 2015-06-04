@@ -352,3 +352,12 @@ div.jHtmlArea {
     max-height: 380px;
     }
 }
+
+#txtFileSearch{
+    max-width:none;
+}
+
+textarea{
+    max-width:none;
+    width:inherit;
+}

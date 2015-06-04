@@ -196,38 +196,39 @@
                                                                             @Html.DisplayFor(modelItem => r.RoleName)
                                                                         </div>
                                                                     @:</td>
-                                                                }
-                                                                
+                                                                } 
                                                             }
                                                         @:</tr>
-                                                        }
-                                                    </table>
-                                                </div>
+                                                    }
+                                                </table>
                                             </div>
-
-                                            <div class="form-group">
-                                                <div class="col-md-10 col-md-offset-2">
-                                                    <label class="control-label">Find and Add Files:</label>
-                                                    <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
-                                                    <div id="searchResults" style="z-index:1000">
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-10 col-md-offset-2">
-                                                    <label class="control-label">Selected Files</label>
-                                                    @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
-                                                    <div>
-                                                        <button type="button" id="btnRemoveFile" class="btn btn-danger form-control">
-                                                            <span class="glyphicon glyphicon-remove"></span>&nbsp;Remove Selected
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="btn-group">
-                                                <input type="submit" value="Create" id="btnSubmit" name="CreateAnnouncement" class="btn btn-primary">
                                         </div>
-                                        @Html.ActionLink("Cancel", "Index")
+
+                                        <div class="form-group">
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <label class="control-label">Find and Add Files:</label>
+                                                <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                                                <div id="searchResults" style="z-index:1000">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <label class="control-label">Selected Files</label>
+                                                @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
+                                                <div>
+                                                    <button type="button" id="btnRemoveFile" class="btn btn-danger form-control">
+                                                        <span class="glyphicon glyphicon-remove"></span>&nbsp;Remove Selected
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <input type="submit" value="Create" id="btnSubmit" name="CreateAnnouncement" class="btn btn-primary">
+                                                @Html.ActionLink("Cancel", "Index")
+                                            </div>
+                                        </div>
                                     </div>
                                   }       
                             </div>
