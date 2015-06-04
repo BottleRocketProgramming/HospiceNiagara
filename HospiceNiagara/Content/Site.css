@@ -73,7 +73,7 @@ textarea {
 .navbar .nav > li.dropdown.open > a
 {
    color: #1f740b;
-  background-color: #1f740b;
+   background-color: #1f740b;
    border-color: #1f740b;
 }
 
@@ -121,11 +121,11 @@ textarea {
      max-height: 600px;
  }
 
-  .panel-body-toolbar{
+.panel-body-toolbar{
      padding-bottom:5px;
  }
 
-  .input-group{
+.input-group{
       padding-bottom:10px;
   }
 
@@ -193,8 +193,11 @@ textarea {
       text-shadow: 4px 4px 3px rgba(0,0,0,0.1);
 }
 
-.glyphicon-plus{
+.glyphicon{
     cursor: default;
+}
+
+.glyphicon-plus{
     font-size:16px;
 }
 
@@ -282,7 +285,7 @@ textarea {
 .carousel-control .glyphicon-chevron-left, 
 .carousel-control .glyphicon-chevron-right {
    position: absolute;
-   top: 50%;
+   top: 46%;
    z-index: 5;
    display: inline-block;
    margin-right: -15px;

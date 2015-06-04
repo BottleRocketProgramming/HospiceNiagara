@@ -7,7 +7,7 @@
             HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
             var cU = User.Identity.GetUserId();
             var u = db.Users.Where(i=>i.Id == cU).Single();
-            @Html.ActionLink("Hello " + u.UserFullName + "    ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })    
+            @Html.ActionLink("Hello " + u.UserFullName + "", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })    
             <a href="javascript:document.getElementById('logoutForm').submit()">| Log off</a>
     
     }

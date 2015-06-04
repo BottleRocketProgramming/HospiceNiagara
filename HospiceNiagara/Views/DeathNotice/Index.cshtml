@@ -10,9 +10,9 @@
         <div class="panel-heading">
             <span id="deathNoticeTitle">Recently Passed</span>
             <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
-            @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
+            @if (User.IsInRole("Create/Modify Death Notices") || User.IsInRole("Administrator"))
             {
-                <div id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></div>
+                <span id="glyphNewDeathNotice" class="glyphicon glyphicon-plus pull-right"></span>
             }
         </div>
         <div id="panelDeathNoticeContent">
@@ -44,7 +44,6 @@
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
                     {
-
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnFullName)

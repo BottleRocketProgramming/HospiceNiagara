@@ -55,6 +55,7 @@ namespace HospiceNiagara.Controllers
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             ViewData["Meeting"] = meetForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             ViewData["Schedule"] = schedForList.ToList().Distinct();
+            ViewData["RecentlyPassed"] = db.DeathNotices.ToList().OrderByDescending(d => d.DnLastName);
 
             return View();
         }

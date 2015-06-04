@@ -65,6 +65,62 @@
 
         </table>      
         </div>
+
+        <div class="panel panel-success ">
+            <div class="panel-heading">
+                <span id="glyphDeathHide" class="glyphicon glyphicon-collapse-down pull-right"></span>
+                <span id="glyphDeathShow" class="glyphicon glyphicon-collapse-up pull-right"></span>
+                <h3 class="panel-title"><a href="../DeathNotice" style="color: inherit; text-decoration: none;">Recently Passed</a></h3>
+            </div>
+            <div id="panelDeathNoticeContent">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Location
+                        </th>
+                        <th>
+                            Notes
+                        </th>
+                        <th>
+                            Link
+                        </th>
+                    </tr>
+
+                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["RecentlyPassed"])
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DnFullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DnDateString)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DnLocation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DnNotes)
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
+                                {<a href="@item.DnLink">Link</a>}
+                                else if (!string.IsNullOrEmpty(item.DnLink))
+                                {<a href="http://@item.DnLink">Link</a> }
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            
+        </div>
     </div>
 
     <div class="col-sm-3">
@@ -164,5 +220,19 @@
 
 <script>
     $(document).ready(function () {
+        $('#glyphDeathHide').hide();
+        $('#panelDeathNoticeContent').hide();
+
+        $('#glyphDeathHide').on('click', function () {
+            $('#panelDeathNoticeContent').slideToggle();
+            $('#glyphDeathHide').hide();
+            $('#glyphDeathShow').toggle();
+        });
+
+        $('#glyphDeathShow').on('click', function () {
+            $('#panelDeathNoticeContent').slideToggle();
+            $('#glyphDeathShow').hide();
+            $('#glyphDeathHide').show();
+        });
     });
 </script>

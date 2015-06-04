@@ -22,7 +22,7 @@
                     <table @{ if (firstPanel == false) 
                                 { 
                                   @: id="contactContent"
-                                } 
+                                }
                            }
                            class="table table-striped">
                         <tr>
@@ -64,14 +64,11 @@
                                             @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
                                         </td>
                                     }
-                                    
                                 </tr>
                             }
                         }
                     </table>
 
-
-                    
                     @{
                         if(firstPanel == false)
                         {
@@ -146,12 +143,10 @@
                                         </div>
                                     </div>
                                 }
-
                             </div>
                             firstPanel = true;
                         }
                     }
-
                 </div>
             </div>
         }

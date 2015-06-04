@@ -66,6 +66,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contacts/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult AdminCreate()
         {
             var listOfContacts = db.Contacts;

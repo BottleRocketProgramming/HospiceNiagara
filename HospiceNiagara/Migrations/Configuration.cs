@@ -116,8 +116,20 @@ namespace HospiceNiagara.Migrations
             var manager = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
 
-            context.SaveChanges();
+            //Add an administrator User when the system is created
+            var administratoruser = new ApplicationUser
+            {
+                UserName = "administrator1@outlook.com",
+                Email = "administrator1@outlook.com",
+                UserDOB = DateTime.Today
+            };
 
+            if (!context.Users.Any(u => u.UserName == "administrator1@outlook.com"))
+            {
+                manager.Create(administratoruser, "Password1");
+                manager.AddToRole(administratoruser.Id, "Administrator");
+            }
+            context.SaveChanges();
         }
     }
 }
