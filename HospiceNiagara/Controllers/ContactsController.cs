@@ -21,15 +21,29 @@ namespace HospiceNiagara.Controllers
 
         // GET: Contacts
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            var listOfContacts = db.Contacts;
+            var listOfContacts = db.Contacts.ToList();
             var listOfContactTypes = db.ContactTypes;
 
             var contact = new Contact();
             contact.ContactType = new ContactType();
             PopulateContactTypes(contact);
-            ViewData["Contacts"] = listOfContacts.ToList().Distinct();
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    listOfContacts = listOfContacts.OrderByDescending(s => s.Name).ToList();
+                    break;
+                default:
+                    listOfContacts = listOfContacts.OrderBy(s => s.Name).ToList();
+                    break;
+            }
+
+            ViewData["Contacts"] = listOfContacts.Distinct();
             ViewData["ContactTypes"] = listOfContactTypes.ToList().Distinct();
 
             return View();

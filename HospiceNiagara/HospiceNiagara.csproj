@@ -305,6 +305,10 @@
     <Compile Include="Migrations\201506031839343_noFileContent.Designer.cs">
       <DependentUpon>201506031839343_noFileContent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506041352308_dunno.cs" />
+    <Compile Include="Migrations\201506041352308_dunno.Designer.cs">
+      <DependentUpon>201506041352308_dunno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -690,6 +694,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506031839343_noFileContent.resx">
       <DependentUpon>201506031839343_noFileContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506041352308_dunno.resx">
+      <DependentUpon>201506041352308_dunno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
