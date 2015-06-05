@@ -67,8 +67,8 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(string id)
         {
-            //try
-            //{
+            try
+            {
                 ApplicationUser applicationUser = db.Users.Find(id);
                 List<MeetingUserRSVP> uMeet = applicationUser.MeetingUserRSVPs.ToList();
                 var uRole = applicationUser.Roles.ToList();
@@ -92,12 +92,11 @@ namespace HospiceNiagara.Controllers
                 }
                 db.Users.Remove(applicationUser);
                 db.SaveChanges();
-                
-            //}
-            //catch
-            //{
+            }
+            catch
+            {
 
-            //}
+            }
 
             return RedirectToAction("Index");
         }
@@ -175,7 +174,6 @@ namespace HospiceNiagara.Controllers
                 ViewName = "Error",
                 ViewData = new ViewDataDictionary(model)
             };
-
         }
 
         public void PopulateAssignedRoles(ApplicationUser applicationUser)
@@ -203,6 +201,7 @@ namespace HospiceNiagara.Controllers
             if (disposing)
             {
                 db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }
