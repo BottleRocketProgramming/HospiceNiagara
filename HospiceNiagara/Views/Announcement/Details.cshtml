@@ -11,11 +11,11 @@
         </div>
         <div class="panel-body">
             @{
-                var count = 0;
-                foreach (var file in Model.FileStorages) { if (file.MimeType.Contains("image")) { count++; } }
+                bool hasImages = false;
+                if (Model.FileStorages.Any(f => f.MimeType.Contains("image"))) { hasImages = true; }
             }
             
-            @if (count == 0)
+            @if (hasImages == false)
             {
                 <div class="col-md-10" id="colContent">
                     <div>
@@ -30,7 +30,7 @@
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner" role="listbox">
                                 @{
-                                    count = 0;
+                                    var count = 0;
                                     foreach (var f in Model.FileStorages)
                                     {
                                         if (f.MimeType.Contains("image"))
@@ -50,7 +50,7 @@
                                             count++;
                                         }
                                     }
-                                }
+}
                             </div>
 
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -86,7 +86,11 @@
                           {
                                   @:</tr><tr>
                               @:<td>
-                                    <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
+                                    <a href="../../FileStorages/Download/@f.ID">@f.FileDescription</a>
+                              if (f.MimeType.Contains("pdf"))
+                              {
+                                <a href="../../FileStorages/Details/@f.ID" class="glyphicon glyphicon-eye-open btn-sm btn-default" style="text-decoration: none;"></a>
+                              }
                              @:</td>
                           }
                      @:</tr>

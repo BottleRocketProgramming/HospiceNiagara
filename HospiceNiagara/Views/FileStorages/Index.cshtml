@@ -1,7 +1,7 @@
 ﻿@model HospiceNiagara.Models.FileStorage
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Resources";
 }
 
 @* Paul Boyko March 2015 *@
@@ -30,18 +30,18 @@
                     HospiceNiagara.ViewModels.SearchDisplayVM dsply = ViewBag.SearchCat;
                     if(dsply != null)
                     {
-                        @Html.Raw("Search: " + dsply.SeachCatName + "/" + dsply.SearchSubCatName)
+                        <span id="fileSearchText">@Html.Raw("Search: " + dsply.SeachCatName + "/" + dsply.SearchSubCatName)</span>
                     }
                     else
                     {
-                         @:Search
-                    }                    
-                }
+                        <span id="fileSearchText">Search</span>
+                    }
+}
             </div>
 
             @*Panel Body for Main Content*@
             <div id="fileContent" class="panel-body">
-                <div class="panel-body-toolbar form-inline center-block" style="width:50%;">
+                <div class="panel-body-toolbar form-inline center-block" >
                     @using (Html.BeginForm())
                     { 
                         <div class="input-group">
@@ -96,11 +96,10 @@
                                 @Html.ActionLink("Download", "Download", new { id = item.ID })
                                 @if (User.IsInRole("Administrator"))
                                 {
-                                    @:|
                                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
-                                    @:|
+                                    @:&nbsp;
                                     @Html.ActionLink("Details", "Details", new { id = item.ID }) 
-                                    @:|
+                                    @:&nbsp;
                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID }) 
                                 }
                             </td>
@@ -253,6 +252,7 @@
                 $('#newFileContent').slideToggle();
                 $('#newFileListTitle').slideToggle();
                 $('#glyphNewFile').fadeToggle();
+                $('#fileSearchText').slideToggle();
             });
 
             $("[name='selectedRoles']").bootstrapSwitch();

@@ -12,9 +12,9 @@
             foreach (var item in (IEnumerable<HospiceNiagara.Models.Meeting>)ViewData["Meeting"])
             {
                 @*Check if item has Images*@
-                var count = 0;
-                foreach (var file in item.FileStores) { if (file.MimeType.Contains("image")) { count++; } }
-            
+                bool hasImages = false;
+                if (item.FileStores.Any(f => f.MimeType.Contains("image"))) { hasImages = true; }
+                
                 @*Half Page column for each Meeting*@
                 <div class="col-sm-6">
                     <div class="panel panel-success">
@@ -41,7 +41,7 @@
                             <h3 id="newMeetingEventTitle" class="panel-title" hidden>New Event/Meeting</h3>
                         </div>
 
-                        @if(count == 0)
+                        @if (hasImages == false)
                         {
                             <div @{ if(firstPanel==false){
                                 @:id="EventPanel"
@@ -86,7 +86,7 @@
                                     <div id="myCarousel-@item.ID" class="carousel slide" data-ride="carousel">
                                         <div class="carousel-inner" role="listbox">
                                             @{
-                                                count = 0;
+                                                var count = 0;
                                                 foreach (var f in item.FileStores)
                                                 {
                                                     if (f.MimeType.Contains("image"))
@@ -194,7 +194,7 @@
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.EventTime, htmlAttributes: new { @class = "control-label", @style = "padding-left:15px" })
                                                 <div class="col-md-12">
-                                                    @Html.EditorFor(model => model.EventTime, new { htmlAttributes = new { @class = "form-control datecontrol" } })
+                                                    @Html.EditorFor(model => model.EventTime, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.EventTime, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -239,7 +239,7 @@
                                             <div class="form-group">
                                                 <div class="col-md-10 col-md-offset-2">
                                                     <label class="control-label">Find and Add Files:</label>
-                                                    <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                                                    <input autocomplete="off" class="form-control" id="fileFinder" placeholder="Find a file" />
                                                     <div id="searchResults" style="z-index:1000">
 
                                                     </div>

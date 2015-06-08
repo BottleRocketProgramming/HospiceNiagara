@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EventTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EventTime, new { htmlAttributes = new { @class = "form-control datecontrol" } })
+                @Html.EditorFor(model => model.EventTime, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EventTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -103,7 +103,7 @@
 
                 <div class="col-md-4">
                     <label class="control-label">Find and Add Files:</label>
-                    <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                    <input autocomplete="off" class="form-control" id="fileFinder" placeholder="Find a file" />
                     <div id="searchResults" style="z-index:1000">
 
                     </div>

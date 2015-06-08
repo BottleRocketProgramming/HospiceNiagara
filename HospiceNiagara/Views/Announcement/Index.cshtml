@@ -11,8 +11,8 @@
             foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
             {
                 @*Check if item has images*@
-                var count = 0;
-                foreach (var file in item.FileStorages) { if (file.MimeType.Contains("image")) { count++; } }
+                bool hasImages = false;
+                if (item.FileStorages.Any(f => f.MimeType.Contains("image"))) { hasImages = true; }
                 
                 @*Half page column for each announcement*@
                 <div class="col-sm-6">
@@ -41,7 +41,7 @@
                         </div>
                         
                         @*Whole Page for Announcement if no images are present*@
-                        @if(count == 0)
+                        @if (hasImages == false)
                         {
                             <div @{ if(firstPanel == false) {
                                 @:id="announcmentContent"
@@ -77,7 +77,7 @@
                                         <div id="myCarousel-@item.ID" class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner" role="listbox">
                                                 @{
-                                                    count = 0;
+                                                    var count = 0;
                                                     foreach (var f in item.FileStorages)
                                                     {
                                                         if (f.MimeType.Contains("image"))
@@ -207,7 +207,7 @@
                                         <div class="form-group">
                                             <div class="col-md-10 col-md-offset-2">
                                                 <label class="control-label">Find and Add Files:</label>
-                                                <input class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                                                <input autocomplete="off" class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
                                                 <div id="searchResults" style="z-index:1000">
 
                                                 </div>

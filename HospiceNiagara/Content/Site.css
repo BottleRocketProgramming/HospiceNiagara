@@ -59,6 +59,7 @@ textarea {
   background-image: -moz-linear-gradient(top, #272727, #464646, #272727);
   background-image: linear-gradient(top, #272727, #464646, #272727);
   background-image: -webkit-linear-gradient(top, #272727, #464646, #272727);
+  background: -ms-linear-gradient(top, #272727, #464646, #272727 100%); /* IE10+ */
 }
 
 
@@ -105,11 +106,6 @@ textarea {
     right: 0;
     width: 100%;*/
 }
-
-/*Gets rid of bullet points on contact information*/
- ul {
- list-style-type: none;
- }
 
  /*pushes copy right down*/
  .copyright {
@@ -210,6 +206,10 @@ textarea {
     overflow-y:auto; 
 }
 
+#fileDetailsBody{
+    max-height:none;
+}
+
 #deathnoticePoem{
     padding-top:40px;
 }
@@ -295,6 +295,11 @@ textarea {
 div.jHtmlArea {
     width: 100% !important;
     height: 100% !important;
+}
+
+.detailsPDF{
+    height:500px;
+    width:inherit;
 }
 
 .listIMG{

@@ -93,9 +93,9 @@ namespace HospiceNiagara.Controllers
                 db.Users.Remove(applicationUser);
                 db.SaveChanges();
             }
-            catch
+            catch(DataException)
             {
-
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
             return RedirectToAction("Index");

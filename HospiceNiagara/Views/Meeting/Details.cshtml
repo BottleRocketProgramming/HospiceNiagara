@@ -11,10 +11,10 @@
         </div>
         <div class="panel-body">
             @{
-                var count = 0;
-                foreach (var file in Model.FileStores) { if (file.MimeType.Contains("image")) { count++; } }
+                bool hasImages = false;
+                if (Model.FileStores.Any(f => f.MimeType.Contains("image"))) { hasImages = true; }
             }
-            @if (count == 0)
+            @if (hasImages == false)
             {
                 <div class="col-md-6">
                     <div>
@@ -83,7 +83,7 @@
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             @{
-                                count = 0;
+                                var count = 0;
                                 foreach (var f in Model.FileStores)
                                 {
                                     if (f.MimeType.Contains("image"))
@@ -206,6 +206,10 @@
                             @:</tr><tr>
                             @:<td>
                                 <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
+                            if (f.MimeType.Contains("pdf"))
+                            {
+                                <a href="../../FileStorages/Details/@f.ID" class="glyphicon glyphicon-eye-open btn-sm btn-default" style="text-decoration: none;"></a>
+                            }
                             @:</td>
                         }
                         @:</tr>
@@ -254,7 +258,7 @@
             All RSVPs
         </div>
         <div class="panel-body">
-            @Html.ActionLink("+ Invite New Users", "../MeetingUserRSVPs/Create", new { id = Model.ID })<br />
+            @Html.ActionLink("Invite New Users", "../MeetingUserRSVPs/Create", new { id = Model.ID }, new { @class = "btn btn-default" })<br />
             Amount of Invitations Sent:
             @ViewBag.amtRSVPs
             <br />Attending:

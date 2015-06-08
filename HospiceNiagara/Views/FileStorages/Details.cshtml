@@ -4,16 +4,22 @@
     ViewBag.Title = "Details";
 }
 
-<div class="col-sm-8">
+<div class="col-md-12">
     <div class="panel panel-success ">
         <div class="panel-heading">
             File Details
         </div>
-        <div class="panel-body">
+        <div id="fileDetailsBody" class="panel-body">
                 @{
                     if (Model.MimeType.Contains("image"))
                     {
                         <img style="width:100%" src="~/Uploads/@Model.FileName"/>
+                    }
+                    else if (Model.MimeType.Contains("pdf"))
+                    {
+                        <object data="~/Uploads/@Model.FileName" type="application/pdf" class="col-md-12" height="700">
+                            alt : <a href="~/Uploads/@Model.FileName">@Model.FileName</a>
+                        </object>
                     }
                 }
             <div id="fileinformation">
