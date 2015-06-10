@@ -60,7 +60,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,SchedTypeName")] string[] selectedRoles, SchedType schedType)
+        public ActionResult Create([Bind(Include = "ID,SchedTypeName,SchedTypeNote")] string[] selectedRoles, SchedType schedType)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace HospiceNiagara.Controllers
 
             var scheduleTypeToUpdate = db.SchedTypes.Include(a => a.RoleLists).Where(i => i.ID == id).Single();
 
-            if (TryUpdateModel(scheduleTypeToUpdate, "", new string[] { "ID", "SchedTypeName" }))
+            if (TryUpdateModel(scheduleTypeToUpdate, "", new string[] { "ID", "SchedTypeName", "SchedTypeNote" }))
             {
                 try
                 {

@@ -1,14 +1,14 @@
 ﻿@model HospiceNiagara.Models.DeathNotice
 
 @{
-    ViewBag.Title = "Recently Passed";
+    ViewBag.Title = "Rest in Peace";
 }
 <link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
 @* Div for Deathnotice List and CRUD *@
 <div class="col-md-12">
     <div class="panel panel-success">
         <div class="panel-heading">
-            <span id="deathNoticeTitle">Recently Passed</span>
+            <span id="deathNoticeTitle">Rest in Peace</span>
             <span id="newDeathNoticeTitle" hidden>New Death Notice</span>
             @if (User.IsInRole("Create/Modify Death Notices") || User.IsInRole("Administrator"))
             {
@@ -60,9 +60,9 @@
                             </td>
                             <td>
                                 @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
-                                {<a href="@item.DnLink">Link</a>}
+                                {<a href="@item.DnLink">Read</a>}
                                 else if (!string.IsNullOrEmpty(item.DnLink))
-                                {<a href="http://@item.DnLink">Link</a> }
+                                {<a href="http://@item.DnLink">Read</a> }
                             </td>
                             @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                             {

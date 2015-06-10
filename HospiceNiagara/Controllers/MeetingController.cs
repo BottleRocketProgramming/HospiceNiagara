@@ -97,7 +97,7 @@ namespace HospiceNiagara.Controllers
                 if (selectedFiles != null)
                 {
                     meeting.FileStores = new List<FileStorage>();
-                    foreach (var file in selectedRoles)
+                    foreach (var file in selectedFiles)
                     {
                         var fileToAdd = db.FileStorages.Find(int.Parse(file));
                         meeting.FileStores.Add(fileToAdd);
@@ -186,7 +186,7 @@ namespace HospiceNiagara.Controllers
                 if (selectedFiles != null)
                 {
                     meeting.FileStores = new List<FileStorage>();
-                    foreach (var file in selectedRoles)
+                    foreach (var file in selectedFiles)
                     {
                         var fileToAdd = db.FileStorages.Find(int.Parse(file));
                         meeting.FileStores.Add(fileToAdd);

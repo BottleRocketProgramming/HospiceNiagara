@@ -190,6 +190,7 @@ namespace HospiceNiagara.Controllers
                     return View(fileStorage);
                 }
             }
+
             return RedirectToAction("Index");
         }
 
@@ -286,10 +287,19 @@ namespace HospiceNiagara.Controllers
 
         //Download
         [Authorize]
-        public FilePathResult Download(int id)
+        public ActionResult Download(int id)
         {
             var downloadFile = db.FileStorages.Where(f => f.ID == id).SingleOrDefault();
-            return File("~/Uploads/"+ downloadFile.FileName, downloadFile.MimeType, downloadFile.FileName);
+            var fileRoles = downloadFile.FileStoreUserRoles;
+            foreach(var role in fileRoles)
+            {
+                if(User.IsInRole(role.RoleName))
+                {
+                    return File("~/Uploads/" + downloadFile.FileName, downloadFile.MimeType, downloadFile.FileName);
+                }
+            }
+            TempData["msg"] = "<script>alert('You dont have access to this file, please contact an administrator');</script>";
+            return RedirectToAction("Index");
         }
 
         public void PopulateAssignedRoles(FileStorage fileStore)

@@ -310,6 +310,10 @@
     <Compile Include="Migrations\201506041352308_dunno.Designer.cs">
       <DependentUpon>201506041352308_dunno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506101616351_scheduleTypeNotes.cs" />
+    <Compile Include="Migrations\201506101616351_scheduleTypeNotes.Designer.cs">
+      <DependentUpon>201506101616351_scheduleTypeNotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -698,6 +702,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506041352308_dunno.resx">
       <DependentUpon>201506041352308_dunno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101616351_scheduleTypeNotes.resx">
+      <DependentUpon>201506101616351_scheduleTypeNotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

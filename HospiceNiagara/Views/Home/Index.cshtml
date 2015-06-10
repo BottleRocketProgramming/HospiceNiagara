@@ -4,9 +4,21 @@
 
 <div id="homepage-body" class="container">
     <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="welcomeTitle">Welcome</h3>
+            </div>
+            <div id="welcomeContent" class="panel-body text-center">
+                @{
+                    HospiceNiagara.ViewModels.WelcomeNoticeVM wN = ViewBag.WelcomeNotice;
+                    @Html.DisplayFor(model => wN.WelocomeNotice)
+                }
+            </div>
+        </div>
         <div class="panel panel-success ">
             <div class="panel-heading">
-                <h3 class="panel-title"><a href="../Announcement" style ="color: inherit; text-decoration: none;">Announcements</a></h3>
+                <span id="glyphAnnouncementInfo" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" title="Announcements" data-placement="bottom" data-trigger="hover" data-content="Here you can view the five latest announcements. You can click on any announcement to navigate to it, or navigate to the announcements page by clicking the title of this panel"></span>
+                <h3 class="panel-title"><a href="../Announcement" style ="color: inherit; text-decoration: none;">Latest Announcements</a></h3>
             </div>
             <ul class="list-group">
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
@@ -31,9 +43,9 @@
             </ul>
         </div>
 
-
         <div class="panel panel-success ">
             <div class="panel-heading">
+                <span title="Meetings and Events" data-content="Here you can view meetings and events that are happening within the next week. You can click any meeting/event to navigate to it, or go to the Meetings and Events page by clicking the title of this panel" id="glyphMeetingInfo" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 <h3 class="panel-title"><a href="../Meeting" style="color: inherit; text-decoration: none;">Upcoming Events/Meetings</a></h3>
             </div>
             <table class="table">
@@ -62,7 +74,6 @@
                     @:</td>
                     @:</tr>  
                 }
-
             </table>      
         </div>
 
@@ -70,7 +81,7 @@
             <div class="panel-heading">
                 <span id="glyphDeathHide" class="glyphicon glyphicon-collapse-down pull-right"></span>
                 <span id="glyphDeathShow" class="glyphicon glyphicon-collapse-up pull-right"></span>
-                <h3 class="panel-title"><a href="../DeathNotice" style="color: inherit; text-decoration: none;">Recently Passed</a></h3>
+                <h3 class="panel-title"><a href="../DeathNotice" style="color: inherit; text-decoration: none;">Rest in Peace</a></h3>
             </div>
             <div id="panelDeathNoticeContent">
                 <table class="table">
@@ -112,7 +123,7 @@
                                 @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
                                 {<a href="@item.DnLink">Link</a>}
                                 else if (!string.IsNullOrEmpty(item.DnLink))
-                                {<a href="http://@item.DnLink">Link</a> }
+                                {<a href="http://@item.DnLink">Read</a> }
                             </td>
                         </tr>
                     }
@@ -121,18 +132,44 @@
         </div>
     </div>
 
-    <div class="col-sm-3">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title" id="welcomeTitle">Welcome</h3>
+    <div class="col-md-6" style="padding-bottom:15px;">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="../../HomePage/1.jpg" alt="1">
+                </div>
+
+                <div class="item">
+                    <img src="../../HomePage/2.jpg" alt="2">
+                </div>
+
+                <div class="item">
+                    <img src="../../HomePage/3.jpg" alt="3">
+                </div>
             </div>
-            <div id="welcomeContent" class="panel-body text-center">
-                @{
-                    HospiceNiagara.ViewModels.WelcomeNoticeVM wN = ViewBag.WelcomeNotice;
-                    @Html.DisplayFor(model=>wN.WelocomeNotice)
-                 }
-            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
+    </div>
+
+    <div class="col-md-3">
+        
 
         <div class="panel panel-success">
             <div class="panel-heading">
@@ -142,15 +179,17 @@
                 <li class="list-group-item btn btn-default" onclick="window.open('http://www.hospiceniagara.ca/resources/default/index/');"><a style="text-decoration:none;">Hospice Niagara Newsletter</a></li>
                 <li class="list-group-item btn btn-default" onclick="window.open('http://www.hpceducation.ca');"><a style="text-decoration:none;">HPC Education Website</a></li>
                 <li class="list-group-item btn btn-default" onclick="window.open('https://www.hospiceniagara.ca/donations/donate.php');"><a style="text-decoration:none;">Hospice Niagara Online Donations</a></li>
-                <li class="list-group-item btn btn-default" onclick="window.open('http://www.5cardraw.ca');"><a style="text-decoration:none;">5 Car Draw</a></li>
+                <li class="list-group-item btn btn-default" onclick="window.open('http://www.5cardraw.ca');"><a style="text-decoration:none;">5 Car Draw Website</a></li>
                 <li class="list-group-item btn btn-default" onclick="window.open('http://www.hikeforhospiceniagara.ca');"><a style="text-decoration:none;">Hike for Hospice Niagara Website</a></li>
+                <li class="list-group-item btn btn-default" onclick="window.open('http://www.logvolunteertime.com');"><a style="text-decoration:none;">Log Volunteer Time</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-md-3">
         <div class="panel panel-success ">
             <div class="panel-heading">
+                <span title="Schedules" data-content="Here you can view your schedules. Clicking on one navigates to it, or you can go to the schedules page by clicking the title of this panel" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 <h3 class="panel-title"><a href="../Schedule" style="color: inherit; text-decoration: none;">My Schedules</a></h3>
             </div>
             <ul class="list-group text-center">
@@ -214,8 +253,6 @@
     </div>
 </footer>
 
-@Scripts.Render("~/bundles/jquery")
-
 <script>
     $(document).ready(function () {
         $('#glyphDeathHide').hide();
@@ -232,5 +269,8 @@
             $('#glyphDeathShow').hide();
             $('#glyphDeathHide').show();
         });
+
+        $('[data-toggle="popover"]').popover();
+        
     });
 </script>

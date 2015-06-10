@@ -22,7 +22,11 @@
                         <div class="panel-heading">
                             @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Announcements") && firstPanel == false)
                             {
-                                <div id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-right"></div>
+                                <span id="glyphNewAnnouncment" class="glyphicon glyphicon-plus pull-left"></span>
+                            }
+                            @if(firstPanel.Equals(false))
+                            {
+                                <span title="Announcements" data-content="Each of these panels is a single announcement. You can cycle through images attached to the announcement with the arrows, or click on (read more) to view any linked files and more detail for the announcement" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                             }
                             <h3 id="announcmentsTitle" class="panel-title">
                             @{
@@ -281,6 +285,8 @@
             $(window).resize(resizeHtmlEditor);
 
             $("[name='selectedRoles']").bootstrapSwitch();
+
+            $('[data-toggle="popover"]').popover();
 
             function resizeHtmlEditor() {
                 $('div.jHtmlArea').find('div.ToolBar').css('width', '100%');

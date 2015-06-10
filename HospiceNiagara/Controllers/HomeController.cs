@@ -52,7 +52,7 @@ namespace HospiceNiagara.Controllers
             ViewBag.WelcomeNotice = viewModel;
             annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
             meetForList = meetForList.Where(m => m.EventDate < insevendays).Where(m => m.EventDate >= DateTime.Today);
-            ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
+            ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate).Take(5);
             ViewData["Meeting"] = meetForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             ViewData["Schedule"] = schedForList.ToList().Distinct();
             ViewData["RecentlyPassed"] = db.DeathNotices.ToList().OrderByDescending(d => d.DnLastName);

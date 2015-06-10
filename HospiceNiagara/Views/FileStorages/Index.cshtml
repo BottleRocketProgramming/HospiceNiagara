@@ -20,12 +20,14 @@
 
             @*Panel Header*@
             <div class="panel-heading">
-                <span id="fileListTitle">Files</span>
-                <span id="newFileListTitle" hidden>Upload Files</span>
                 @if (User.IsInRole("Administrator") || User.IsInRole("Upload Resources"))
                 {
-                <div id="glyphNewFile" class="glyphicon glyphicon-plus pull-right"></div>
+                    <span id="glyphNewFile" class="glyphicon glyphicon-plus pull-left"></span>
                 }
+                <span title="Meetings and Events" data-content="Here you can view all the files in the system. You can search by file name or the description it was given. You can also click the tags on the left to filter results, and then further search with that filter applied. Clicking clear removes all filters and resets the search." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
+                <span id="fileListTitle">Files</span>
+                <span id="newFileListTitle" hidden>Upload Files</span>
+                
                 @{
                     HospiceNiagara.ViewModels.SearchDisplayVM dsply = ViewBag.SearchCat;
                     if(dsply != null)
@@ -47,8 +49,8 @@
                         <div class="input-group">
                             @Html.TextBox("searchString", null, new { @class = "form-control", @placeholder = "Search by File Name or Description", @id="txtFileSearch" })
                             <span class="input-group-btn">
-                                <input type="submit" value="Search" class="btn btn-default" />
-                                @Html.ActionLink("Clear", "Index", new { id = 0 }, new { @class = "btn btn-default" })
+                                <input type="submit" value="Search" class="btn btn-primary" id="btnSearch" />
+                                @Html.ActionLink("Clear", "Index", new { id = 0 }, new { @class = "btn btn-default" , @style = "width:100px" })
                             </span>
                         </div>
                     }
@@ -223,15 +225,15 @@
 
                             if (url.EndsWith("FileStorages/Index"))
                             {
-                                <li class="list-group-item"><a href="Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                <li class="list-group-item btn btn-default" onclick="location.href='Index/@subCats.ID'"><a style="text-decoration:none"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
                             }
                             else if (url.EndsWith("FileStorages"))
                             {
-                                <li class="list-group-item"><a href="FileStorages/Index/@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                <li class="list-group-item btn btn-default" onclick="location.href = 'FileStorages/Index/@subCats.ID'"><a style="text-decoration:none">@Html.DisplayFor(modelItem => subCats.FileSubCatName)</a></li>
                             }
                             else
                             {
-                                <li class="list-group-item"><a href="@subCats.ID"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
+                                <li class="list-group-item btn btn-default" onclick="location.href = '@subCats.ID'"><a style="text-decoration:none"> @Html.DisplayFor(modelItem => subCats.FileSubCatName)</a> </li>
                             }
                         }
                     }
@@ -243,9 +245,13 @@
 
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
-
+    @Html.Raw(TempData["msg"])
     <script>
         $(document).ready(function () {
+            $('#btnSearch').hide();
+
+            $('[data-toggle="popover"]').popover();
+            
             $('#glyphNewFile').on('click', function () {
                 $('#fileListTitle').slideToggle();
                 $('#fileContent').slideToggle();

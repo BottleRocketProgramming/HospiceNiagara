@@ -23,7 +23,11 @@
                         <div class="panel-heading">
                             @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Meetings or Events") && firstPanel == false)
                             {
-                                <div id="glyphAddEvent" class="glyphicon glyphicon-plus pull-right"></div>
+                                <span id="glyphAddEvent" class="glyphicon glyphicon-plus pull-left"></span>
+                            }
+                            @if (firstPanel.Equals(false))
+                            {
+                                <span title="Meetings and Events" data-content="Each of these panels is a single meeting or event. You can cycle through images attached to the meeting/event with the arrows, or click on (read more) to view any linked files, more detail for the meeting/event, or RSVP for the event." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                             }
                             <h3 id="EventsTitle" class="panel-title">
                                 @{
@@ -309,6 +313,8 @@
 
             resizeHtmlEditor();
             $(window).resize(resizeHtmlEditor);
+
+            $('[data-toggle="popover"]').popover();
 
             $("[name='selectedRoles']").bootstrapSwitch();
 

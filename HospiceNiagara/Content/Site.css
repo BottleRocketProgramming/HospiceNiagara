@@ -366,3 +366,7 @@ textarea{
     max-width:none;
     width:inherit;
 }
+
+.popover{
+    max-width: 700px; /* Max Width of the popover (depending on the container!) */
+}
