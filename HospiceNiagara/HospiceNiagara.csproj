@@ -314,6 +314,14 @@
     <Compile Include="Migrations\201506101616351_scheduleTypeNotes.Designer.cs">
       <DependentUpon>201506101616351_scheduleTypeNotes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506111335447_sched type files.cs" />
+    <Compile Include="Migrations\201506111335447_sched type files.Designer.cs">
+      <DependentUpon>201506111335447_sched type files.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111548038_noteNotRequired.cs" />
+    <Compile Include="Migrations\201506111548038_noteNotRequired.Designer.cs">
+      <DependentUpon>201506111548038_noteNotRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -705,6 +713,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506101616351_scheduleTypeNotes.resx">
       <DependentUpon>201506101616351_scheduleTypeNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111335447_sched type files.resx">
+      <DependentUpon>201506111335447_sched type files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111548038_noteNotRequired.resx">
+      <DependentUpon>201506111548038_noteNotRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -25,6 +25,7 @@ namespace HospiceNiagara.Controllers
             SchedType schdTyp = new SchedType();
             schdTyp.RoleLists = new List<RoleList>();
             PopulateAssignedRoles(schdTyp);
+
             return View(db.SchedTypes.ToList());
         }
 
@@ -51,6 +52,7 @@ namespace HospiceNiagara.Controllers
             SchedType schdTyp = new SchedType();
             schdTyp.RoleLists = new List<RoleList>();
             PopulateAssignedRoles(schdTyp);
+            PopulateAssignedFiles(schdTyp);
             return View();
         }
 
@@ -60,7 +62,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,SchedTypeName,SchedTypeNote")] string[] selectedRoles, SchedType schedType)
+        public ActionResult Create([Bind(Include = "ID,SchedTypeName,SchedTypeNote")] string[] selectedRoles, string[] selectedFiles, SchedType schedType)
         {
             try
             {
@@ -71,7 +73,15 @@ namespace HospiceNiagara.Controllers
                     {
                         var roleToAdd = db.RoleLists.Find(int.Parse(role));
                         schedType.RoleLists.Add(roleToAdd);
-                        PopulateAssignedRoles(schedType);
+                    }
+                }
+                if (selectedFiles != null)
+                {
+                    schedType.Files = new List<FileStorage>();
+                    foreach(var file in selectedFiles)
+                    {
+                        var fileToAdd = db.FileStorages.Find(int.Parse(file));
+                        schedType.Files.Add(fileToAdd);
                     }
                 }
                 if (ModelState.IsValid)
@@ -104,6 +114,7 @@ namespace HospiceNiagara.Controllers
                 return HttpNotFound();
             }
             PopulateAssignedRoles(schedType);
+            PopulateAssignedFiles(schedType);
             return View(schedType);
         }
 
@@ -113,7 +124,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int? id, string[] selectedRoles)
+        public ActionResult Edit(int? id, string[] selectedRoles, string[] selectedFiles)
         {
             if (id == null)
             {
@@ -126,8 +137,8 @@ namespace HospiceNiagara.Controllers
             {
                 try
                 {
-
                     UpdateScheduleRoles(selectedRoles, scheduleTypeToUpdate);
+                    UpdateScheduleTypeFiles(selectedFiles, scheduleTypeToUpdate);
                     if (ModelState.IsValid)
                     {
                         db.Entry(scheduleTypeToUpdate).State = EntityState.Modified;
@@ -142,6 +153,7 @@ namespace HospiceNiagara.Controllers
             }
 
             PopulateAssignedRoles(scheduleTypeToUpdate);
+            PopulateAssignedFiles(scheduleTypeToUpdate);
             return View(scheduleTypeToUpdate);
         }
             
@@ -201,6 +213,13 @@ namespace HospiceNiagara.Controllers
 
         }
 
+        public void PopulateAssignedFiles(SchedType scheduleType)
+        {
+            var allFile = db.FileStorages.Where(r => r.ScheduleTypes.Any(m => m.ID == scheduleType.ID)).OrderBy(r => r.FileDescription).ToList();
+            ViewBag.FileStorages = allFile;
+            ViewBag.selFiles = new MultiSelectList(allFile, "ID", "FileName");
+        }
+
         public void PopulateAssignedRoles(SchedType schedule)
         {
             var allRole = db.RoleLists;
@@ -218,6 +237,35 @@ namespace HospiceNiagara.Controllers
             }
 
             ViewBag.RolesLists = viewModel;
+        }
+
+        private void UpdateScheduleTypeFiles(string[] selectedFiles, SchedType SchedTypeToUpdate)
+        {
+            if (selectedFiles == null)
+            {
+                SchedTypeToUpdate.Files.Clear();
+                return;
+            }
+
+            var selectedFilesHS = new HashSet<string>(selectedFiles);
+            var schedTypeFiles = new HashSet<int>(SchedTypeToUpdate.Files.Select(c => c.ID));
+            foreach (var files in db.FileStorages)
+            {
+                if (selectedFilesHS.Contains(files.ID.ToString()))
+                {
+                    if (!schedTypeFiles.Contains(files.ID))
+                    {
+                        SchedTypeToUpdate.Files.Add(files);
+                    }
+                }
+                else
+                {
+                    if (schedTypeFiles.Contains(files.ID))
+                    {
+                        SchedTypeToUpdate.Files.Remove(files);
+                    }
+                }
+            }
         }
 
         private void UpdateScheduleRoles(string[] selectedRoles, SchedType ScheduleToUpdate)

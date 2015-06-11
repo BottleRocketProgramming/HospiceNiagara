@@ -17,10 +17,11 @@ namespace HospiceNiagara.Models
         public string SchedTypeName { get; set; }
 
         [Display(Name = "Schedule type Note")]
-        [Required(ErrorMessage = "Schedule type note is required")]
         public string SchedTypeNote { get; set; }
 
         public virtual ICollection<Schedule> Schedules { get; set; }
+
+        public virtual ICollection<FileStorage> Files { get; set; }
 
         public virtual ICollection<RoleList> RoleLists { get; set; }
     }

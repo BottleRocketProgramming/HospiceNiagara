@@ -47,6 +47,8 @@ namespace HospiceNiagara.Models
 
         public virtual ICollection<Meeting> Meetings { get; set; }
 
+        public virtual ICollection<SchedType> ScheduleTypes { get; set; }
+
         public virtual ICollection<Announcement> Announcements { get; set; }
 
         public virtual ICollection<FileSubCat> FileSubCats { get; set; }

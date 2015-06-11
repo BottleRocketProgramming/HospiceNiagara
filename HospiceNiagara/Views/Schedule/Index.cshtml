@@ -20,7 +20,20 @@
                         }
                     </div>
                     <div class="panel-body">
-                        @st.SchedTypeNote
+                        <div class="col-md-6">
+                            @st.SchedTypeNote
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                @foreach (var file in st.Files)
+                                {
+                                    <li class="list-group-item btn btn-default" onclick="location.href='../../FileStorages/Download/@file.ID';">
+                                        <a style="text-decoration:none">@file.FileDescription</a>
+                                    </li>
+                                }
+                            </ul>
+                            
+                        </div>
                     </div>
                     <table @{ if (firstPanel == false) { @: id="scheduleBody"
                                                        }} class="table">
@@ -29,7 +42,7 @@
                                 if (st.ID == item.SchedType.ID)
                                 {
                                     <tr>
-                                        <td>
+                                        <td class="text-center">
                                             <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
                                         </td>
                                         @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Schedules") || User.IsInRole("Remove Records"))
