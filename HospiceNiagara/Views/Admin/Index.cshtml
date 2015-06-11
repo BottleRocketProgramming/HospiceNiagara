@@ -7,6 +7,7 @@
     <div class="col-sm-3">
         <div class="panel panel-success ">
             <div class="panel-heading">
+                <span title="Data Maintenance" data-content="Here you can access administrative views of the major data in the system. This enables you to access files regardless of assigned roles, or whether the date of the record has passed." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 Data Maintenance
             </div>
             <table class="table text-center">
@@ -44,6 +45,7 @@
     <div class="col-sm-3">
         <div class="panel panel-success">
             <div class="panel-heading">
+                <span title="User Management" data-content="Here you can register new users and modify existing ones, as well as modify user roles." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 Manage Users
             </div>
             <table class="table text-center">
@@ -74,6 +76,7 @@
     <div class="col-sm-3">
         <div class="panel panel-success">
             <div class="panel-heading">
+                <span title="User Management" data-content="Here you can access and modify all other site data." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 Site Maintenance
             </div>
             <table class="table text-center">
@@ -111,3 +114,9 @@
         </div>
     </div>
 }
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>

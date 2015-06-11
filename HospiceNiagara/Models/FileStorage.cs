@@ -34,6 +34,8 @@ namespace HospiceNiagara.Models
         [Display(Name = "Uploaded By")]
         public string UploadedBy { get; set; }
 
+        public bool HomeImage { get; set; }
+
         [Display(Name = "Upload Date")]
         public string FileUploadDateString
         {

@@ -103,7 +103,7 @@ namespace HospiceNiagara.Controllers
         [OnAction(ButtonName = "UploadFile")]
         [Authorize(Roles = "Administrator, Upload Resources")]
         [HandleError()]
-        public ActionResult Index(string fileDescription, string[] selectedRoles, string[] selectedSubCats)
+        public ActionResult Index(string fileDescription, bool homeImage, string[] selectedRoles, string[] selectedSubCats)
         {
             DateTime uploadDate = DateTime.Now;
             string uploadedBy = User.Identity.Name;
@@ -120,6 +120,7 @@ namespace HospiceNiagara.Controllers
                         MimeType = mimeType,
                         FileName = fileName,
                         FileDescription = fileDescription,
+                        HomeImage = homeImage,
                         FileUploadDate = uploadDate,
                         UploadedBy = uploadedBy
                     };
@@ -227,7 +228,7 @@ namespace HospiceNiagara.Controllers
 
             var roleToUpdate = db.FileStorages.Include(a => a.FileStoreUserRoles).Where(i => i.ID == id).Single();
 
-            if (TryUpdateModel(roleToUpdate, "", new string[] { "ID", "MimeType", "FileName","FileDescription" }))
+            if (TryUpdateModel(roleToUpdate, "", new string[] { "ID", "MimeType", "FileName", "FileDescription", "HomeImage" }))
             {
                 try
                 {

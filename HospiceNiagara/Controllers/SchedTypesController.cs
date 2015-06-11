@@ -217,7 +217,7 @@ namespace HospiceNiagara.Controllers
         {
             var allFile = db.FileStorages.Where(r => r.ScheduleTypes.Any(m => m.ID == scheduleType.ID)).OrderBy(r => r.FileDescription).ToList();
             ViewBag.FileStorages = allFile;
-            ViewBag.selFiles = new MultiSelectList(allFile, "ID", "FileName");
+            ViewBag.selFiles = new MultiSelectList(allFile, "ID", "fileDescription");
         }
 
         public void PopulateAssignedRoles(SchedType schedule)

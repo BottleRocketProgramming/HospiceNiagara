@@ -195,7 +195,7 @@ namespace HospiceNiagara.Controllers
             {
                 //PopulateAssignedRoles(user);
                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));                
-                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber  };
+                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserFName = model.UserFName, UserMName = model.UserMName, UserLName = model.UserLName, UserDOB = model.UserDOB, UserAddress = model.UserAddress, PhoneNumber = model.PhoneNumber, StartDate = model.StartDate  };
                 user.EmailConfirmed = false;
                 user.PasswordChanged = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -224,11 +224,6 @@ namespace HospiceNiagara.Controllers
                             manager.AddToRole(user.Id, roleToAdd.RoleName);                         
                         }
                     }
-             
-
-
-
-
 
                     return RedirectToAction("Confirm", "Account", new { Email = user.Email });       
                    

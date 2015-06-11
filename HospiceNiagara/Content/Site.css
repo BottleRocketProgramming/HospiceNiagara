@@ -370,3 +370,8 @@ textarea{
 .popover{
     max-width: 700px; /* Max Width of the popover (depending on the container!) */
 }
+
+.dropdown-menu{
+    width:189px;
+    border:none;
+}

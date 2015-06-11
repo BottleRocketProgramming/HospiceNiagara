@@ -134,26 +134,31 @@
 
     <div class="col-md-6" style="padding-bottom:15px;">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img src="../../HomePage/1.jpg" alt="1">
-                </div>
-
-                <div class="item">
-                    <img src="../../HomePage/2.jpg" alt="2">
-                </div>
-
-                <div class="item">
-                    <img src="../../HomePage/3.jpg" alt="3">
-                </div>
+                @{
+                    var count = 0;
+                    foreach (var file in (IEnumerable<HospiceNiagara.Models.FileStorage>)ViewData["HomepageImages"])
+                    {
+                        if (file.MimeType.Contains("image"))
+                        {
+                            if (count == 0)
+                            {
+                                <div class="item active">
+                                    <img src="~/Uploads/@file.FileName" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="item">
+                                    <img src="~/Uploads/@file.FileName" />
+                                </div>
+                            }
+                            count++;
+                        }
+                    }
+                }
             </div>
 
             <!-- Left and right controls -->
@@ -170,6 +175,22 @@
 
     <div class="col-md-3">
         
+        @if (User.IsInRole("Staff"))
+        {
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Sites</h3>
+                </div>
+                <ul class="list-group text-center">
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://css.hr.ccim.on.ca/HospiceNiagara');"><a style="text-decoration:none;">Pay Statements - QHR Net</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://portal.microsoftonline.com');"><a style="text-decoration:none;">Hospice Niagara Email Login</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://onlineservices.greenshield.ca/planmember/AccessMgmt/Public/SignOn.aspx');"><a style="text-decoration:none;">Group Plan Benefits - Green Shield</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://grsmembers.manulife.com/wps/myportal/grsmembers/HomeEN');"><a style="text-decoration:none;">Group RRSP - Manulife</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('http://sumac.com/training/');"><a style="text-decoration:none;">Sumac Training</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('http://www.infoanywhere.com');"><a style="text-decoration:none;">InfoAnywhere</a></li>
+                </ul>
+            </div>
+        }
 
         <div class="panel panel-success">
             <div class="panel-heading">
@@ -201,23 +222,6 @@
                 }
             </ul>
         </div>
-        
-        @if (User.IsInRole("Staff"))
-        {
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">My Sites</h3>
-                </div>
-                <ul class="list-group text-center">
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://css.hr.ccim.on.ca/HospiceNiagara');"><a style="text-decoration:none;">Pay Statements - QHR Net</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://portal.microsoftonline.com');"><a style="text-decoration:none;">Hospice Niagara Email Login</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://onlineservices.greenshield.ca/planmember/AccessMgmt/Public/SignOn.aspx');"><a style="text-decoration:none;">Group Plan Benefits - Green Shield</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://grsmembers.manulife.com/wps/myportal/grsmembers/HomeEN');"><a style="text-decoration:none;">Group RRSP - Manulife</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('http://sumac.com/training/');"><a style="text-decoration:none;">Sumac Training</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('http://www.infoanywhere.com');"><a style="text-decoration:none;">InfoAnywhere</a></li>
-                </ul>
-            </div>
-        }
     </div>
 </div>
 

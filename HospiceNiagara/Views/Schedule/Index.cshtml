@@ -16,7 +16,11 @@
                         <span id="newschedulesTitle" hidden>New Schedule</span>
                         @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Schedules") && firstPanel == false)
                         {
-                            <div id="glyphNewSchedule" class="glyphicon glyphicon-plus pull-right"></div>
+                            <span id="glyphNewSchedule" class="glyphicon glyphicon-plus pull-left"></span>
+                        }
+                        @if (firstPanel.Equals(false))
+                        {
+                            <span title="Schedules" data-content="Each panel corresponds to a schedule type. Under each panel you can find any notes or files that have been attached to the schedule type. Underneath that information the schedules are listed; Simply click on a schedule to navigate to it." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                         }
                     </div>
                     <div class="panel-body">
@@ -162,6 +166,8 @@
             $('#newschedulesTitle').slideToggle();
             $('#glyphNewSchedule').fadeToggle();
         });
+
+        $('[data-toggle="popover"]').popover();
 
         $("[name='selectedRoles']").bootstrapSwitch();
     });

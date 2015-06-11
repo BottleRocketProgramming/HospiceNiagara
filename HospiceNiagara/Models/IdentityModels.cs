@@ -44,6 +44,9 @@ namespace HospiceNiagara.Models
         [Display(Name = "Date of Birth")]
         public DateTime UserDOB { get; set; }
 
+        [Display(Name = "Start Date")]
+        public DateTime StartDate { get; set; }
+
         [Display(Name = "Date of Birth")]
         public string UserDOBString
         {

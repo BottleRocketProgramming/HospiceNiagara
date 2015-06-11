@@ -322,6 +322,26 @@
     <Compile Include="Migrations\201506111548038_noteNotRequired.Designer.cs">
       <DependentUpon>201506111548038_noteNotRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506111712249_homepageImages.cs" />
+    <Compile Include="Migrations\201506111712249_homepageImages.Designer.cs">
+      <DependentUpon>201506111712249_homepageImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111720511_filedesc.cs" />
+    <Compile Include="Migrations\201506111720511_filedesc.Designer.cs">
+      <DependentUpon>201506111720511_filedesc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111723591_whoops.cs" />
+    <Compile Include="Migrations\201506111723591_whoops.Designer.cs">
+      <DependentUpon>201506111723591_whoops.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111727519_homeimage.cs" />
+    <Compile Include="Migrations\201506111727519_homeimage.Designer.cs">
+      <DependentUpon>201506111727519_homeimage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111830438_startDate.cs" />
+    <Compile Include="Migrations\201506111830438_startDate.Designer.cs">
+      <DependentUpon>201506111830438_startDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -719,6 +739,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506111548038_noteNotRequired.resx">
       <DependentUpon>201506111548038_noteNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111712249_homepageImages.resx">
+      <DependentUpon>201506111712249_homepageImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111720511_filedesc.resx">
+      <DependentUpon>201506111720511_filedesc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111723591_whoops.resx">
+      <DependentUpon>201506111723591_whoops.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111727519_homeimage.resx">
+      <DependentUpon>201506111727519_homeimage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111830438_startDate.resx">
+      <DependentUpon>201506111830438_startDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
