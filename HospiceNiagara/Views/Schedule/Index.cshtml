@@ -23,7 +23,7 @@
                             <span title="Schedules" data-content="Each panel corresponds to a schedule type. Under each panel you can find any notes or files that have been attached to the schedule type. Underneath that information the schedules are listed; Simply click on a schedule to navigate to it." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                         }
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" id="stBody">
                         <div class="col-md-6">
                             @st.SchedTypeNote
                         </div>
@@ -146,8 +146,15 @@
                                     </div>
                                 }
                         </div>
-                        firstPanel = true;
+                            firstPanel = true;
                         }
+                    }
+                    @if(User.IsInRole("Administrator"))
+                    {
+                        <div class="panel-footer text-center">
+                            @Html.ActionLink("Edit", "../SchedTypes/Edit", new { id = st.ID }, new { @class = "btn btn-sm btn-default" })
+                            @Html.ActionLink("Delete", "../SchedTypes/Delete", new { id = st.ID }, new { @class = "btn btn-sm btn-danger" })
+                        </div>
                     }
                 </div>
             </div>
@@ -164,6 +171,7 @@
             $('#scheduleBody').slideToggle();
             $('#newSchedule').slideToggle();
             $('#newschedulesTitle').slideToggle();
+            $('#stBody').slideToggle();
             $('#glyphNewSchedule').fadeToggle();
         });
 

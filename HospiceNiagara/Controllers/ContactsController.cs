@@ -31,12 +31,18 @@ namespace HospiceNiagara.Controllers
             PopulateContactTypes(contact);
 
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
+            ViewBag.PosSortParm = sortOrder == "Position" ? "pos_desc" : "Position";
 
             switch (sortOrder)
             {
                 case "name_desc":
                     listOfContacts = listOfContacts.OrderByDescending(s => s.Name).ToList();
+                    break;
+                case "Position":
+                    listOfContacts = listOfContacts.OrderBy(s => s.Position).ToList();
+                    break;
+                case "pos_desc":
+                    listOfContacts = listOfContacts.OrderByDescending(s => s.Position).ToList();
                     break;
                 default:
                     listOfContacts = listOfContacts.OrderBy(s => s.Name).ToList();
