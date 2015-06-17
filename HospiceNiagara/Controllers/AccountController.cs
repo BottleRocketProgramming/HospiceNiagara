@@ -213,7 +213,7 @@ namespace HospiceNiagara.Controllers
                     smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new System.Net.NetworkCredential("noreply@hospiceniagaraportal.ca", "HNPortalAdmin1");
                     smtp.EnableSsl = false;
-                    smtp.Send(m);                                
+                    smtp.Send(m);
              
                     if(selectedRoles != null)
                     {

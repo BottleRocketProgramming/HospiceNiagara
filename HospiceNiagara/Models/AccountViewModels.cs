@@ -82,7 +82,7 @@ namespace HospiceNiagara.Models
         public string UserLName { get; set; }
 
         [Display(Name = "Start Date")]
-        public DateTime StartDate { get; set; }
+        public Nullable<DateTime> StartDate { get; set; }
 
         [Display(Name="Date of Birth")]
         [Required(ErrorMessage="User Date of Birth is required")]

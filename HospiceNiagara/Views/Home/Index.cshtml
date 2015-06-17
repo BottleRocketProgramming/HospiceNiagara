@@ -174,24 +174,6 @@
     </div>
 
     <div class="col-md-3">
-        
-        @if (User.IsInRole("Staff"))
-        {
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">My Sites</h3>
-                </div>
-                <ul class="list-group text-center">
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://css.hr.ccim.on.ca/HospiceNiagara');"><a style="text-decoration:none;">Pay Statements - QHR Net</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://portal.microsoftonline.com');"><a style="text-decoration:none;">Hospice Niagara Email Login</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://onlineservices.greenshield.ca/planmember/AccessMgmt/Public/SignOn.aspx');"><a style="text-decoration:none;">Group Plan Benefits - Green Shield</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://grsmembers.manulife.com/wps/myportal/grsmembers/HomeEN');"><a style="text-decoration:none;">Group RRSP - Manulife</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('http://sumac.com/training/');"><a style="text-decoration:none;">Sumac Training</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('http://www.infoanywhere.com');"><a style="text-decoration:none;">InfoAnywhere</a></li>
-                </ul>
-            </div>
-        }
-
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class ="panel-title">Hospice Niagara Sites</h3>
@@ -222,6 +204,24 @@
                 }
             </ul>
         </div>
+
+        @if (User.IsInRole("Staff"))
+        {
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Sites</h3>
+                </div>
+                <ul class="list-group text-center">
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://css.hr.ccim.on.ca/HospiceNiagara');"><a style="text-decoration:none;">Pay Statements - QHR Net</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://portal.microsoftonline.com');"><a style="text-decoration:none;">Hospice Niagara Email Login</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://onlineservices.greenshield.ca/planmember/AccessMgmt/Public/SignOn.aspx');"><a style="text-decoration:none;">Group Plan Benefits - Green Shield</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://grsmembers.manulife.com/wps/myportal/grsmembers/HomeEN');"><a style="text-decoration:none;">Group RRSP - Manulife</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('http://sumac.com/training/');"><a style="text-decoration:none;">Sumac Training</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('http://www.infoanywhere.com');"><a style="text-decoration:none;">InfoAnywhere</a></li>
+                </ul>
+            </div>
+        }
+
     </div>
 </div>
 

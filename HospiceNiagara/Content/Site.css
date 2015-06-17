@@ -375,3 +375,8 @@ textarea{
     width:189px;
     border:none;
 }
+
+.datepicker{
+    width:auto;
+}
+
