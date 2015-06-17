@@ -23,7 +23,7 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
-            var cUserRole = db.RoleLists;
+            var cUserRole = db.RoleLists.Where(r => r.IsPerm == false);
             var sched = new Schedule();
             sched.SchedType = new SchedType();
             sched.ScheduleRoles = new List<RoleList>();
@@ -269,13 +269,16 @@ namespace HospiceNiagara.Controllers
             var viewModel = new List<RoleVM>();
             foreach (var roll in allRole)
             {
-                viewModel.Add(new RoleVM
+                if(roll.IsPerm == false)
                 {
-                    RoleID = roll.ID,
-                    RoleName = roll.RoleName,
-                    RoleAssigned = aRoles.Contains(roll.ID),
-                    IsPerm = roll.IsPerm
-                });
+                    viewModel.Add(new RoleVM
+                    {
+                        RoleID = roll.ID,
+                        RoleName = roll.RoleName,
+                        RoleAssigned = aRoles.Contains(roll.ID),
+                        IsPerm = roll.IsPerm
+                    });
+                }
             }
 
             ViewBag.RolesLists = viewModel;

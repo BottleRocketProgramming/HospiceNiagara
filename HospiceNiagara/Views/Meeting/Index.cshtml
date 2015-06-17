@@ -213,26 +213,22 @@
                                                             List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
                                                             foreach(var r in roles)
                                                             {
-                                                                if(r.IsPerm == false)
+                                                                if (cnt++ % 2 == 0)
                                                                 {
-                                                                    if (cnt++ % 2 == 0)
-                                                                    {
-                                                                        @:</tr><tr>
-                                                                    }
-                                                                    @:<td>
-                                                                        <input type="checkbox"
-                                                                        class="chkRoles"
-                                                                        name="selectedRoles"
-                                                                        data-size="small"
-                                                                        value="@r.RoleID"
-                                                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                                                        <br />
-                                                                        <div class="text-left">
-                                                                            @Html.DisplayFor(modelItem => r.RoleName)
-                                                                        </div>
-                                                                    @:</td>
+                                                                    @:</tr><tr>
                                                                 }
-                                                                
+                                                                @:<td>
+                                                                    <input type="checkbox"
+                                                                    class="chkRoles"
+                                                                    name="selectedRoles"
+                                                                    data-size="small"
+                                                                    value="@r.RoleID"
+                                                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                                                    <br />
+                                                                    <div class="text-left">
+                                                                        @Html.DisplayFor(modelItem => r.RoleName)
+                                                                    </div>
+                                                                @:</td>
                                                             }
                                                         @:</tr>
                                                         }

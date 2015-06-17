@@ -227,13 +227,16 @@ namespace HospiceNiagara.Controllers
             var viewModel = new List<RoleVM>();
             foreach (var roll in allRole)
             {
-                viewModel.Add(new RoleVM
+                if (roll.IsPerm == false)
                 {
-                    RoleID = roll.ID,
-                    RoleName = roll.RoleName,
-                    RoleAssigned = aRoles.Contains(roll.ID),
-                    IsPerm = roll.IsPerm
-                });
+                    viewModel.Add(new RoleVM
+                    {
+                        RoleID = roll.ID,
+                        RoleName = roll.RoleName,
+                        RoleAssigned = aRoles.Contains(roll.ID),
+                        IsPerm = roll.IsPerm
+                    });
+                }
             }
 
             ViewBag.RolesLists = viewModel;

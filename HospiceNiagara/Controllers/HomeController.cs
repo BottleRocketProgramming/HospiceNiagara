@@ -23,7 +23,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index()
         {
             DateTime insevendays = DateTime.Today.AddDays(7);
-            var cUserRoles = db.RoleLists;
+            var cUserRoles = db.RoleLists.Where(r => r.IsPerm == false);
             var meetForList = db.Meetings.Where(m => m.ID == 0);
             var annForList = db.Announcements.Where(a => a.ID == 0);
             var schedForList = db.Schedules.Where(s => s.ID == 0);

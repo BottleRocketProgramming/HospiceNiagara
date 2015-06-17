@@ -47,22 +47,18 @@
                             List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
                             foreach(var r in roles)
                             {
-                                if(r.IsPerm == false)
+                                if (cnt++ % 2 == 0)
                                 {
-                                    if (cnt++ % 2 == 0)
-                                    {
-                                        @:</tr><tr>
-                                    }
-                                    @:<td>
-                                        <input type="checkbox"
-                                        class="chkRoles"
-                                        name="selectedRoles"
-                                        value="@r.RoleID"
-                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
-                                            @Html.DisplayFor(modelItem => r.RoleName)
-                                    @:</td>
+                                    @:</tr><tr>
                                 }
-                                                                
+                                @:<td>
+                                    <input type="checkbox"
+                                    class="chkRoles"
+                                    name="selectedRoles"
+                                    value="@r.RoleID"
+                                    @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                        @Html.DisplayFor(modelItem => r.RoleName)
+                                @:</td>                             
                             }
                         }
                     </tr>

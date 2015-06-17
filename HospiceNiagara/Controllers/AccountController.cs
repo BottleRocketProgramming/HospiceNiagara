@@ -12,6 +12,7 @@ using HospiceNiagara.Models;
 using System.Collections.Generic;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net.Mail;
 
 //Paul Boyko April 2015
 
@@ -201,17 +202,18 @@ namespace HospiceNiagara.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("hospicetestuser@outlook.com", "Web Registration"),
-                        new System.Net.Mail.MailAddress(user.Email));
-
-                        m.Subject = "Hospice Niagara Registration Cofirmation";
-                        m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
-                        m.IsBodyHtml = true;
-
-                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
-                    smtp.Credentials = new System.Net.NetworkCredential("hospicetestuser@outlook.com", "Pa55word01");
-                    smtp.EnableSsl = true;
-                    smtp.Send(m);                                   
+                    MailMessage m = new MailMessage();
+                    m.From = new MailAddress("noreply@hospiceniagaraportal.ca");
+                    m.To.Add(new MailAddress(user.Email));
+                    m.Subject = "Hospice Niagara Registration Cofirmation";
+                    m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
+                    m.IsBodyHtml = true;
+                    SmtpClient smtp = new System.Net.Mail.SmtpClient("smtpout.secureserver.net");
+                    smtp.Port = 25;
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new System.Net.NetworkCredential("noreply@hospiceniagaraportal.ca", "HNPortalAdmin1");
+                    smtp.EnableSsl = false;
+                    smtp.Send(m);                                
              
                     if(selectedRoles != null)
                     {
