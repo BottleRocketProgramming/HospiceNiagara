@@ -98,10 +98,11 @@
                                 @Html.ActionLink("Download", "Download", new { id = item.ID })
                                 @if (User.IsInRole("Administrator"))
                                 {
+                                    <br />
                                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
-                                    @:&nbsp;
+                                    @:|
                                     @Html.ActionLink("Details", "Details", new { id = item.ID }) 
-                                    @:&nbsp;
+                                    @:|
                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID }) 
                                 }
                             </td>

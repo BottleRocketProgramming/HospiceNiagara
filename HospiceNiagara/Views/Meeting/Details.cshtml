@@ -79,9 +79,9 @@
 
             else
             {
-                <div class="col-md-6">
+                <div class="col-md-6"  id="colPicture">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
+                        <div class="carousel-inner" role="listbox">
                             @{
                                 var count = 0;
                                 foreach (var f in Model.FileStores)
@@ -90,40 +90,20 @@
                                     {
                                         if (count == 0)
                                         {
-                                            <li data-target="#myCarousel" data-slide-to=@count class="active"></li>
-                                        }
-                                        else
-                                        {
-                                            <li data-target="#myCarousel" data-slide-to=@count></li>
-                                        }
-                                        count++;
-                                    }
-                                }
-                            }
-                        </ol>
-                        <div class="carousel-inner" role="listbox">
-                            @{
-                                count = 0;
-                                foreach (var f in Model.FileStores)
-                                {
-                                    if (f.MimeType.Contains("image"))
-                                    {
-                                        if (count == 0)
-                                        {
-                                            <div class="item active">
+                                            <div class="item active detailsIMG">
                                                 <img src="~/Uploads/@f.FileName" />
                                             </div>
                                         }
                                         else
                                         {
-                                            <div class="item">
+                                            <div class="item detailsIMG">
                                                 <img src="~/Uploads/@f.FileName" />
                                             </div>
                                         }
                                         count++;
                                     }
                                 }
-                            }
+}
                         </div>
                         <!-- Left and right controls -->
                         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">

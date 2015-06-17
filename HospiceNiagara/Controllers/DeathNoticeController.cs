@@ -19,15 +19,11 @@ namespace HospiceNiagara.Controllers
 
         // GET: DeathNotice
         [Authorize]
-        public ActionResult Index(int? id)
+        public ActionResult Index()
         {
-
             PopulatePoems();
-            ViewData["DeathNoticeList"] = db.DeathNotices.ToList();
+            ViewData["DeathNoticeList"] = db.DeathNotices.OrderByDescending(d=>d.DnDate).ToList();
 
-            ViewData["DeathNoticeID"] = id;
-
-            DeathNotice deathNotice = db.DeathNotices.Find(id);
             return View();
         }
 

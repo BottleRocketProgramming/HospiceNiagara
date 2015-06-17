@@ -357,7 +357,7 @@ namespace HospiceNiagara.Controllers
         {
             if (selectedFiles == null)
             {
-                AnnouncementToUpdate.FileStorages = new List<FileStorage>();
+                AnnouncementToUpdate.FileStorages.Clear();
                 return;
             }
 

@@ -456,7 +456,7 @@ namespace HospiceNiagara.Controllers
         {
             if (selectedRoles == null)
             {
-                MeetingToUpdate.RolesLists = new List<RoleList>();
+                MeetingToUpdate.RolesLists.Clear();
                 return;
             }
 
@@ -495,7 +495,7 @@ namespace HospiceNiagara.Controllers
         {
             if (selectedFiles == null)
             {
-                MeetingToUpdate.FileStores = new List<FileStorage>();
+                MeetingToUpdate.FileStores.Clear();
                 return;
             }
 
