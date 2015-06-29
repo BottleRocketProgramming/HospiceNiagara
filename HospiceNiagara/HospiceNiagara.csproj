@@ -482,6 +482,7 @@
     <Content Include="Views\Contacts\AdminList.cshtml" />
     <Content Include="Views\FileStorages\UploadNewFile.cshtml" />
     <Content Include="Views\FileStorages\CloseNewFileWindow.cshtml" />
+    <Content Include="Views\Manage\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

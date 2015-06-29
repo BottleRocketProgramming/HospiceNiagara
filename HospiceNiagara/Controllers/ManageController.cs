@@ -7,12 +7,16 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HospiceNiagara.Models;
+using System.Net;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HospiceNiagara.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ManageController()
         {
         }
@@ -57,6 +61,48 @@ namespace HospiceNiagara.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(User.Identity.GetUserId())
             };
             return View(model);
+        }
+
+        // GET: Manage/Edit/
+        [Authorize]
+        public ActionResult Edit()
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Manage/Edit/
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult Edit([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,StartDate,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")]ApplicationUser user, string Id)
+        {
+
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser aUser = manager.FindById(user.Id);
+            var r = db.IdentUserRoles.Where(u => u.UserId == aUser.Id);
+            aUser.UserFName = user.UserFName;
+            aUser.UserMName = user.UserMName;
+            aUser.UserLName = user.UserLName;
+            aUser.UserDOB = user.UserDOB;
+            aUser.StartDate = user.StartDate;
+            aUser.UserAddress = user.UserAddress;
+            aUser.PhoneNumber = user.PhoneNumber;
+
+            if (ModelState.IsValid)
+            {
+                var result = manager.Update(aUser);
+                //db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
         }
 
         //

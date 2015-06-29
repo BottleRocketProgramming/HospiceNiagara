@@ -124,7 +124,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Manage Users")]
-        public ActionResult Edit([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")]ApplicationUser user, string Id, string[] selectedRoles)
+        public ActionResult Edit([Bind(Include = "ID,UserFName,UserMName,UserLName,UserDOB,UserAddress,StartDate,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,Lockoutenabled,AccessFailedCount,UserName")]ApplicationUser user, string Id, string[] selectedRoles)
         {
            
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -133,6 +133,8 @@ namespace HospiceNiagara.Controllers
             aUser.UserFName = user.UserFName;
             aUser.UserMName = user.UserMName;
             aUser.UserLName = user.UserLName;
+            aUser.UserDOB = user.UserDOB;
+            aUser.StartDate = user.StartDate;
             aUser.UserAddress = user.UserAddress;
             aUser.PhoneNumber = user.PhoneNumber;
             //ApplicationUser user = manager.FindById(Id);
