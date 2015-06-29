@@ -19,10 +19,30 @@ namespace HospiceNiagara.Controllers
 
         // GET: DeathNotice
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             PopulatePoems();
-            ViewData["DeathNoticeList"] = db.DeathNotices.OrderByDescending(d=>d.DnDate).ToList();
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_asc" : "";
+            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
+            var deathnotices = db.DeathNotices.ToList();
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    deathnotices = deathnotices.OrderByDescending(d => d.DnLastName).ToList();
+                    break;
+                case "Name":
+                    deathnotices = deathnotices.OrderBy(d => d.DnLastName).ToList();
+                    break;
+                case "date_asc":
+                    deathnotices = deathnotices.OrderBy(d => d.DnDate).ToList();
+                    break;
+                default:
+                    deathnotices = deathnotices.OrderByDescending(d => d.DnDate).ToList();
+                    break;
+            }
+
+            ViewData["DeathNoticeList"] = deathnotices;
 
             return View();
         }
@@ -72,7 +92,7 @@ namespace HospiceNiagara.Controllers
             {
                 db.DeathNotices.Add(deathNotice);
                 db.SaveChanges();
-                return RedirectToAction("AdminList");
+                return RedirectToAction("Index");
             }
 
             return View(deathNotice);

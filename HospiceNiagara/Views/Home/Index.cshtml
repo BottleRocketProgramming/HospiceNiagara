@@ -3,7 +3,7 @@
 }
 
 <div id="homepage-body" class="container">
-    <div class="col-sm-6">
+    <div class="col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title" id="welcomeTitle">Welcome</h3>
@@ -98,16 +98,20 @@
                         <th>
                             Notes
                         </th>
-                        <th>
-                            Obituary
-                        </th>
                     </tr>
 
                     @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["RecentlyPassed"])
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DnFullName)
+                                @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
+                                {<a target="_blank" href="@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a>}
+                                else if (!string.IsNullOrEmpty(item.DnLink))
+                                {<a target="_blank" href="http://@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a> }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.DnFullName)
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnDateString)
@@ -116,14 +120,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnLocation)
                             </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnNotes)
-                            </td>
-                            <td>
-                                @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
-                                {<a href="@item.DnLink">Link</a>}
-                                else if (!string.IsNullOrEmpty(item.DnLink))
-                                {<a href="http://@item.DnLink">Read</a> }
                             </td>
                         </tr>
                     }
@@ -198,9 +197,19 @@
             <ul class="list-group text-center">
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
                 {
-                    <li  class="list-group-item btn btn-default" onclick="window.open('@item.SchedLink');">
-                        <a style="text-decoration:none;">@Html.DisplayFor(modelItem => item.SchedName)</a>   
-                    </li> 
+                    if (item.SchedLink.Contains("http"))
+                    {
+                        <li class="list-group-item btn btn-default" onclick="window.open('@item.SchedLink');">
+                            <a style="text-decoration:none;">@Html.DisplayFor(modelItem => item.SchedName)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item btn btn-default" onclick="window.open('http://@item.SchedLink');">
+                            <a style="text-decoration:none;">@Html.DisplayFor(modelItem => item.SchedName)</a>
+                        </li>
+                    }
+
                 }
             </ul>
         </div>

@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "Edit";
 }
-
+@*Initialize filters and gets current url*@
+@{
+    List<HospiceNiagara.ViewModels.FileCatVM> cat = ViewBag.Cat;
+    List<HospiceNiagara.ViewModels.FileSubCatVM> subCat = ViewBag.FileSubCat;
+}
 <h2>Edit</h2>
 
 
@@ -77,6 +81,35 @@
                     </table>
             </div>
         </div>
+
+        @foreach (var cats in cat)
+        {
+            @:<div class="form-group">
+                <label class="control-label col-md-2">@Html.DisplayFor(modelItem => cats.FileCatName)</label>
+                <div class="col-md-10">
+                    <table class="table">
+                        @foreach (var sc in subCat)
+                        {
+                            if (cats.ID == sc.FileCatFK)
+                            {
+                                <tr>
+                                    <td style="padding-left:15px; width:50%;">
+                                        @sc.FileSubCatName
+                                    </td>
+                                    <td>
+                                        <input type="checkbox"
+                                               name="selectedSubCats"
+                                               value="@sc.ID"
+                                               @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+                    </table>
+                </div>
+            @:</div>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

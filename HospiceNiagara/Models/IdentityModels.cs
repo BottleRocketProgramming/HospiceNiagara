@@ -47,6 +47,9 @@ namespace HospiceNiagara.Models
         [Display(Name = "Start Date")]
         public Nullable<DateTime> StartDate { get; set; }
 
+        [Display(Name = "Last Login")]
+        public Nullable<DateTime> LastLogin { get; set; }
+
         [Display(Name = "Date of Birth")]
         public string UserDOBString
         {

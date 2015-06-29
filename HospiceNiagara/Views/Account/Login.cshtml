@@ -7,7 +7,7 @@
     ViewBag.Title = "Log in";
 }
 
-<div class="body-content LogInPage">
+<div class="LogInPage">
     <div id="LogInPanel" style="width:300px">
         <div class="panel panel-default">
             <div id="Panel-Body-Color" class="panel-body">
@@ -39,4 +39,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("#bodyContent").css("padding-top", "111px");
+        });
+    </script>
 }

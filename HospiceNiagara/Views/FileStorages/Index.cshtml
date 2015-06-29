@@ -15,7 +15,7 @@
      }
      
     @*Column for the File Window*@
-    <div class="col-md-10">
+    <div class="col-md-8">
         <div class="panel panel-info">
 
             @*Panel Header*@
@@ -55,61 +55,48 @@
                         </div>
                     }
                 </div>
-                <table class="table table-striped table-bordered" style="width:100%;">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FileDescription)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FileName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FileUploadDateString)
-                        </th>
-                        @if (User.IsInRole("Administrator") || User.IsInRole("View Admin Info"))
-                        {
-                            <th>
-                                @Html.DisplayNameFor(model => model.UploadedBy)
-                            </th>
-                        }
-                        <th></th>
-                    </tr>
+            </div>
+            <table id="fileTable" class="table table-striped" style="width:100%;">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileUploadDateString)
+                    </th>
+                    <th></th>
+                </tr>
 
-                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.FileStorage>)ViewData["Files"])
-                    {
-                        <tr>
-                            
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FileDescription)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FileName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FileUploadDateString)
-                            </td>
+                @foreach (var item in (IEnumerable<HospiceNiagara.Models.FileStorage>)ViewData["Files"])
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileUploadDateString)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Download", "Download", new { id = item.ID })
                             @if (User.IsInRole("Administrator"))
                             {
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UploadedBy)
-                                </td>
+                                <br />
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                                @:|
+                                @Html.ActionLink("Details", "Details", new { id = item.ID })
+                                @:|
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                             }
-                            <td>
-                                @Html.ActionLink("Download", "Download", new { id = item.ID })
-                                @if (User.IsInRole("Administrator"))
-                                {
-                                    <br />
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
-                                    @:|
-                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) 
-                                    @:|
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }) 
-                                }
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
 
             @*Panel Body for Uploading a New File*@
             <div id="newFileContent" class="panel-body" hidden>
@@ -216,7 +203,7 @@
     </div>
 
     @*Column for the File Filters*@
-    <div class="col-md-2">
+    <div class="col-md-4">
         @foreach (var cats in cat)
         {
             <div class="panel panel-success text-center">
@@ -265,6 +252,7 @@
                 $('#newFileListTitle').slideToggle();
                 $('#glyphNewFile').fadeToggle();
                 $('#fileSearchText').slideToggle();
+                $('#fileTable').fadeToggle();
             });
 
             $("[type='checkbox']").bootstrapSwitch();

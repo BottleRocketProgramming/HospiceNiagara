@@ -62,6 +62,21 @@
 
         <div class="row col-lg-offset-2">
             <div class="form-group">
+                <div class="col-md-2">
+                    <label class="control-label">Upload a New File</label>
+                    <div style="width:280px">
+                        <input title="Note" data-content="After uploading a file, it must still be attached with the Find and Add Files Textbox." data-toggle="popover" data-placement="bottom" data-trigger="hover" class="btn btn-default" type="button" id="btnpopu" value="Upload New File" onclick="ShowPopup();" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="control-label">Find and Add Files:</label>
+                    <input autocomplete="off" class="form-control" id="fileFinder" name="s" placeholder="Find a file" />
+                    <div id="searchResults" style="z-index:1000">
+
+                    </div>
+                </div>
+
                 <div class="col-md-4">
                     <label class="control-label">Selected Files</label>
                     @Html.ListBox("selectedFiles", (MultiSelectList)ViewBag.selFiles, new { @class = "form-control" })
@@ -69,14 +84,6 @@
                         <button type="button" id="btnRemoveFile" class="btn btn-danger form-control">
                             <span class="glyphicon glyphicon-remove"></span>&nbsp;Remove Selected
                         </button>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="control-label">Find and Add Files:</label>
-                    <input autocomplete="off" class="form-control" id="fileFinder" placeholder="Find a file" />
-                    <div id="searchResults" style="z-index:1000">
-
                     </div>
                 </div>
             </div>
@@ -99,6 +106,14 @@
     <script>
         $(document).ready(function () {
             $("[name='selectedRoles']").bootstrapSwitch();
+            $('[data-toggle="popover"]').popover();
+
+            ShowPopup = function () {
+                if (!window.showModalDialog) {
+                    window.open('/FileStorages/UploadNewFile', "WindowPopup", 'width=400px,height=400px');
+                }
+                window.showModalDialog('/FileStorages/UploadNewFile', "WindowPopup", 'width=400px,height=400px');
+            }
         });
     </script>
 }

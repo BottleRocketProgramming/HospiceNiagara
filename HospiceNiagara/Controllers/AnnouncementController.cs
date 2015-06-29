@@ -38,8 +38,7 @@ namespace HospiceNiagara.Controllers
             {
                 if (User.IsInRole(ur.RoleName))
                 {
-                    var ann = db.Announcements.Include(a => a.RolesLists).Include(a=>a.FileStorages);
-                    ann = ann.Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
+                    var ann = db.Announcements.Include(a => a.RolesLists).Include(a => a.FileStorages).Where(a => a.RolesLists.Any(aur => aur.ID == ur.ID));
                     annForList = annForList.Concat(ann);
                 }
             }

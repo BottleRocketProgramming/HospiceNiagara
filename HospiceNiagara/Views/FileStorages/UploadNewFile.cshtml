@@ -1,0 +1,136 @@
+﻿@model HospiceNiagara.Models.FileStorage
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Upload File</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/bootstrap-switch.css" rel="stylesheet">
+    <script type="text/javascript" src="~/Scripts/bootstrap-switch.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    @Scripts.Render("~/bundles/jqueryval")
+    @{
+        List<HospiceNiagara.ViewModels.FileCatVM> cat = ViewBag.Cat;
+        List<HospiceNiagara.ViewModels.FileSubCatVM> subCat = ViewBag.FileSubCat;
+    }
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm("UploadNewFile", "FileStorages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label" style="padding-left:15px" for="fileDescription">Description</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.FileDescription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FileDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="file" name="FileUpload" class="" />
+                        @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" style="padding-left:15px" for="HomeImage">Use as a Homescreen Image</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.HomeImage, "", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                        
+                <div class="form-group">
+                    <label class="control-label" style="padding-left:15px">Visible to</label>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                            @{
+                                int cnt = 0;
+                                List<HospiceNiagara.ViewModels.RoleVM> roles = ViewBag.RolesLists;
+                                foreach(var r in roles)
+                                {
+                                    if (cnt++ % 2 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                        class="chkRoles"
+                                        name="selectedRoles"
+                                        value="@r.RoleID"
+                                        @(Html.Raw(r.RoleAssigned ? "checked=\"checked\"" : "")) />
+                                        <br />
+                                        <div class="text-left">
+                                            @Html.DisplayFor(modelItem => r.RoleName)
+                                        </div>
+                                    @:</td>         
+                                }
+                                @:</tr>
+                            }
+                    </table>
+                    </div>
+                </div>
+                @*<h4>Categories</h4>*@
+                @foreach (var cats in cat)
+                {
+                    @:<div class="form-group">
+                        <label class="control-label" style="padding-left:15px">@Html.DisplayFor(modelItem => cats.FileCatName)</label>
+                        <table class="table">
+                            @foreach (var sc in subCat)
+                            {
+                                if (cats.ID == sc.FileCatFK)
+                                {
+                                    <tr>
+                                        <td style="padding-left:15px; width:50%;">
+                                            @sc.FileSubCatName
+                                        </td>
+                                        <td>
+                                            <input type="checkbox"
+                                                    name="selectedSubCats"
+                                                    value="@sc.ID"
+                                                    @(Html.Raw(sc.FileSubCatAssigned ? "checked=\"checked\"" : "")) />
+                                        </td>
+                                    </tr>
+                                            
+                                }
+                            }
+                        </table>
+                    @:</div>
+                }
+                        
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="Create" name="UploadNewFile" class="btn btn-primary"/>
+                        @Html.ActionLink("Cancel", null, null, new { @id="linkCancel" })
+                    </div>
+                </div>
+            </div>
+                    
+        }
+    </div>
+
+        <script>
+        $(document).ready(function () {
+            $("[type='checkbox']").bootstrapSwitch();
+
+            $("#linkCancel").click(function () {
+                window.close();
+            });
+        });
+        </script>
+    
+</body>
+</html>

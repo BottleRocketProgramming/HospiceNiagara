@@ -36,29 +36,40 @@
                                     </li>
                                 }
                             </ul>
-                            
                         </div>
                     </div>
-                    <table @{ if (firstPanel == false) { @: id="scheduleBody"
-                                                       }} class="table">
-                            @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedules"])
-                            {
-                                if (st.ID == item.SchedType.ID)
-                                {
-                                    <tr>
-                                        <td class="text-center">
-                                            <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
-                                        </td>
-                                        @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Schedules") || User.IsInRole("Remove Records"))
-                                        {
-                                            <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                            </td>
-                                        }
-                                    </tr>
+                    <table @{ 
+                                if (firstPanel == false)
+                                { 
+                                    @: id="scheduleBody"
                                 }
                             }
+                    class="table">
+                        @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedules"])
+                        {
+                            if (st.ID == item.SchedType.ID)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        @if (item.SchedLink.Contains("http"))
+                                        {
+                                            <a target="_blank" href="@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                        }
+                                        else
+                                        {
+                                            <a target="_blank" href="http://@item.SchedLink">@Html.DisplayFor(modelItem => item.SchedName) </a>
+                                        }
+                                    </td>
+                                    @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Schedules") || User.IsInRole("Remove Records"))
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
                     </table>
 
                     @{

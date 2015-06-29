@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Net.Mail;
+using System.Data.Entity;
 
 //Paul Boyko April 2015
 
@@ -94,6 +95,9 @@ namespace HospiceNiagara.Controllers
                         case SignInStatus.Success:
                             if(appUserEmailConf.PasswordChanged)
                             {
+                                appUserEmailConf.LastLogin = DateTime.Now;
+                                db.Entry(appUserEmailConf).State = EntityState.Modified;
+                                db.SaveChanges();
                                 return RedirectToLocal(returnUrl);
                             }
                             else
@@ -124,9 +128,9 @@ namespace HospiceNiagara.Controllers
                 }
                 return View(model);
             }
-                ModelState.AddModelError("", "Please confirm email.");
-                return View(model);
-            }
+            ModelState.AddModelError("", "Please confirm email.");
+            return View(model);
+        }
 
         //// GET: /Account/VerifyCode
         //[AllowAnonymous]

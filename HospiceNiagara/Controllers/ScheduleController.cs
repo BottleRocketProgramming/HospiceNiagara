@@ -37,7 +37,7 @@ namespace HospiceNiagara.Controllers
                 if (User.IsInRole(r.RoleName))
                 {
                     var schd = db.Schedules.Include(a => a.ScheduleRoles);
-                    var schdTyp = db.SchedTypes.Include(b => b.RoleLists);
+                    var schdTyp = db.SchedTypes.Include(b => b.RoleLists).Where(b => b.Schedules.Count() != 0);
                     schdTyp = schdTyp.Where(a => a.RoleLists.Any(aur => aur.ID == r.ID));
                     schd = schd.Where(a => a.ScheduleRoles.Any(aur => aur.ID == r.ID));
                     schedForList = schedForList.Concat(schd);

@@ -21,20 +21,16 @@
                 <table class="table ">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.DnFullName)
+                            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.DnDate)
+                            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
                         </th>
-
                         <th>
                             @Html.DisplayNameFor(model => model.DnLocation)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.DnNotes)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DnLink)
                         </th>
                         @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                         {
@@ -46,7 +42,14 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DnFullName)
+                                @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
+                                {<a target="_blank" href="@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a>}
+                                else if (!string.IsNullOrEmpty(item.DnLink))
+                                {<a target="_blank" href="http://@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a> }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.DnFullName)
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnDateString)
@@ -57,12 +60,6 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DnNotes)
-                            </td>
-                            <td>
-                                @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
-                                {<a href="@item.DnLink">Read</a>}
-                                else if (!string.IsNullOrEmpty(item.DnLink))
-                                {<a href="http://@item.DnLink">Read</a> }
                             </td>
                             @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                             {

@@ -56,7 +56,16 @@
                     <dd>
                         @Html.DisplayFor(model => model.FileUploadDateString)
                     </dd>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.UploadedBy)
+                        </dt>
 
+                        <dd>
+                            @Html.DisplayFor(model => model.UploadedBy)
+                        </dd>
+                    }
                 </dl>
             </div>
         </div>

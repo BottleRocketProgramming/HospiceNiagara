@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201506171747236_nulldate.Designer.cs">
       <DependentUpon>201506171747236_nulldate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506231416188_lastLogin.cs" />
+    <Compile Include="Migrations\201506231416188_lastLogin.Designer.cs">
+      <DependentUpon>201506231416188_lastLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -476,6 +480,8 @@
     <Content Include="Views\MeetingUserRSVPs\GetCount.cshtml" />
     <Content Include="Views\Account\View.cshtml" />
     <Content Include="Views\Contacts\AdminList.cshtml" />
+    <Content Include="Views\FileStorages\UploadNewFile.cshtml" />
+    <Content Include="Views\FileStorages\CloseNewFileWindow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -496,6 +502,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506171747236_nulldate.resx">
       <DependentUpon>201506171747236_nulldate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506231416188_lastLogin.resx">
+      <DependentUpon>201506231416188_lastLogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

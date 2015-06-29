@@ -19,7 +19,6 @@ namespace HospiceNiagara.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
       
-
         // GET: FileStorages
         [Authorize]
         public ActionResult Index(string searchString, int? id)
@@ -78,6 +77,17 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
+        public ActionResult UploadNewFile()
+        {
+            var fileR = new FileStorage();
+            fileR.FileStoreUserRoles = new List<RoleList>();
+            fileR.FileSubCats = new List<FileSubCat>();
+            PopulateAssignedRoles(fileR);
+            PopulateCatAndSubCat(fileR);
+
+            return View();
+        }
+
         [HttpGet]
         public ActionResult GetList(string s)
         {
@@ -98,6 +108,77 @@ namespace HospiceNiagara.Controllers
              //if it's not an ajax call, we'll tell the browser we didn't find anything. (404 error)
             return new HttpNotFoundResult();
         }
+
+        [HttpPost]
+        [OnAction(ButtonName = "UploadNewFile")]
+        [Authorize(Roles = "Administrator, Upload Resources")]
+        [HandleError()]
+        public ActionResult UploadNewFile(string fileDescription, bool homeImage, string[] selectedRoles, string[] selectedSubCats)
+        {
+            DateTime uploadDate = DateTime.Now;
+            string uploadedBy = User.Identity.Name;
+            string mimeType = Request.Files[0].ContentType;
+            string fileName = Path.GetFileName(Request.Files[0].FileName);
+            int fileLenght = Request.Files[0].ContentLength;
+
+            try
+            {
+                if (!(fileName == "" || fileLenght == 0))
+                {
+                    FileStorage newFile = new FileStorage
+                    {
+                        MimeType = mimeType,
+                        FileName = fileName,
+                        FileDescription = fileDescription,
+                        HomeImage = homeImage,
+                        FileUploadDate = uploadDate,
+                        UploadedBy = uploadedBy
+                    };
+                    if (selectedRoles != null)
+                    {
+                        newFile.FileStoreUserRoles = new List<RoleList>();
+                        foreach (var r in selectedRoles)
+                        {
+                            var roleToAdd = db.RoleLists.Find(int.Parse(r));
+                            newFile.FileStoreUserRoles.Add(roleToAdd);
+                        }
+                    }
+
+                    if (selectedSubCats != null)
+                    {
+                        newFile.FileSubCats = new List<FileSubCat>();
+                        foreach (var sc in selectedSubCats)
+                        {
+                            var subCatToAdd = db.FileSubCats.Find(int.Parse(sc));
+                            newFile.FileSubCats.Add(subCatToAdd);
+                        }
+                    }
+                    //Saves File to the Uploads folder
+                    HttpPostedFileBase folderfile = Request.Files[0];
+                    if (folderfile.ContentLength > 0)
+                    {
+                        var folderfileName = Path.GetFileName(folderfile.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                        folderfile.SaveAs(path);
+                    }
+
+                    //Other File information is stored in the DB
+                    db.FileStorages.Add(newFile);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    return View("FileError");
+                }
+
+            }
+            catch
+            {
+
+            }
+            return Content("<script type='text/javascript'>window.close();</script>");
+        }
+
 
         [HttpPost]
         [OnAction(ButtonName = "UploadFile")]
@@ -210,6 +291,7 @@ namespace HospiceNiagara.Controllers
             }
 
             PopulateAssignedRoles(fileStorage);
+            PopulateCatAndSubCat(fileStorage);
             return View(fileStorage);
         }
 
@@ -219,25 +301,25 @@ namespace HospiceNiagara.Controllers
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult EditPost(int? id, string[] selectedRoles)
+        public ActionResult EditPost(int? id, string[] selectedRoles, string[] selectedSubCats)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var roleToUpdate = db.FileStorages.Include(a => a.FileStoreUserRoles).Where(i => i.ID == id).Single();
+            FileStorage fileStorage = db.FileStorages.Include(a => a.FileStoreUserRoles).Where(i => i.ID == id).Single();
 
-            if (TryUpdateModel(roleToUpdate, "", new string[] { "ID", "MimeType", "FileName", "FileDescription", "HomeImage" }))
+            if (TryUpdateModel(fileStorage, "", new string[] { "ID", "MimeType", "FileName", "FileDescription", "HomeImage" }))
             {
                 try
                 {
-                    UpdateFileStorageRoles(selectedRoles, roleToUpdate);
-
+                    UpdateFileStorageRoles(selectedRoles, fileStorage);
+                    UpdateFileStorageCats(selectedSubCats, fileStorage);
                     if (ModelState.IsValid)
                     {
 
-                        db.Entry(roleToUpdate).State = EntityState.Modified;
+                        db.Entry(fileStorage).State = EntityState.Modified;
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -247,8 +329,9 @@ namespace HospiceNiagara.Controllers
                     ModelState.AddModelError("", "Unable to save after multiple attempts.  If problem persists, contact systems administrator");
                 }
             }
-            PopulateAssignedRoles(roleToUpdate);
-            return View(roleToUpdate);
+            PopulateAssignedRoles(fileStorage);
+            PopulateCatAndSubCat(fileStorage);
+            return View(fileStorage);
         }
 
         // GET: FileStorages/Delete/5
@@ -373,32 +456,40 @@ namespace HospiceNiagara.Controllers
 
         }
 
+        private void UpdateFileStorageCats(string[] selectedSubCats, FileStorage FileToUpdate)
+        {
+            if (selectedSubCats == null)
+            {
+                FileToUpdate.FileSubCats.Clear();
+                return;
+            }
+
+            if (selectedSubCats != null)
+            {
+                FileToUpdate.FileSubCats = new List<FileSubCat>();
+                foreach (var sc in selectedSubCats)
+                {
+                    var subCatToAdd = db.FileSubCats.Find(int.Parse(sc));
+                    FileToUpdate.FileSubCats.Add(subCatToAdd);
+                }
+            }
+        }
+
         private void UpdateFileStorageRoles(string[] selectedRoles, FileStorage FileToUpdate)
         {
             if (selectedRoles == null)
             {
-                FileToUpdate.FileStoreUserRoles = new List<RoleList>();
+                FileToUpdate.FileStoreUserRoles.Clear();
                 return;
             }
 
-            var selectedRolesHS = new HashSet<string>(selectedRoles);
-            var fileRoles = new HashSet<int>
-                (FileToUpdate.FileStoreUserRoles.Select(c => c.ID));//IDs of the currently selected roles
-            foreach (var rls in db.RoleLists)
+            if (selectedRoles != null)
             {
-                if (selectedRolesHS.Contains(rls.ID.ToString()))
+                FileToUpdate.FileStoreUserRoles = new List<RoleList>();
+                foreach (var rl in selectedRoles)
                 {
-                    if (!fileRoles.Contains(rls.ID))
-                    {
-                        FileToUpdate.FileStoreUserRoles.Add(rls);
-                    }
-                }
-                else
-                {
-                    if (fileRoles.Contains(rls.ID))
-                    {
-                        FileToUpdate.FileStoreUserRoles.Remove(rls);
-                    }
+                    var RollToAdd = db.RoleLists.Find(int.Parse(rl));
+                    FileToUpdate.FileStoreUserRoles.Add(RollToAdd);
                 }
             }
         }
