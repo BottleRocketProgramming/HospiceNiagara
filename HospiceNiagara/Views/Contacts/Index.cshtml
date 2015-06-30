@@ -14,14 +14,15 @@
                     <div class="panel-heading">
                         @if (User.IsInRole("Administrator") && firstPanel == false || User.IsInRole("Create/Modify Contacts") && firstPanel == false)
                         {
-                            <span id="glyphNewContact" class="glyphicon glyphicon-plus pull-right"></span>
+                            <span id="glyphNewContact" class="glyphicon glyphicon-plus pull-left"></span>
                         }
                         <h3 id="contactTitle" class="panel-title">@Html.DisplayFor(modelItem => type.ContactTypeName)</h3>
                         <h3 id="newContactTitle" class="panel-title" hidden>New Contact</h3>
                     </div>
-                    <table @{ if (firstPanel == false) 
+                    <table @{ 
+                                if (firstPanel == false) 
                                 { 
-                                  @: id="contactContent"
+                                    @:id="contactContent"
                                 }
                            }
                            class="table table-striped">
