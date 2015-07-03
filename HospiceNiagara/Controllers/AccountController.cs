@@ -305,20 +305,21 @@ namespace HospiceNiagara.Controllers
                 }
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-               
-                 System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(new System.Net.Mail.MailAddress("hospicetestuser@outlook.com", "Hospice Niagara Password Reset"),
-                        new System.Net.Mail.MailAddress(user.Email));
 
-                        m.Subject = "Hospice Niagara Password Reset";
-                        m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have requested a password reset for the Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to reset your password. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Click this link so you can reset your Password</a>", user.UserName, Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme));
-                        m.IsBodyHtml = true;
+                MailMessage m = new MailMessage();
+                m.From = new MailAddress("noreply@hospiceniagaraportal.ca");
+                m.To.Add(new MailAddress(user.Email));
+                m.Subject = "Hospice Niagara Password Reset";
+                m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have requested a password reset for the Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to reset your password. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Click this link so you can reset your Password</a>", user.UserName, Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme));
+                m.IsBodyHtml = true;
+                SmtpClient smtp = new System.Net.Mail.SmtpClient("smtpout.secureserver.net");
+                smtp.Port = 25;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential("noreply@hospiceniagaraportal.ca", "HNPortalAdmin1");
+                smtp.EnableSsl = false;
+                smtp.Send(m);
 
-                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
-                    smtp.Credentials = new System.Net.NetworkCredential("hospicetestuser@outlook.com", "Pa55word01");
-                    smtp.EnableSsl = true;
-                    smtp.Send(m);
-
-                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form

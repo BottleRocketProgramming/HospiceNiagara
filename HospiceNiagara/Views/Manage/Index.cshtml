@@ -1,9 +1,9 @@
 ﻿@model HospiceNiagara.Models.IndexViewModel
 @{
-    ViewBag.Title = "Change Password";
+    ViewBag.Title = "Account Management";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <h3 class="text-success">@ViewBag.StatusMessage</h3>
 <div>
@@ -20,13 +20,8 @@
                 @Html.ActionLink("Change your password", "ChangePassword")
             }
         </dd>
-            @*else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
+            
+        @*<dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
