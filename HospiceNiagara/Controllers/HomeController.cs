@@ -54,7 +54,7 @@ namespace HospiceNiagara.Controllers
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate).Take(5);
             ViewData["Meeting"] = meetForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             ViewData["Schedule"] = schedForList.ToList().Distinct();
-            ViewData["RecentlyPassed"] = db.DeathNotices.ToList().OrderByDescending(d => d.DnDate);
+            ViewData["RecentlyPassed"] = db.DeathNotices.ToList().OrderByDescending(d => d.DnDate).Take(10);
             ViewData["HomepageImages"] = db.FileStorages.Where(f => f.HomeImage == true).ToList();
 
             return View();

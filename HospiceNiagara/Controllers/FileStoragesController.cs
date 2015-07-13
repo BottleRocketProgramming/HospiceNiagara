@@ -437,7 +437,7 @@ namespace HospiceNiagara.Controllers
                 });
             }
 
-            ViewBag.FileSubCat = viewModelSubCat;
+            ViewBag.FileSubCat = viewModelSubCat.OrderBy(s => s.FileSubCatName).ToList();
             ViewBag.Cat = viewModelCats;
         }
 

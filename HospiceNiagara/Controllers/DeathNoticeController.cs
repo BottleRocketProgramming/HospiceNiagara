@@ -24,7 +24,7 @@ namespace HospiceNiagara.Controllers
             PopulatePoems();
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_asc" : "";
             ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            var deathnotices = db.DeathNotices.ToList();
+            var deathnotices = db.DeathNotices.OrderByDescending(d => d.DnDate).Take(10).ToList();
 
             switch (sortOrder)
             {
