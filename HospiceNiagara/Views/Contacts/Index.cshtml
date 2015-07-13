@@ -62,7 +62,10 @@
                                     {
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", new { id = contact.ID })
-                                            @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
+                                            @if (User.IsInRole("Administrator") || User.IsInRole("Remove Records"))
+                                            {
+                                                @Html.ActionLink("Delete", "Delete", new { id = contact.ID })
+                                            }
                                         </td>
                                     }
                                 </tr>

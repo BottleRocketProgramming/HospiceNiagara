@@ -20,7 +20,6 @@ namespace HospiceNiagara.Models
         public string EventTitle { get; set; }
 
         [Display(Name="Description")]
-        [Required(ErrorMessage = "Event's description can not be left blank")]
         [AllowHtml]
         public string EventDiscription { get; set; }
 

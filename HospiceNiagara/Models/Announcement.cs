@@ -22,7 +22,6 @@ namespace HospiceNiagara.Models
         public string AnnounceTitle { get; set; }
 
         [Display(Name= "Announcement")]
-        [Required(ErrorMessage = "Announcement can not be left blank")]
         [AllowHtml]
         public string AnnounceText { get; set; }
 

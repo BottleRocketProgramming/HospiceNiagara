@@ -278,7 +278,10 @@
                         {
                             <div class="panel-footer text-center">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-default" }) 
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+                                @if (User.IsInRole("Administrator") || User.IsInRole("Remove Records"))
+                                {
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+                                }
                             </div>
                         }
                     </div>
@@ -297,10 +300,7 @@
         $(document).ready(function () {
 
             ShowPopup = function () {
-                if (!window.showModalDialog) {
-                    window.open('/FileStorages/UploadNewFile', "WindowPopup", 'width=400px,height=400px');
-                }
-                window.showModalDialog('/FileStorages/UploadNewFile', "WindowPopup", 'width=400px,height=400px');
+                window.open('/FileStorages/UploadNewFile', "WindowPopup", 'scrollbars=yes,width=400px,height=400px');
             }
 
             $('#glyphAddEvent').on('click', function () {

@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Admin";
 }
+
 @if (User.IsInRole("Administrator"))
 {
     <div class="col-sm-3">
@@ -10,33 +11,13 @@
                 <span title="Data Maintenance" data-content="Here you can access administrative views of the major data in the system. This enables you to access files regardless of assigned roles, or whether the date of the record has passed." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 Data Maintenance
             </div>
-            <table class="table text-center">
-                <tr>
-                    <td>
-                        <a href=../DeathNotice/AdminList>View all Death Notices</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Announcement/AdminList>View all Announcements</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Meeting/AdminList>View all Events</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Schedule/AdminList>View all Schedules</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../Contacts/AdminList>View all Contacts</a>
-                    </td>
-                </tr>
-            </table>
+            <ul class="list-group text-center">
+                <li class="list-group-item btn btn-default" onclick="location.href='../DeathNotice/AdminList';"><a style="text-decoration:none;">View all Death Notices</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href='../Announcement/AdminList';"><a style="text-decoration:none;">View all Announcements</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href='../Meeting/AdminList';"><a style="text-decoration:none;">View all Events</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href='../Schedule/AdminList';"><a style="text-decoration:none;">View all Schedules</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href='../Contacts/AdminList';"><a style="text-decoration:none;">View all Contacts</a></li>
+            </ul>
         </div>
     </div>
 }
@@ -48,26 +29,14 @@
                 <span title="User Management" data-content="Here you can register new users and modify existing ones, as well as modify user roles." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 Manage Users
             </div>
-            <table class="table text-center">
-                <tr>
-                    <td>
-                        <a href=../Account/Register>Register New Users</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../ApplicationUsers/Index>Manage Users</a>
-                    </td>
-                </tr>
+            <ul class="list-group text-center">
+                <li class="list-group-item btn btn-default" onclick="location.href = '../Account/Register';"><a style="text-decoration:none;">Register New Users</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href = '../ApplicationUsers/Index';"><a style="text-decoration:none;">Manage Users</a></li>
                 @if (User.IsInRole("Administrator"))
                 {
-                    <tr>
-                        <td>
-                            <a href=../RoleLists/Index>Manage Roles</a>
-                        </td>
-                    </tr>
+                    <li class="list-group-item btn btn-default" onclick="location.href = '../RoleLists/Index';"><a style="text-decoration:none;">Manage Roles</a></li>
                 }
-            </table>
+            </ul>
         </div>
     </div>
 }
@@ -79,38 +48,14 @@
                 <span title="User Management" data-content="Here you can access and modify all other site data." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 Site Maintenance
             </div>
-            <table class="table text-center">
-                <tr>
-                    <td>
-                        <a href=../FileCats/Index>Manage File Categories</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../FileSubcats/Index>Manage File Subcategories</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../SchedTypes/Index>Manage Schedule Types</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../ContactTypes/Index>Manage Contact Types</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../DeathNoticePoems/Index>Manage Death Notice Poems</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href=../WelcomeNotice/Edit/1>Edit Welcome Notice</a>
-                    </td>
-                </tr>
-            </table>
+            <ul class="list-group text-center">
+                <li class="list-group-item btn btn-default" onclick="location.href = '../FileCats/Index';"><a style="text-decoration:none;">Manage File Categories</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href = '../FileSubcats/Index';"><a style="text-decoration:none;">Manage File Subcategories</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href = '../SchedTypes/Index';"><a style="text-decoration:none;">Manage Schedule Types</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href = '../ContactTypes/Index';"><a style="text-decoration:none;">Manage Contact Types</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href = '../DeathNoticePoems/Index';"><a style="text-decoration:none;">Manage Death Notice Poems</a></li>
+                <li class="list-group-item btn btn-default" onclick="location.href = '../WelcomeNotice/Edit/1';"><a style="text-decoration:none;">Edit Welcome Notice</a></li>
+            </ul>
         </div>
     </div>
 }

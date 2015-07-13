@@ -210,7 +210,7 @@ namespace HospiceNiagara.Controllers
                     m.From = new MailAddress("noreply@hospiceniagaraportal.ca");
                     m.To.Add(new MailAddress(user.Email));
                     m.Subject = "Hospice Niagara Registration Cofirmation";
-                    m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
+                    m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have been registered as a user for Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to confirm your e-mail so registration can be completed. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Please Click this link to confirm your e-mail</a><br />Your Password is &#39; Password1 &#39;, you will be asked to change this when you log on. Your information is all placeholder, so if you would like to add info like your birthdate click on your name in the top right of the site once logged in.", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
                     m.IsBodyHtml = true;
                     SmtpClient smtp = new System.Net.Mail.SmtpClient("smtpout.secureserver.net");
                     smtp.Port = 25;

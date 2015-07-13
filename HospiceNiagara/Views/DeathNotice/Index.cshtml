@@ -64,8 +64,12 @@
                             @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                             {
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                                    @if (User.IsInRole("Administrator") || User.IsInRole("Remove Records"))
+                                    {
+                                       @:|
+                                       @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    }
                                 </td>
                             }
                         </tr>

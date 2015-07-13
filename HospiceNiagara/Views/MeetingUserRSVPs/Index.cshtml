@@ -5,7 +5,7 @@
 }
 
 
-<div class="col-lg-12">
+<div class="col-md-12">
     <div class="panel panel-success ">
         <div class="panel-heading">
             <span title="Invitiations" data-content="Here you can view all your invitations for currently pending events. Click on RSVP to leave your response, or click details to navigate to the events page for more details." class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
@@ -58,13 +58,13 @@
                         </td>
                         <td>
                             @Html.ActionLink("RSVP", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "../Meeting/Details/", new { id = item.MeetingRSVP.ID })
+                            @Html.ActionLink("Event Details", "../Meeting/Details/", new { id = item.MeetingRSVP.ID })
                         </td>
                     </tr>
                 }
 
             </table>
-            @Html.ActionLink("Back to Meetings and Events", "../Meeting/Index")
+            @Html.ActionLink("Go to Meetings and Events", "../Meeting/Index")
         
          </div>
      </div>

@@ -22,7 +22,6 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            DateTime insevendays = DateTime.Today.AddDays(7);
             var cUserRoles = db.RoleLists.Where(r => r.IsPerm == false);
             var meetForList = db.Meetings.Where(m => m.ID == 0);
             var annForList = db.Announcements.Where(a => a.ID == 0);
@@ -51,7 +50,7 @@ namespace HospiceNiagara.Controllers
 
             ViewBag.WelcomeNotice = viewModel;
             annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
-            meetForList = meetForList.Where(m => m.EventDate < insevendays).Where(m => m.EventDate >= DateTime.Today);
+            meetForList = meetForList.Where(m => m.EventDate >= DateTime.Today).Take(5);
             ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate).Take(5);
             ViewData["Meeting"] = meetForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
             ViewData["Schedule"] = schedForList.ToList().Distinct();

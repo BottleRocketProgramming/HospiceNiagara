@@ -203,6 +203,10 @@
     <Compile Include="Migrations\201506231416188_lastLogin.Designer.cs">
       <DependentUpon>201506231416188_lastLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507101512046_DescNotRequired.cs" />
+    <Compile Include="Migrations\201507101512046_DescNotRequired.Designer.cs">
+      <DependentUpon>201507101512046_DescNotRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -507,6 +511,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506231416188_lastLogin.resx">
       <DependentUpon>201506231416188_lastLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507101512046_DescNotRequired.resx">
+      <DependentUpon>201507101512046_DescNotRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
