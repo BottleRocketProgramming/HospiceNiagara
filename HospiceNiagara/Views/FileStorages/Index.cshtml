@@ -5,6 +5,8 @@
 }
 
 @* Paul Boyko March 2015 *@
+@* Edited by Anreas King June 2015 *@
+ 
 
 <div class="container">
     @*Initialize filters and gets current url*@
@@ -13,7 +15,8 @@
         List<HospiceNiagara.ViewModels.FileSubCatVM> subCat = ViewBag.FileSubCat;
         var url = Request.Url.PathAndQuery;
      }
-     
+    
+
     @*Column for the File Window*@
     <div class="col-md-8">
         <div class="panel panel-info">
@@ -244,14 +247,16 @@
     </div>
 </div>
 
+
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
-    @Html.Raw(TempData["msg"])
+    @Html.Raw(TempData["Duplicate"])
     <script>
         $(document).ready(function () {
             $('#btnSearch').hide();
             $('[data-toggle="popover"]').popover();
-            
+
+
             $('#glyphNewFile').on('click', function () {
                 $('#fileListTitle').slideToggle();
                 $('#fileContent').slideToggle();
