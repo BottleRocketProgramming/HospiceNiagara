@@ -121,6 +121,12 @@ namespace HospiceNiagara.Controllers
             string fileName = Path.GetFileName(Request.Files[0].FileName);
             int fileLenght = Request.Files[0].ContentLength;
 
+            var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+            if (System.IO.File.Exists(path))
+            {
+                TempData["Duplicate"] = "<script type='text/javascript'>window.alert('The file " + fileName + " already exists. Please ensure that the file you are submitting is not already uploaded.'); window.history.back();</script>";
+                return RedirectToAction("Index");
+            }
             try
             {
                 if (!(fileName == "" || fileLenght == 0))
@@ -158,7 +164,7 @@ namespace HospiceNiagara.Controllers
                     if (folderfile.ContentLength > 0)
                     {
                         var folderfileName = Path.GetFileName(folderfile.FileName);
-                        var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                        path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
                         folderfile.SaveAs(path);
                     }
 
@@ -168,7 +174,8 @@ namespace HospiceNiagara.Controllers
                 }
                 else
                 {
-                    return View("FileError");
+                    TempData["Duplicate"] = "<script type='text/javascript'>window.alert('Please Select A File To Upload'); window.history.back();</script>";
+                    return RedirectToAction("Index");
                 }
 
             }
@@ -246,7 +253,8 @@ namespace HospiceNiagara.Controllers
                 }
                 else
                 {
-                    return View("FileError");
+                    TempData["Duplicate"] = "<script type='text/javascript'>window.alert('Please Select A File To Upload');</script>";
+                    return RedirectToAction("Index");
                 }
                     
             } 

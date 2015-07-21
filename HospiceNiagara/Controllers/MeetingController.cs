@@ -49,7 +49,7 @@ namespace HospiceNiagara.Controllers
                 }
             }
 
-            ViewData["Meeting"] = mttForList.ToList().Distinct();
+            ViewData["Meeting"] = mttForList.OrderBy(m => m.EventDate).ToList().Distinct();
             ViewData["MeetingID"] = id;
             Meeting meeting = db.Meetings.Find(id);
 

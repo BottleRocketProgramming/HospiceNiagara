@@ -18,7 +18,7 @@
         <div class="panel panel-success ">
             <div class="panel-heading">
                 <span id="glyphAnnouncementInfo" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" title="Announcements" data-placement="bottom" data-trigger="hover" data-content="Here you can view the five latest announcements. You can click on any announcement to navigate to it, or navigate to the announcements page by clicking the title of this panel"></span>
-                <h3 class="panel-title"><a href="../Announcement" style ="color: inherit; text-decoration: none;">Latest Announcements</a></h3>
+                <h3 class="panel-title"><a href="../Announcement" style ="color: inherit;">Latest Announcements</a></h3>
             </div>
             <ul class="list-group">
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
@@ -45,8 +45,8 @@
 
         <div class="panel panel-success ">
             <div class="panel-heading">
-                <span title="Meetings and Events" data-content="Here you can view up to 5 upcoming meetings and events. You can click any meeting/event to navigate to it, or go to the Meetings and Events page by clicking the title of this panel" id="glyphMeetingInfo" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
-                <h3 class="panel-title"><a href="../Meeting" style="color: inherit; text-decoration: none;">Upcoming Events/Meetings</a></h3>
+                <span title="Meetings and Events" data-content="Here you can view up to five upcoming meetings and events. You can click any meeting/event to navigate to it, or go to the Meetings and Events page by clicking the title of this panel" id="glyphMeetingInfo" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
+                <h3 class="panel-title"><a href="../Meeting" style="color: inherit;">Upcoming Events/Meetings</a></h3>
             </div>
             <table class="table">
                 <tr>
@@ -57,7 +57,7 @@
                         Location
                     </th>
                     <th>
-                        Day
+                        When
                     </th>
                 </tr>
 
@@ -70,7 +70,7 @@
                         @Html.DisplayFor(modelItem => item.EventLocation)
                     @:</td>
                     @:<td>
-                        @Html.DisplayFor(modelItem => item.EventDate.DayOfWeek)
+                        @Html.DisplayFor(modelItem => item.EventDateString)
                     @:</td>
                     @:</tr>  
                 }
@@ -81,7 +81,7 @@
             <div class="panel-heading">
                 <span id="glyphDeathHide" class="glyphicon glyphicon-collapse-down pull-right"></span>
                 <span id="glyphDeathShow" class="glyphicon glyphicon-collapse-up pull-right"></span>
-                <h3 class="panel-title"><a href="../DeathNotice" style="color: inherit; text-decoration: none;">Rest in Peace</a></h3>
+                <h3 class="panel-title"><a href="../DeathNotice" style="color: inherit;">Rest in Peace</a></h3>
             </div>
             <div id="panelDeathNoticeContent">
                 <table class="table">
@@ -192,7 +192,7 @@
         <div class="panel panel-success ">
             <div class="panel-heading">
                 <span title="Schedules" data-content="Here you can view your schedules. Clicking on one navigates to it, or you can go to the schedules page by clicking the title of this panel" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
-                <h3 class="panel-title"><a href="../Schedule" style="color: inherit; text-decoration: none;">My Schedules</a></h3>
+                <h3 class="panel-title"><a href="../Schedule" style="color: inherit;">My Schedules</a></h3>
             </div>
             <ul class="list-group text-center">
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.Schedule>)ViewData["Schedule"])
@@ -222,7 +222,7 @@
                 </div>
                 <ul class="list-group text-center">
                     <li class="list-group-item btn btn-default" onclick="window.open('https://css.hr.ccim.on.ca/HospiceNiagara');"><a style="text-decoration:none;">Pay Statements - QHR Net</a></li>
-                    <li class="list-group-item btn btn-default" onclick="window.open('https://portal.microsoftonline.com');"><a style="text-decoration:none;">Hospice Niagara Email Login</a></li>
+                    <li class="list-group-item btn btn-default" onclick="window.open('https://portal.microsoftonline.com');"><a style="text-decoration:none;">HN Office Webmail Login</a></li>
                     <li class="list-group-item btn btn-default" onclick="window.open('https://onlineservices.greenshield.ca/planmember/AccessMgmt/Public/SignOn.aspx');"><a style="text-decoration:none;">Group Plan Benefits - Green Shield</a></li>
                     <li class="list-group-item btn btn-default" onclick="window.open('https://grsmembers.manulife.com/wps/myportal/grsmembers/HomeEN');"><a style="text-decoration:none;">Group RRSP - Manulife</a></li>
                     <li class="list-group-item btn btn-default" onclick="window.open('http://sumac.com/training/');"><a style="text-decoration:none;">Sumac Training</a></li>

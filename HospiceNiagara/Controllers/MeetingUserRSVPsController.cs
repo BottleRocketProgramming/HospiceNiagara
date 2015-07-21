@@ -89,7 +89,6 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
-        //Filtering
 
 
         // POST: MeetingUserRSVPs/Create
@@ -120,6 +119,7 @@ namespace HospiceNiagara.Controllers
                                 meetingUserRSVP.AppUser = userToAdd;
                                 db.MeetingUserRSVPs.Add(meetingUserRSVP);
                                 db.SaveChanges();
+                                return RedirectToAction("Details", "Meeting", new { id = meetingToAdd.ID });
                             }
                             else
                             {
