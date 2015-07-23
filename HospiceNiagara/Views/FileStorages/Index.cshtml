@@ -87,13 +87,12 @@
                         </td>
                         <td>
                             @Html.ActionLink("Download", "Download", new { id = item.ID })
-                            @if (User.IsInRole("Administrator"))
+                            @if (User.IsInRole("Administrator")||User.Identity.Name == item.UploadedBy)
                             {
                                 <br />
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                                @:|
-                                @Html.ActionLink("Details", "Details", new { id = item.ID })
-                                @:|
+                                @Html.ActionLink("Edit ", "Edit", new { id = item.ID })
+                                @Html.ActionLink("Details ", "Details", new { id = item.ID })
+                                
                                 if (User.IsInRole("Administrator") || User.IsInRole("Remove Records"))
                                 {
                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })

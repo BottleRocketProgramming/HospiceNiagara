@@ -23,7 +23,7 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Index(string searchString, int? id)
         {
-            var uRole = db.RoleLists.Where(r => r.IsPerm == false);
+            var uRole = db.RoleLists;
             var fileR = new FileStorage();
             fileR.FileStoreUserRoles = new List<RoleList>();
             fileR.FileSubCats = new List<FileSubCat>();
@@ -45,9 +45,9 @@ namespace HospiceNiagara.Controllers
             bool hasBeenFiltered = false;
             if(id != null && id != 0)
             {
-                allFileForList =allFileForList.Where(f => f.FileSubCats.Any(sc => sc.ID == id));                
-                var searchSubCat = db.FileSubCats.Where(a=>a.ID == id).Single();
-                var searchCat = db.FileCats.Where(b => b.ID == searchSubCat.FileCatFK).Single();
+                allFileForList =allFileForList.Where(f => f.FileSubCats.Any(sc => sc.ID == id));
+                var searchSubCat = db.FileSubCats.Single(a => a.ID == id);
+                var searchCat = db.FileCats.Single(b => b.ID == searchSubCat.FileCatFK);
                 var viewModel = new SearchDisplayVM();
                 viewModel.SearchSubCatName = searchSubCat.FileSubCatName;
                 viewModel.SeachCatName = searchCat.FileCatName;
@@ -149,6 +149,12 @@ namespace HospiceNiagara.Controllers
                             newFile.FileStoreUserRoles.Add(roleToAdd);
                         }
                     }
+                    else
+                    {
+                        newFile.FileStoreUserRoles = new List<RoleList>();
+                        var roleToAdd = db.RoleLists.Single(r => r.RoleName == "Administrator");
+                        newFile.FileStoreUserRoles.Add(roleToAdd);
+                    }
 
                     if (selectedSubCats != null)
                     {
@@ -228,6 +234,12 @@ namespace HospiceNiagara.Controllers
                             newFile.FileStoreUserRoles.Add(roleToAdd);
                         }
                     }
+                    else
+                    {
+                        newFile.FileStoreUserRoles = new List<RoleList>();
+                        var roleToAdd = db.RoleLists.Single(r => r.RoleName == "Administrator");
+                        newFile.FileStoreUserRoles.Add(roleToAdd);
+                    }
 
                     if (selectedSubCats != null)
                     {
@@ -292,14 +304,14 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: FileStorages/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Upload Resources")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FileStorage fileStorage = db.FileStorages.Include(r => r.FileStoreUserRoles).Where(i => i.ID == id).Single();
+            FileStorage fileStorage = db.FileStorages.Include(r => r.FileStoreUserRoles).Single(i => i.ID == id);
             if (fileStorage == null)
             {
                 return HttpNotFound();
@@ -315,7 +327,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Upload Resources")]
         public ActionResult EditPost(int? id, string[] selectedRoles, string[] selectedSubCats)
         {
             if (id == null)
@@ -323,7 +335,7 @@ namespace HospiceNiagara.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            FileStorage fileStorage = db.FileStorages.Include(a => a.FileStoreUserRoles).Where(i => i.ID == id).Single();
+            FileStorage fileStorage = db.FileStorages.Include(a => a.FileStoreUserRoles).Single(i => i.ID == id);
 
             if (TryUpdateModel(fileStorage, "", new string[] { "ID", "MimeType", "FileName", "FileDescription", "HomeImage" }))
             {
@@ -388,7 +400,7 @@ namespace HospiceNiagara.Controllers
         [Authorize]
         public ActionResult Download(int id)
         {
-            var downloadFile = db.FileStorages.Where(f => f.ID == id).SingleOrDefault();
+            var downloadFile = db.FileStorages.SingleOrDefault(f => f.ID == id);
             var fileRoles = downloadFile.FileStoreUserRoles;
             foreach(var role in fileRoles)
             {
@@ -492,12 +504,6 @@ namespace HospiceNiagara.Controllers
 
         private void UpdateFileStorageRoles(string[] selectedRoles, FileStorage FileToUpdate)
         {
-            if (selectedRoles == null)
-            {
-                FileToUpdate.FileStoreUserRoles.Clear();
-                return;
-            }
-
             if (selectedRoles != null)
             {
                 FileToUpdate.FileStoreUserRoles = new List<RoleList>();
@@ -506,6 +512,12 @@ namespace HospiceNiagara.Controllers
                     var RollToAdd = db.RoleLists.Find(int.Parse(rl));
                     FileToUpdate.FileStoreUserRoles.Add(RollToAdd);
                 }
+            }
+            else
+            {
+                FileToUpdate.FileStoreUserRoles = new List<RoleList>();
+                var roleToAdd = db.RoleLists.Single(r => r.RoleName == "Administrator");
+                FileToUpdate.FileStoreUserRoles.Add(roleToAdd);
             }
         }
 

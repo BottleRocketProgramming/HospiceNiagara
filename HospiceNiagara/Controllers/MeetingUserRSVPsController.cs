@@ -119,7 +119,6 @@ namespace HospiceNiagara.Controllers
                                 meetingUserRSVP.AppUser = userToAdd;
                                 db.MeetingUserRSVPs.Add(meetingUserRSVP);
                                 db.SaveChanges();
-                                return RedirectToAction("Details", "Meeting", new { id = meetingToAdd.ID });
                             }
                             else
                             {
@@ -140,7 +139,7 @@ namespace HospiceNiagara.Controllers
             PopulateAssignedUsers(meetingUserRSVP);
             ViewBag.MeetingID = meetingID;
             ViewBag.Roles = list;
-            return View(meetingUserRSVP);
+            return RedirectToAction("Details", "Meeting", new { id = meetingID });
         }
 
         // GET: MeetingUserRSVPs/Edit/5

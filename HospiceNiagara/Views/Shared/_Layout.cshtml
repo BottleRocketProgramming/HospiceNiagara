@@ -68,10 +68,10 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle @Html.IsActive("Meeting", "Index")  @Html.IsActive("MeetingUserRSVPs", "Index")" style="color:white;" data-toggle="dropdown" role="button" aria-expanded="false">Meetings/Events<span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle @Html.IsActive("Meeting", "Index")  @Html.IsActive("MeetingUserRSVPs", "Index")" style="color:white;" data-toggle="dropdown" role="button" aria-expanded="false">Meetings/Events @Html.Action("GetCount", "MeetingUserRSVPs")<span class="caret"></span></a>
                                     <ul class="dropdown-menu navbar-default" role="menu">
                                         <li class='@Html.IsActive("Meeting", "Index")'>@Html.ActionLink("Meetings/Events", "Index", "Meeting", null, new { style = "color:white" })</li>
-                                        <li class='@Html.IsActive("MeetingUserRSVPs", "Index")'>@Html.Action("GetCount", "MeetingUserRSVPs")</li>
+                                        <li class='@Html.IsActive("MeetingUserRSVPs", "Index")'><a href="../../MeetingUserRSVPs/" style="color:white"><span class="pull-right">@Html.Action("GetCount", "MeetingUserRSVPs")</span>Invitations</a> </li>
                                     </ul>
                                 </li>
                                 <li class='@Html.IsActive("FileStorages", "Index")'>@Html.ActionLink("Resources", "Index", "FileStorages", null, new { style = "color:white" })</li>
