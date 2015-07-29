@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HospiceNiagara.Models.Announcement>
+﻿@using PagedList.Mvc;
+
+@model PagedList.IPagedList<HospiceNiagara.Models.Announcement>
 
 @{
     ViewBag.Title = "AdminList";
@@ -11,15 +13,15 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AnnounceTitle)
+            Title
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.AnnounceText)
+            Description
         </th>
        
         <th>
-            @Html.DisplayNameFor(model => model.AnnounceEndDate)
+            End Date
         </th>
         
         <th></th>
@@ -48,3 +50,10 @@
 }
 
 </table>
+
+<div class="text-center">
+    <div class="center-block">
+        @Html.PagedListPager(Model, page => Url.Action("AdminList", new { page, pageSize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Announcements
+    </div>
+</div>

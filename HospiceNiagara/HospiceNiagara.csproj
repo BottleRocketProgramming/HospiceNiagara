@@ -488,6 +488,7 @@
     <Content Include="Views\FileStorages\UploadNewFile.cshtml" />
     <Content Include="Views\FileStorages\CloseNewFileWindow.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
+    <Content Include="Views\DeathNotice\_Pager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

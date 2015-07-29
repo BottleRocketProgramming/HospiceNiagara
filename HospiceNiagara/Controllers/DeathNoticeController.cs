@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.Models;
 using HospiceNiagara.ViewModels;
+using PagedList;
 
 //Andreas King March 2015
 
@@ -19,13 +20,13 @@ namespace HospiceNiagara.Controllers
 
         // GET: DeathNotice
         [Authorize]
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, int page = 1, int pageSize = 10)
         {
             PopulatePoems();
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_asc" : "";
             ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            DateTime ThreeMonthsAgo = DateTime.Today.AddMonths(-3);
-            var deathnotices = db.DeathNotices.Where(d => d.DnDate > ThreeMonthsAgo).OrderByDescending(d => d.DnDate).ToList();
+            var deathnotices = db.DeathNotices.OrderByDescending(d => d.DnDate).ToList();
+            
 
             switch (sortOrder)
             {
@@ -43,16 +44,21 @@ namespace HospiceNiagara.Controllers
                     break;
             }
 
-            ViewData["DeathNoticeList"] = deathnotices;
+            PagedList<DeathNotice> DnsWithPage = new PagedList<DeathNotice>(deathnotices, page, pageSize);
+
+            ViewData["DeathNoticeList"] = DnsWithPage;
 
             return View();
         }
 
         //Admin List
         [Authorize(Roles = "Administrator")]
-        public ActionResult AdminList()
+        public ActionResult AdminList(int page = 1, int pageSize = 10)
         {
-            return View(db.DeathNotices.ToList());
+            List<DeathNotice> Dns = db.DeathNotices.OrderByDescending(dn => dn.DnDate).ToList();
+            PagedList<DeathNotice> DnsWithPage = new PagedList<DeathNotice>(Dns, page, pageSize);
+
+            return View(DnsWithPage);
         }
 
         // GET: DeathNotice/Details/5

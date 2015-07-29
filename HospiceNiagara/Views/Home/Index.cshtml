@@ -11,7 +11,7 @@
             <div id="welcomeContent" class="panel-body text-center">
                 @{
                     HospiceNiagara.ViewModels.WelcomeNoticeVM wN = ViewBag.WelcomeNotice;
-                    @Html.DisplayFor(model => wN.WelocomeNotice)
+                    @Html.Raw(wN.WelocomeNotice)
                 }
             </div>
         </div>
@@ -20,27 +20,30 @@
                 <span id="glyphAnnouncementInfo" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" title="Announcements" data-placement="bottom" data-trigger="hover" data-content="Here you can view the five latest announcements. You can click on any announcement to navigate to it, or navigate to the announcements page by clicking the title of this panel"></span>
                 <h3 class="panel-title"><a href="../Announcement" style ="color: inherit;">Latest Announcements</a></h3>
             </div>
-            <ul class="list-group">
+            <table class="table table-hover">
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.Announcement>)ViewData["AnnouncementOrEvent"])
                 {
-                    @:<li class="list-group-item">
-
-                    var url = Request.Url.PathAndQuery;
-                    if (url.EndsWith("Home/Index"))
-                    {
-                        <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
-                    }
-                    else if (url.EndsWith("Home"))
-                    {
-                        <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
-                    }
-                    else
-                    {
-                        <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
-                    }
-                    @:</li>
+                    @:<tr>
+                        <td>
+                            @{
+                                var url = Request.Url.PathAndQuery;
+                                if (url.EndsWith("Home/Index"))
+                                {
+                                    <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
+                                }
+                                else if (url.EndsWith("Home"))
+                                {
+                                    <a href=../Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
+                                }
+                                else
+                                {
+                                    <a href=Announcement/Details/@item.ID>@Html.DisplayFor(modelItem => item.AnnounceTitle)</a>
+                                }
+                            }
+                        </td>
+                    @:</tr>
                 }
-            </ul>
+            </table>
         </div>
 
         <div class="panel panel-success ">
@@ -48,7 +51,7 @@
                 <span title="Meetings and Events" data-content="Here you can view up to five upcoming meetings and events. You can click any meeting/event to navigate to it, or go to the Meetings and Events page by clicking the title of this panel" id="glyphMeetingInfo" class="glyphicon glyphicon-info-sign pull-right" data-toggle="popover" data-placement="bottom" data-trigger="hover"></span>
                 <h3 class="panel-title"><a href="../Meeting" style="color: inherit;">Upcoming Events/Meetings</a></h3>
             </div>
-            <table class="table">
+            <table class="table table-hover">
                 <tr>
                     <th>
                         Name
@@ -84,7 +87,7 @@
                 <h3 class="panel-title"><a href="../DeathNotice" style="color: inherit;">Rest in Peace</a></h3>
             </div>
             <div id="panelDeathNoticeContent">
-                <table class="table">
+                <table class="table table-hover">
                     <tr>
                         <th>
                             Name

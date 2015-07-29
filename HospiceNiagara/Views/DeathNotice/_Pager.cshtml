@@ -1,0 +1,9 @@
+﻿@model PagedList.IPagedList<HospiceNiagara.Models.DeathNotice>
+@using PagedList.Mvc;
+
+<div id="pager" class="text-center panel-body">
+    <div class="center-block">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount RIPs
+    </div>
+</div>

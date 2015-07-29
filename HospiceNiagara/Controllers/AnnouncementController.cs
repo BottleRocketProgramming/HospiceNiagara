@@ -11,6 +11,7 @@ using HospiceNiagara.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.Infrastructure;
 using System.Web.Security;
+using PagedList;
 
 //Paul Boyko Feb 2015
 //Edits from Andreas King March 2015
@@ -45,16 +46,19 @@ namespace HospiceNiagara.Controllers
 
             annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
 
-            ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate);
+            ViewData["AnnouncementOrEvent"] = annForList.Distinct().OrderByDescending(a => a.UploadDate).ToList();
             
             return View();
         }
 
         //Admin List
         [Authorize(Roles = "Administrator")]
-        public ActionResult AdminList()
+        public ActionResult AdminList(int page = 1, int pageSize = 10)
         {
-            return View(db.Announcements.ToList().OrderByDescending(a => a.UploadDate));
+            List<Announcement> Anns = db.Announcements.OrderByDescending(a => a.UploadDate).ToList();
+            PagedList<Announcement> AnnsWithPage = new PagedList<Announcement>(Anns, page, pageSize);
+
+            return View(AnnsWithPage);
         }
 
         // GET: Announcement/adminCreate

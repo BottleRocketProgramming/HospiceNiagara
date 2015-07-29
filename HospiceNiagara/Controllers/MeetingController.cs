@@ -14,6 +14,7 @@ using System.Web.Security;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
+using PagedList;
 
 
 //Andreas King March 2015
@@ -58,9 +59,12 @@ namespace HospiceNiagara.Controllers
 
         //Admin List
         [Authorize(Roles = "Administrator")]
-        public ActionResult AdminList()
+        public ActionResult AdminList(int page = 1, int pageSize = 10)
         {
-            return View(db.Meetings.ToList());
+            List<Meeting> Meets = db.Meetings.OrderByDescending(m => m.UploadDate).ToList();
+            PagedList<Meeting> MeetsWithPage = new PagedList<Meeting>(Meets, page, pageSize);
+
+            return View(MeetsWithPage);
         }
 
         // GET: Meeting/adminCreate

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HospiceNiagara.Models.Meeting>
+﻿@using PagedList.Mvc;
+
+@model PagedList.IPagedList<HospiceNiagara.Models.Meeting>
 
 @{
     ViewBag.Title = "AdminList";
@@ -12,19 +14,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.EventTitle)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventDiscription)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventLocation)
+            Location
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventDateString)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventTime)
+            Time
         </th>
         <th></th>
     </tr>
@@ -55,3 +57,10 @@
 }
 
 </table>
+
+<div class="text-center">
+    <div class="center-block">
+        @Html.PagedListPager(Model, page => Url.Action("AdminList", new { page, pageSize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Meetings/Events
+    </div>
+</div>

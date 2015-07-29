@@ -51,6 +51,20 @@ namespace HospiceNiagara.Models
         public Nullable<DateTime> LastLogin { get; set; }
 
         [Display(Name = "Date of Birth")]
+        public Nullable<DateTime> LoginTime
+        {
+            get
+            {
+                if (this.LastLogin.HasValue)
+                {
+                    return this.LastLogin.Value.AddHours(3);
+                }
+                else return null;
+
+            }
+        }
+
+        [Display(Name = "Date of Birth")]
         public string UserDOBString
         {
             get

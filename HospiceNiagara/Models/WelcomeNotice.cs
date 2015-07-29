@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace HospiceNiagara.Models
 {
@@ -13,6 +14,7 @@ namespace HospiceNiagara.Models
         [Required(ErrorMessage="Welcome notice is required")]
         [Display(Name="Welcome Notice")]
         [StringLength(250, ErrorMessage="Welcome notice can not be longer then 250 characters")]
+        [AllowHtml]
         public string WelocomeNotice { get; set; }
     }
 }

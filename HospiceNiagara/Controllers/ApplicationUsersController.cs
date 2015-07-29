@@ -11,6 +11,7 @@ using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using HospiceNiagara.ViewModels;
+using PagedList;
 
 //Paul Boyko April 2015
 
@@ -23,9 +24,19 @@ namespace HospiceNiagara.Controllers
 
         // GET: ApplicationUsers
         [Authorize(Roles = "Administrator, Manage Users")]
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            return View(db.Users.ToList());
+            var users = db.Users.OrderByDescending(u => u.LastLogin).ToList();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.UserFullName.ToLower().Contains(searchString.ToLower())
+                                       || u.Email.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+            PagedList<ApplicationUser> usersWithPage = new PagedList<ApplicationUser>(users, page, pageSize);
+
+            return View(usersWithPage);
         }
 
         // GET: ApplicationUsers/Details/5

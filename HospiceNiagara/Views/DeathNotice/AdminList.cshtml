@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HospiceNiagara.Models.DeathNotice>
+﻿@using PagedList.Mvc;
+
+@model PagedList.IPagedList<HospiceNiagara.Models.DeathNotice>
 
 @{
     ViewBag.Title = "AdminList";
@@ -14,22 +16,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DnFirstName)
+            First Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DnMiddleName)
+            Middle Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DnLastName)
+            Last Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DnDate)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DnLocation)
+            Location
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DnNotes)
+            Notes
         </th>
         <th></th>
     </tr>
@@ -63,3 +65,9 @@
 }
 
 </table>
+<div class="text-center">
+    <div class="center-block">
+        @Html.PagedListPager(Model, page => Url.Action("AdminList", new { page, pageSize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount RIPs
+    </div>
+</div>

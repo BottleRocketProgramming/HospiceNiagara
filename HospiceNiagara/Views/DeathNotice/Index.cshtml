@@ -1,4 +1,5 @@
 ﻿@model HospiceNiagara.Models.DeathNotice
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Rest in Peace";
@@ -17,69 +18,64 @@
         </div>
         <div id="panelDeathNoticeContent">
             @* Div for death notice List view *@
-            <div id="deathNoticeContent" class="panel-body">
-                <table class="table ">
+            <table id="deathNoticeContent" class="table">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DnLocation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DnNotes)
+                    </th>
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
+                    {
+                        <th></th>
+                    }
+                </tr>
+
+                @foreach (var item in (PagedList.IPagedList<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
+                {
                     <tr>
-                        <th>
-                            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
-                        </th>
-                        <th>
-                            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DnLocation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DnNotes)
-                        </th>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
+                            {<a target="_blank" href="@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a>}
+                            else if (!string.IsNullOrEmpty(item.DnLink))
+                            {<a target="_blank" href="http://@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a> }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.DnFullName)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DnDateString)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DnLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DnNotes)
+                        </td>
                         @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
                         {
-                            <th></th>
-                        }
-                    </tr>
-
-                    @foreach (var item in (IEnumerable<HospiceNiagara.Models.DeathNotice>)ViewData["DeathNoticeList"])
-                    {
-                        <tr>
                             <td>
-                                @if (!string.IsNullOrEmpty(item.DnLink) && item.DnLink.Contains("http"))
-                                {<a target="_blank" href="@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a>}
-                                else if (!string.IsNullOrEmpty(item.DnLink))
-                                {<a target="_blank" href="http://@item.DnLink">@Html.DisplayFor(modelItem => item.DnFullName)</a> }
-                                else
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                                @if (User.IsInRole("Administrator") || User.IsInRole("Remove Records"))
                                 {
-                                    @Html.DisplayFor(modelItem => item.DnFullName)
+                                    @:|
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                 }
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DnDateString)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DnLocation)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DnNotes)
-                            </td>
-                            @if (User.IsInRole("Administrator") || User.IsInRole("Create/Modify Death Notices"))
-                            {
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                                    @if (User.IsInRole("Administrator") || User.IsInRole("Remove Records"))
-                                    {
-                                       @:|
-                                       @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                    }
-                                </td>
-                            }
-                        </tr>
-                    }
-
-
-
-                </table>
-            </div>
-
+                        }
+                    </tr>
+                }
+            </table>
+            @Html.Partial("_Pager", ViewData["DeathNoticeList"])
 
             @* Panel for Create Death Notice *@
             <div id="newDeathNotice" class="panel-body" hidden>
@@ -160,7 +156,6 @@
         </div>
     </div>
 </div>
-
 @* Death Notice Poem *@
 <div class="col-md-offset-4">
     <div class="col-md-6" id="deathnoticePoem">
@@ -182,6 +177,7 @@
     $(document).ready(function () {
         $('#glyphNewDeathNotice').on('click', function () {
             $('#deathNoticeTitle').slideToggle();
+            $('#pager').slideToggle();
             $('#deathNoticeContent').slideToggle();
             $('#newDeathNotice').slideToggle();
             $('#newDeathNoticeTitle').slideToggle();

@@ -50,7 +50,7 @@
                     @using (Html.BeginForm())
                     { 
                         <div class="input-group">
-                            @Html.TextBox("searchString", null, new { @class = "form-control", @placeholder = "Search by File Name or Description", @id="txtFileSearch" })
+                            @Html.TextBox("searchString", null, new { @class = "form-control searchbar", @placeholder = "Search by File Name or Description"})
                             <span class="input-group-btn">
                                 <input type="submit" value="Search" class="btn btn-primary" id="btnSearch" />
                                 @Html.ActionLink("Clear", "Index", new { id = 0 }, new { @class = "btn btn-default" , @style = "width:100px" })

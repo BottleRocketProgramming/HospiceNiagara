@@ -7,6 +7,12 @@
     padding-top:125px;
 }
 
+#spinner {
+    width:128px;
+    height:128px;
+    background-image: url('../Resources/Spinner.png');
+}
+
 #link-images{
     margin-top:25px;
     text-align:center;
@@ -90,6 +96,9 @@ textarea {
     font-size: 20px;
 }
 
+.nav {
+    max-height: 50px;
+}
 
 /*Pushes body content out from under navbar*/
 .body-content {
@@ -263,6 +272,9 @@ textarea {
     .navbar-down-right {
         padding-top:0px;
     }
+    .nav {
+    max-height: none;
+    }
     #LogInPartial{
         margin-left:128px;
         margin-top:60px;
@@ -356,7 +368,7 @@ div.jHtmlArea {
     }
 }
 
-#txtFileSearch{
+.searchbar{
     max-width:none;
 }
 
@@ -366,11 +378,11 @@ textarea{
 }
 
 .popover{
-    max-width: 700px; /* Max Width of the popover (depending on the container!) */
+    max-width: 700px;
 }
 
 .dropdown-menu{
-    width:220px;
+    width:100%;
     border:none;
 }
 
@@ -378,3 +390,6 @@ textarea{
     width:auto;
 }
 
+.table tbody tr:hover th {
+  background-color: transparent;
+}
