@@ -411,11 +411,6 @@
     <Content Include="Views\Meeting\Delete.cshtml" />
     <Content Include="Views\Meeting\Details.cshtml" />
     <Content Include="Views\Meeting\Edit.cshtml" />
-    <Content Include="Views\testApplicationUsers\Create.cshtml" />
-    <Content Include="Views\testApplicationUsers\Delete.cshtml" />
-    <Content Include="Views\testApplicationUsers\Details.cshtml" />
-    <Content Include="Views\testApplicationUsers\Edit.cshtml" />
-    <Content Include="Views\testApplicationUsers\Index.cshtml" />
     <Content Include="Views\DeathNotice\Index.cshtml" />
     <Content Include="Views\DeathNotice\Details.cshtml" />
     <Content Include="Views\DeathNotice\Edit.cshtml" />
