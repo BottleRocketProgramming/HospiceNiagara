@@ -19,6 +19,15 @@
                         <h3 id="contactTitle" class="panel-title">@Html.DisplayFor(modelItem => type.ContactTypeName)</h3>
                         <h3 id="newContactTitle" class="panel-title" hidden>New Contact</h3>
                     </div>
+                    @if (firstPanel == false)
+                    {
+                        <div class="panel-body text-center">
+                            Hospice Niagara - The Stabler Centre<br />
+                            403 Ontario Street, Unit 2<br />
+                            Tel: 905-984-8766<br />
+                            Fax: 905-984-8242
+                        </div>
+                    }
                     <table @{ 
                                 if (firstPanel == false) 
                                 { 
@@ -34,7 +43,7 @@
                                 @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PosSortParm })
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Extention)
+                                Extension
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.CellNumber)

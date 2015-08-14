@@ -61,6 +61,7 @@
             </div>
             <table id="fileTable" class="table table-striped" style="width:100%;">
                 <tr>
+                    <th></th>
                     <th>
                         @Html.DisplayNameFor(model => model.FileDescription)
                     </th>
@@ -76,6 +77,28 @@
                 @foreach (var item in (IEnumerable<HospiceNiagara.Models.FileStorage>)ViewData["Files"])
                 {
                     <tr>
+                        <td>
+                            @if (item.MimeType.Contains("pdf"))
+                            {
+                                <img src="~/icons/pdf.gif" class="icon" />
+                            }
+                            @if (item.MimeType.Contains("image"))
+                            {
+                                <img src="~/icons/image.png" class="icon" />
+                            }
+                            @if (item.MimeType.Contains("presentation"))
+                            {
+                                <img src="~/icons/ppt.png" class="icon" />
+                            }
+                            @if (item.MimeType.Contains("wordprocessing") || item.MimeType.Contains("msword"))
+                            {
+                                <img src="~/icons/doc.png" class="icon" />
+                            }
+                            @if (item.MimeType.Contains("excel") || item.MimeType.Contains("spreadsheet"))
+                            {
+                                <img src="~/icons/excel.png" class="icon" />
+                            }
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FileDescription)
                         </td>

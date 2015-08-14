@@ -45,7 +45,7 @@ namespace HospiceNiagara.Models
             }
         }
 
-        private int AnnouncementTextLimit = 125;
+        private int AnnouncementTextLimit = 150;
         private string annTxt;
         public string AnnouncementTextTrimmed
         {

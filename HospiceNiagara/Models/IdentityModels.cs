@@ -42,7 +42,7 @@ namespace HospiceNiagara.Models
         }
 
         [Display(Name = "Date of Birth")]
-        public DateTime UserDOB { get; set; }
+        public Nullable<DateTime> UserDOB { get; set; }
 
         [Display(Name = "Start Date")]
         public Nullable<DateTime> StartDate { get; set; }
@@ -69,9 +69,11 @@ namespace HospiceNiagara.Models
         {
             get
             {
-
-                return this.UserDOB.ToLongDateString();
-
+                if (this.UserDOB.HasValue)
+                {
+                    return this.UserDOB.Value.ToLongDateString();
+                }
+                else return null;
             }
         }
 

@@ -49,10 +49,8 @@ namespace HospiceNiagara.Controllers
             viewModel.WelocomeNotice = welcomeNotice.WelocomeNotice;
 
             ViewBag.WelcomeNotice = viewModel;
-            annForList = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today);
-            meetForList = meetForList.Where(m => m.EventDate >= DateTime.Today).Take(5);
-            ViewData["AnnouncementOrEvent"] = annForList.ToList().Distinct().OrderByDescending(a => a.UploadDate).Take(5);
-            ViewData["Meeting"] = meetForList.ToList().Distinct().OrderBy(a => a.EventDate);
+            ViewData["AnnouncementOrEvent"] = annForList.Where(a => a.AnnounceEndDate >= DateTime.Today).OrderByDescending(a => a.UploadDate).ToList().Distinct().Take(5);
+            ViewData["Meeting"] = meetForList.Where(m => m.EventDate >= DateTime.Today).OrderBy(a => a.EventDate).ToList().Distinct().Take(5);
             ViewData["Schedule"] = schedForList.ToList().Distinct();
             ViewData["RecentlyPassed"] = db.DeathNotices.ToList().OrderByDescending(d => d.DnDate).Take(10);
             ViewData["HomepageImages"] = db.FileStorages.Where(f => f.HomeImage == true).ToList();

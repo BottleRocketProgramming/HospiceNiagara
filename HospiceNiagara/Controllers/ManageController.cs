@@ -60,6 +60,8 @@ namespace HospiceNiagara.Controllers
                 Logins = await UserManager.GetLoginsAsync(User.Identity.GetUserId()),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(User.Identity.GetUserId())
             };
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.Roles = user.Roles;
             return View(model);
         }
 

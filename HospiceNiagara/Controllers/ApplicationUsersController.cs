@@ -33,7 +33,8 @@ namespace HospiceNiagara.Controllers
                 users = users.Where(u => u.UserFullName.ToLower().Contains(searchString.ToLower())
                                        || u.Email.ToLower().Contains(searchString.ToLower())).ToList();
             }
-
+            var usersConfirmed = users.Where(u => u.EmailConfirmed == true).Count();
+            ViewBag.usersConfirmed = usersConfirmed;
             PagedList<ApplicationUser> usersWithPage = new PagedList<ApplicationUser>(users, page, pageSize);
 
             return View(usersWithPage);
@@ -82,14 +83,10 @@ namespace HospiceNiagara.Controllers
             {
                 ApplicationUser applicationUser = db.Users.Find(id);
                 List<MeetingUserRSVP> uMeet = applicationUser.MeetingUserRSVPs.ToList();
-                var uRole = applicationUser.Roles.ToList();
+                List<IdentityUserRole> uRole = applicationUser.Roles.ToList();
                 foreach(var m in uMeet)
                 {
-                    var userMeetingToRemove = db.MeetingUserRSVPs.Where(r => r.AppUser.Id == m.AppUser.Id);
-                    foreach(var uTr in userMeetingToRemove)
-                    {
-                        db.MeetingUserRSVPs.Remove(uTr);
-                    }
+                    db.MeetingUserRSVPs.Remove(m);
                 }
                 foreach(var r in uRole)
                 {
@@ -148,6 +145,8 @@ namespace HospiceNiagara.Controllers
             aUser.StartDate = user.StartDate;
             aUser.UserAddress = user.UserAddress;
             aUser.PhoneNumber = user.PhoneNumber;
+            aUser.LockoutEndDateUtc = user.LockoutEndDateUtc;
+
             //ApplicationUser user = manager.FindById(Id);
             //PopulateAssignedRoles(aUser);
             foreach(var ur in r)

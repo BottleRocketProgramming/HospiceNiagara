@@ -171,7 +171,9 @@ namespace HospiceNiagara.Controllers
             {
                 db.Entry(meetingUserRSVP).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var rsvpID = meetingUserRSVP.ID;
+                MeetingUserRSVP MuRSVP = db.MeetingUserRSVPs.Include(m => m.MeetingRSVP).Where(i => i.ID == rsvpID).Single();
+                return RedirectToAction("Details", "Meeting", new { id = MuRSVP.MeetingRSVP.ID });
             }
             return View(meetingUserRSVP);
         }

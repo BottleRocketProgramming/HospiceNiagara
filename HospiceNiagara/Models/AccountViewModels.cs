@@ -85,17 +85,18 @@ namespace HospiceNiagara.Models
         public Nullable<DateTime> StartDate { get; set; }
 
         [Display(Name="Date of Birth")]
-        [Required(ErrorMessage="User Date of Birth is required")]
-        public DateTime UserDOB { get; set; }
+        public Nullable<DateTime> UserDOB { get; set; }
 
         [Display(Name = "Date of Birth")]
         public string UserDOBString
         {
             get
             {
-               
-                    return this.UserDOB.ToLongDateString();
-               
+                if (this.UserDOB.HasValue)
+                {
+                    return this.UserDOB.Value.ToLongDateString();
+                }
+                else return null;
             }
         }
 

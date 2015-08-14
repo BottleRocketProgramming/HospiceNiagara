@@ -14,7 +14,6 @@
                 <div id="spinner" class="center-block"></div><div id="loginText" class="text-center">Logging you in securely...</div>
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "form" }))
                 {
-                    @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         <div class="col-md-12">

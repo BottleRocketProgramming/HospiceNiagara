@@ -393,3 +393,13 @@ textarea{
 .table tbody tr:hover th {
   background-color: transparent;
 }
+
+.icon {
+    width:28px;
+    height:28px;
+    margin-left:2px;
+}
+
+.relatedFiles{
+    padding-left:6px;
+}

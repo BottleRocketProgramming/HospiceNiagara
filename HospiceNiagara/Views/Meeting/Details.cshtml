@@ -177,22 +177,34 @@
 
             <div class="col-md-2">
                 <h4 class="text-center">Related Files</h4>
-                <table class="table text-center">
-                <tr>
+                <table class="table-hover" style="margin-left:5px">
                     @{
                         List<HospiceNiagara.Models.FileStorage> files = ViewBag.FileStorages;
                         foreach (var f in files)
                         {
-                            @:</tr><tr>
-                            @:<td>
-                                <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
-                            if (f.MimeType.Contains("pdf"))
-                            {
-                                <a href="../../FileStorages/Details/@f.ID" class="glyphicon glyphicon-eye-open btn-sm btn-default" style="text-decoration: none;"></a>
-                            }
-                            @:</td>
+                            <tr>
+                                @if (f.MimeType.Contains("pdf"))
+                                {
+                                    <td><img src="~/icons/pdf.gif" class="icon" /></td>
+                                }
+                                @if (f.MimeType.Contains("image"))
+                                {
+                                    <td><img src="~/icons/image.png" class="icon" style="margin-top:-6px;"/></td>
+                                }
+                                @if (f.MimeType.Contains("presentation"))
+                                {
+                                    <td><img src="~/icons/ppt.png" class="icon" /></td>
+                                }
+                                @if (f.MimeType.Contains("wordprocessing") || f.MimeType.Contains("msword"))
+                                {
+                                    <td><img src="~/icons/doc.png" class="icon" /></td>
+                                }
+
+                                <td class="relatedFiles">
+                                    <a href=../../FileStorages/Download/@f.ID>@f.FileDescription</a>
+                                </td>
+                            </tr>
                         }
-                        @:</tr>
                     }
                 </table>
                 @if (User.IsInRole("Administrator") || User.IsInRole("View Admin Info"))
@@ -288,6 +300,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => rs.RSVPNotes)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "../MeetingUserRSVPs/Edit", new { id = rs.ID }, new { @class = "btn btn-default" })
                         </td>
                     </tr>
                 }

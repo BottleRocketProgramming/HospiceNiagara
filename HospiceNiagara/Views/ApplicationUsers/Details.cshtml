@@ -50,7 +50,6 @@
                 HospiceNiagara.Models.ApplicationDbContext db = new HospiceNiagara.Models.ApplicationDbContext();
                 foreach (var r in Model.Roles)
                 {
-
                     var ur = db.Roles.Where(a => a.Id == r.RoleId).Single();
                     @Html.DisplayFor(modelItem => ur.Name)
                     @:<br />
