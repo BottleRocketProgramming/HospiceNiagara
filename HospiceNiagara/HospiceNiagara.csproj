@@ -231,6 +231,7 @@
     <Compile Include="Models\WelcomeNotice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\UserListForExport.cs" />
     <Compile Include="ViewModels\ContactListForExport.cs" />
     <Compile Include="ViewModels\ContactTypeVM.cs" />
     <Compile Include="ViewModels\DnPoemVM.cs" />

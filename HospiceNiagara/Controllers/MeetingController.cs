@@ -348,7 +348,7 @@ namespace HospiceNiagara.Controllers
 
         public void PopulateAllRSVPs(Meeting meeting)
         {
-            var allRSVP = db.MeetingUserRSVPs.Where(r => r.MeetingRSVP.ID == meeting.ID).Include(r => r.AppUser).ToList();
+            var allRSVP = db.MeetingUserRSVPs.Where(r => r.MeetingRSVP.ID == meeting.ID).Include(r => r.AppUser).OrderByDescending(r => r.ComingYorN).ToList();
             int amtRSVP = allRSVP.Count();
             int amtRSVPYes = 0;
             int amtRSVPNo = 0;

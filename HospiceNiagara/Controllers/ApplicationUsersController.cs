@@ -12,6 +12,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using HospiceNiagara.ViewModels;
 using PagedList;
+using System.Web.UI.WebControls;
+using System.Web.UI;
+using System.IO;
 
 //Paul Boyko April 2015
 
@@ -24,18 +27,42 @@ namespace HospiceNiagara.Controllers
 
         // GET: ApplicationUsers
         [Authorize(Roles = "Administrator, Manage Users")]
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult Index(string searchString, string roles, int page = 1, int pageSize = 10)
         {
-            var users = db.Users.OrderByDescending(u => u.LastLogin).ToList();
+            //Gets List of Roles
+            var uRoles = db.Roles;
+            //Gets names of permissions from roleslist
+            var perms = db.RoleLists.Where(r => r.IsPerm == false).Select(r => r.RoleName);
+            //Filters out the permissions from the roles
+            var filteredRoles = uRoles.Where(r => perms.Contains(r.Name));
+            //Then, Create the SelectListItems
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in filteredRoles)
+            {
+                list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
+            }
+            ViewBag.Roles = list;
+
+
+            var users = db.Users.OrderByDescending(u => u.LastLogin).ThenByDescending(u => u.EmailConfirmed).Include(u => u.Roles);
+
+            
+            if (!string.IsNullOrEmpty(roles))
+            {
+                users = users.Where(u => u.Roles.Any(r => r.RoleId == roles));
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                users = users.Where(u => u.UserFullName.ToLower().Contains(searchString.ToLower())
-                                       || u.Email.ToLower().Contains(searchString.ToLower())).ToList();
+                users = users.Where(u => u.UserFName.ToLower().Contains(searchString.ToLower())
+                                       || u.Email.ToLower().Contains(searchString.ToLower())
+                                       || u.UserLName.ToLower().Contains(searchString.ToLower()));
             }
             var usersConfirmed = users.Where(u => u.EmailConfirmed == true).Count();
             ViewBag.usersConfirmed = usersConfirmed;
-            PagedList<ApplicationUser> usersWithPage = new PagedList<ApplicationUser>(users, page, pageSize);
+            ViewBag.FilterRole = roles;
+            ViewBag.FilterString = searchString;
+            PagedList<ApplicationUser> usersWithPage = new PagedList<ApplicationUser>(users.ToList(), page, pageSize);
 
             return View(usersWithPage);
         }
@@ -172,6 +199,47 @@ namespace HospiceNiagara.Controllers
                 return RedirectToAction("Index");
             }
             return View(user);
+        }
+
+        public ActionResult ExportUserList()
+        {
+            var users = UserListForExport();
+            var filename = "PortalUserList.xls";
+
+            GridView gv = new GridView();
+            gv.DataSource = users;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=" + HttpUtility.UrlEncode(filename));
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return Content(sw.ToString(), "application/vnd.ms-excel");
+        }
+
+        public List<UserListForExport> UserListForExport()
+        {
+            List<ApplicationUser> users = db.Users.OrderByDescending(c => c.EmailConfirmed).ThenBy(c => c.UserLName).ToList();
+            var UserListForExport = new List<UserListForExport>();
+            foreach (var user in users)
+            {
+                UserListForExport.Add(new UserListForExport
+                {
+                    FName = user.UserFName,
+                    LName = user.UserLName,
+                    Email = user.Email,
+                    Registered = user.EmailConfirmed
+                });
+            }
+
+            return UserListForExport;
         }
 
         protected override void OnException(ExceptionContext filterContext)

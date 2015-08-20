@@ -493,6 +493,7 @@ namespace HospiceNiagara.Controllers
 
             if (selectedSubCats != null)
             {
+                FileToUpdate.FileSubCats.Clear();
                 FileToUpdate.FileSubCats = new List<FileSubCat>();
                 foreach (var sc in selectedSubCats)
                 {

@@ -6,17 +6,19 @@
     ViewBag.Title = "Index";
 }
 
+@Html.ActionLink("Export User List", "ExportUserList", "ApplicationUsers", null, new { @class = "btn btn-default pull-right" })
+<span class="pull-right" style="padding-right: 35px; padding-top: 6px;">Users registered @ViewBag.usersConfirmed</span>
 @using (Html.BeginForm())
 {
+        @Html.DropDownList("roles", (IEnumerable<SelectListItem>)ViewBag.Roles, "All Roles", new { @id = "ddlRoles", onchange = "this.form.submit();", @class = "pull-left form-control" })
         <div class="input-group" style="width:500px; margin-left:27%;">
             @Html.TextBox("searchString", null, new { @class = "form-control searchbar", @placeholder = "Search by Name or Email" })
             <span class="input-group-btn">
                 <input type="submit" value="Search" class="btn btn-primary" id="btnSearch" />
             </span>
         </div>
-
 }
-Users registered @ViewBag.usersConfirmed
+
 <table class="table">
     <tr>
         <th>
@@ -103,7 +105,8 @@ Users registered @ViewBag.usersConfirmed
 </table>
 <div class="text-center">
     <div class="center-block">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize, searchString = ViewBag.FilterString, roles = ViewBag.FilterRole }))
         Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Users
     </div>
 </div>
+
