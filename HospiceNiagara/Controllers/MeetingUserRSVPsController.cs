@@ -22,7 +22,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index()
         {
             var meetingUserRSVP = db.MeetingUserRSVPs.Include(u => u.AppUser).Include(m => m.MeetingRSVP);
-            meetingUserRSVP = meetingUserRSVP.Where(u => u.AppUser.UserName == User.Identity.Name).Where(u => u.MeetingRSVP.EventDate > DateTime.Today);
+            meetingUserRSVP = meetingUserRSVP.Where(u => u.AppUser.UserName == User.Identity.Name).Where(u => u.MeetingRSVP.EventDate >= DateTime.Today);
             
             return View(meetingUserRSVP);
         }
@@ -37,7 +37,7 @@ namespace HospiceNiagara.Controllers
 
         public ActionResult GetCount()
         {
-            var count = db.MeetingUserRSVPs.Count(p => p.AppUser.UserName == User.Identity.Name && p.ComingYorN == null && p.MeetingRSVP.EventDate > DateTime.Today);
+            var count = db.MeetingUserRSVPs.Count(p => p.AppUser.UserName == User.Identity.Name && p.ComingYorN == null && p.MeetingRSVP.EventDate >= DateTime.Today);
 
             return PartialView(count);
         }

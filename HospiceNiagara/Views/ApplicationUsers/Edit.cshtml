@@ -156,7 +156,10 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" id="btnSubmit" value="Save" class="btn btn-primary" /> |
+                @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+                |
                 @Html.ActionLink("Back to List", "Index")
+                
             </div>
         </div>
     </div>
