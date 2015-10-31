@@ -284,6 +284,7 @@
     <Content Include="Scripts\DatePickerReady.js" />
     <Content Include="Scripts\jHtmlArea-0.8.min.js.map" />
     <Content Include="Scripts\jHtmlArea.ColorPickerMenu-0.8.min.js.map" />
+    <None Include="Properties\PublishProfiles\hospiceniagaraportal.ca - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\hospiceniagaraportal.ca - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jHtmlArea-0.8-vsdoc.js" />

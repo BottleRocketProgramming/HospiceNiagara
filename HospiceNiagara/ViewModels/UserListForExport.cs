@@ -13,6 +13,8 @@ namespace HospiceNiagara.ViewModels
 
         public string Email { get; set; }
 
+        public Nullable<DateTime> LastLogin { get; set; }
+
         public bool Registered { get; set; }
     }
 }

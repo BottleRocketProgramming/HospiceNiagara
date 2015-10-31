@@ -235,7 +235,8 @@ namespace HospiceNiagara.Controllers
                     FName = user.UserFName,
                     LName = user.UserLName,
                     Email = user.Email,
-                    Registered = user.EmailConfirmed
+                    Registered = user.EmailConfirmed,
+                    LastLogin = user.LastLogin
                 });
             }
 
