@@ -212,7 +212,6 @@
     <Compile Include="Migrations\201508061523508_NullableDate.Designer.cs">
       <DependentUpon>201508061523508_NullableDate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605050453572_5\5\2016.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />

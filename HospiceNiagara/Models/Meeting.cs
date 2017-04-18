@@ -31,7 +31,14 @@ namespace HospiceNiagara.Models
         {
             get
             {
-                evtText = Helpers.HTMLhelper.TruncateHtml(this.EventDiscription, DescriptionLimit, "...");
+                try
+                {
+                    evtText = Helpers.HTMLhelper.TruncateHtml(this.EventDiscription, DescriptionLimit, "...");
+                }
+                catch (InvalidOperationException)
+                {
+                    evtText = "ERROR - Event Description Text is too styled to truncate";
+                }
                 return evtText;
             }
         }
