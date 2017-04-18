@@ -83,6 +83,7 @@ namespace HospiceNiagara.Models
         //public virtual ICollection<Announcement> UserAnnouncements { get; set; }
         //public virtual ICollection<RoleList> RoleLists { get; set; }
 
+        [Display(Name = "Password Changed From Default")]
         public bool PasswordChanged { get; set; }
 
         public virtual ICollection<MeetingUserRSVP> MeetingUserRSVPs { get; set; }

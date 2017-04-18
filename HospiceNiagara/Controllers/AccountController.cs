@@ -212,7 +212,7 @@ namespace HospiceNiagara.Controllers
                     m.Body = String.Format("Dear " + user.UserFullName + ",<br /> <br /> You have been registered as a user in the Hospice Niagara Portal.<br /><br /> Please click on the following link to confirm your email and log in with <b>" + user.Email + "</b> as your email and <b>" + model.Password + "</b> as the password. <br /><br /> <a href=\"{1}\" title= \"User Email Confirmation\">Click this link to confirm your e-mail</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
                     m.IsBodyHtml = true;
                     SmtpClient smtp = new System.Net.Mail.SmtpClient("smtpout.secureserver.net");
-                    smtp.Port = 25;
+                    smtp.Port = 80;
                     smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new System.Net.NetworkCredential("noreply@hospiceniagaraportal.ca", "HNPortalAdmin1");
                     smtp.EnableSsl = false;
@@ -312,7 +312,7 @@ namespace HospiceNiagara.Controllers
                 m.Body = String.Format("Dear: " + user.UserFullName + ", <br/> You have requested a password reset for the Hospice Niagara's Employee and Volunteer Portal.  Please click on the link to reset your password. <br/> <a href=\"{1}\" title= \"User Email Confirmation\">Click this link so you can reset your Password</a>", user.UserName, Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme));
                 m.IsBodyHtml = true;
                 SmtpClient smtp = new System.Net.Mail.SmtpClient("smtpout.secureserver.net");
-                smtp.Port = 25;
+                smtp.Port = 80;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new System.Net.NetworkCredential("noreply@hospiceniagaraportal.ca", "HNPortalAdmin1");
                 smtp.EnableSsl = false;

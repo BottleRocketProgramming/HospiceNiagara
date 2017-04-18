@@ -23,12 +23,14 @@ namespace HospiceNiagara
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-datepicker.js",
-                      "~/Scripts/DatePickerReady.js"));
+                      "~/Scripts/DatePickerReady.js",
+                      "~/Scripts/bootstrap-switch.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker3.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-switch.css"));
 
             bundles.Add(new StyleBundle("~/bundles/MultiSelectlist").Include(
                       "~/Scripts/MultiSelectlist.js"));

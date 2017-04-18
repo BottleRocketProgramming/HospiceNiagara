@@ -16,5 +16,7 @@ namespace HospiceNiagara.ViewModels
         public Nullable<DateTime> LastLogin { get; set; }
 
         public bool Registered { get; set; }
+
+        public bool IsLockedOut { get; set; }
     }
 }

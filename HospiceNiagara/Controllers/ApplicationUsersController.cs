@@ -135,8 +135,7 @@ namespace HospiceNiagara.Controllers
 
             return RedirectToAction("Index");
         }
-
-        // GET: FileCats/Edit/5
+        
         [Authorize(Roles = "Administrator, Manage Users")]
         public ActionResult Edit(string id)
         {
@@ -173,10 +172,11 @@ namespace HospiceNiagara.Controllers
             aUser.UserAddress = user.UserAddress;
             aUser.PhoneNumber = user.PhoneNumber;
             aUser.LockoutEndDateUtc = user.LockoutEndDateUtc;
+            aUser.EmailConfirmed = user.EmailConfirmed;
 
             //ApplicationUser user = manager.FindById(Id);
             //PopulateAssignedRoles(aUser);
-            foreach(var ur in r)
+            foreach (var ur in r)
             {
                 db.IdentUserRoles.Remove(ur);
             }
@@ -230,13 +230,19 @@ namespace HospiceNiagara.Controllers
             var UserListForExport = new List<UserListForExport>();
             foreach (var user in users)
             {
+                bool isLockedOut;
+                if (user.LockoutEndDateUtc == null)
+                { isLockedOut = false; }
+                else isLockedOut = true;
+
                 UserListForExport.Add(new UserListForExport
                 {
                     FName = user.UserFName,
                     LName = user.UserLName,
                     Email = user.Email,
                     Registered = user.EmailConfirmed,
-                    LastLogin = user.LastLogin
+                    LastLogin = user.LastLogin,
+                    IsLockedOut = isLockedOut
                 });
             }
 

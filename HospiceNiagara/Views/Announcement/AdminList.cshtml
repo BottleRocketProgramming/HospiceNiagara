@@ -17,11 +17,11 @@
         </th>
 
         <th>
-            Description
-        </th>
-       
-        <th>
             End Date
+        </th>
+
+        <th>
+            Uploaded By
         </th>
         
         <th></th>
@@ -32,15 +32,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.AnnounceTitle)
         </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.AnnouncementTextTrimmed)
-        </td>
        
         <td>
             @Html.DisplayFor(modelItem => item.AnnounceEndDateString)
         </td>
-       
+
+        <td>
+            @Html.DisplayFor(modelItem => item.UploadedBy)
+        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
