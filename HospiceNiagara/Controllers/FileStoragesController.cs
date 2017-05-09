@@ -10,6 +10,7 @@ using HospiceNiagara.Models;
 using System.IO;
 using HospiceNiagara.ViewModels;
 using System.Data.Entity.Infrastructure;
+using PagedList;
 
 //Paul Boyko March 2015
 
@@ -75,6 +76,16 @@ namespace HospiceNiagara.Controllers
             
                       
             return View();
+        }
+
+        //Admin List
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AdminList(int page = 1, int pageSize = 50)
+        {
+            List<FileStorage> Files = db.FileStorages.OrderBy(a => a.FileUploadDate).ToList();
+            PagedList<FileStorage> FilesWithPage = new PagedList<FileStorage>(Files, page, pageSize);
+
+            return View(FilesWithPage);
         }
 
         public ActionResult UploadNewFile()
@@ -395,6 +406,29 @@ namespace HospiceNiagara.Controllers
 
             return RedirectToAction("Index");
         }
+
+        //Bulk Delete
+        [HttpPost]
+        public ActionResult BatchDelete(int[] deleteInputs)
+        {
+            // You have your books IDs on the deleteInputs array
+            if (deleteInputs != null && deleteInputs.Length > 0)
+            {
+                foreach(var file in deleteInputs)
+                {
+                    FileStorage fileStorage = db.FileStorages.Find(file);
+                    string fullPath = Request.MapPath("~/Uploads/" + fileStorage.FileName);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
+                    db.FileStorages.Remove(fileStorage);
+                }
+                db.SaveChanges();
+            }
+            return RedirectToAction("AdminList");
+        }
+
 
         //Download
         [Authorize]

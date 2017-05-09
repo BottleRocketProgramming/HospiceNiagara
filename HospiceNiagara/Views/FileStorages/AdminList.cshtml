@@ -1,0 +1,71 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<HospiceNiagara.Models.FileStorage>
+
+@{
+    ViewBag.Title = "AdminList";
+}
+
+<h2>AdminList</h2>
+
+@{ Html.BeginForm("BatchDelete", "FileStorages", FormMethod.Post, new { name = "tableForm" }); }
+<div>
+    <a class="btn btn-default" href="javascript:(function(){document.tableForm.submit();return void(0);})()">
+        Delete selected Files
+    </a>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Select
+        </th>
+        <th>
+            File Name
+        </th>
+        <th>
+            Desc
+        </th>
+        <th>
+            Uploade Date
+        </th>
+        <th>
+            Uploaded By
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <input type="checkbox" name="deleteInputs" value="@item.ID" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileUploadDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UploadedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) 
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<div class="text-center">
+    <div class="center-block">
+        @Html.PagedListPager(Model, page => Url.Action("AdminList", new { page, pageSize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Files
+    </div>
+</div>
+
+@{ Html.EndForm(); }
