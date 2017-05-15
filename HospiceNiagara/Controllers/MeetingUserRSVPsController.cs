@@ -126,7 +126,7 @@ namespace HospiceNiagara.Controllers
                                 eMail.Body = String.Format("Dear " + userToAdd.UserFullName + ",<br /> <br /><strong>You have been invited to an event:</strong> <br /> <br /> " + meetingToAdd.EventTitle+ " <br />at " + meetingToAdd.EventLocation + "<br /> " + meetingToAdd.EventDateString + " " + meetingToAdd.EventTime + "<br/><a href='http://hospiceniagaraportal.ca/Meeting/Details/" + meetingToAdd.ID+"'>Follow this link to log in and RSVP to the event</a> <br />Please do not reply to this email!");
                                 eMail.IsBodyHtml = true;
                                 SmtpClient smtp = new System.Net.Mail.SmtpClient("relay-hosting.secureserver.net");
-                                smtp.Send(eMail);
+                                //smtp.Send(eMail);
 
                                 db.SaveChanges();
                             }
