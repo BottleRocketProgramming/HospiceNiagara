@@ -102,9 +102,6 @@ namespace HospiceNiagara.Controllers
         [HttpGet]
         public ActionResult GetList(string s)
         {
-            // Using a short varable name like "s" allows us to keep the ajax call simple.
-
-            // We're only going to return results if this is an ajax call
             if (Request.IsAjaxRequest())
             {
                 // Find files that have the search string in either the FileName or FileDescription fields and return only the 10 first results.
@@ -411,7 +408,6 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         public ActionResult BatchDelete(int[] deleteInputs)
         {
-            // You have your books IDs on the deleteInputs array
             if (deleteInputs != null && deleteInputs.Length > 0)
             {
                 foreach(var file in deleteInputs)
